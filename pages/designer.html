@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionUI Designer - Diseñador Visual WYSIWYG</title>
+    <meta name="description" content="VisionUI Designer: Crea interfaces modernas sin código con el diseñador visual WYSIWYG más avanzado. Arrastrar, soltar y configurar en tiempo real.">
+    <meta name="keywords" content="VisionUI Designer, WYSIWYG, diseñador visual, interfaz, drag and drop, PySide6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" type="image/x-icon" href="../main_vu.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">VisionUI</span>
+                    <span class="logo-subtitle">Framework</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <a href="#features" class="nav-link">Características</a>
+                <a href="#interface" class="nav-link">Interfaz</a>
+                <a href="#workflow" class="nav-link">Flujo de Trabajo</a>
+                <a href="#examples" class="nav-link">Ejemplos</a>
+                <a href="#download" class="nav-link">Descargar</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Designer Hero -->
+    <section class="designer-hero">
+        <div class="container">
+            <div class="designer-hero-content">
+                <h1 class="designer-hero-title">
+                    <span class="gradient-text">VisionUI Designer</span>
+                    <br>
+                    <span class="designer-hero-subtitle">Crea Interfaces Sin Código</span>
+                </h1>
+                <p class="designer-hero-description">
+                    El diseñador visual WYSIWYG más avanzado para PySide6.
+                    Construye interfaces modernas con un simple arrastrar y soltar,
+                    previsualiza en tiempo real y exporta código automáticamente.
+                </p>
+                <div class="designer-hero-actions">
+                    <a href="#download" class="btn btn-primary">
+                        <span>Probar Diseñador</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#interface" class="btn btn-secondary">
+                        <span>Ver Interfaz</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="designer-stats">
+                    <div class="stat">
+                        <div class="stat-number">40+</div>
+                        <div class="stat-label">Componentes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">WYSIWYG</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Líneas de Código</div>
+                    </div>
+                </div>
+            </div>
+            <div class="designer-hero-visual">
+                <div class="designer-showcase">
+                    <div class="showcase-window">
+                        <div class="showcase-header">
+                            <div class="showcase-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="showcase-title">VisionUI Designer</div>
+                            <div class="showcase-menu">
+                                <span class="menu-item active">Diseño</span>
+                                <span class="menu-item">Código</span>
+                                <span class="menu-item">Vista Previa</span>
+                            </div>
+                        </div>
+                        <div class="showcase-content">
+                            <div class="showcase-sidebar">
+                                <div class="component-category">
+                                    <h4>Widgets Básicos</h4>
+                                    <div class="component-grid">
+                                        <div class="component-card active">
+                                            <div class="component-icon">📱</div>
+                                            <span>Button</span>
+                                        </div>
+                                        <div class="component-card">
+                                            <div class="component-icon">📝</div>
+                                            <span>Text</span>
+                                        </div>
+                                        <div class="component-card">
+                                            <div class="component-icon">📦</div>
+                                            <span>Container</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="component-category">
+                                    <h4>Controles Avanzados</h4>
+                                    <div class="component-grid">
+                                        <div class="component-card">
+                                            <div class="component-icon">📊</div>
+                                            <span>Progress</span>
+                                        </div>
+                                        <div class="component-card">
+                                            <div class="component-icon">🎛️</div>
+                                            <span>Slider</span>
+                                        </div>
+                                        <div class="component-card">
+                                            <div class="component-icon">📋</div>
+                                            <span>List</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="showcase-canvas">
+                                <div class="canvas-grid"></div>
+                                <div class="canvas-element selected" style="left: 100px; top: 80px;">
+                                    <div class="element-handle"></div>
+                                    <div class="element-content">Modern Button</div>
+                                    <div class="element-resize"></div>
+                                </div>
+                                <div class="canvas-element" style="left: 250px; top: 150px;">
+                                    <div class="element-content">Text Label</div>
+                                </div>
+                                <div class="selection-box" style="left: 95px; top: 75px; width: 120px; height: 50px;"></div>
+                            </div>
+                            <div class="showcase-properties">
+                                <h4>Propiedades</h4>
+                                <div class="property-group">
+                                    <label>Texto</label>
+                                    <input type="text" value="Modern Button" class="property-input">
+                                </div>
+                                <div class="property-group">
+                                    <label>Color</label>
+                                    <div class="color-picker">
+                                        <div class="color-preview" style="background: linear-gradient(135deg, #00FFFF, #0000FF);"></div>
+                                        <input type="text" value="#00FFFF" class="color-input">
+                                    </div>
+                                </div>
+                                <div class="property-group">
+                                    <label>Tamaño</label>
+                                    <div class="size-inputs">
+                                        <input type="number" value="120" class="size-input" placeholder="W">
+                                        <input type="number" value="40" class="size-input" placeholder="H">
+                                    </div>
+                                </div>
+                                <div class="property-group">
+                                    <label>Efectos</label>
+                                    <div class="effect-toggles">
+                                        <label class="toggle active">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                            <span class="toggle-label">Glow</span>
+                                        </label>
+                                        <label class="toggle">
+                                            <input type="checkbox">
+                                            <span class="toggle-slider"></span>
+                                            <span class="toggle-label">Shadow</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="designer-bg-pattern"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Características del Diseñador</h2>
+                <p class="section-description">
+                    Tecnología de vanguardia para diseñar interfaces sin límites
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Interfaz Moderna</h3>
+                    <p class="feature-description">
+                        Diseño intuitivo con paneles organizados, atajos de teclado
+                        y navegación fluida para una experiencia de desarrollo excepcional.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Vista Previa en Tiempo Real</h3>
+                    <p class="feature-description">
+                        Ve exactamente cómo se verá tu interfaz final mientras diseñas.
+                        Cambios instantáneos sin necesidad de ejecutar la aplicación.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Exportación de Código</h3>
+                    <p class="feature-description">
+                        Genera automáticamente código Python limpio y bien estructurado.
+                        Compatible con VisionUI Framework y listo para producción.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Sincronización Automática</h3>
+                    <p class="feature-description">
+                        Sincroniza automáticamente entre múltiples PCs y entornos.
+                        Nunca pierdas tu trabajo con el sistema de guardado inteligente.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Componentes Inteligentes</h3>
+                    <p class="feature-description">
+                        40+ componentes con propiedades inteligentes que se adaptan
+                        automáticamente a tu diseño y mantienen la consistencia visual.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Sistema de Plantillas</h3>
+                    <p class="feature-description">
+                        Biblioteca de plantillas profesionales para dashboards,
+                        formularios, controles multimedia y aplicaciones especializadas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interface Section -->
+    <section id="interface" class="interface-showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Interfaz del Diseñador</h2>
+                <p class="section-description">
+                    Explora cada panel y herramienta del diseñador VisionUI
+                </p>
+            </div>
+            <div class="interface-grid">
+                <div class="interface-panel">
+                    <div class="panel-visual">
+                        <div class="panel-mockup components-panel">
+                            <div class="panel-header">
+                                <h4>Panel de Componentes</h4>
+                            </div>
+                            <div class="panel-content">
+                                <div class="component-group">
+                                    <div class="group-title">Widgets Básicos</div>
+                                    <div class="component-list">
+                                        <div class="component-item drag-item">
+                                            <div class="component-icon">🔘</div>
+                                            <span>Button</span>
+                                        </div>
+                                        <div class="component-item drag-item">
+                                            <div class="component-icon">📝</div>
+                                            <span>Text Label</span>
+                                        </div>
+                                        <div class="component-item drag-item">
+                                            <div class="component-icon">📦</div>
+                                            <span>Container</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="component-group">
+                                    <div class="group-title">Controles</div>
+                                    <div class="component-list">
+                                        <div class="component-item drag-item">
+                                            <div class="component-icon">🎛️</div>
+                                            <span>Slider</span>
+                                        </div>
+                                        <div class="component-item drag-item">
+                                            <div class="component-icon">📊</div>
+                                            <span>Progress Bar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-info">
+                        <h3>Panel de Componentes</h3>
+                        <p>
+                            Biblioteca completa de componentes organizados por categorías.
+                            Arrastra y suelta cualquier componente al canvas para comenzar a diseñar.
+                        </p>
+                        <ul class="panel-features">
+                            <li>✓ Búsqueda inteligente</li>
+                            <li>✓ Categorías organizadas</li>
+                            <li>✓ Previsualizaciones</li>
+                            <li>✓ Atajos de teclado</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="interface-panel">
+                    <div class="panel-visual">
+                        <div class="panel-mockup canvas-panel">
+                            <div class="panel-header">
+                                <h4>Canvas Interactivo</h4>
+                            </div>
+                            <div class="panel-content">
+                                <div class="canvas-area">
+                                    <div class="canvas-gridlines"></div>
+                                    <div class="canvas-element button-element">
+                                        <div class="element-selection"></div>
+                                        <div class="element-content">Button</div>
+                                        <div class="element-handles">
+                                            <div class="handle nw"></div>
+                                            <div class="handle ne"></div>
+                                            <div class="handle sw"></div>
+                                            <div class="handle se"></div>
+                                        </div>
+                                    </div>
+                                    <div class="canvas-element text-element">
+                                        <div class="element-content">Hello World</div>
+                                    </div>
+                                    <div class="alignment-guides">
+                                        <div class="guide-line horizontal"></div>
+                                        <div class="guide-line vertical"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-info">
+                        <h3>Canvas Interactivo</h3>
+                        <p>
+                            Área de diseño con grid inteligente, guías de alineación
+                            y herramientas de selección precisas para un control total.
+                        </p>
+                        <ul class="panel-features">
+                            <li>✓ Grid magnético</li>
+                            <li>✓ Guías de alineación</li>
+                            <li>✓ Selección múltiple</li>
+                            <li>✓ Zoom infinito</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="interface-panel">
+                    <div class="panel-visual">
+                        <div class="panel-mockup properties-panel">
+                            <div class="panel-header">
+                                <h4>Panel de Propiedades</h4>
+                            </div>
+                            <div class="panel-content">
+                                <div class="properties-tabs">
+                                    <div class="tab active">Estilo</div>
+                                    <div class="tab">Layout</div>
+                                    <div class="tab">Comportamiento</div>
+                                </div>
+                                <div class="properties-content">
+                                    <div class="property-row">
+                                        <label>Background</label>
+                                        <div class="property-control">
+                                            <div class="color-swatch" style="background: linear-gradient(135deg, #00FFFF, #0000FF);"></div>
+                                            <input type="text" value="#00FFFF" class="property-value">
+                                        </div>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Border Radius</label>
+                                        <div class="property-control">
+                                            <input type="range" min="0" max="50" value="8" class="property-slider">
+                                            <span class="property-value">8px</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Font Size</label>
+                                        <div class="property-control">
+                                            <input type="number" min="8" max="72" value="14" class="property-input">
+                                            <span class="property-unit">px</span>
+                                        </div>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Shadow</label>
+                                        <div class="property-control">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-info">
+                        <h3>Panel de Propiedades</h3>
+                        <p>
+                            Editor avanzado de propiedades con controles intuitivos,
+                            previsualizaciones en tiempo real y validación automática.
+                        </p>
+                        <ul class="panel-features">
+                            <li>✓ Controles visuales</li>
+                            <li>✓ Valores calculados</li>
+                            <li>✓ Historial de cambios</li>
+                            <li>✓ Atajos personalizables</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section id="workflow" class="workflow">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Flujo de Trabajo</h2>
+                <p class="section-description">
+                    De la idea al código en minutos, no en horas
+                </p>
+            </div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Selecciona Componentes</h3>
+                        <p>
+                            Elige de nuestra biblioteca de 40+ componentes.
+                            Cada componente está optimizado para rendimiento y diseño moderno.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">🎯</div>
+                    </div>
+                </div>
+                <div class="workflow-connector">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Diseña Visualmente</h3>
+                        <p>
+                            Arrastra, posiciona y configura tus componentes.
+                            Ve los cambios en tiempo real con previsualización instantánea.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">🎨</div>
+                    </div>
+                </div>
+                <div class="workflow-connector">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Personaliza Estilos</h3>
+                        <p>
+                            Ajusta colores, fuentes, efectos y animaciones.
+                            Sistema de temas integrado para mantener consistencia.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">✨</div>
+                    </div>
+                </div>
+                <div class="workflow-connector">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Exporta Código</h3>
+                        <p>
+                            Genera automáticamente código Python limpio y optimizado.
+                            Listo para integrar en tu proyecto VisionUI.
+                        </p>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-icon">🚀</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section id="examples" class="examples">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ejemplos de Diseños</h2>
+                <p class="section-description">
+                    Inspiración y plantillas para tus proyectos
+                </p>
+            </div>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-visual">
+                        <div class="example-mockup dashboard-example">
+                            <div class="mockup-header">
+                                <div class="mockup-title">Dashboard Analytics</div>
+                                <div class="mockup-controls">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="dashboard-grid">
+                                    <div class="metric-card">
+                                        <div class="metric-value">1,234</div>
+                                        <div class="metric-label">Usuarios</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-value">$45.2K</div>
+                                        <div class="metric-label">Ingresos</div>
+                                    </div>
+                                    <div class="chart-area">
+                                        <div class="chart-placeholder"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-info">
+                        <h3>Dashboard Analytics</h3>
+                        <p>Panel de control moderno con métricas, gráficos y KPIs en tiempo real.</p>
+                        <div class="example-tags">
+                            <span class="tag">Dashboard</span>
+                            <span class="tag">Analytics</span>
+                            <span class="tag">Business</span>
+                        </div>
+                        <button class="btn btn-sm">Usar Plantilla</button>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-visual">
+                        <div class="example-mockup media-example">
+                            <div class="mockup-header">
+                                <div class="mockup-title">Media Player</div>
+                                <div class="mockup-controls">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="media-layout">
+                                    <div class="album-art">
+                                        <div class="album-cover"></div>
+                                    </div>
+                                    <div class="media-controls">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                        <div class="control-buttons">
+                                            <button class="control-btn">⏮️</button>
+                                            <button class="control-btn play">▶️</button>
+                                            <button class="control-btn">⏭️</button>
+                                        </div>
+                                        <div class="volume-control">
+                                            <div class="volume-slider">
+                                                <div class="volume-fill"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-info">
+                        <h3>Reproductor Multimedia</h3>
+                        <p>Interfaz elegante para control de música con visualizaciones y efectos.</p>
+                        <div class="example-tags">
+                            <span class="tag">Media</span>
+                            <span class="tag">Audio</span>
+                            <span class="tag">Controls</span>
+                        </div>
+                        <button class="btn btn-sm">Usar Plantilla</button>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-visual">
+                        <div class="example-mockup form-example">
+                            <div class="mockup-header">
+                                <div class="mockup-title">Login Form</div>
+                                <div class="mockup-controls">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="mockup-content">
+                                <div class="form-layout">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" placeholder="usuario@email.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" placeholder="••••••••">
+                                    </div>
+                                    <button class="form-btn">Iniciar Sesión</button>
+                                    <div class="form-links">
+                                        <a href="#">¿Olvidaste tu contraseña?</a>
+                                        <a href="#">Crear cuenta</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-info">
+                        <h3>Formulario de Login</h3>
+                        <p>Formulario moderno con validación y animaciones de microinteracción.</p>
+                        <div class="example-tags">
+                            <span class="tag">Forms</span>
+                            <span class="tag">Authentication</span>
+                            <span class="tag">UX</span>
+                        </div>
+                        <button class="btn btn-sm">Usar Plantilla</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2 class="download-title">Descarga VisionUI Designer</h2>
+                    <p class="download-description">
+                        Comienza a diseñar interfaces modernas hoy mismo.
+                        Incluye el framework completo y todas las herramientas.
+                    </p>
+                    <div class="download-features">
+                        <div class="download-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Diseñador visual completo</span>
+                        </div>
+                        <div class="download-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>40+ componentes incluidos</span>
+                        </div>
+                        <div class="download-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Plantillas profesionales</span>
+                        </div>
+                        <div class="download-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Actualizaciones gratuitas</span>
+                        </div>
+                    </div>
+                    <div class="download-actions">
+                        <a href="#" class="btn btn-primary btn-large">
+                            <span>Descargar Completo</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <div class="download-info">
+                            <span class="version">Versión 1.0.0</span>
+                            <span class="size">Tamaño: ~85MB</span>
+                            <span class="platform">Windows 10+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="download-visual">
+                    <div class="designer-screenshot">
+                        <img src="../assets/images/designer-full.png" alt="VisionUI Designer Full Interface" class="designer-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-text">VisionUI</span>
+                        <span class="logo-subtitle">Framework</span>
+                    </div>
+                    <p class="footer-description">
+                        Framework moderno para crear interfaces de usuario elegantes
+                        y profesionales con PySide6.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h3 class="footer-title">Producto</h3>
+                        <ul class="footer-list">
+                            <li><a href="#features">Características</a></li>
+                            <li><a href="#interface">Interfaz</a></li>
+                            <li><a href="#workflow">Flujo de Trabajo</a></li>
+                            <li><a href="#download">Descargar</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3 class="footer-title">Recursos</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">Documentación</a></li>
+                            <li><a href="#">Tutoriales</a></li>
+                            <li><a href="#">Videos</a></li>
+                            <li><a href="#">Soporte</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3 class="footer-title">Comunidad</h3>
+                        <ul class="footer-list">
+                            <li><a href="#">Discord</a></li>
+                            <li><a href="#">GitHub</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 VisionUI Framework. Todos los derechos reservados.</p>
+                    <p>Creado con ❤️ por Ezequiel Carlos Garcia</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M16 4.626l-4.5 4.5L7 4.626 11.5 9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 15.5l4.5-4.5 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 4.626l4.5 4.5L16 15.5l-4.5-4.5L7 4.626" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/designer-demo.js"></script>
+</body>
+</html>
