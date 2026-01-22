@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionUI Apps - Tienda de Aplicaciones</title>
+    <meta name="description" content="Aplicaciones profesionales creadas con VisionUI Framework. Software de alta calidad para Windows.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../vui.ico">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-card-hover: #22222e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --accent: #7c3aed;
+            --accent-hover: #8b5cf6;
+            --accent-glow: rgba(124, 58, 237, 0.3);
+            --success: #10b981;
+            --border: #2a2a3a;
+            --gradient-1: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+            --gradient-2: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(124, 58, 237, 0.15) 0%, transparent 60%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Apps Grid */
+        .apps-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        /* App Card */
+        .app-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 60px var(--accent-glow);
+        }
+
+        .app-image {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .app-content {
+            padding: 1.5rem;
+        }
+
+        .app-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .app-badge.coming-soon {
+            background: var(--text-muted);
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .app-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .app-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .app-price {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .app-price .currency {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .app-price .period {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--accent);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .how-it-works .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-text">VisionUI</span>
+                <span class="logo-subtitle">Apps</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Framework</a>
+                <a href="#apps">Aplicaciones</a>
+                <a href="#how-it-works">Cómo funciona</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>VisionUI Apps</h1>
+        <p>Aplicaciones profesionales creadas con VisionUI Framework. Software de alta calidad, diseño moderno y actualizaciones incluidas.</p>
+    </section>
+
+    <!-- Apps Section -->
+    <section class="apps-section" id="apps">
+        <h2 class="section-title">Aplicaciones Disponibles</h2>
+        <p class="section-subtitle">Elige la aplicación que necesitas y obtén una licencia inmediata.</p>
+
+        <div class="apps-grid">
+            <!-- TestApp - App de ejemplo/prueba -->
+            <div class="app-card" data-app="TestApp" data-variant-id="YOUR_VARIANT_ID">
+                <div class="app-image">🎵</div>
+                <div class="app-content">
+                    <span class="app-badge">Disponible</span>
+                    <h3 class="app-title">TestApp - Music Player</h3>
+                    <p class="app-description">
+                        Reproductor de música moderno para Windows con interfaz elegante, ecualizador visual y soporte para múltiples formatos de audio.
+                    </p>
+                    <ul class="app-features">
+                        <li>Interfaz moderna y personalizable</li>
+                        <li>Soporte MP3, FLAC, WAV, OGG</li>
+                        <li>Ecualizador de 10 bandas</li>
+                        <li>Actualizaciones gratuitas</li>
+                    </ul>
+                    <div class="app-footer">
+                        <div class="app-price">
+                            <span class="currency">$</span>19
+                            <span class="period">/ lifetime</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="openPurchaseModal('TestApp', 19)">
+                            Comprar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Framework License -->
+            <div class="app-card" data-app="VisionUI" data-variant-id="YOUR_FRAMEWORK_VARIANT_ID">
+                <div class="app-image">🎨</div>
+                <div class="app-content">
+                    <span class="app-badge">Popular</span>
+                    <h3 class="app-title">VisionUI Framework</h3>
+                    <p class="app-description">
+                        El framework completo para crear tus propias aplicaciones con PySide6. Incluye VUIStudio y todos los componentes.
+                    </p>
+                    <ul class="app-features">
+                        <li>VUIStudio Designer incluido</li>
+                        <li>+55 componentes listos</li>
+                        <li>Soporte y actualizaciones</li>
+                        <li>Licencia comercial</li>
+                    </ul>
+                    <div class="app-footer">
+                        <div class="app-price">
+                            <span class="currency">$</span>99
+                            <span class="period">/ lifetime</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="openPurchaseModal('VisionUI', 99)">
+                            Comprar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="app-card">
+                <div class="app-image">📊</div>
+                <div class="app-content">
+                    <span class="app-badge coming-soon">Próximamente</span>
+                    <h3 class="app-title">Inventory Pro</h3>
+                    <p class="app-description">
+                        Sistema de gestión de inventario para pequeñas y medianas empresas. Control de stock, alertas y reportes.
+                    </p>
+                    <ul class="app-features">
+                        <li>Gestión multi-almacén</li>
+                        <li>Alertas de stock bajo</li>
+                        <li>Reportes exportables</li>
+                        <li>Base de datos local</li>
+                    </ul>
+                    <div class="app-footer">
+                        <div class="app-price">
+                            <span class="currency">$</span>49
+                            <span class="period">/ lifetime</span>
+                        </div>
+                        <button class="btn btn-secondary" disabled>
+                            Próximamente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">¿Cómo funciona?</h2>
+            <p class="section-subtitle">Obtén tu licencia en 3 simples pasos</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Elige tu app</h3>
+                    <p>Selecciona la aplicación que necesitas de nuestro catálogo.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Paga seguro</h3>
+                    <p>Completa el pago con tarjeta, PayPal o criptomonedas vía LemonSqueezy.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Descarga y activa</h3>
+                    <p>Recibe tu licencia por email, descarga la app y actívala al instante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 VisionUI. Todos los derechos reservados. | <a href="../index.html">Volver al Framework</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+            <a href="claim-license.html" style="color: #7c3aed;">¿No recibiste tu licencia?</a>
+        </p>
+    </footer>
+
+    <!-- Purchase Modal -->
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2>Comprar <span id="modalAppName"></span></h2>
+            <p>Ingresa tu email para recibir tu licencia después del pago.</p>
+            
+            <form id="purchaseForm" onsubmit="startCheckout(event)">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="name">Nombre (opcional)</label>
+                    <input type="text" id="name" name="name" placeholder="Tu nombre">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="checkoutBtn">
+                        <span id="btnText">Continuar al pago</span>
+                        <div class="spinner" id="btnSpinner" style="display: none;"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configuración - CAMBIAR POR TUS VALORES
+        const API_BASE = 'https://visionui.workers.dev';  // Tu worker URL
+        
+        let currentApp = '';
+        let currentPrice = 0;
+
+        function openPurchaseModal(appName, price) {
+            currentApp = appName;
+            currentPrice = price;
+            document.getElementById('modalAppName').textContent = appName;
+            document.getElementById('purchaseModal').classList.add('active');
+            document.getElementById('email').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+            document.getElementById('purchaseForm').reset();
+        }
+
+        async function startCheckout(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const btn = document.getElementById('checkoutBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+
+            // Disable button and show spinner
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/lemonsqueezy/checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        name: name,
+                        app_name: currentApp,
+                        plan: currentApp.toLowerCase().replace(/\s+/g, '_')
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.checkout_url) {
+                    // Redirect to LemonSqueezy checkout
+                    window.location.href = data.checkout_url;
+                } else {
+                    throw new Error(data.error || 'Error creando el checkout');
+                }
+            } catch (error) {
+                let errorMessage = 'Error: ';
+                
+                // Mensajes de error más amigables
+                if (error.message.includes('network') || error.message.includes('Failed to fetch')) {
+                    errorMessage += 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
+                } else if (error.message.includes('timeout')) {
+                    errorMessage += 'El servidor tardó demasiado en responder. Por favor intenta de nuevo.';
+                } else if (error.message.includes('not configured')) {
+                    errorMessage += 'El sistema de pagos no está configurado. Contacta a soporte.';
+                } else {
+                    errorMessage += error.message;
+                }
+                
+                alert(errorMessage);
+                
+                // Reset button
+                btn.disabled = false;
+                btnText.style.display = 'block';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        // Agregar timeout de 10 segundos para prevenir espera infinita
+        function fetchWithTimeout(url, options, timeout = 10000) {
+            return Promise.race([
+                fetch(url, options),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Request timeout')), timeout)
+                )
+            ]);
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal on overlay click
+        document.getElementById('purchaseModal').addEventListener('click', (e) => {
+            if (e.target.id === 'purchaseModal') closeModal();
+        });
+    </script>
+</body>
+</html>
