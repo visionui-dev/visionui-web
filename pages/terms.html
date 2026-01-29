@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos de Servicio - VisionUI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../vui.ico">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --accent: #7c3aed;
+            --border: #2a2a3a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-back:hover { color: var(--accent); }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-primary);
+        }
+
+        h2:first-child { margin-top: 0; }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            color: var(--text-secondary);
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        li { margin-bottom: 0.5rem; }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover { text-decoration: underline; }
+
+        .highlight-box {
+            background: rgba(124, 58, 237, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box p { margin: 0; }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box p { margin: 0; color: #fca5a5; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            margin: 0 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 6rem 1rem 2rem; }
+            h1 { font-size: 1.75rem; }
+            .content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">VisionUI</a>
+            <a href="../index.html" class="nav-back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Volver al inicio
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Términos de Servicio</h1>
+        <p class="last-updated">Última actualización: 29 de enero de 2026</p>
+
+        <div class="content">
+            <h2>1. Aceptación de los Términos</h2>
+            <p>
+                Al acceder y utilizar el sitio web VisionUI (visionui.app) y sus servicios, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestros servicios.
+            </p>
+
+            <h2>2. Descripción del Servicio</h2>
+            <p>VisionUI proporciona:</p>
+            <ul>
+                <li><strong>VisionUI Framework:</strong> Un framework de código abierto para crear interfaces de usuario con PySide6.</li>
+                <li><strong>VisionUI Apps:</strong> Aplicaciones de software con licencia comercial.</li>
+                <li><strong>VisionUI Studio:</strong> Herramienta de diseño visual para crear interfaces.</li>
+            </ul>
+
+            <h2>3. Cuentas de Usuario</h2>
+            <p>Al crear una cuenta, usted se compromete a:</p>
+            <ul>
+                <li>Proporcionar información precisa y completa</li>
+                <li>Mantener la seguridad de su contraseña</li>
+                <li>Notificarnos inmediatamente de cualquier uso no autorizado</li>
+                <li>Ser responsable de todas las actividades bajo su cuenta</li>
+            </ul>
+            <p>
+                Nos reservamos el derecho de suspender o terminar cuentas que violen estos términos.
+            </p>
+
+            <h2>4. Licencias de Software</h2>
+            
+            <h3 style="font-size: 1.1rem; margin: 1.5rem 0 0.75rem; color: var(--text-primary);">4.1 Framework VisionUI (Código Abierto)</h3>
+            <p>
+                El framework VisionUI se distribuye bajo licencia de código abierto. Puede usar, modificar y distribuir el framework según los términos de dicha licencia.
+            </p>
+
+            <h3 style="font-size: 1.1rem; margin: 1.5rem 0 0.75rem; color: var(--text-primary);">4.2 Aplicaciones Comerciales</h3>
+            <p>Las licencias de aplicaciones comerciales (VisionUI Apps) están sujetas a:</p>
+            <ul>
+                <li><strong>Licencia personal:</strong> Uso en un solo dispositivo por el titular de la licencia.</li>
+                <li><strong>Licencia de por vida:</strong> Sin fecha de expiración, válida para la versión adquirida y actualizaciones menores.</li>
+                <li><strong>Sin transferencia:</strong> Las licencias no son transferibles a terceros.</li>
+                <li><strong>Sin redistribución:</strong> No puede redistribuir, revender o compartir el software licenciado.</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><strong>Importante:</strong> La violación de los términos de licencia resultará en la revocación inmediata de la misma sin derecho a reembolso.</p>
+            </div>
+
+            <h2>5. Pagos y Reembolsos</h2>
+            <p><strong>Procesamiento de pagos:</strong></p>
+            <ul>
+                <li>Los pagos se procesan a través de LemonSqueezy, un procesador de pagos de terceros.</li>
+                <li>Al realizar una compra, acepta los términos de servicio de LemonSqueezy.</li>
+                <li>Los precios están en USD y pueden incluir impuestos según su ubicación.</li>
+            </ul>
+
+            <p><strong>Política de reembolsos:</strong></p>
+            <ul>
+                <li>Ofrecemos reembolsos dentro de los 14 días posteriores a la compra si el software no funciona como se describe.</li>
+                <li>No se ofrecen reembolsos por cambio de opinión después de descargar y usar el software.</li>
+                <li>Para solicitar un reembolso, contacte a <a href="mailto:soporte@visionui.app">soporte@visionui.app</a>.</li>
+            </ul>
+
+            <h2>6. Uso Aceptable</h2>
+            <p>Al usar nuestros servicios, usted acepta NO:</p>
+            <ul>
+                <li>Violar leyes locales, nacionales o internacionales</li>
+                <li>Infringir derechos de propiedad intelectual</li>
+                <li>Intentar acceder sin autorización a nuestros sistemas</li>
+                <li>Distribuir malware o código malicioso</li>
+                <li>Realizar ingeniería inversa del software (excepto donde la ley lo permita)</li>
+                <li>Usar el servicio para actividades fraudulentas</li>
+                <li>Compartir credenciales de licencia con terceros</li>
+            </ul>
+
+            <h2>7. Propiedad Intelectual</h2>
+            <p>
+                Todo el contenido, diseño, código, gráficos, logos y marcas comerciales de VisionUI son propiedad de VisionUI o sus licenciantes. Está prohibida la reproducción, distribución o uso sin autorización expresa.
+            </p>
+            <p>
+                El framework de código abierto se rige por su propia licencia, que permite usos específicos según sus términos.
+            </p>
+
+            <h2>8. Limitación de Responsabilidad</h2>
+            <div class="highlight-box">
+                <p>
+                    El software se proporciona "tal cual" sin garantías de ningún tipo. VisionUI no será responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o imposibilidad de uso del software.
+                </p>
+            </div>
+            <p>
+                En ningún caso nuestra responsabilidad total excederá el monto pagado por usted en los últimos 12 meses.
+            </p>
+
+            <h2>9. Indemnización</h2>
+            <p>
+                Usted acepta indemnizar y mantener indemne a VisionUI, sus directores, empleados y agentes de cualquier reclamación, daño, pérdida o gasto (incluyendo honorarios legales) derivados de su uso del servicio o violación de estos términos.
+            </p>
+
+            <h2>10. Modificaciones del Servicio</h2>
+            <p>
+                Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto del servicio en cualquier momento, con o sin previo aviso. No seremos responsables ante usted ni terceros por cualquier modificación, suspensión o discontinuación.
+            </p>
+
+            <h2>11. Cambios a los Términos</h2>
+            <p>
+                Podemos modificar estos términos en cualquier momento. Los cambios entrarán en vigor al publicarse en esta página. El uso continuado del servicio después de cambios constituye aceptación de los nuevos términos.
+            </p>
+
+            <h2>12. Ley Aplicable</h2>
+            <p>
+                Estos términos se regirán e interpretarán de acuerdo con las leyes aplicables, sin referencia a conflictos de principios legales. Cualquier disputa se resolverá mediante arbitraje vinculante.
+            </p>
+
+            <h2>13. Divisibilidad</h2>
+            <p>
+                Si alguna disposición de estos términos se considera inválida o inaplicable, las disposiciones restantes continuarán en pleno vigor y efecto.
+            </p>
+
+            <h2>14. Contacto</h2>
+            <p>
+                Para preguntas sobre estos términos, contáctenos en:
+            </p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:legal@visionui.app">legal@visionui.app</a></li>
+                <li><strong>Soporte:</strong> <a href="mailto:soporte@visionui.app">soporte@visionui.app</a></li>
+                <li><strong>Sitio web:</strong> <a href="https://visionui.app">visionui.app</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 VisionUI. Todos los derechos reservados.</p>
+        <p>
+            <a href="privacy.html">Privacidad</a>
+            <a href="terms.html">Términos</a>
+            <a href="../index.html#contact">Contacto</a>
+        </p>
+    </footer>
+</body>
+</html>
