@@ -72,9 +72,15 @@ function initNavigation() {
     // Smooth scrolling for nav links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-
             const targetId = this.getAttribute('href');
+            
+            // Si es un link externo o a otra página, navegar normalmente
+            if (!targetId.startsWith('#')) {
+                // No prevenir default, dejar que navegue normalmente
+                return;
+            }
+            
+            e.preventDefault();
             const targetSection = document.querySelector(targetId);
 
             if (targetSection) {
@@ -91,11 +97,6 @@ function initNavigation() {
             }
         });
     });
-
-    // Update navbar on scroll
-    window.addEventListener('scroll', updateNavbar);
-    updateNavbar();
-}
 
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
