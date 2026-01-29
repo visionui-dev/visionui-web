@@ -98,6 +98,11 @@ function initNavigation() {
         });
     });
 
+    // Update navbar on scroll
+    window.addEventListener('scroll', updateNavbar);
+    updateNavbar();
+}
+
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
