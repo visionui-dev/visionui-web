@@ -621,47 +621,125 @@
         <div class="modal">
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <h2>Comprar <span id="modalAppName"></span></h2>
-            <p>Ingresa tu email para recibir tu licencia después del pago.</p>
             
-            <form id="purchaseForm" onsubmit="startCheckout(event)">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+            <!-- Logged in view -->
+            <div id="loggedInView" style="display: none;">
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                    <p style="margin: 0; color: #6ee7b7;">
+                        ✓ Conectado como: <strong id="userEmailDisplay"></strong>
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label for="name">Nombre (opcional)</label>
-                    <input type="text" id="name" name="name" placeholder="Tu nombre">
-                </div>
-                
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Tu licencia se enviará a este email después del pago.
+                </p>
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="checkoutBtn">
-                        <span id="btnText">Continuar al pago</span>
-                        <div class="spinner" id="btnSpinner" style="display: none;"></div>
+                    <button type="button" class="btn btn-primary" id="checkoutBtnLogged" onclick="proceedToCheckout()">
+                        <span id="btnTextLogged">Continuar al pago</span>
+                        <div class="spinner" id="btnSpinnerLogged" style="display: none;"></div>
                     </button>
                 </div>
-            </form>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
+                    <a href="#" onclick="useOtherEmail(event)" style="color: var(--accent);">Usar otro email</a>
+                </p>
+            </div>
+            
+            <!-- Not logged in view -->
+            <div id="guestView">
+                <p>Ingresa tu email para recibir tu licencia después del pago.</p>
+                
+                <form id="purchaseForm" onsubmit="startCheckout(event)">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nombre (opcional)</label>
+                        <input type="text" id="name" name="name" placeholder="Tu nombre">
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="checkoutBtn">
+                            <span id="btnText">Continuar al pago</span>
+                            <div class="spinner" id="btnSpinner" style="display: none;"></div>
+                        </button>
+                    </div>
+                </form>
+                
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
+                    ¿Ya tienes cuenta? <a href="account.html" style="color: var(--accent);">Inicia sesión</a>
+                </p>
+            </div>
         </div>
     </div>
 
+    <script src="../assets/js/auth.js"></script>
     <script>
         // Configuración - CAMBIAR POR TUS VALORES
         const API_BASE = 'https://admin.visionui.app';  // Tu worker URL
         
         let currentApp = '';
         let currentPrice = 0;
+        let useLoggedInEmail = true;
 
         function openPurchaseModal(appName, price) {
             currentApp = appName;
             currentPrice = price;
             document.getElementById('modalAppName').textContent = appName;
+            
+            // Check if user is logged in
+            const user = VUIAuth.getUser();
+            if (user && useLoggedInEmail) {
+                document.getElementById('loggedInView').style.display = 'block';
+                document.getElementById('guestView').style.display = 'none';
+                document.getElementById('userEmailDisplay').textContent = user.email;
+            } else {
+                document.getElementById('loggedInView').style.display = 'none';
+                document.getElementById('guestView').style.display = 'block';
+            }
+            
             document.getElementById('purchaseModal').classList.add('active');
+            
+            if (!user || !useLoggedInEmail) {
+                document.getElementById('email').focus();
+            }
+        }
+
+        function useOtherEmail(event) {
+            event.preventDefault();
+            useLoggedInEmail = false;
+            document.getElementById('loggedInView').style.display = 'none';
+            document.getElementById('guestView').style.display = 'block';
             document.getElementById('email').focus();
         }
 
         function closeModal() {
             document.getElementById('purchaseModal').classList.remove('active');
             document.getElementById('purchaseForm').reset();
+            useLoggedInEmail = true;
+        }
+
+        async function proceedToCheckout() {
+            const user = VUIAuth.getUser();
+            if (!user) {
+                alert('Error: No se pudo obtener la información del usuario');
+                return;
+            }
+            
+            const btn = document.getElementById('checkoutBtnLogged');
+            const btnText = document.getElementById('btnTextLogged');
+            const btnSpinner = document.getElementById('btnSpinnerLogged');
+
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                await doCheckout(user.email, user.name || '');
+            } catch (error) {
+                showCheckoutError(error, btn, btnText, btnSpinner);
+            }
         }
 
         async function startCheckout(event) {
@@ -673,54 +751,58 @@
             const btnText = document.getElementById('btnText');
             const btnSpinner = document.getElementById('btnSpinner');
 
-            // Disable button and show spinner
             btn.disabled = true;
             btnText.style.display = 'none';
             btnSpinner.style.display = 'block';
 
             try {
-                const response = await fetch(`${API_BASE}/api/lemonsqueezy/checkout`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        name: name,
-                        app_name: currentApp,
-                        plan: currentApp.toLowerCase().replace(/\s+/g, '_')
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.checkout_url) {
-                    // Redirect to LemonSqueezy checkout
-                    window.location.href = data.checkout_url;
-                } else {
-                    throw new Error(data.error || 'Error creando el checkout');
-                }
+                await doCheckout(email, name);
             } catch (error) {
-                let errorMessage = 'Error: ';
-                
-                // Mensajes de error más amigables
-                if (error.message.includes('network') || error.message.includes('Failed to fetch')) {
-                    errorMessage += 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
-                } else if (error.message.includes('timeout')) {
-                    errorMessage += 'El servidor tardó demasiado en responder. Por favor intenta de nuevo.';
-                } else if (error.message.includes('not configured')) {
-                    errorMessage += 'El sistema de pagos no está configurado. Contacta a soporte.';
-                } else {
-                    errorMessage += error.message;
-                }
-                
-                alert(errorMessage);
-                
-                // Reset button
-                btn.disabled = false;
-                btnText.style.display = 'block';
-                btnSpinner.style.display = 'none';
+                showCheckoutError(error, btn, btnText, btnSpinner);
             }
+        }
+
+        async function doCheckout(email, name) {
+            const response = await fetch(`${API_BASE}/api/lemonsqueezy/checkout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    name: name,
+                    app_name: currentApp,
+                    plan: currentApp.toLowerCase().replace(/\s+/g, '_')
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.checkout_url) {
+                window.location.href = data.checkout_url;
+            } else {
+                throw new Error(data.error || 'Error creando el checkout');
+            }
+        }
+
+        function showCheckoutError(error, btn, btnText, btnSpinner) {
+            let errorMessage = 'Error: ';
+            
+            if (error.message.includes('network') || error.message.includes('Failed to fetch')) {
+                errorMessage += 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
+            } else if (error.message.includes('timeout')) {
+                errorMessage += 'El servidor tardó demasiado en responder. Por favor intenta de nuevo.';
+            } else if (error.message.includes('not configured')) {
+                errorMessage += 'El sistema de pagos no está configurado. Contacta a soporte.';
+            } else {
+                errorMessage += error.message;
+            }
+            
+            alert(errorMessage);
+            
+            btn.disabled = false;
+            btnText.style.display = 'block';
+            btnSpinner.style.display = 'none';
         }
 
         // Agregar timeout de 10 segundos para prevenir espera infinita

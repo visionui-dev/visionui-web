@@ -339,16 +339,17 @@
         </div>
     </div>
 
+    <script src="../assets/js/auth.js"></script>
     <script>
         const API_BASE = 'https://admin.visionui.app';
         
         async function checkSession() {
-            const token = localStorage.getItem('visionui_session');
-            if (!token) { showAuth(); return; }
+            const session = VUIAuth.getSession();
+            if (!session) { showAuth(); return; }
             try {
-                const response = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+                const response = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${session.token}` } });
                 if (response.ok) { showDashboard(await response.json()); }
-                else { localStorage.removeItem('visionui_session'); showAuth(); }
+                else { VUIAuth.clearSession(); showAuth(); }
             } catch (e) { console.error(e); showAuth(); }
         }
 
@@ -362,8 +363,9 @@
             document.getElementById('loadingOverlay').classList.add('hidden');
             document.getElementById('authView').classList.add('hidden');
             document.getElementById('dashboardView').classList.remove('hidden');
-            document.getElementById('userName').textContent = data.name || 'Usuario';
-            document.getElementById('userEmail').textContent = data.email;
+            const user = data.user || data;
+            document.getElementById('userName').textContent = user.name || 'Usuario';
+            document.getElementById('userEmail').textContent = user.email;
             renderLicenses(data.licenses || []);
             if (data.orders?.length > 0) { document.getElementById('ordersSection').classList.remove('hidden'); renderOrders(data.orders); }
             if (!data.licenses || data.licenses.length === 0) { document.getElementById('promoBanner').classList.remove('hidden'); }
@@ -409,13 +411,11 @@
             const btn = document.getElementById('loginBtn');
             btn.disabled = true; btn.textContent = 'Cargando...';
             try {
-                const res = await fetch(`${API_BASE}/api/user/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
-                const data = await res.json();
-                if (data.success && data.token) {
-                    localStorage.setItem('visionui_session', data.token);
-                    const me = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${data.token}` } });
+                const result = await VUIAuth.login(email, password);
+                if (result.success) {
+                    const me = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${VUIAuth.getSession().token}` } });
                     if (me.ok) showDashboard(await me.json());
-                } else { showAlert(data.error || 'Error al iniciar sesión'); }
+                } else { showAlert(result.error || 'Error al iniciar sesión'); }
             } catch (err) { showAlert('Error de conexión'); }
             btn.disabled = false; btn.textContent = 'Iniciar sesión';
         }
@@ -431,21 +431,17 @@
             const btn = document.getElementById('registerBtn');
             btn.disabled = true; btn.textContent = 'Creando...';
             try {
-                const res = await fetch(`${API_BASE}/api/user/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password, name: name || undefined }) });
-                const data = await res.json();
-                if (data.success && data.token) {
-                    localStorage.setItem('visionui_session', data.token);
-                    const me = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${data.token}` } });
+                const result = await VUIAuth.register(email, password, name);
+                if (result.success) {
+                    const me = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${VUIAuth.getSession().token}` } });
                     if (me.ok) showDashboard(await me.json());
-                } else { showAlert(data.error || 'Error al crear cuenta'); }
+                } else { showAlert(result.error || 'Error al crear cuenta'); }
             } catch (err) { showAlert('Error de conexión'); }
             btn.disabled = false; btn.textContent = 'Crear cuenta';
         }
 
         async function handleLogout() {
-            const token = localStorage.getItem('visionui_session');
-            if (token) { try { await fetch(`${API_BASE}/api/user/logout`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } }); } catch(e){} }
-            localStorage.removeItem('visionui_session');
+            await VUIAuth.logout();
             showAuth();
         }
 

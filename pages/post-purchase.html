@@ -520,15 +520,11 @@
             document.getElementById('userEmail').textContent = email;
         }
 
-        // Simular verificación de estado (en producción, hacer polling real al backend)
+        // Verificar estado de la licencia
         async function checkLicenseStatus() {
             if (!email) return;
 
             try {
-                // Esperar un poco para que el webhook se procese
-                await new Promise(resolve => setTimeout(resolve, 5000));
-
-                // Verificar si la licencia ya existe
                 const response = await fetch(`${API_BASE}/api/check-license-status`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -542,7 +538,7 @@
                     }
                 }
             } catch (error) {
-                console.log('Status check error (normal si endpoint no existe):', error);
+                console.log('Status check error:', error);
             }
         }
 
@@ -563,10 +559,22 @@
             // Mostrar mensaje de éxito
             document.getElementById('statusReady').classList.add('show');
 
-            // Actualizar link con datos si los tenemos
-            if (data && data.license_key) {
-                const continueBtn = document.getElementById('continueBtn');
+            // Configurar link según el estado
+            const continueBtn = document.getElementById('continueBtn');
+            
+            if (data.has_password) {
+                // Ya tiene contraseña, ir a cuenta o descargas
+                continueBtn.textContent = 'Ir a Mi Cuenta';
+                continueBtn.href = 'account.html';
+            } else if (data.setup_token) {
+                // Tiene token disponible, usar el enlace seguro
+                continueBtn.href = `setup-account.html?token=${data.setup_token}`;
+            } else if (data.license_key) {
+                // Fallback: usar método legacy con email+key
                 continueBtn.href = `purchase-success.html?email=${encodeURIComponent(email)}&key=${encodeURIComponent(data.license_key)}`;
+            } else {
+                // Sin datos, ir a reclamar licencia
+                continueBtn.href = 'claim-license.html';
             }
         }
 
@@ -574,14 +582,13 @@
         setTimeout(() => {
             const statusReady = document.getElementById('statusReady');
             if (!statusReady.classList.contains('show')) {
-                // Mostrar el estado "listo" de todas formas para que el usuario pueda continuar
                 document.querySelector('.loading-text').textContent = 'Email enviado. Revisa tu bandeja de entrada.';
                 document.querySelector('.loading-bar').style.display = 'none';
             }
         }, 8000);
 
-        // Iniciar verificación
-        checkLicenseStatus();
+        // Iniciar verificación después de 3 segundos (dar tiempo al webhook)
+        setTimeout(checkLicenseStatus, 3000);
 
         // Polling cada 10 segundos por 2 minutos
         let pollCount = 0;
