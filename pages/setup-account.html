@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activar Licencia - VisionUI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../vui.ico">
+    <style>
+        :root {
+            --bg-primary: #0f0f13;
+            --bg-secondary: #16161d;
+            --bg-card: #1c1c26;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --error: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.1);
+            --warning: #f59e0b;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --border: #27272a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        /* License Info */
+        .license-info {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .license-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        .license-row:not(:last-child) {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .license-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .license-value {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .license-value.key {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Password Strength */
+        .password-strength {
+            height: 4px;
+            background: var(--bg-secondary);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Button */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            margin-top: 0.75rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .alert-error {
+            background: var(--error-bg);
+            border: 1px solid var(--error);
+            color: #fca5a5;
+        }
+
+        .alert-success {
+            background: var(--success-bg);
+            border: 1px solid var(--success);
+            color: #6ee7b7;
+        }
+
+        .alert-warning {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning);
+            color: #fcd34d;
+        }
+
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success State */
+        .success-state {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--success-bg);
+            border: 2px solid var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--success);
+        }
+
+        .success-state h2 {
+            margin-bottom: 0.5rem;
+            color: var(--success);
+        }
+
+        .success-state p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .credentials-box {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .credentials-box p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .credentials-box strong {
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .footer a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Invalid Token State */
+        .error-state {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--error-bg);
+            border: 2px solid var(--error);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">✨</div>
+            <h1>Activa tu licencia</h1>
+            <p class="subtitle">Configura tu contraseña para acceder</p>
+        </div>
+
+        <!-- Loading State -->
+        <div class="card" id="loadingState">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Verificando tu enlace de activación...</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div class="card hidden" id="errorState">
+            <div class="error-state">
+                <div class="error-icon">⚠️</div>
+                <h2 id="errorTitle">Enlace inválido</h2>
+                <p id="errorMessage">Este enlace de activación no es válido o ha expirado.</p>
+                <a href="claim-license.html" class="btn btn-primary">
+                    Recuperar mi licencia
+                </a>
+                <a href="store.html" class="btn btn-secondary">
+                    Volver a la tienda
+                </a>
+            </div>
+        </div>
+
+        <!-- Setup Form -->
+        <div class="card hidden" id="setupForm">
+            <div class="license-info">
+                <div class="license-row">
+                    <span class="license-label">Email</span>
+                    <span class="license-value" id="infoEmail">-</span>
+                </div>
+                <div class="license-row">
+                    <span class="license-label">Aplicación</span>
+                    <span class="license-value" id="infoApp">-</span>
+                </div>
+                <div class="license-row">
+                    <span class="license-label">License Key</span>
+                    <span class="license-value key" id="infoKey">-</span>
+                </div>
+            </div>
+
+            <div id="formAlert" class="alert"></div>
+
+            <form id="passwordForm" onsubmit="setupPassword(event)">
+                <div class="form-group">
+                    <label for="password">Crear contraseña</label>
+                    <input type="password" id="password" name="password" required minlength="6" placeholder="Mínimo 6 caracteres">
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordConfirm">Confirmar contraseña</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder="Repite tu contraseña">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <span id="btnText">Activar mi licencia</span>
+                    <span id="btnLoading" class="hidden">
+                        <svg width="20" height="20" viewBox="0 0 24 24" class="spinner" style="width:20px;height:20px;border-width:2px;margin:0;">
+                        </svg>
+                        Activando...
+                    </span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Success State -->
+        <div class="card hidden" id="successState">
+            <div class="success-state">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h2>¡Licencia activada!</h2>
+                <p>Tu cuenta está lista. Usa estas credenciales para iniciar sesión en la aplicación.</p>
+                
+                <div class="credentials-box">
+                    <p><strong>Email:</strong> <span id="successEmail">-</span></p>
+                    <p><strong>Contraseña:</strong> La que acabas de configurar</p>
+                </div>
+
+                <a href="#" class="btn btn-primary" id="downloadBtn">
+                    Descargar aplicación
+                </a>
+                <a href="../index.html" class="btn btn-secondary">
+                    Ir al inicio
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="claim-license.html">¿Problemas? Recuperar licencia</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://visionui.workers.dev';
+        
+        // Estado global
+        let tokenData = null;
+        
+        // Obtener token de URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        // Si hay parámetros legacy (email + key), redirigir a purchase-success.html
+        const legacyEmail = urlParams.get('email');
+        const legacyKey = urlParams.get('key');
+        if (legacyEmail && legacyKey && !token) {
+            window.location.href = `purchase-success.html?email=${encodeURIComponent(legacyEmail)}&key=${encodeURIComponent(legacyKey)}`;
+        }
+
+        // Elementos DOM
+        const loadingState = document.getElementById('loadingState');
+        const errorState = document.getElementById('errorState');
+        const setupForm = document.getElementById('setupForm');
+        const successState = document.getElementById('successState');
+
+        // Validar token al cargar
+        async function validateToken() {
+            if (!token) {
+                showError('Enlace incompleto', 'Este enlace no contiene un token de activación válido. Revisa el email que recibiste.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/validate-setup-token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token })
+                });
+
+                const data = await response.json();
+
+                if (!data.valid) {
+                    if (data.already_used) {
+                        showError('Token ya utilizado', 'Este enlace de activación ya fue usado. Si ya configuraste tu contraseña, puedes iniciar sesión directamente en la aplicación.');
+                    } else if (data.expired) {
+                        showError('Enlace expirado', 'Este enlace de activación ha expirado. Los enlaces son válidos por 24 horas. Puedes recuperar tu licencia manualmente.');
+                    } else {
+                        showError('Token inválido', data.error || 'Este enlace de activación no es válido.');
+                    }
+                    return;
+                }
+
+                if (data.has_password) {
+                    // Ya tiene password, mostrar mensaje especial
+                    showError('Cuenta ya activada', 'Tu cuenta ya está activada. Puedes iniciar sesión directamente en la aplicación con tu email y contraseña.');
+                    document.getElementById('errorTitle').textContent = '✓ Cuenta activa';
+                    document.querySelector('.error-icon').style.background = 'var(--success-bg)';
+                    document.querySelector('.error-icon').style.borderColor = 'var(--success)';
+                    document.querySelector('.error-icon').textContent = '✓';
+                    return;
+                }
+
+                // Token válido, mostrar formulario
+                tokenData = data;
+                showSetupForm(data);
+
+            } catch (error) {
+                console.error('Error validating token:', error);
+                showError('Error de conexión', 'No se pudo verificar el enlace. Por favor, intenta de nuevo más tarde.');
+            }
+        }
+
+        function showError(title, message) {
+            loadingState.classList.add('hidden');
+            setupForm.classList.add('hidden');
+            successState.classList.add('hidden');
+            errorState.classList.remove('hidden');
+            
+            document.getElementById('errorTitle').textContent = title;
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        function showSetupForm(data) {
+            loadingState.classList.add('hidden');
+            errorState.classList.add('hidden');
+            successState.classList.add('hidden');
+            setupForm.classList.remove('hidden');
+
+            document.getElementById('infoEmail').textContent = data.email;
+            document.getElementById('infoApp').textContent = data.app || 'VisionUI';
+            document.getElementById('infoKey').textContent = data.license_key;
+        }
+
+        function showSuccess(data) {
+            loadingState.classList.add('hidden');
+            errorState.classList.add('hidden');
+            setupForm.classList.add('hidden');
+            successState.classList.remove('hidden');
+
+            document.getElementById('successEmail').textContent = data.email;
+            
+            // Configurar link de descarga
+            const downloadBtn = document.getElementById('downloadBtn');
+            const appName = data.app || 'VisionUI';
+            downloadBtn.href = `${API_BASE}/api/download/${encodeURIComponent(appName)}?email=${encodeURIComponent(data.email)}&key=${encodeURIComponent(data.license_key)}`;
+        }
+
+        // Password strength
+        document.getElementById('password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const bar = document.getElementById('strengthBar');
+            let strength = 0;
+            
+            if (password.length >= 6) strength += 25;
+            if (password.length >= 10) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password) || /[^a-zA-Z0-9]/.test(password)) strength += 25;
+            
+            bar.style.width = strength + '%';
+            bar.style.background = strength < 50 ? '#ef4444' : strength < 75 ? '#f59e0b' : '#10b981';
+        });
+
+        // Form submit
+        async function setupPassword(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('passwordConfirm').value;
+            const alertEl = document.getElementById('formAlert');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnLoading = document.getElementById('btnLoading');
+
+            // Reset alert
+            alertEl.classList.remove('show', 'alert-error', 'alert-success');
+
+            // Validate
+            if (password !== passwordConfirm) {
+                alertEl.textContent = 'Las contraseñas no coinciden';
+                alertEl.classList.add('show', 'alert-error');
+                return;
+            }
+
+            if (password.length < 6) {
+                alertEl.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                alertEl.classList.add('show', 'alert-error');
+                return;
+            }
+
+            // Show loading
+            submitBtn.disabled = true;
+            btnText.classList.add('hidden');
+            btnLoading.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`${API_BASE}/api/setup-password-token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess({
+                        email: data.email || tokenData.email,
+                        app: data.app || tokenData.app,
+                        license_key: data.license_key || tokenData.license_key
+                    });
+                } else {
+                    throw new Error(data.error || 'Error al configurar la contraseña');
+                }
+
+            } catch (error) {
+                alertEl.textContent = error.message;
+                alertEl.classList.add('show', 'alert-error');
+                
+                submitBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                btnLoading.classList.add('hidden');
+            }
+        }
+
+        // Init
+        validateToken();
+    </script>
+</body>
+</html>

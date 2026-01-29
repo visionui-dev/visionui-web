@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - VisionUI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../vui.ico">
+    <style>
+        :root {
+            --bg-primary: #0f0f13;
+            --bg-secondary: #16161d;
+            --bg-card: #1c1c26;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --error: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.1);
+            --warning: #f59e0b;
+            --border: #27272a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Login View */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-box {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-error {
+            background: var(--error-bg);
+            border: 1px solid var(--error);
+            color: #fca5a5;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .login-footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dashboard View */
+        .dashboard-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .user-details h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.125rem;
+        }
+
+        .user-details p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .logout-btn {
+            padding: 0.625rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .license-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .license-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .license-app {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .license-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .license-status.active {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .license-status.expired {
+            background: var(--error-bg);
+            color: var(--error);
+        }
+
+        .license-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .license-detail {
+            font-size: 0.85rem;
+        }
+
+        .license-detail-label {
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .license-detail-value {
+            font-family: monospace;
+            color: var(--text-primary);
+        }
+
+        .license-actions {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .download-btn:hover {
+            background: #6d28d9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Loading */
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Login View -->
+    <div class="login-container" id="loginView">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="logo">✨</div>
+                <h1>Mi Cuenta</h1>
+                <p>Inicia sesión para ver tus licencias</p>
+            </div>
+
+            <div class="login-card">
+                <div id="loginAlert" class="alert alert-error"></div>
+                
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@email.com" autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" required placeholder="Tu contraseña" autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="loginBtn">
+                        <span id="loginBtnText">Iniciar sesión</span>
+                        <span id="loginBtnLoading" class="hidden">Cargando...</span>
+                    </button>
+                </form>
+
+                <div class="login-footer">
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">
+                        ¿No tienes cuenta? Se crea automáticamente al comprar.
+                    </p>
+                    <a href="store.html">Ver aplicaciones disponibles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard View -->
+    <div class="dashboard-container hidden" id="dashboardView">
+        <a href="../index.html" class="back-link">
+            ← Volver al inicio
+        </a>
+
+        <div class="dashboard-header">
+            <div class="user-info">
+                <div class="user-avatar">👤</div>
+                <div class="user-details">
+                    <h2 id="userEmail">-</h2>
+                    <p>Miembro desde <span id="memberSince">-</span></p>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">
+                Cerrar sesión
+            </button>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">🔑 Mis Licencias</h3>
+            <div id="licensesContainer">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📦</div>
+                    <p>Cargando licencias...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="ordersSection" style="display: none;">
+            <h3 class="section-title">📋 Historial de Compras</h3>
+            <div id="ordersContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://visionui.workers.dev';
+        
+        // Check session on load
+        async function checkSession() {
+            const token = localStorage.getItem('visionui_session');
+            
+            if (!token) {
+                showLogin();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/user/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showDashboard(data);
+                } else {
+                    // Token inválido
+                    localStorage.removeItem('visionui_session');
+                    showLogin();
+                }
+            } catch (error) {
+                console.error('Session check error:', error);
+                showLogin();
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+            document.getElementById('loginView').classList.remove('hidden');
+            document.getElementById('dashboardView').classList.add('hidden');
+        }
+
+        function showDashboard(data) {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+            document.getElementById('loginView').classList.add('hidden');
+            document.getElementById('dashboardView').classList.remove('hidden');
+
+            // Mostrar info del usuario
+            document.getElementById('userEmail').textContent = data.email;
+            document.getElementById('memberSince').textContent = new Date(data.member_since).toLocaleDateString();
+
+            // Renderizar licencias
+            renderLicenses(data.licenses || []);
+
+            // Renderizar órdenes si hay
+            if (data.orders && data.orders.length > 0) {
+                document.getElementById('ordersSection').style.display = 'block';
+                renderOrders(data.orders);
+            }
+        }
+
+        function renderLicenses(licenses) {
+            const container = document.getElementById('licensesContainer');
+
+            if (!licenses || licenses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <p>No tienes licencias activas</p>
+                        <a href="store.html" class="btn btn-primary" style="max-width: 200px; margin: 0 auto;">
+                            Ver aplicaciones
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = licenses.map(license => {
+                const isExpired = license.expires_at && new Date(license.expires_at) < new Date();
+                const statusClass = isExpired || license.status !== 'active' ? 'expired' : 'active';
+                const statusText = isExpired ? 'Expirada' : (license.status === 'active' ? 'Activa' : license.status);
+                
+                return `
+                    <div class="license-card">
+                        <div class="license-header">
+                            <span class="license-app">${license.app || 'VisionUI'}</span>
+                            <span class="license-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="license-details">
+                            <div class="license-detail">
+                                <div class="license-detail-label">License Key</div>
+                                <div class="license-detail-value">${license.license_key}</div>
+                            </div>
+                            <div class="license-detail">
+                                <div class="license-detail-label">Válida hasta</div>
+                                <div class="license-detail-value">${license.expires_at ? new Date(license.expires_at).toLocaleDateString() : 'Sin expiración'}</div>
+                            </div>
+                            <div class="license-detail">
+                                <div class="license-detail-label">Fecha de compra</div>
+                                <div class="license-detail-value">${new Date(license.created_at).toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                        ${statusClass === 'active' ? `
+                            <div class="license-actions">
+                                <a href="${API_BASE}/api/download/${encodeURIComponent(license.app || 'VisionUI')}?email=${encodeURIComponent(document.getElementById('userEmail').textContent)}&key=${encodeURIComponent(license.license_key)}" class="download-btn">
+                                    ⬇️ Descargar ${license.app || 'App'}
+                                </a>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+            
+            container.innerHTML = orders.map(order => `
+                <div class="license-card" style="padding: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>${order.app_name || order.product_name || 'VisionUI'}</strong>
+                            <span style="color: var(--text-muted); font-size: 0.85rem; margin-left: 0.5rem;">
+                                ${order.variant_name || ''}
+                            </span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 600;">${order.currency || 'USD'} ${(order.amount_paid || 0).toFixed(2)}</div>
+                            <div style="color: var(--text-muted); font-size: 0.8rem;">${new Date(order.created_at).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const alertEl = document.getElementById('loginAlert');
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('loginBtnText');
+            const btnLoading = document.getElementById('loginBtnLoading');
+
+            alertEl.classList.remove('show');
+            btn.disabled = true;
+            btnText.classList.add('hidden');
+            btnLoading.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`${API_BASE}/api/user/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.token) {
+                    localStorage.setItem('visionui_session', data.token);
+                    
+                    // Cargar dashboard
+                    const meResponse = await fetch(`${API_BASE}/api/user/me`, {
+                        headers: { 'Authorization': `Bearer ${data.token}` }
+                    });
+                    
+                    if (meResponse.ok) {
+                        const userData = await meResponse.json();
+                        showDashboard(userData);
+                    }
+                } else {
+                    throw new Error(data.error || 'Error al iniciar sesión');
+                }
+
+            } catch (error) {
+                alertEl.textContent = error.message;
+                alertEl.classList.add('show');
+                
+                btn.disabled = false;
+                btnText.classList.remove('hidden');
+                btnLoading.classList.add('hidden');
+            }
+        }
+
+        async function handleLogout() {
+            const token = localStorage.getItem('visionui_session');
+            
+            if (token) {
+                try {
+                    await fetch(`${API_BASE}/api/user/logout`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                } catch (e) {
+                    // Ignorar errores
+                }
+            }
+
+            localStorage.removeItem('visionui_session');
+            showLogin();
+        }
+
+        // Init
+        checkSession();
+    </script>
+</body>
+</html>
