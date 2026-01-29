@@ -309,64 +309,36 @@ const VUIi18n = {
         this.createLanguageSwitcher();
     },
 
-    // Create language switcher UI
+    // Create language switcher UI - Simple toggle button
     createLanguageSwitcher() {
         const existingSwitcher = document.querySelector('.lang-switcher');
         if (existingSwitcher) return;
 
-        const nav = document.querySelector('.nav-menu, .nav-links');
+        const nav = document.querySelector('.nav-container');
         if (!nav) return;
 
-        const switcher = document.createElement('div');
-        switcher.className = 'lang-switcher';
-        switcher.innerHTML = `
-            <button class="lang-btn" title="Change language">
-                ${this.currentLang.toUpperCase()}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-            </button>
-            <div class="lang-dropdown">
-                <a href="#" class="lang-option ${this.currentLang === 'es' ? 'active' : ''}" data-lang="es">
-                    🇪🇸 Español
-                </a>
-                <a href="#" class="lang-option ${this.currentLang === 'en' ? 'active' : ''}" data-lang="en">
-                    🇬🇧 English
-                </a>
-            </div>
-        `;
-
-        nav.appendChild(switcher);
-
-        // Toggle dropdown
-        const btn = switcher.querySelector('.lang-btn');
-        const dropdown = switcher.querySelector('.lang-dropdown');
+        const switcher = document.createElement('button');
+        switcher.className = 'lang-toggle';
+        switcher.title = this.currentLang === 'es' ? 'Switch to English' : 'Cambiar a Español';
+        switcher.innerHTML = this.currentLang === 'es' ? '🇬🇧' : '🇪🇸';
         
-        btn.addEventListener('click', (e) => {
+        // Insert before nav-toggle (hamburger menu)
+        const navToggle = nav.querySelector('.nav-toggle');
+        if (navToggle) {
+            nav.insertBefore(switcher, navToggle);
+        } else {
+            nav.appendChild(switcher);
+        }
+
+        // Toggle language on click
+        switcher.addEventListener('click', (e) => {
             e.preventDefault();
-            dropdown.classList.toggle('show');
-        });
-
-        // Handle language selection
-        switcher.querySelectorAll('.lang-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.preventDefault();
-                const lang = option.getAttribute('data-lang');
-                this.setLang(lang);
-                dropdown.classList.remove('show');
-                
-                // Update active state
-                switcher.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
-                option.classList.add('active');
-                btn.innerHTML = `${lang.toUpperCase()} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-            });
-        });
-
-        // Close on outside click
-        document.addEventListener('click', (e) => {
-            if (!switcher.contains(e.target)) {
-                dropdown.classList.remove('show');
-            }
+            const newLang = this.currentLang === 'es' ? 'en' : 'es';
+            this.setLang(newLang);
+            
+            // Update button
+            switcher.innerHTML = newLang === 'es' ? '🇬🇧' : '🇪🇸';
+            switcher.title = newLang === 'es' ? 'Switch to English' : 'Cambiar a Español';
         });
     }
 };
