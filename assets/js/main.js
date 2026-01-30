@@ -322,8 +322,8 @@ function initMockupInteractions() {
     // Hover effects for canvas elements
     canvasElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
-            this.style.boxShadow = '0 20px 40px rgba(0, 255, 255, 0.3)';
+            this.style.transform = 'scale(1.02)';
+            this.style.boxShadow = '0 16px 32px rgba(61, 216, 216, 0.2)';
         });
 
         element.addEventListener('mouseleave', function() {
@@ -651,7 +651,7 @@ style.textContent = `
             box-shadow: var(--shadow-glow);
         }
         50% {
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 20px rgba(61, 216, 216, 0.4);
         }
     }
 
