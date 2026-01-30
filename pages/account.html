@@ -129,6 +129,8 @@
         .auth-footer a { color: var(--accent-light); text-decoration: none; font-size: 0.9rem; }
         .auth-footer a:hover { text-decoration: underline; }
 
+        .forgot-password-link:hover { text-decoration: underline; }
+
         .dashboard-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         .dashboard-header {
@@ -275,6 +277,7 @@
                     <div class="form-group">
                         <label for="loginPassword" data-i18n="auth.password">Contraseña</label>
                         <input type="password" id="loginPassword" required placeholder="Tu contraseña" autocomplete="current-password">
+                        <a href="reset-password.html" class="forgot-password-link" data-i18n="auth.forgot_password" style="display: block; text-align: right; margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent-light); text-decoration: none;">¿Olvidaste tu contraseña?</a>
                     </div>
                     <button type="submit" class="btn btn-primary" id="loginBtn" data-i18n="auth.login_button">Iniciar sesión</button>
                 </form>
