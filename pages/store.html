@@ -13,20 +13,20 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a24;
-            --bg-card-hover: #22222e;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
-            --text-muted: #6b6b7b;
-            --accent: #7c3aed;
-            --accent-hover: #8b5cf6;
-            --accent-glow: rgba(124, 58, 237, 0.3);
+            --bg-primary: #141418;
+            --bg-secondary: #1a1a1f;
+            --bg-card: #222228;
+            --bg-card-hover: #2a2a30;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a8a8b3;
+            --text-muted: #71717a;
+            --accent: #3dd8d8;
+            --accent-hover: #4ae3e3;
+            --accent-glow: rgba(61, 216, 216, 0.2);
             --success: #10b981;
-            --border: #2a2a3a;
-            --gradient-1: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-            --gradient-2: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+            --border: #2a2a32;
+            --gradient-1: linear-gradient(135deg, #3dd8d8 0%, #2a9d9d 100%);
+            --gradient-2: linear-gradient(135deg, #3dd8d8 0%, #2cc5c5 100%);
         }
 
         * {
@@ -107,7 +107,7 @@
         .hero {
             padding: 8rem 2rem 4rem;
             text-align: center;
-            background: radial-gradient(ellipse at top, rgba(124, 58, 237, 0.15) 0%, transparent 60%);
+            background: radial-gradient(ellipse at top, rgba(61, 216, 216, 0.08) 0%, transparent 60%);
         }
 
         .hero h1 {
@@ -267,12 +267,13 @@
 
         .btn-primary {
             background: var(--gradient-1);
-            color: white;
+            color: #141418;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px var(--accent-glow);
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px var(--accent-glow);
         }
 
         .btn-secondary {
@@ -470,6 +471,86 @@
                 display: none;
             }
         }
+
+        /* Language Switcher - consistent with main styles */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+            margin-left: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 3px;
+        }
+        
+        .lang-btn {
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .lang-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        
+        .lang-btn.active {
+            background: var(--accent);
+            color: #141418;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Nav toggle for mobile */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.2s;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-top: 1px solid var(--border);
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .lang-switcher {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -481,48 +562,54 @@
                 <span class="logo-subtitle">Apps</span>
             </a>
             <div class="nav-links">
-                <a href="../index.html">Framework</a>
-                <a href="#apps">Aplicaciones</a>
-                <a href="#how-it-works">Cómo funciona</a>
-                <a href="account.html">👤 Mi Cuenta</a>
+                <a href="../index.html" data-i18n="nav.framework">Framework</a>
+                <a href="#apps" data-i18n="store.available">Aplicaciones</a>
+                <a href="#how-it-works" data-i18n="store.how_works">Cómo funciona</a>
+                <a href="account.html">👤 <span data-i18n="nav.account">Mi Cuenta</span></a>
+            </div>
+            <!-- Language switcher is created dynamically by i18n.js -->
+            <div class="nav-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <h1>VisionUI Apps</h1>
-        <p>Aplicaciones profesionales creadas con VisionUI Framework. Software de alta calidad, diseño moderno y actualizaciones incluidas.</p>
+        <h1 data-i18n="store.title">VisionUI Apps</h1>
+        <p data-i18n="store.subtitle">Aplicaciones profesionales creadas con VisionUI Framework. Software de alta calidad, diseño moderno y actualizaciones incluidas.</p>
     </section>
 
     <!-- Apps Section -->
     <section class="apps-section" id="apps">
-        <h2 class="section-title">Aplicaciones Disponibles</h2>
-        <p class="section-subtitle">Elige la aplicación que necesitas y obtén una licencia inmediata.</p>
+        <h2 class="section-title" data-i18n="store.available">Aplicaciones Disponibles</h2>
+        <p class="section-subtitle" data-i18n="store.available_subtitle">Elige la aplicación que necesitas y obtén una licencia inmediata.</p>
 
         <div class="apps-grid">
             <!-- TestApp - App de ejemplo/prueba -->
             <div class="app-card" data-app="TestApp" data-variant-id="YOUR_VARIANT_ID">
                 <div class="app-image">🎵</div>
                 <div class="app-content">
-                    <span class="app-badge">Disponible</span>
-                    <h3 class="app-title">TestApp - Music Player</h3>
-                    <p class="app-description">
+                    <span class="app-badge" data-i18n="store.available_badge">Disponible</span>
+                    <h3 class="app-title" data-i18n="app.testapp.title">TestApp - Music Player</h3>
+                    <p class="app-description" data-i18n="app.testapp.desc">
                         Reproductor de música moderno para Windows con interfaz elegante, ecualizador visual y soporte para múltiples formatos de audio.
                     </p>
                     <ul class="app-features">
-                        <li>Interfaz moderna y personalizable</li>
-                        <li>Soporte MP3, FLAC, WAV, OGG</li>
-                        <li>Ecualizador de 10 bandas</li>
-                        <li>Actualizaciones gratuitas</li>
+                        <li data-i18n="app.testapp.f1">Interfaz moderna y personalizable</li>
+                        <li data-i18n="app.testapp.f2">Soporte MP3, FLAC, WAV, OGG</li>
+                        <li data-i18n="app.testapp.f3">Ecualizador de 10 bandas</li>
+                        <li data-i18n="app.testapp.f4">Actualizaciones gratuitas</li>
                     </ul>
                     <div class="app-footer">
                         <div class="app-price">
                             <span class="currency">$</span>19
-                            <span class="period">/ lifetime</span>
+                            <span class="period">/ <span data-i18n="store.lifetime">lifetime</span></span>
                         </div>
                         <button class="btn btn-primary" onclick="openPurchaseModal('TestApp', 19)">
-                            Comprar
+                            <span data-i18n="store.buy">Comprar</span>
                         </button>
                     </div>
                 </div>
@@ -532,24 +619,24 @@
             <div class="app-card" data-app="VisionUI" data-variant-id="YOUR_FRAMEWORK_VARIANT_ID">
                 <div class="app-image">🎨</div>
                 <div class="app-content">
-                    <span class="app-badge">Popular</span>
-                    <h3 class="app-title">VisionUI Framework</h3>
-                    <p class="app-description">
+                    <span class="app-badge" data-i18n="store.popular">Popular</span>
+                    <h3 class="app-title" data-i18n="app.framework.title">VisionUI Framework</h3>
+                    <p class="app-description" data-i18n="app.framework.desc">
                         El framework completo para crear tus propias aplicaciones con PySide6. Incluye VUIStudio y todos los componentes.
                     </p>
                     <ul class="app-features">
-                        <li>VUIStudio Designer incluido</li>
-                        <li>+55 componentes listos</li>
-                        <li>Soporte y actualizaciones</li>
-                        <li>Licencia comercial</li>
+                        <li data-i18n="app.framework.f1">VUIStudio Designer incluido</li>
+                        <li data-i18n="app.framework.f2">+55 componentes listos</li>
+                        <li data-i18n="app.framework.f3">Soporte y actualizaciones</li>
+                        <li data-i18n="app.framework.f4">Licencia comercial</li>
                     </ul>
                     <div class="app-footer">
                         <div class="app-price">
                             <span class="currency">$</span>99
-                            <span class="period">/ lifetime</span>
+                            <span class="period">/ <span data-i18n="store.lifetime">lifetime</span></span>
                         </div>
                         <button class="btn btn-primary" onclick="openPurchaseModal('VisionUI', 99)">
-                            Comprar
+                            <span data-i18n="store.buy">Comprar</span>
                         </button>
                     </div>
                 </div>
@@ -559,24 +646,24 @@
             <div class="app-card">
                 <div class="app-image">📊</div>
                 <div class="app-content">
-                    <span class="app-badge coming-soon">Próximamente</span>
-                    <h3 class="app-title">Inventory Pro</h3>
-                    <p class="app-description">
+                    <span class="app-badge coming-soon" data-i18n="store.coming_soon">Próximamente</span>
+                    <h3 class="app-title" data-i18n="app.inventory.title">Inventory Pro</h3>
+                    <p class="app-description" data-i18n="app.inventory.desc">
                         Sistema de gestión de inventario para pequeñas y medianas empresas. Control de stock, alertas y reportes.
                     </p>
                     <ul class="app-features">
-                        <li>Gestión multi-almacén</li>
-                        <li>Alertas de stock bajo</li>
-                        <li>Reportes exportables</li>
-                        <li>Base de datos local</li>
+                        <li data-i18n="app.inventory.f1">Gestión multi-almacén</li>
+                        <li data-i18n="app.inventory.f2">Alertas de stock bajo</li>
+                        <li data-i18n="app.inventory.f3">Reportes exportables</li>
+                        <li data-i18n="app.inventory.f4">Base de datos local</li>
                     </ul>
                     <div class="app-footer">
                         <div class="app-price">
                             <span class="currency">$</span>49
-                            <span class="period">/ lifetime</span>
+                            <span class="period">/ <span data-i18n="store.lifetime">lifetime</span></span>
                         </div>
                         <button class="btn btn-secondary" disabled>
-                            Próximamente
+                            <span data-i18n="store.coming_soon">Próximamente</span>
                         </button>
                     </div>
                 </div>
@@ -587,24 +674,24 @@
     <!-- How it works -->
     <section class="how-it-works" id="how-it-works">
         <div class="container">
-            <h2 class="section-title">¿Cómo funciona?</h2>
-            <p class="section-subtitle">Obtén tu licencia en 3 simples pasos</p>
+            <h2 class="section-title" data-i18n="store.how_works">¿Cómo funciona?</h2>
+            <p class="section-subtitle" data-i18n="store.how_works_subtitle">Obtén tu licencia en 3 simples pasos</p>
 
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Elige tu app</h3>
-                    <p>Selecciona la aplicación que necesitas de nuestro catálogo.</p>
+                    <h3 data-i18n="store.step1.title">Elige tu app</h3>
+                    <p data-i18n="store.step1.desc">Selecciona la aplicación que necesitas de nuestro catálogo.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Paga seguro</h3>
-                    <p>Completa el pago con tarjeta, PayPal o criptomonedas vía LemonSqueezy.</p>
+                    <h3 data-i18n="store.step2.title">Paga seguro</h3>
+                    <p data-i18n="store.step2.desc">Completa el pago con tarjeta, PayPal o criptomonedas vía LemonSqueezy.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Descarga y activa</h3>
-                    <p>Recibe tu licencia por email, descarga la app y actívala al instante.</p>
+                    <h3 data-i18n="store.step3.title">Descarga y activa</h3>
+                    <p data-i18n="store.step3.desc">Recibe tu licencia por email, descarga la app y actívala al instante.</p>
                 </div>
             </div>
         </div>
@@ -612,13 +699,13 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 VisionUI. Todos los derechos reservados. | <a href="../index.html">Volver al Framework</a></p>
+        <p><span data-i18n="footer.copyright">© 2026 VisionUI. Todos los derechos reservados.</span> | <a href="../index.html" data-i18n="store.back_framework">Volver al Framework</a></p>
         <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-            <a href="claim-license.html" style="color: #7c3aed;">¿No recibiste tu licencia?</a>
+            <a href="claim-license.html" style="color: var(--accent);" data-i18n="store.no_license">¿No recibiste tu licencia?</a>
         </p>
         <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #888;">
-            <a href="privacy.html" style="color: #888;">Política de Privacidad</a> | 
-            <a href="terms.html" style="color: #888;">Términos de Servicio</a>
+            <a href="privacy.html" style="color: #888;" data-i18n="footer.privacy">Política de Privacidad</a> | 
+            <a href="terms.html" style="color: #888;" data-i18n="footer.terms">Términos de Servicio</a>
         </p>
     </footer>
 
@@ -626,61 +713,68 @@
     <div class="modal-overlay" id="purchaseModal">
         <div class="modal">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h2>Comprar <span id="modalAppName"></span></h2>
+            <h2><span data-i18n="purchase.title">Comprar</span> <span id="modalAppName"></span></h2>
             
             <!-- Logged in view -->
             <div id="loggedInView" style="display: none;">
                 <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
                     <p style="margin: 0; color: #6ee7b7;">
-                        ✓ Conectado como: <strong id="userEmailDisplay"></strong>
+                        ✓ <span data-i18n="purchase.connected_as">Conectado como:</span> <strong id="userEmailDisplay"></strong>
                     </p>
                 </div>
-                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;" data-i18n="purchase.license_sent_to">
                     Tu licencia se enviará a este email después del pago.
                 </p>
                 <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()" data-i18n="purchase.cancel">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="checkoutBtnLogged" onclick="proceedToCheckout()">
-                        <span id="btnTextLogged">Continuar al pago</span>
+                        <span id="btnTextLogged" data-i18n="purchase.continue">Continuar al pago</span>
                         <div class="spinner" id="btnSpinnerLogged" style="display: none;"></div>
                     </button>
                 </div>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
-                    <a href="#" onclick="useOtherEmail(event)" style="color: var(--accent);">Usar otro email</a>
+                    <a href="#" onclick="useOtherEmail(event)" style="color: var(--accent);" data-i18n="purchase.use_other_email">Usar otro email</a>
                 </p>
             </div>
             
             <!-- Not logged in view -->
             <div id="guestView">
-                <p>Ingresa tu email para recibir tu licencia después del pago.</p>
+                <p data-i18n="purchase.email_instruction">Ingresa tu email para recibir tu licencia después del pago.</p>
                 
                 <form id="purchaseForm" onsubmit="startCheckout(event)">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        <label for="email" data-i18n="auth.email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@email.com" data-i18n-placeholder="contact.form.email_placeholder">
                     </div>
                     <div class="form-group">
-                        <label for="name">Nombre (opcional)</label>
-                        <input type="text" id="name" name="name" placeholder="Tu nombre">
+                        <label for="name" data-i18n="auth.name_optional">Nombre (opcional)</label>
+                        <input type="text" id="name" name="name" placeholder="Tu nombre" data-i18n-placeholder="contact.form.name_placeholder">
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()" data-i18n="purchase.cancel">Cancelar</button>
                         <button type="submit" class="btn btn-primary" id="checkoutBtn">
-                            <span id="btnText">Continuar al pago</span>
+                            <span id="btnText" data-i18n="purchase.continue">Continuar al pago</span>
                             <div class="spinner" id="btnSpinner" style="display: none;"></div>
                         </button>
                     </div>
                 </form>
                 
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
-                    ¿Ya tienes cuenta? <a href="account.html" style="color: var(--accent);">Inicia sesión</a>
+                    <span data-i18n="purchase.have_account">¿Ya tienes cuenta?</span> <a href="account.html" style="color: var(--accent);" data-i18n="auth.login">Inicia sesión</a>
                 </p>
             </div>
         </div>
     </div>
 
+    <script src="../assets/js/i18n.js"></script>
     <script src="../assets/js/auth.js"></script>
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+    </script>
     <script>
         // Configuración - CAMBIAR POR TUS VALORES
         const API_BASE = 'https://admin.visionui.app';  // Tu worker URL

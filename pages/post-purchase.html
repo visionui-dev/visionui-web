@@ -10,19 +10,19 @@
     <link rel="icon" type="image/x-icon" href="../vui.ico">
     <style>
         :root {
-            --bg-primary: #0f0f13;
-            --bg-secondary: #16161d;
-            --bg-card: #1c1c26;
-            --bg-card-highlight: #222230;
+            --bg-primary: #141418;
+            --bg-secondary: #1a1a1f;
+            --bg-card: #222228;
+            --bg-card-highlight: #2a2a30;
             --text-primary: #f5f5f7;
-            --text-secondary: #a1a1aa;
+            --text-secondary: #a8a8b3;
             --text-muted: #71717a;
-            --accent: #7c3aed;
-            --accent-light: #a78bfa;
+            --accent: #3dd8d8;
+            --accent-light: #4ae3e3;
             --success: #10b981;
             --success-bg: rgba(16, 185, 129, 0.1);
-            --border: #27272a;
-            --border-light: #3f3f46;
+            --border: #2a2a32;
+            --border-light: #3a3a42;
         }
 
         * {
@@ -119,7 +119,7 @@
         .email-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--accent), #ec4899);
+            background: linear-gradient(135deg, var(--accent), #2a9d9d);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -130,7 +130,7 @@
         .email-icon svg {
             width: 24px;
             height: 24px;
-            color: white;
+            color: #141418;
         }
 
         .email-content h3 {
@@ -199,8 +199,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(61, 216, 216, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(61, 216, 216, 0); }
         }
 
         .step-content h4 {
@@ -226,7 +226,7 @@
         .loading-bar-progress {
             height: 100%;
             width: 30%;
-            background: linear-gradient(90deg, var(--accent), #ec4899);
+            background: linear-gradient(90deg, var(--accent), #2a9d9d);
             border-radius: 2px;
             animation: loading 1.5s ease-in-out infinite;
         }
@@ -363,13 +363,14 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #ec4899);
-            color: white;
+            background: linear-gradient(135deg, var(--accent), #2a9d9d);
+            color: #141418;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 8px 20px rgba(61, 216, 216, 0.25);
         }
 
         /* Responsive */
@@ -405,8 +406,8 @@
                     <polyline points="20 6 9 17 4 12" style="stroke-dasharray: 50; stroke-dashoffset: 0;"></polyline>
                 </svg>
             </div>
-            <h1>¡Pago completado!</h1>
-            <p class="subtitle">Tu licencia está siendo procesada</p>
+            <h1 data-i18n="post.title">¡Pago completado!</h1>
+            <p class="subtitle" data-i18n="post.subtitle">Tu licencia está siendo procesada</p>
         </div>
 
         <div class="main-card">
@@ -418,35 +419,35 @@
                     </svg>
                 </div>
                 <div class="email-content">
-                    <h3>Revisa tu bandeja de entrada</h3>
-                    <p>Enviamos un email a <span class="email-highlight" id="userEmail">tu correo</span> con las instrucciones para activar tu licencia.</p>
+                    <h3 data-i18n="post.check_inbox">Revisa tu bandeja de entrada</h3>
+                    <p><span data-i18n="post.email_sent">Enviamos un email a</span> <span class="email-highlight" id="userEmail">tu correo</span> <span data-i18n="post.with_instructions">con las instrucciones para activar tu licencia.</span></p>
                 </div>
             </div>
 
             <div class="steps">
-                <div class="steps-title">Próximos pasos</div>
+                <div class="steps-title" data-i18n="post.next_steps">Próximos pasos</div>
                 
                 <div class="step active">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h4>Abre el email de VisionUI</h4>
-                        <p>Busca un email con el asunto "¡Tu licencia está lista!"</p>
+                        <h4 data-i18n="post.step1">Abre el email de VisionUI</h4>
+                        <p data-i18n="post.step1_desc">Busca un email con el asunto "¡Tu licencia está lista!"</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h4>Crea tu contraseña</h4>
-                        <p>Haz clic en el botón del email para configurar tu acceso</p>
+                        <h4 data-i18n="post.step2">Crea tu contraseña</h4>
+                        <p data-i18n="post.step2_desc">Haz clic en el botón del email para configurar tu acceso</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h4>Descarga e inicia sesión</h4>
-                        <p>Descarga la aplicación y usa tu email + contraseña</p>
+                        <h4 data-i18n="post.step3">Descarga e inicia sesión</h4>
+                        <p data-i18n="post.step3_desc">Descarga la aplicación y usa tu email + contraseña</p>
                     </div>
                 </div>
             </div>
@@ -454,7 +455,7 @@
             <div class="loading-bar">
                 <div class="loading-bar-progress"></div>
             </div>
-            <p class="loading-text">Procesando tu licencia...</p>
+            <p class="loading-text" data-i18n="general.loading">Procesando tu licencia...</p>
 
             <div class="status-ready" id="statusReady">
                 <h4>
@@ -462,11 +463,11 @@
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                     </svg>
-                    ¡Tu licencia está lista!
+                    <span data-i18n="general.success">¡Tu licencia está lista!</span>
                 </h4>
                 <p>El email fue enviado exitosamente. Si no lo ves, revisa tu carpeta de spam.</p>
                 <a href="claim-license.html" class="btn btn-primary" id="continueBtn">
-                    Continuar a configuración
+                    <span data-i18n="general.continue">Continuar a configuración</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -482,7 +483,7 @@
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
-                ¿No recibiste el email?
+                <span data-i18n="store.no_license">¿No recibiste el email?</span>
             </summary>
             <div class="help-content">
                 <p>El email puede tardar hasta 5 minutos en llegar. Mientras tanto:</p>
@@ -493,7 +494,7 @@
                 </ul>
                 <p>Si después de 10 minutos no recibes nada, puedes recuperar tu licencia manualmente:</p>
                 <a href="claim-license.html" class="help-link">
-                    Recuperar mi licencia
+                    <span data-i18n="store.no_license">Recuperar mi licencia</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -503,10 +504,11 @@
         </details>
 
         <div class="footer">
-            <a href="../index.html">← Volver a VisionUI</a>
+            <a href="../index.html" data-i18n="auth.back_home">← Volver a VisionUI</a>
         </div>
     </div>
 
+    <script src="../assets/js/i18n.js"></script>
     <script>
         const API_BASE = 'https://admin.visionui.app';
 
