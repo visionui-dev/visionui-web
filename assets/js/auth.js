@@ -151,6 +151,57 @@ const VUIAuth = {
             }
         }
         this.clearSession();
+    },
+
+    // Request password reset
+    async forgotPassword(email) {
+        try {
+            const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            console.error('Forgot password error:', e);
+            return { success: false, error: 'Connection error' };
+        }
+    },
+
+    // Reset password with token
+    async resetPassword(token, password) {
+        try {
+            const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token, password })
+            });
+
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            console.error('Reset password error:', e);
+            return { success: false, error: 'Connection error' };
+        }
+    },
+
+    // Validate reset token
+    async validateResetToken(token) {
+        try {
+            const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/validate-reset-token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token })
+            });
+
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            console.error('Validate reset token error:', e);
+            return { valid: false, error: 'Connection error' };
+        }
     }
 };
 
