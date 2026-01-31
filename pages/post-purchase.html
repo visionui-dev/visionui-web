@@ -424,30 +424,30 @@
                 </div>
             </div>
 
-            <div class="steps">
+            <div class="steps" id="stepsContainer">
                 <div class="steps-title" data-i18n="post.next_steps">Próximos pasos</div>
                 
                 <div class="step active">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h4 data-i18n="post.step1">Abre el email de VisionUI</h4>
-                        <p data-i18n="post.step1_desc">Busca un email con el asunto "¡Tu licencia está lista!"</p>
+                        <p data-i18n="post.step1_desc">Busca un email con el asunto "¡Tu licencia está lista!" con tu License Key</p>
                     </div>
                 </div>
 
-                <div class="step">
+                <div class="step" id="step2">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h4 data-i18n="post.step2">Crea tu contraseña</h4>
-                        <p data-i18n="post.step2_desc">Haz clic en el botón del email para configurar tu acceso</p>
+                        <h4 data-i18n="post.step2">Activa tu licencia</h4>
+                        <p id="step2Desc" data-i18n="post.step2_desc_generic">Abre la aplicación, ingresa tu email y la License Key del correo</p>
                     </div>
                 </div>
 
-                <div class="step">
+                <div class="step" id="step3">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h4 data-i18n="post.step3">Descarga e inicia sesión</h4>
-                        <p data-i18n="post.step3_desc">Descarga la aplicación y usa tu email + contraseña</p>
+                        <h4 data-i18n="post.step3">¡Listo!</h4>
+                        <p data-i18n="post.step3_desc">Tu aplicación está activada y lista para usar</p>
                     </div>
                 </div>
             </div>
@@ -558,6 +558,16 @@
             steps[0].querySelector('.step-number').style.color = 'white';
             steps[1].classList.add('active');
 
+            // Actualizar paso 2 según si ya tiene cuenta
+            const step2Desc = document.getElementById('step2Desc');
+            if (data.has_password) {
+                step2Desc.textContent = 'Abre la aplicación e ingresa tu email y la License Key que recibiste por correo.';
+            } else if (data.setup_token) {
+                step2Desc.textContent = 'Haz clic en el enlace del email para configurar tu contraseña de acceso.';
+            } else {
+                step2Desc.textContent = 'Abre la aplicación, ingresa tu email y la License Key del correo.';
+            }
+
             // Mostrar mensaje de éxito
             document.getElementById('statusReady').classList.add('show');
 
@@ -565,17 +575,18 @@
             const continueBtn = document.getElementById('continueBtn');
             
             if (data.has_password) {
-                // Ya tiene contraseña, ir a cuenta o descargas
+                // Ya tiene cuenta web, ir a Mi Cuenta
                 continueBtn.textContent = 'Ir a Mi Cuenta';
                 continueBtn.href = 'account.html';
             } else if (data.setup_token) {
-                // Tiene token disponible, usar el enlace seguro
+                // Necesita configurar contraseña (flujo legacy)
+                continueBtn.textContent = 'Configurar contraseña';
                 continueBtn.href = `setup-account.html?token=${data.setup_token}`;
             } else if (data.license_key) {
-                // Fallback: usar método legacy con email+key
+                // Fallback: método con email+key
+                continueBtn.textContent = 'Configurar contraseña';
                 continueBtn.href = `purchase-success.html?email=${encodeURIComponent(email)}&key=${encodeURIComponent(data.license_key)}`;
             } else {
-                // Sin datos, ir a reclamar licencia
                 continueBtn.href = 'claim-license.html';
             }
         }
