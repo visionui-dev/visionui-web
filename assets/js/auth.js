@@ -253,6 +253,11 @@ const VUIAuthUI = {
         if (document.querySelector('.user-dropdown')) return;
 
         const user = VUIAuth.getUser();
+        // Detect if we're in a subpage (pages/) or root
+        const isInPagesFolder = window.location.pathname.includes('/pages/');
+        const accountPath = isInPagesFolder ? 'account.html' : 'pages/account.html';
+        const storePath = isInPagesFolder ? 'store.html' : 'pages/store.html';
+        
         const dropdown = document.createElement('div');
         dropdown.className = 'user-dropdown';
         dropdown.innerHTML = `
@@ -260,24 +265,24 @@ const VUIAuthUI = {
                 <div class="user-avatar">${user.email.charAt(0).toUpperCase()}</div>
                 <div class="user-info">
                     <div class="user-name">${user.email}</div>
-                    <div class="user-status">${user.has_license ? '✓ Licencia activa' : 'Sin licencia'}</div>
+                    <div class="user-status" data-i18n="${user.has_license ? 'auth.license_active' : 'auth.no_license'}">${user.has_license ? '✓ Active license' : 'No license'}</div>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
-            <a href="pages/account.html" class="dropdown-item">
+            <a href="${accountPath}" class="dropdown-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                Mi Cuenta
+                <span data-i18n="nav.my_account">My Account</span>
             </a>
-            <a href="pages/store.html" class="dropdown-item">
+            <a href="${storePath}" class="dropdown-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="9" cy="21" r="1"></circle>
                     <circle cx="20" cy="21" r="1"></circle>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                 </svg>
-                Tienda
+                <span data-i18n="nav.store">Store</span>
             </a>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item logout-btn" onclick="VUIAuthUI.handleLogout()">
@@ -286,11 +291,17 @@ const VUIAuthUI = {
                     <polyline points="16 17 21 12 16 7"></polyline>
                     <line x1="21" y1="12" x2="9" y2="12"></line>
                 </svg>
-                Cerrar Sesión
+                <span data-i18n="auth.logout">Log out</span>
             </button>
         `;
 
-        navAccount.parentElement.appendChild(dropdown);
+        // Add dropdown to the nav-right container if it exists, otherwise to parent
+        const navRight = document.querySelector('.nav-right');
+        if (navRight) {
+            navRight.appendChild(dropdown);
+        } else {
+            navAccount.parentElement.appendChild(dropdown);
+        }
 
         // Toggle on click
         navAccount.addEventListener('click', (e) => {

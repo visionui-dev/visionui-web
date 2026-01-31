@@ -91,6 +91,7 @@
 
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 2rem;
         }
 
@@ -105,12 +106,28 @@
             color: var(--text-primary);
         }
 
+        /* Nav Right section - for account and language */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
         /* Nav Account Styles - Consistent with main site */
         .nav-account {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            position: relative;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-account:hover {
+            color: var(--text-primary);
         }
 
         .nav-account.logged-in {
@@ -671,9 +688,11 @@
                 <a href="../index.html" data-i18n="nav.framework">Framework</a>
                 <a href="#apps" data-i18n="store.available">Aplicaciones</a>
                 <a href="#how-it-works" data-i18n="store.how_works">Cómo funciona</a>
+            </div>
+            <div class="nav-right">
+                <!-- Language switcher is created dynamically by i18n.js -->
                 <a href="account.html" class="nav-link nav-account">👤 <span data-i18n="nav.account">Mi Cuenta</span></a>
             </div>
-            <!-- Language switcher is created dynamically by i18n.js -->
             <div class="nav-toggle" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
