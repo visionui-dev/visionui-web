@@ -124,6 +124,7 @@
         .alert.show { display: block; }
         .alert-error { background: var(--error-bg); border: 1px solid var(--error); color: #fca5a5; }
         .alert-success { background: var(--success-bg); border: 1px solid var(--success); color: #6ee7b7; }
+        .alert-info { background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; color: #93c5fd; }
 
         .auth-footer { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
         .auth-footer a { color: var(--accent-light); text-decoration: none; font-size: 0.9rem; }
@@ -285,8 +286,8 @@
                 <!-- Register Form -->
                 <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
                     <div class="form-group">
-                        <label for="registerName" data-i18n="auth.name_optional">Nombre (opcional)</label>
-                        <input type="text" id="registerName" placeholder="Tu nombre" autocomplete="name" data-i18n-placeholder="contact.form.name_placeholder">
+                        <label for="registerName" data-i18n="auth.name">Nombre</label>
+                        <input type="text" id="registerName" required placeholder="Tu nombre completo" autocomplete="name" data-i18n-placeholder="contact.form.name_placeholder">
                     </div>
                     <div class="form-group">
                         <label for="registerEmail" data-i18n="auth.email">Email</label>
@@ -347,12 +348,26 @@
     <script>
         const API_BASE = 'https://admin.visionui.app';
         
+        // Parse URL params for redirect after login/register
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectTarget = urlParams.get('redirect');
+        const redirectApp = urlParams.get('app');
+        const initialTab = urlParams.get('tab');
+        
         async function checkSession() {
             const session = VUIAuth.getSession();
             if (!session) { showAuth(); return; }
             try {
                 const response = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${session.token}` } });
-                if (response.ok) { showDashboard(await response.json()); }
+                if (response.ok) { 
+                    // Si hay redirect pendiente, redirigir a la tienda
+                    if (redirectTarget === 'store') {
+                        const storeUrl = redirectApp ? `store.html?openApp=${encodeURIComponent(redirectApp)}` : 'store.html';
+                        window.location.href = storeUrl;
+                        return;
+                    }
+                    showDashboard(await response.json()); 
+                }
                 else { VUIAuth.clearSession(); showAuth(); }
             } catch (e) { console.error(e); showAuth(); }
         }
@@ -361,6 +376,17 @@
             document.getElementById('loadingOverlay').classList.add('hidden');
             document.getElementById('authView').classList.remove('hidden');
             document.getElementById('dashboardView').classList.add('hidden');
+            
+            // Si vienen desde la tienda, mostrar mensaje y tab correcto
+            if (redirectTarget === 'store') {
+                const appName = redirectApp || 'la aplicación';
+                showAlert(`Inicia sesión o crea una cuenta para continuar con la compra de ${appName}`, 'info');
+            }
+            
+            // Si se especificó tab=register, mostrar el formulario de registro
+            if (initialTab === 'register') {
+                switchTab('register');
+            }
         }
 
         function showDashboard(data) {
@@ -417,6 +443,12 @@
             try {
                 const result = await VUIAuth.login(email, password);
                 if (result.success) {
+                    // Redirigir a la tienda si venían de ahí
+                    if (redirectTarget === 'store') {
+                        const storeUrl = redirectApp ? `store.html?openApp=${encodeURIComponent(redirectApp)}` : 'store.html';
+                        window.location.href = storeUrl;
+                        return;
+                    }
                     const me = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${VUIAuth.getSession().token}` } });
                     if (me.ok) showDashboard(await me.json());
                 } else { showAlert(result.error || 'Error al iniciar sesión'); }
@@ -426,10 +458,11 @@
 
         async function handleRegister(e) {
             e.preventDefault();
-            const name = document.getElementById('registerName').value;
+            const name = document.getElementById('registerName').value.trim();
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
             const password2 = document.getElementById('registerPassword2').value;
+            if (!name) { showAlert('Por favor ingresa tu nombre'); return; }
             if (password !== password2) { showAlert('Las contraseñas no coinciden'); return; }
             if (password.length < 6) { showAlert('Mínimo 6 caracteres'); return; }
             const btn = document.getElementById('registerBtn');
@@ -437,6 +470,12 @@
             try {
                 const result = await VUIAuth.register(email, password, name);
                 if (result.success) {
+                    // Redirigir a la tienda si venían de ahí
+                    if (redirectTarget === 'store') {
+                        const storeUrl = redirectApp ? `store.html?openApp=${encodeURIComponent(redirectApp)}` : 'store.html';
+                        window.location.href = storeUrl;
+                        return;
+                    }
                     const me = await fetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${VUIAuth.getSession().token}` } });
                     if (me.ok) showDashboard(await me.json());
                 } else { showAlert(result.error || 'Error al crear cuenta'); }
