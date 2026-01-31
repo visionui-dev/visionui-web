@@ -172,8 +172,11 @@ const TRANSLATIONS = {
         'auth.view_apps': 'Ver aplicaciones disponibles',
         'auth.back_home': 'Volver al inicio',
         'auth.my_licenses': 'Mis Licencias',
+        'auth.my_apps': 'Mis Aplicaciones',
         'auth.purchase_history': 'Historial de Compras',
-        'auth.no_licenses': 'No tienes licencias activas aún',
+        'auth.no_licenses': 'No tienes aplicaciones compradas aún',
+        'auth.purchased': 'Comprado',
+        'auth.expires': 'Válido hasta',
         'auth.explore_apps': 'Explorar aplicaciones',
         'auth.start_now': '¡Empieza ahora!',
         'auth.explore_apps_desc': 'Explora nuestras aplicaciones profesionales',
@@ -191,6 +194,10 @@ const TRANSLATIONS = {
         'auth.connection_error': 'Error de conexión',
         'auth.login_error': 'Error al iniciar sesión',
         'auth.register_error': 'Error al crear cuenta',
+        'auth.email_verified': 'Email verificado',
+        'auth.email_pending': 'Email pendiente de verificación',
+        'auth.resend_verification': 'Reenviar email',
+        'auth.verification_sent': 'Email enviado',
         
         // Password Recovery
         'auth.reset_password': 'Recuperar Contraseña',
@@ -223,6 +230,8 @@ const TRANSLATIONS = {
         'purchase.continue': 'Continuar al pago',
         'purchase.cancel': 'Cancelar',
         'purchase.have_account': '¿Ya tienes cuenta?',
+        'purchase.login_required': 'Necesitas una cuenta para comprar',
+        'purchase.login_required_desc': 'Crea una cuenta gratuita o inicia sesión para continuar con la compra.',
         
         // Post Purchase
         'post.title': '¡Pago completado!',
@@ -421,8 +430,11 @@ const TRANSLATIONS = {
         'auth.view_apps': 'View available applications',
         'auth.back_home': 'Back to home',
         'auth.my_licenses': 'My Licenses',
+        'auth.my_apps': 'My Applications',
         'auth.purchase_history': 'Purchase History',
-        'auth.no_licenses': 'You don\'t have active licenses yet',
+        'auth.no_licenses': 'You don\'t have purchased applications yet',
+        'auth.purchased': 'Purchased',
+        'auth.expires': 'Valid until',
         'auth.explore_apps': 'Explore applications',
         'auth.start_now': 'Start now!',
         'auth.explore_apps_desc': 'Explore our professional applications',
@@ -440,6 +452,10 @@ const TRANSLATIONS = {
         'auth.connection_error': 'Connection error',
         'auth.login_error': 'Login error',
         'auth.register_error': 'Registration error',
+        'auth.email_verified': 'Email verified',
+        'auth.email_pending': 'Email pending verification',
+        'auth.resend_verification': 'Resend email',
+        'auth.verification_sent': 'Email sent',
         
         // Password Recovery
         'auth.reset_password': 'Reset Password',
@@ -472,6 +488,8 @@ const TRANSLATIONS = {
         'purchase.continue': 'Continue to payment',
         'purchase.cancel': 'Cancel',
         'purchase.have_account': 'Already have an account?',
+        'purchase.login_required': 'You need an account to purchase',
+        'purchase.login_required_desc': 'Create a free account or sign in to continue with your purchase.',
         
         // Post Purchase
         'post.title': 'Payment completed!',
