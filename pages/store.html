@@ -715,7 +715,7 @@
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <h2><span data-i18n="purchase.title">Comprar</span> <span id="modalAppName"></span></h2>
             
-            <!-- Logged in view -->
+            <!-- Logged in view - Usuario autenticado puede comprar -->
             <div id="loggedInView" style="display: none;">
                 <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
                     <p style="margin: 0; color: #6ee7b7;">
@@ -732,37 +732,28 @@
                         <div class="spinner" id="btnSpinnerLogged" style="display: none;"></div>
                     </button>
                 </div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
-                    <a href="#" onclick="useOtherEmail(event)" style="color: var(--accent);" data-i18n="purchase.use_other_email">Usar otro email</a>
-                </p>
             </div>
             
-            <!-- Not logged in view -->
+            <!-- Not logged in view - Requiere registro primero -->
             <div id="guestView">
-                <p data-i18n="purchase.email_instruction">Ingresa tu email para recibir tu licencia después del pago.</p>
+                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; text-align: center;">
+                    <p style="margin: 0 0 0.5rem 0; color: #fcd34d; font-weight: 500;">
+                        🔐 <span data-i18n="purchase.login_required">Necesitas una cuenta para comprar</span>
+                    </p>
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;" data-i18n="purchase.login_required_desc">
+                        Crea una cuenta gratuita o inicia sesión para continuar con la compra.
+                    </p>
+                </div>
                 
-                <form id="purchaseForm" onsubmit="startCheckout(event)">
-                    <div class="form-group">
-                        <label for="email" data-i18n="auth.email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="tu@email.com" data-i18n-placeholder="contact.form.email_placeholder">
-                    </div>
-                    <div class="form-group">
-                        <label for="name" data-i18n="auth.name_optional">Nombre (opcional)</label>
-                        <input type="text" id="name" name="name" placeholder="Tu nombre" data-i18n-placeholder="contact.form.name_placeholder">
-                    </div>
-                    
-                    <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()" data-i18n="purchase.cancel">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="checkoutBtn">
-                            <span id="btnText" data-i18n="purchase.continue">Continuar al pago</span>
-                            <div class="spinner" id="btnSpinner" style="display: none;"></div>
-                        </button>
-                    </div>
-                </form>
-                
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
-                    <span data-i18n="purchase.have_account">¿Ya tienes cuenta?</span> <a href="account.html" style="color: var(--accent);" data-i18n="auth.login">Inicia sesión</a>
-                </p>
+                <div class="modal-actions" style="flex-direction: column; gap: 0.75rem;">
+                    <a href="account.html?redirect=store&app=" id="loginRedirectBtn" class="btn btn-primary" style="text-decoration: none; text-align: center;">
+                        <span data-i18n="auth.login">Iniciar sesión</span>
+                    </a>
+                    <a href="account.html?tab=register&redirect=store&app=" id="registerRedirectBtn" class="btn btn-secondary" style="text-decoration: none; text-align: center;">
+                        <span data-i18n="auth.register">Crear cuenta gratis</span>
+                    </a>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()" style="background: transparent; border: none; color: var(--text-muted);" data-i18n="purchase.cancel">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -781,49 +772,43 @@
         
         let currentApp = '';
         let currentPrice = 0;
-        let useLoggedInEmail = true;
 
         function openPurchaseModal(appName, price) {
             currentApp = appName;
             currentPrice = price;
             document.getElementById('modalAppName').textContent = appName;
             
-            // Check if user is logged in
+            // Check if user is logged in - SIEMPRE requerir login
             const user = VUIAuth.getUser();
-            if (user && useLoggedInEmail) {
+            if (user) {
+                // Usuario logueado - puede proceder a comprar
                 document.getElementById('loggedInView').style.display = 'block';
                 document.getElementById('guestView').style.display = 'none';
                 document.getElementById('userEmailDisplay').textContent = user.email;
             } else {
+                // No logueado - mostrar opciones de login/registro
                 document.getElementById('loggedInView').style.display = 'none';
                 document.getElementById('guestView').style.display = 'block';
+                
+                // Actualizar links con la app que quiere comprar
+                const loginBtn = document.getElementById('loginRedirectBtn');
+                const registerBtn = document.getElementById('registerRedirectBtn');
+                loginBtn.href = `account.html?redirect=store&app=${encodeURIComponent(appName)}`;
+                registerBtn.href = `account.html?tab=register&redirect=store&app=${encodeURIComponent(appName)}`;
             }
             
             document.getElementById('purchaseModal').classList.add('active');
-            
-            if (!user || !useLoggedInEmail) {
-                document.getElementById('email').focus();
-            }
-        }
-
-        function useOtherEmail(event) {
-            event.preventDefault();
-            useLoggedInEmail = false;
-            document.getElementById('loggedInView').style.display = 'none';
-            document.getElementById('guestView').style.display = 'block';
-            document.getElementById('email').focus();
         }
 
         function closeModal() {
             document.getElementById('purchaseModal').classList.remove('active');
-            document.getElementById('purchaseForm').reset();
-            useLoggedInEmail = true;
         }
 
         async function proceedToCheckout() {
             const user = VUIAuth.getUser();
             if (!user) {
-                alert('Error: No se pudo obtener la información del usuario');
+                // Si por algún motivo no hay usuario, redirigir a login
+                window.location.href = `account.html?redirect=store&app=${encodeURIComponent(currentApp)}`;
                 return;
             }
             
@@ -837,26 +822,6 @@
 
             try {
                 await doCheckout(user.email, user.name || '');
-            } catch (error) {
-                showCheckoutError(error, btn, btnText, btnSpinner);
-            }
-        }
-
-        async function startCheckout(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const name = document.getElementById('name').value;
-            const btn = document.getElementById('checkoutBtn');
-            const btnText = document.getElementById('btnText');
-            const btnSpinner = document.getElementById('btnSpinner');
-
-            btn.disabled = true;
-            btnText.style.display = 'none';
-            btnSpinner.style.display = 'block';
-
-            try {
-                await doCheckout(email, name);
             } catch (error) {
                 showCheckoutError(error, btn, btnText, btnSpinner);
             }
@@ -923,6 +888,19 @@
         // Close modal on overlay click
         document.getElementById('purchaseModal').addEventListener('click', (e) => {
             if (e.target.id === 'purchaseModal') closeModal();
+        });
+        
+        // Auto-abrir modal si viene con parámetro openApp (redirect desde login/register)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const openApp = urlParams.get('openApp');
+            if (openApp) {
+                const appPrices = { 'TestApp': 19, 'VisionUI': 99 };
+                const price = appPrices[openApp] || 0;
+                if (price > 0) {
+                    setTimeout(() => openPurchaseModal(openApp, price), 300);
+                }
+            }
         });
     </script>
 </body>
