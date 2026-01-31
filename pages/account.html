@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../vui.ico">
+    <!-- VisionUI Analytics -->
+    <script defer src="../assets/js/analytics.js"></script>
     <style>
         :root {
             --bg-primary: #141418;
@@ -443,6 +445,8 @@
             try {
                 const result = await VUIAuth.login(email, password);
                 if (result.success) {
+                    // Disparar evento de analytics
+                    window.dispatchEvent(new CustomEvent('vui:login', { detail: { email } }));
                     // Redirigir a la tienda si venían de ahí
                     if (redirectTarget === 'store') {
                         const storeUrl = redirectApp ? `store.html?openApp=${encodeURIComponent(redirectApp)}` : 'store.html';
@@ -470,6 +474,8 @@
             try {
                 const result = await VUIAuth.register(email, password, name);
                 if (result.success) {
+                    // Disparar evento de analytics
+                    window.dispatchEvent(new CustomEvent('vui:registration', { detail: { email } }));
                     // Redirigir a la tienda si venían de ahí
                     if (redirectTarget === 'store') {
                         const storeUrl = redirectApp ? `store.html?openApp=${encodeURIComponent(redirectApp)}` : 'store.html';
