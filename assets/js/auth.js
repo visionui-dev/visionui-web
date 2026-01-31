@@ -235,12 +235,17 @@ const VUIAuthUI = {
             navAccount.classList.add('logged-in');
             navAccount.title = `Logged in as ${user.email}`;
         } else {
-            // Not logged in
+            // Not logged in - use i18n text
             navAccount.innerHTML = `
-                👤 <span>Mi Cuenta</span>
+                👤 <span data-i18n="nav.account">My Account</span>
             `;
             navAccount.classList.remove('logged-in');
             navAccount.title = 'Login / Register';
+            
+            // Re-apply i18n translations if available
+            if (typeof VUI18n !== 'undefined' && VUI18n.updatePage) {
+                VUI18n.updatePage();
+            }
         }
     },
 

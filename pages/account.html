@@ -107,6 +107,19 @@
 
         .form-group input:focus { outline: none; border-color: var(--accent); }
 
+        .password-match-indicator {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: all 0.2s;
+            min-height: 1.2rem;
+        }
+        .password-match-indicator.match { color: var(--success); }
+        .password-match-indicator.no-match { color: var(--error); }
+        .password-match-indicator.typing { color: var(--text-muted); }
+
         .btn {
             display: flex; align-items: center; justify-content: center; gap: 0.5rem;
             width: 100%; padding: 1rem;
@@ -297,11 +310,12 @@
                     </div>
                     <div class="form-group">
                         <label for="registerPassword" data-i18n="auth.password">Contraseña</label>
-                        <input type="password" id="registerPassword" required placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6" data-i18n-placeholder="auth.min_chars">
+                        <input type="password" id="registerPassword" required placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6" data-i18n-placeholder="auth.min_chars" oninput="checkPasswordMatch()">
                     </div>
                     <div class="form-group">
                         <label for="registerPassword2" data-i18n="auth.confirm_password">Confirmar contraseña</label>
-                        <input type="password" id="registerPassword2" required placeholder="Repite tu contraseña" autocomplete="new-password">
+                        <input type="password" id="registerPassword2" required placeholder="Repite tu contraseña" autocomplete="new-password" oninput="checkPasswordMatch()">
+                        <div id="passwordMatchIndicator" class="password-match-indicator"></div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="registerBtn" data-i18n="auth.register_button">Crear cuenta</button>
                 </form>
@@ -336,7 +350,7 @@
         </div>
 
         <div class="section">
-            <h3 class="section-title">🔑 <span data-i18n="auth.my_licenses">Mis Licencias</span></h3>
+            <h3 class="section-title">� <span data-i18n="auth.my_apps">Mis Aplicaciones</span></h3>
             <div id="licensesContainer"><div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem" data-i18n="general.loading">Cargando...</p></div></div>
         </div>
 
@@ -408,9 +422,12 @@
                 verificationEl.innerHTML = '<span style="color: #f59e0b;">⚠ Email pendiente de verificación</span>';
             }
             
-            renderLicenses(data.licenses || []);
+            // Usar entitlements (nuevo sistema) en lugar de licenses (antiguo)
+            const entitlements = data.entitlements || [];
+            renderLicenses(entitlements);
+            
             if (data.orders?.length > 0) { document.getElementById('ordersSection').classList.remove('hidden'); renderOrders(data.orders); }
-            if (!data.licenses || data.licenses.length === 0) { document.getElementById('promoBanner').classList.remove('hidden'); }
+            if (!entitlements || entitlements.length === 0) { document.getElementById('promoBanner').classList.remove('hidden'); }
         }
 
         function switchTab(tab) {
@@ -419,6 +436,31 @@
             document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
             document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
             document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+            // Reset password match indicator when switching tabs
+            const indicator = document.getElementById('passwordMatchIndicator');
+            if (indicator) indicator.innerHTML = '';
+        }
+
+        function checkPasswordMatch() {
+            const pass1 = document.getElementById('registerPassword').value;
+            const pass2 = document.getElementById('registerPassword2').value;
+            const indicator = document.getElementById('passwordMatchIndicator');
+            const registerBtn = document.getElementById('registerBtn');
+            
+            if (!pass2) {
+                indicator.innerHTML = '';
+                indicator.className = 'password-match-indicator';
+                return;
+            }
+            
+            if (pass1 === pass2) {
+                indicator.innerHTML = '✓ Passwords match';
+                indicator.className = 'password-match-indicator match';
+                registerBtn.disabled = false;
+            } else {
+                indicator.innerHTML = '✗ Passwords do not match';
+                indicator.className = 'password-match-indicator no-match';
+            }
         }
 
         function showAlert(msg, type = 'error') {
@@ -427,18 +469,41 @@
             el.className = `alert alert-${type} show`;
         }
 
-        function renderLicenses(licenses) {
+        function renderLicenses(entitlements) {
             const container = document.getElementById('licensesContainer');
-            if (!licenses?.length) {
-                container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📦</div><p>No tienes licencias activas aún</p><a href="store.html" class="btn btn-primary" style="max-width:200px;margin:0 auto">Explorar aplicaciones</a></div>`;
+            if (!entitlements?.length) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📦</div><p data-i18n="auth.no_licenses">No tienes aplicaciones compradas aún</p><a href="store.html" class="btn btn-primary" style="max-width:200px;margin:0 auto" data-i18n="auth.explore_apps">Explorar aplicaciones</a></div>`;
                 return;
             }
-            const email = document.getElementById('userEmail').textContent;
-            container.innerHTML = licenses.map(l => {
-                const expired = l.expires_at && new Date(l.expires_at) < new Date();
-                const cls = expired || l.status !== 'active' ? 'expired' : 'active';
-                const txt = expired ? 'Expirada' : (l.status === 'active' ? 'Activa' : l.status);
-                return `<div class="license-card"><div class="license-header"><span class="license-app">${l.app||'VisionUI'}</span><span class="license-status ${cls}">${txt}</span></div><div class="license-details"><div class="license-detail"><div class="license-detail-label">License Key</div><div class="license-detail-value">${l.license_key}</div></div><div class="license-detail"><div class="license-detail-label">Válida hasta</div><div class="license-detail-value">${l.expires_at ? new Date(l.expires_at).toLocaleDateString() : 'Sin expiración'}</div></div><div class="license-detail"><div class="license-detail-label">Activada</div><div class="license-detail-value">${new Date(l.created_at).toLocaleDateString()}</div></div></div>${cls==='active'?`<div class="license-actions"><a href="${API_BASE}/api/download/${encodeURIComponent(l.app||'VisionUI')}?email=${encodeURIComponent(email)}&key=${encodeURIComponent(l.license_key)}" class="download-btn" target="_blank">⬇️ Descargar</a></div>`:''}</div>`;
+            container.innerHTML = entitlements.map(e => {
+                const expired = e.expires_at && new Date(e.expires_at) < new Date();
+                const cls = expired || e.status !== 'active' ? 'expired' : 'active';
+                const txt = expired ? 'Expired' : (e.status === 'active' ? 'Active' : e.status);
+                return `
+                    <div class="license-card">
+                        <div class="license-header">
+                            <span class="license-app">${e.product_name || 'VisionUI'}</span>
+                            <span class="license-status ${cls}">${txt}</span>
+                        </div>
+                        <div class="license-details">
+                            <div class="license-detail">
+                                <div class="license-detail-label" data-i18n="auth.purchased">Purchased</div>
+                                <div class="license-detail-value">${new Date(e.purchased_at).toLocaleDateString()}</div>
+                            </div>
+                            <div class="license-detail">
+                                <div class="license-detail-label" data-i18n="auth.expires">Valid until</div>
+                                <div class="license-detail-value">${e.expires_at ? new Date(e.expires_at).toLocaleDateString() : 'Lifetime'}</div>
+                            </div>
+                        </div>
+                        ${cls==='active'?`
+                        <div class="license-actions">
+                            <a href="${API_BASE}/api/download/${encodeURIComponent(e.product_name||'VisionUI')}" class="download-btn" target="_blank">
+                                ⬇️ <span data-i18n="auth.download">Download</span>
+                            </a>
+                        </div>
+                        `:''}
+                    </div>
+                `;
             }).join('');
         }
 
