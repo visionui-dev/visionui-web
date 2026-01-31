@@ -350,7 +350,7 @@
         </div>
 
         <div class="section">
-            <h3 class="section-title">� <span data-i18n="auth.my_apps">Mis Aplicaciones</span></h3>
+            <h3 class="section-title">📦 <span data-i18n="auth.my_apps">Mis Aplicaciones</span></h3>
             <div id="licensesContainer"><div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem" data-i18n="general.loading">Cargando...</p></div></div>
         </div>
 
@@ -414,12 +414,17 @@
             document.getElementById('userName').textContent = user.name || 'Usuario';
             document.getElementById('userEmail').textContent = user.email;
             
-            // Mostrar estado de verificación
+            // Mostrar estado de verificación con botón de reenvío si no está verificado
             const verificationEl = document.getElementById('emailVerificationStatus');
             if (data.email_verified || user.email_verified) {
                 verificationEl.innerHTML = '<span style="color: #10b981;">✓ Email verificado</span>';
             } else {
-                verificationEl.innerHTML = '<span style="color: #f59e0b;">⚠ Email pendiente de verificación</span>';
+                verificationEl.innerHTML = `
+                    <span style="color: #f59e0b;">⚠ Email pendiente de verificación</span>
+                    <button onclick="resendVerificationEmail()" id="resendVerifyBtn" style="margin-left: 8px; background: transparent; border: 1px solid #f59e0b; color: #f59e0b; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">
+                        Reenviar email
+                    </button>
+                `;
             }
             
             // Usar entitlements (nuevo sistema) en lugar de licenses (antiguo)
@@ -569,6 +574,62 @@
             showAuth();
         }
 
+        async function resendVerificationEmail() {
+            const btn = document.getElementById('resendVerifyBtn');
+            if (!btn) return;
+            
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            
+            try {
+                const session = VUIAuth.getSession();
+                if (!session) {
+                    showAlert('Por favor inicia sesión nuevamente', 'error');
+                    return;
+                }
+                
+                const response = await fetch(`${API_BASE}/api/user/resend-verification`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${session.token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    btn.textContent = '✓ Enviado';
+                    btn.style.borderColor = '#10b981';
+                    btn.style.color = '#10b981';
+                    setTimeout(() => {
+                        btn.textContent = 'Reenviar email';
+                        btn.style.borderColor = '#f59e0b';
+                        btn.style.color = '#f59e0b';
+                        btn.disabled = false;
+                    }, 5000);
+                } else {
+                    if (data.error === 'Email already verified') {
+                        // Refrescar la página para mostrar estado verificado
+                        location.reload();
+                    } else {
+                        btn.textContent = 'Error';
+                        btn.style.borderColor = '#ef4444';
+                        btn.style.color = '#ef4444';
+                        setTimeout(() => {
+                            btn.textContent = 'Reenviar email';
+                            btn.style.borderColor = '#f59e0b';
+                            btn.style.color = '#f59e0b';
+                            btn.disabled = false;
+                        }, 3000);
+                    }
+                }
+            } catch (err) {
+                console.error('Error resending verification:', err);
+                btn.textContent = 'Error';
+                btn.disabled = false;
+            }
+        }
         checkSession();
     </script>
 </body>
