@@ -32,13 +32,15 @@ const ADS_CONFIG = {
     // Minimum content height before showing in-content ads
     MIN_CONTENT_HEIGHT: 2000,
     
-    // Pages where ads should NOT appear (premium experience)
+    // Pages where ads should NOT appear (premium/checkout experience)
     EXCLUDED_PAGES: [
         '/pages/account.html',
+        '/pages/store.html',
         '/pages/post-purchase.html',
         '/pages/setup-account.html',
         '/pages/purchase-success.html',
-        '/pages/claim-license.html'
+        '/pages/claim-license.html',
+        '/pages/reset-password.html'
     ]
 };
 
@@ -50,11 +52,9 @@ const VUIAds = {
     
     // Check if current page should show ads
     shouldShowAds() {
-        // Check excluded pages
         const currentPath = window.location.pathname;
         for (const excluded of ADS_CONFIG.EXCLUDED_PAGES) {
             if (currentPath.includes(excluded.replace('/pages/', ''))) {
-                console.log('Ads disabled on this page:', currentPath);
                 return false;
             }
         }
