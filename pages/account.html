@@ -358,6 +358,41 @@
             <h3 class="section-title">📋 <span data-i18n="auth.purchase_history">Historial de Compras</span></h3>
             <div id="ordersContainer"></div>
         </div>
+
+        <!-- Account Settings Section -->
+        <div class="section">
+            <h3 class="section-title">⚙️ <span data-i18n="auth.account_settings">Configuración de cuenta</span></h3>
+            <div style="background: var(--bg-tertiary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border);">
+                <button onclick="togglePasswordForm()" class="btn btn-secondary" style="width: 100%; justify-content: space-between; display: flex; align-items: center;">
+                    <span>🔐 <span data-i18n="auth.change_password">Cambiar contraseña</span></span>
+                    <span id="passwordFormToggleIcon">▼</span>
+                </button>
+                
+                <form id="changePasswordForm" class="hidden" onsubmit="handleChangePassword(event)" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="currentPassword" data-i18n="auth.current_password" style="font-size: 0.85rem; color: var(--text-secondary);">Contraseña actual</label>
+                        <input type="password" id="currentPassword" required placeholder="Tu contraseña actual" autocomplete="current-password" 
+                               style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="newPassword" data-i18n="auth.new_password" style="font-size: 0.85rem; color: var(--text-secondary);">Nueva contraseña</label>
+                        <input type="password" id="newPassword" required placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6"
+                               style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="confirmNewPassword" data-i18n="auth.confirm_new_password" style="font-size: 0.85rem; color: var(--text-secondary);">Confirmar nueva contraseña</label>
+                        <input type="password" id="confirmNewPassword" required placeholder="Repite la nueva contraseña" autocomplete="new-password"
+                               style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
+                        <div id="newPasswordMatchIndicator" style="font-size: 0.8rem; margin-top: 0.5rem;"></div>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button type="button" onclick="togglePasswordForm()" class="btn btn-secondary" style="flex: 1;" data-i18n="purchase.cancel">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="changePasswordBtn" style="flex: 1;" data-i18n="auth.save_password">Guardar</button>
+                    </div>
+                    <div id="passwordChangeAlert" class="hidden" style="margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem;"></div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="../assets/js/i18n.js"></script>
@@ -630,6 +665,129 @@
                 btn.disabled = false;
             }
         }
+
+        // ============= CHANGE PASSWORD FUNCTIONS =============
+        function togglePasswordForm() {
+            const form = document.getElementById('changePasswordForm');
+            const icon = document.getElementById('passwordFormToggleIcon');
+            form.classList.toggle('hidden');
+            icon.textContent = form.classList.contains('hidden') ? '▼' : '▲';
+            
+            // Reset form when hiding
+            if (form.classList.contains('hidden')) {
+                form.reset();
+                document.getElementById('newPasswordMatchIndicator').innerHTML = '';
+                document.getElementById('passwordChangeAlert').classList.add('hidden');
+            }
+        }
+
+        // Check if new passwords match
+        document.addEventListener('DOMContentLoaded', function() {
+            const newPass = document.getElementById('newPassword');
+            const confirmPass = document.getElementById('confirmNewPassword');
+            
+            if (confirmPass) {
+                confirmPass.addEventListener('input', function() {
+                    const indicator = document.getElementById('newPasswordMatchIndicator');
+                    const btn = document.getElementById('changePasswordBtn');
+                    
+                    if (!this.value) {
+                        indicator.innerHTML = '';
+                        return;
+                    }
+                    
+                    if (newPass.value === this.value) {
+                        indicator.innerHTML = '<span style="color: #10b981;">✓ Las contraseñas coinciden</span>';
+                        btn.disabled = false;
+                    } else {
+                        indicator.innerHTML = '<span style="color: #ef4444;">✗ Las contraseñas no coinciden</span>';
+                    }
+                });
+            }
+        });
+
+        async function handleChangePassword(event) {
+            event.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            const btn = document.getElementById('changePasswordBtn');
+            const alertEl = document.getElementById('passwordChangeAlert');
+            
+            // Validaciones
+            if (newPassword !== confirmNewPassword) {
+                showPasswordAlert('Las contraseñas nuevas no coinciden', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showPasswordAlert('La contraseña debe tener al menos 6 caracteres', 'error');
+                return;
+            }
+            
+            if (newPassword === currentPassword) {
+                showPasswordAlert('La nueva contraseña debe ser diferente a la actual', 'error');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = 'Guardando...';
+            
+            try {
+                const session = VUIAuth.getSession();
+                if (!session) {
+                    showPasswordAlert('Sesión expirada. Por favor inicia sesión nuevamente.', 'error');
+                    return;
+                }
+                
+                const response = await fetch(`${API_BASE}/api/user/change-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${session.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showPasswordAlert('✓ Contraseña actualizada correctamente', 'success');
+                    // Limpiar formulario después de éxito
+                    setTimeout(() => {
+                        togglePasswordForm();
+                    }, 2000);
+                } else {
+                    let errorMsg = data.error || 'Error al cambiar la contraseña';
+                    if (errorMsg.includes('incorrect')) {
+                        errorMsg = 'La contraseña actual es incorrecta';
+                    } else if (errorMsg.includes('weak')) {
+                        errorMsg = 'La contraseña es demasiado débil';
+                    }
+                    showPasswordAlert(errorMsg, 'error');
+                }
+            } catch (err) {
+                console.error('Error changing password:', err);
+                showPasswordAlert('Error de conexión. Intenta de nuevo.', 'error');
+            }
+            
+            btn.disabled = false;
+            btn.textContent = 'Guardar';
+        }
+
+        function showPasswordAlert(message, type) {
+            const alertEl = document.getElementById('passwordChangeAlert');
+            alertEl.textContent = message;
+            alertEl.className = '';
+            alertEl.style.background = type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+            alertEl.style.color = type === 'success' ? '#10b981' : '#ef4444';
+            alertEl.style.border = `1px solid ${type === 'success' ? '#10b981' : '#ef4444'}`;
+        }
+
         checkSession();
     </script>
 </body>
