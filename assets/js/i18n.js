@@ -190,6 +190,9 @@ const TRANSLATIONS = {
         'auth.loading': 'Cargando...',
         'auth.creating': 'Creando...',
         'auth.passwords_no_match': 'Las contraseñas no coinciden',
+        'auth.passwords_match': '✓ Las contraseñas coinciden',
+        'auth.the_app': 'la aplicación',
+        'auth.login_to_purchase': 'Inicia sesión o crea una cuenta para continuar con la compra de {{app}}',
         'auth.min_chars': 'Mínimo 6 caracteres',
         'auth.connection_error': 'Error de conexión',
         'auth.login_error': 'Error al iniciar sesión',
@@ -248,6 +251,9 @@ const TRANSLATIONS = {
         'post.step1_desc': 'Busca un email con el asunto "¡Tu licencia está lista!"',
         'post.step2': 'Crea tu contraseña',
         'post.step2_desc': 'Haz clic en el botón del email para configurar tu acceso',
+        'post.step2_desc_generic': 'Abre la aplicación, ingresa tu email y la License Key del correo',
+        'post.step2_desc_has_password': 'Abre la aplicación e ingresa tu email y la License Key que recibiste por correo.',
+        'post.step2_desc_setup_token': 'Haz clic en el enlace del email para configurar tu contraseña de acceso.',
         'post.step3': 'Descarga e inicia sesión',
         'post.step3_desc': 'Descarga la aplicación y usa tu email + contraseña',
         
@@ -261,6 +267,15 @@ const TRANSLATIONS = {
         'general.cancel': 'Cancelar',
         'general.close': 'Cerrar',
         'general.connected': 'Conectado',
+        'general.processing_license': 'Procesando tu licencia...',
+        'general.email_sent_check': 'Email enviado. Revisa tu bandeja de entrada.',
+        'general.license_ready': '¡Tu licencia está lista!',
+        'general.email_sent_success': 'El email fue enviado exitosamente. Si no lo ves, revisa tu carpeta de spam.',
+        
+        // Errors
+        'error.network': 'No se pudo conectar al servidor. Verifica tu conexión.',
+        'error.timeout': 'El servidor tardó demasiado. Intenta de nuevo.',
+        'error.payment_not_configured': 'Sistema de pagos no configurado. Contacta a soporte.',
         
         // Tags
         'tag.finance': 'Finanzas',
@@ -270,7 +285,8 @@ const TRANSLATIONS = {
         'tag.controls': 'Controles',
         'tag.system': 'Sistema',
         'tag.industrial': 'Industrial',
-        'tag.monitoring': 'Monitoreo'
+        'tag.monitoring': 'Monitoreo',
+        'tag.can': 'CAN'
     },
     
     en: {
@@ -452,6 +468,9 @@ const TRANSLATIONS = {
         'auth.loading': 'Loading...',
         'auth.creating': 'Creating...',
         'auth.passwords_no_match': 'Passwords don\'t match',
+        'auth.passwords_match': '✓ Passwords match',
+        'auth.the_app': 'the app',
+        'auth.login_to_purchase': 'Sign in or create an account to continue purchasing {{app}}',
         'auth.min_chars': 'Minimum 6 characters',
         'auth.connection_error': 'Connection error',
         'auth.login_error': 'Login error',
@@ -510,6 +529,9 @@ const TRANSLATIONS = {
         'post.step1_desc': 'Look for an email with subject "Your license is ready!"',
         'post.step2': 'Create your password',
         'post.step2_desc': 'Click the button in the email to set up your access',
+        'post.step2_desc_generic': 'Open the app, enter your email and the License Key from the email',
+        'post.step2_desc_has_password': 'Open the app and enter your email and the License Key you received by email.',
+        'post.step2_desc_setup_token': 'Click the link in the email to set up your password.',
         'post.step3': 'Download and sign in',
         'post.step3_desc': 'Download the app and use your email + password',
         
@@ -523,6 +545,15 @@ const TRANSLATIONS = {
         'general.cancel': 'Cancel',
         'general.close': 'Close',
         'general.connected': 'Connected',
+        'general.processing_license': 'Processing your license...',
+        'general.email_sent_check': 'Email sent. Check your inbox.',
+        'general.license_ready': 'Your license is ready!',
+        'general.email_sent_success': 'Email sent successfully. If you don\'t see it, check your spam folder.',
+        
+        // Errors
+        'error.network': 'Could not connect to server. Check your connection.',
+        'error.timeout': 'Server took too long to respond. Please try again.',
+        'error.payment_not_configured': 'Payment system not configured. Please contact support.',
         
         // Tags
         'tag.finance': 'Finance',
@@ -532,7 +563,8 @@ const TRANSLATIONS = {
         'tag.controls': 'Controls',
         'tag.system': 'System',
         'tag.industrial': 'Industrial',
-        'tag.monitoring': 'Monitoring'
+        'tag.monitoring': 'Monitoring',
+        'tag.can': 'CAN'
     }
 };
 
