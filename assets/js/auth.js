@@ -243,8 +243,8 @@ const VUIAuthUI = {
             navAccount.title = 'Login / Register';
             
             // Re-apply i18n translations if available
-            if (typeof VUI18n !== 'undefined' && VUI18n.updatePage) {
-                VUI18n.updatePage();
+            if (typeof VUIi18n !== 'undefined' && VUIi18n.updatePage) {
+                VUIi18n.updatePage();
             }
         }
     },
@@ -270,7 +270,7 @@ const VUIAuthUI = {
                 <div class="user-avatar">${user.email.charAt(0).toUpperCase()}</div>
                 <div class="user-info">
                     <div class="user-name">${user.email}</div>
-                    <div class="user-status" data-i18n="${user.has_license ? 'auth.license_active' : 'auth.no_license'}">${user.has_license ? '✓ Active license' : 'No license'}</div>
+                    <div class="user-status" data-i18n="${user.has_license ? 'auth.license_active' : 'auth.no_licenses'}">${user.has_license ? '✓ Active license' : 'No license'}</div>
                 </div>
             </div>
             <div class="dropdown-divider"></div>
@@ -279,7 +279,7 @@ const VUIAuthUI = {
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <span data-i18n="nav.my_account">My Account</span>
+                <span data-i18n="nav.account">My Account</span>
             </a>
             <a href="${storePath}" class="dropdown-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
