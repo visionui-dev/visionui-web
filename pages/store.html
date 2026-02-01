@@ -938,7 +938,7 @@
             try {
                 await doCheckout(user.email, user.name || '', appName);
             } catch (error) {
-                alert('Error: ' + error.message);
+                showCheckoutError(error, null, null, null);
                 // Restaurar botones
                 buyButtons.forEach(btn => {
                     btn.disabled = false;
@@ -994,28 +994,32 @@
             if (data.checkout_url) {
                 window.location.href = data.checkout_url;
             } else {
-                throw new Error(data.error || 'Error creando el checkout');
+                const err = new Error(data.error || 'Error creando el checkout');
+                err.hint = data.hint;
+                throw err;
             }
         }
 
         function showCheckoutError(error, btn, btnText, btnSpinner) {
             let errorMessage = 'Error: ';
+            const msg = (error.message || '').toLowerCase();
             
-            if (error.message.includes('network') || error.message.includes('Failed to fetch')) {
-                errorMessage += 'No se pudo conectar al servidor. Verifica tu conexión a internet.';
-            } else if (error.message.includes('timeout')) {
-                errorMessage += 'El servidor tardó demasiado en responder. Por favor intenta de nuevo.';
-            } else if (error.message.includes('not configured')) {
-                errorMessage += 'El sistema de pagos no está configurado. Contacta a soporte.';
+            if (msg.includes('network') || msg.includes('failed to fetch')) {
+                errorMessage += (VUIi18n?.t?.('error.network') || 'No se pudo conectar al servidor. Verifica tu conexión.');
+            } else if (msg.includes('timeout')) {
+                errorMessage += (VUIi18n?.t?.('error.timeout') || 'El servidor tardó demasiado. Intenta de nuevo.');
+            } else if (msg.includes('not configured') || msg.includes('no product variant')) {
+                errorMessage += (VUIi18n?.t?.('error.payment_not_configured') || 'Sistema de pagos no configurado. Contacta a soporte.');
             } else {
                 errorMessage += error.message;
             }
+            if (error.hint) errorMessage += '\n\n' + error.hint;
             
             alert(errorMessage);
             
-            btn.disabled = false;
-            btnText.style.display = 'block';
-            btnSpinner.style.display = 'none';
+            if (btn) btn.disabled = false;
+            if (btnText) btnText.style.display = 'block';
+            if (btnSpinner) btnSpinner.style.display = 'none';
         }
 
         // Agregar timeout de 10 segundos para prevenir espera infinita
