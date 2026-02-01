@@ -457,7 +457,7 @@
             <div class="loading-bar">
                 <div class="loading-bar-progress"></div>
             </div>
-            <p class="loading-text" data-i18n="general.loading">Procesando tu licencia...</p>
+            <p class="loading-text" data-i18n="general.processing_license">Procesando tu licencia...</p>
 
             <div class="status-ready" id="statusReady">
                 <h4>
@@ -465,9 +465,9 @@
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                     </svg>
-                    <span data-i18n="general.success">¡Tu licencia está lista!</span>
+                    <span data-i18n="general.license_ready">¡Tu licencia está lista!</span>
                 </h4>
-                <p>El email fue enviado exitosamente. Si no lo ves, revisa tu carpeta de spam.</p>
+                <p data-i18n="general.email_sent_success">El email fue enviado exitosamente. Si no lo ves, revisa tu carpeta de spam.</p>
                 <a href="claim-license.html" class="btn btn-primary" id="continueBtn">
                     <span data-i18n="general.continue">Continuar a configuración</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -560,14 +560,15 @@
             steps[0].querySelector('.step-number').style.color = 'white';
             steps[1].classList.add('active');
 
-            // Actualizar paso 2 según si ya tiene cuenta
+            // Actualizar paso 2 según si ya tiene cuenta (respetar idioma)
             const step2Desc = document.getElementById('step2Desc');
+            const t = (key) => (typeof VUIi18n !== 'undefined' && VUIi18n.t) ? VUIi18n.t(key) : key;
             if (data.has_password) {
-                step2Desc.textContent = 'Abre la aplicación e ingresa tu email y la License Key que recibiste por correo.';
+                step2Desc.textContent = t('post.step2_desc_has_password');
             } else if (data.setup_token) {
-                step2Desc.textContent = 'Haz clic en el enlace del email para configurar tu contraseña de acceso.';
+                step2Desc.textContent = t('post.step2_desc_setup_token');
             } else {
-                step2Desc.textContent = 'Abre la aplicación, ingresa tu email y la License Key del correo.';
+                step2Desc.textContent = t('post.step2_desc_generic');
             }
 
             // Mostrar mensaje de éxito
@@ -575,18 +576,14 @@
 
             // Configurar link según el estado
             const continueBtn = document.getElementById('continueBtn');
-            
             if (data.has_password) {
-                // Ya tiene cuenta web, ir a Mi Cuenta
-                continueBtn.textContent = 'Ir a Mi Cuenta';
+                continueBtn.innerHTML = t('nav.account') + ' <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
                 continueBtn.href = 'account.html';
             } else if (data.setup_token) {
-                // Necesita configurar contraseña (flujo legacy)
-                continueBtn.textContent = 'Configurar contraseña';
+                continueBtn.textContent = t('auth.change_password');
                 continueBtn.href = `setup-account.html?token=${data.setup_token}`;
             } else if (data.license_key) {
-                // Fallback: método con email+key
-                continueBtn.textContent = 'Configurar contraseña';
+                continueBtn.textContent = t('auth.change_password');
                 continueBtn.href = `purchase-success.html?email=${encodeURIComponent(email)}&key=${encodeURIComponent(data.license_key)}`;
             } else {
                 continueBtn.href = 'claim-license.html';
@@ -597,7 +594,8 @@
         setTimeout(() => {
             const statusReady = document.getElementById('statusReady');
             if (!statusReady.classList.contains('show')) {
-                document.querySelector('.loading-text').textContent = 'Email enviado. Revisa tu bandeja de entrada.';
+                const loadingText = document.querySelector('.loading-text');
+                loadingText.textContent = (typeof VUIi18n !== 'undefined' && VUIi18n.t) ? VUIi18n.t('general.email_sent_check') : 'Email enviado. Revisa tu bandeja de entrada.';
                 document.querySelector('.loading-bar').style.display = 'none';
             }
         }, 8000);
