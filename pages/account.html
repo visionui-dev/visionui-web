@@ -431,8 +431,9 @@
             
             // Si vienen desde la tienda, mostrar mensaje y tab correcto
             if (redirectTarget === 'store') {
-                const appName = redirectApp || 'la aplicación';
-                showAlert(`Inicia sesión o crea una cuenta para continuar con la compra de ${appName}`, 'info');
+                const appName = redirectApp || (VUIi18n?.t?.('auth.the_app') || 'la aplicación');
+                const msg = (VUIi18n?.t?.('auth.login_to_purchase') || 'Inicia sesión o crea una cuenta para continuar con la compra de {{app}}');
+                showAlert(msg.replace('{{app}}', appName), 'info');
             }
             
             // Si se especificó tab=register, mostrar el formulario de registro
@@ -494,11 +495,11 @@
             }
             
             if (pass1 === pass2) {
-                indicator.innerHTML = '✓ Passwords match';
+                indicator.innerHTML = VUIi18n?.t?.('auth.passwords_match') || '✓ Passwords match';
                 indicator.className = 'password-match-indicator match';
                 registerBtn.disabled = false;
             } else {
-                indicator.innerHTML = '✗ Passwords do not match';
+                indicator.innerHTML = VUIi18n?.t?.('auth.passwords_no_match') || '✗ Passwords do not match';
                 indicator.className = 'password-match-indicator no-match';
             }
         }
@@ -548,7 +549,12 @@
         }
 
         function renderOrders(orders) {
-            document.getElementById('ordersContainer').innerHTML = orders.map(o => `<div class="license-card" style="padding:1rem"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem"><div><strong>${o.app_name||o.product_name||'VisionUI'}</strong> <span style="color:var(--text-muted);font-size:0.85rem">${o.variant_name||''}</span></div><div style="text-align:right"><div style="font-weight:600">${o.currency||'USD'} ${((o.amount_paid||0)/100).toFixed(2)}</div><div style="color:var(--text-muted);font-size:0.8rem">${new Date(o.created_at).toLocaleDateString()}</div></div></div></div>`).join('');
+            // amount_paid ya está en unidades (ej: 19.00 para $19), NO dividir por 100
+            document.getElementById('ordersContainer').innerHTML = orders.map(o => {
+                const amount = (o.amount_paid || 0);
+                const amountStr = amount >= 100 ? (amount/100).toFixed(2) : amount.toFixed(2); // legacy: si viene en centavos
+                return `<div class="license-card" style="padding:1rem"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem"><div><strong>${o.app_name||o.product_name||'VisionUI'}</strong> <span style="color:var(--text-muted);font-size:0.85rem">${o.variant_name||''}</span></div><div style="text-align:right"><div style="font-weight:600">${o.currency||'USD'} ${amountStr}</div><div style="color:var(--text-muted);font-size:0.8rem">${new Date(o.created_at).toLocaleDateString()}</div></div></div></div>`;
+            }).join('');
         }
 
         async function handleLogin(e) {
