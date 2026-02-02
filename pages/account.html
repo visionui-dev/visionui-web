@@ -538,14 +538,37 @@
                         </div>
                         ${cls==='active'?`
                         <div class="license-actions">
-                            <a href="${API_BASE}/api/download/${encodeURIComponent(e.product_name||'VisionUI')}?email=${encodeURIComponent(document.getElementById('userEmail').textContent)}&key=${encodeURIComponent(e.license_key || '')}" class="download-btn" target="_blank">
-                                ⬇️ <span data-i18n="auth.download">Download</span>
-                            </a>
+                            <button class="download-btn" onclick="downloadApp('${(e.product_name||'VisionUI').replace(/'/g, "\\'")}')" style="border:none;cursor:pointer;font:inherit;color:inherit;background:inherit;display:inline-flex;align-items:center;gap:0.5rem;">
+                                ⬇️ <span data-i18n="auth.download">Descargar</span>
+                            </button>
                         </div>
                         `:''}
                     </div>
                 `;
             }).join('');
+        }
+
+        async function downloadApp(appName) {
+            const session = VUIAuth.getSession();
+            if (!session?.token) {
+                showAlert('Inicia sesión para descargar', 'error');
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/download-token`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ app: appName })
+                });
+                const data = await res.json();
+                if (data.url) {
+                    window.open(data.url, '_blank');
+                } else {
+                    showAlert(data.error || 'Error al generar enlace de descarga', 'error');
+                }
+            } catch (err) {
+                showAlert('Error de conexión', 'error');
+            }
         }
 
         function renderOrders(orders) {
