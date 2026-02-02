@@ -410,7 +410,7 @@
                     <span class="license-label">Aplicación</span>
                     <span class="license-value" id="infoApp">-</span>
                 </div>
-                <div class="license-row">
+                <div class="license-row" id="infoKeyRow" style="display:none">
                     <span class="license-label">License Key</span>
                     <span class="license-value key" id="infoKey">-</span>
                 </div>
@@ -561,7 +561,9 @@
 
             document.getElementById('infoEmail').textContent = data.email;
             document.getElementById('infoApp').textContent = data.app || 'VisionUI';
-            document.getElementById('infoKey').textContent = data.license_key;
+            const keyRow = document.getElementById('infoKeyRow');
+            if (data.license_key) { keyRow.style.display = ''; document.getElementById('infoKey').textContent = data.license_key; }
+            else { keyRow.style.display = 'none'; }
         }
 
         function showSuccess(data) {
@@ -572,10 +574,15 @@
 
             document.getElementById('successEmail').textContent = data.email;
             
-            // Configurar link de descarga
+            // Configurar link de descarga (sistema nuevo: ir a cuenta para descargar con token)
             const downloadBtn = document.getElementById('downloadBtn');
             const appName = data.app || 'VisionUI';
-            downloadBtn.href = `${API_BASE}/api/download/${encodeURIComponent(appName)}?email=${encodeURIComponent(data.email)}&key=${encodeURIComponent(data.license_key)}`;
+            if (data.license_key) {
+                downloadBtn.href = `${API_BASE}/api/download/${encodeURIComponent(appName)}?email=${encodeURIComponent(data.email)}&key=${encodeURIComponent(data.license_key)}`;
+            } else {
+                downloadBtn.href = 'account.html';
+                downloadBtn.textContent = 'Ir a Mi Cuenta para descargar';
+            }
         }
 
         // Password strength
