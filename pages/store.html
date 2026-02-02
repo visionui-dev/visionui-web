@@ -1010,6 +1010,8 @@
                 errorMessage += (VUIi18n?.t?.('error.timeout') || 'El servidor tardó demasiado. Intenta de nuevo.');
             } else if (msg.includes('not configured') || msg.includes('no product variant')) {
                 errorMessage += (VUIi18n?.t?.('error.payment_not_configured') || 'Sistema de pagos no configurado. Contacta a soporte.');
+            } else if (msg.includes('related resource does not exist')) {
+                errorMessage += 'Configuración de LemonSqueezy incorrecta. STORE_ID y VARIANT_ID deben ser del mismo modo (test o live). Si Lemon está en Test Mode, añade LEMONSQUEEZY_TEST_MODE=true en Cloudflare Workers.';
             } else {
                 errorMessage += error.message;
             }
