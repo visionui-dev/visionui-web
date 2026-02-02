@@ -538,7 +538,7 @@
                         </div>
                         ${cls==='active'?`
                         <div class="license-actions">
-                            <a href="${API_BASE}/api/download/${encodeURIComponent(e.product_name||'VisionUI')}" class="download-btn" target="_blank">
+                            <a href="${API_BASE}/api/download/${encodeURIComponent(e.product_name||'VisionUI')}?email=${encodeURIComponent(document.getElementById('userEmail').textContent)}&key=${encodeURIComponent(e.license_key || '')}" class="download-btn" target="_blank">
                                 ⬇️ <span data-i18n="auth.download">Download</span>
                             </a>
                         </div>
