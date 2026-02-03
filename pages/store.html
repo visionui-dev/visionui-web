@@ -976,6 +976,7 @@
         }
 
         async function doCheckout(email, name, appName = currentApp) {
+            const lang = (typeof VUIi18n !== 'undefined' && VUIi18n.currentLang) ? VUIi18n.currentLang : (localStorage.getItem('vui_lang') || 'es');
             const response = await fetch(`${API_BASE}/api/lemonsqueezy/checkout`, {
                 method: 'POST',
                 headers: {
@@ -985,7 +986,8 @@
                     email: email,
                     name: name,
                     app_name: appName,
-                    plan: appName.toLowerCase().replace(/\s+/g, '_')
+                    plan: appName.toLowerCase().replace(/\s+/g, '_'),
+                    lang: lang
                 })
             });
 
