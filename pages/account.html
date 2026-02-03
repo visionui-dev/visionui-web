@@ -368,29 +368,18 @@
                     <span id="passwordFormToggleIcon">▼</span>
                 </button>
                 
-                <form id="changePasswordForm" class="hidden" onsubmit="handleChangePassword(event)" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                    <div class="form-group" style="margin-bottom: 1rem;">
-                        <label for="currentPassword" data-i18n="auth.current_password" style="font-size: 0.85rem; color: var(--text-secondary);">Contraseña actual</label>
-                        <input type="password" id="currentPassword" required placeholder="Tu contraseña actual" autocomplete="current-password" 
-                               style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 1rem;">
-                        <label for="newPassword" data-i18n="auth.new_password" style="font-size: 0.85rem; color: var(--text-secondary);">Nueva contraseña</label>
-                        <input type="password" id="newPassword" required placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6"
-                               style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 1rem;">
-                        <label for="confirmNewPassword" data-i18n="auth.confirm_new_password" style="font-size: 0.85rem; color: var(--text-secondary);">Confirmar nueva contraseña</label>
-                        <input type="password" id="confirmNewPassword" required placeholder="Repite la nueva contraseña" autocomplete="new-password"
-                               style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
-                        <div id="newPasswordMatchIndicator" style="font-size: 0.8rem; margin-top: 0.5rem;"></div>
-                    </div>
+                <div id="changePasswordForm" class="hidden" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                    <p style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                        Por seguridad, te enviaremos un enlace de verificación a tu email para cambiar tu contraseña.
+                    </p>
                     <div style="display: flex; gap: 0.75rem;">
                         <button type="button" onclick="togglePasswordForm()" class="btn btn-secondary" style="flex: 1;" data-i18n="purchase.cancel">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="changePasswordBtn" style="flex: 1;" data-i18n="auth.save_password">Guardar</button>
+                        <button type="button" onclick="requestPasswordResetEmail()" class="btn btn-primary" id="changePasswordBtn" style="flex: 1;">
+                            📧 Enviar enlace por email
+                        </button>
                     </div>
                     <div id="passwordChangeAlert" class="hidden" style="margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem;"></div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -710,102 +699,52 @@
             }
         }
 
-        // Check if new passwords match
-        document.addEventListener('DOMContentLoaded', function() {
-            const newPass = document.getElementById('newPassword');
-            const confirmPass = document.getElementById('confirmNewPassword');
-            
-            if (confirmPass) {
-                confirmPass.addEventListener('input', function() {
-                    const indicator = document.getElementById('newPasswordMatchIndicator');
-                    const btn = document.getElementById('changePasswordBtn');
-                    
-                    if (!this.value) {
-                        indicator.innerHTML = '';
-                        return;
-                    }
-                    
-                    if (newPass.value === this.value) {
-                        indicator.innerHTML = '<span style="color: #10b981;">✓ Las contraseñas coinciden</span>';
-                        btn.disabled = false;
-                    } else {
-                        indicator.innerHTML = '<span style="color: #ef4444;">✗ Las contraseñas no coinciden</span>';
-                    }
-                });
-            }
-        });
 
-        async function handleChangePassword(event) {
-            event.preventDefault();
-            
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+        async function requestPasswordResetEmail() {
             const btn = document.getElementById('changePasswordBtn');
-            const alertEl = document.getElementById('passwordChangeAlert');
-            
-            // Validaciones
-            if (newPassword !== confirmNewPassword) {
-                showPasswordAlert('Las contraseñas nuevas no coinciden', 'error');
-                return;
-            }
-            
-            if (newPassword.length < 6) {
-                showPasswordAlert('La contraseña debe tener al menos 6 caracteres', 'error');
-                return;
-            }
-            
-            if (newPassword === currentPassword) {
-                showPasswordAlert('La nueva contraseña debe ser diferente a la actual', 'error');
-                return;
-            }
+            const originalText = btn.innerHTML;
             
             btn.disabled = true;
-            btn.textContent = 'Guardando...';
+            btn.innerHTML = '📧 Enviando...';
             
             try {
                 const session = VUIAuth.getSession();
-                if (!session) {
+                if (!session || !session.user || !session.user.email) {
                     showPasswordAlert('Sesión expirada. Por favor inicia sesión nuevamente.', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
                     return;
                 }
                 
-                const response = await fetch(`${API_BASE}/api/user/change-password`, {
+                const response = await fetch(`${API_BASE}/api/user/forgot-password`, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${session.token}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        currentPassword: currentPassword,
-                        newPassword: newPassword
+                        email: session.user.email
                     })
                 });
                 
                 const data = await response.json();
                 
                 if (response.ok && data.success) {
-                    showPasswordAlert('✓ Contraseña actualizada correctamente', 'success');
-                    // Limpiar formulario después de éxito
+                    showPasswordAlert('✅ Enlace de verificación enviado a ' + session.user.email + '. Revisa tu bandeja de entrada.', 'success');
+                    // Ocultar el formulario después de enviar
                     setTimeout(() => {
                         togglePasswordForm();
-                    }, 2000);
+                    }, 4000);
                 } else {
-                    let errorMsg = data.error || 'Error al cambiar la contraseña';
-                    if (errorMsg.includes('incorrect')) {
-                        errorMsg = 'La contraseña actual es incorrecta';
-                    } else if (errorMsg.includes('weak')) {
-                        errorMsg = 'La contraseña es demasiado débil';
-                    }
-                    showPasswordAlert(errorMsg, 'error');
+                    showPasswordAlert(data.error || 'Error al enviar el enlace. Intenta de nuevo.', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
                 }
             } catch (err) {
-                console.error('Error changing password:', err);
+                console.error('Error requesting password reset:', err);
                 showPasswordAlert('Error de conexión. Intenta de nuevo.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
             }
-            
-            btn.disabled = false;
-            btn.textContent = 'Guardar';
         }
 
         function showPasswordAlert(message, type) {
