@@ -243,6 +243,10 @@ const TRANSLATIONS = {
         // Post Purchase
         'post.title': '¡Pago completado!',
         'post.subtitle': 'Tu licencia está siendo procesada',
+        'post.subtitle_done': 'Tu licencia ya está activa. Inicia sesión en la app con tu email y contraseña de la web.',
+        'post.ready_use': 'Tu licencia ya está creada. Puedes usar la app con tu email y contraseña de la web.',
+        'post.download_signin': 'Descarga e inicia sesión',
+        'post.download_signin_desc': 'Descarga la aplicación desde tu panel de usuario y entra con tu email y contraseña de la web.',
         'post.check_inbox': 'Revisa tu bandeja de entrada',
         'post.email_sent': 'Enviamos un email a',
         'post.with_instructions': 'con las instrucciones para activar tu licencia.',
@@ -521,6 +525,10 @@ const TRANSLATIONS = {
         // Post Purchase
         'post.title': 'Payment completed!',
         'post.subtitle': 'Your license is being processed',
+        'post.subtitle_done': 'Your license is active. Sign in to the app with your web email and password.',
+        'post.ready_use': 'Your license is ready. Use the app with your web email and password.',
+        'post.download_signin': 'Download and sign in',
+        'post.download_signin_desc': 'Download the app from your account panel and sign in with your web email and password.',
         'post.check_inbox': 'Check your inbox',
         'post.email_sent': 'We sent an email to',
         'post.with_instructions': 'with instructions to activate your license.',
