@@ -425,11 +425,6 @@
                 </div>
             </div>
 
-            <div class="loading-bar" id="loadingBar">
-                <div class="loading-bar-progress"></div>
-            </div>
-            <p class="loading-text" id="loadingText" data-i18n="general.processing_license">Procesando...</p>
-
             <div class="status-ready" id="statusReady">
                 <h4>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -463,9 +458,10 @@
         const email = urlParams.get('email');
         const provider = urlParams.get('provider');
 
-        // Mostrar email si está disponible
+        // Mostrar email si está disponible (solo si el elemento existe)
         if (email) {
-            document.getElementById('userEmail').textContent = email;
+            const userEmailEl = document.getElementById('userEmail');
+            if (userEmailEl) userEmailEl.textContent = email;
         }
 
         // Verificar estado de la licencia
@@ -491,10 +487,6 @@
         }
 
         function showReady(data) {
-            const loadingBar = document.getElementById('loadingBar');
-            const loadingText = document.getElementById('loadingText');
-            if (loadingBar) loadingBar.style.display = 'none';
-            if (loadingText) loadingText.style.display = 'none';
             document.getElementById('statusReady').classList.add('show');
             const continueBtn = document.getElementById('continueBtn');
             const t = (key) => (typeof VUIi18n !== 'undefined' && VUIi18n.t) ? VUIi18n.t(key) : key;
@@ -506,10 +498,6 @@
         setTimeout(() => {
             const statusReady = document.getElementById('statusReady');
             if (!statusReady.classList.contains('show')) {
-                const loadingBar = document.getElementById('loadingBar');
-                const loadingText = document.getElementById('loadingText');
-                if (loadingBar) loadingBar.style.display = 'none';
-                if (loadingText) loadingText.style.display = 'none';
                 statusReady.classList.add('show');
             }
         }, 4000);
