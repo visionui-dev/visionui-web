@@ -350,6 +350,13 @@
             font-weight: bold;
         }
 
+        .app-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         .app-footer {
             display: flex;
             justify-content: space-between;
@@ -712,9 +719,9 @@
         <h2 class="section-title" data-i18n="store.available">Aplicaciones Disponibles</h2>
         <p class="section-subtitle" data-i18n="store.available_subtitle">Elige la aplicación que necesitas y obtén una licencia inmediata.</p>
 
-        <div class="apps-grid">
+        <div class="apps-grid" id="appsGrid">
             <!-- TestApp - App de ejemplo/prueba -->
-            <div class="app-card" data-app="TestApp" data-variant-id="YOUR_VARIANT_ID">
+            <div class="app-card" data-app="TestApp" data-variant-id="YOUR_VARIANT_ID" data-pricing-model="premium_only">
                 <div class="app-image">🎵</div>
                 <div class="app-content">
                     <span class="app-badge" data-i18n="store.available_badge">Disponible</span>
@@ -733,15 +740,17 @@
                             <span class="currency">$</span>19
                             <span class="period">/ <span data-i18n="store.lifetime">lifetime</span></span>
                         </div>
-                        <button class="btn btn-primary" onclick="openPurchaseModal('TestApp', 19)">
-                            <span data-i18n="store.buy">Comprar</span>
-                        </button>
+                        <div class="app-actions">
+                            <button class="btn btn-primary" onclick="openPurchaseModal('TestApp', 19)">
+                                <span data-i18n="store.buy">Comprar</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Framework License -->
-            <div class="app-card" data-app="VisionUI" data-variant-id="YOUR_FRAMEWORK_VARIANT_ID">
+            <div class="app-card" data-app="VisionUI" data-variant-id="YOUR_FRAMEWORK_VARIANT_ID" data-pricing-model="premium_only">
                 <div class="app-image">🎨</div>
                 <div class="app-content">
                     <span class="app-badge" data-i18n="store.popular">Popular</span>
@@ -760,9 +769,43 @@
                             <span class="currency">$</span>99
                             <span class="period">/ <span data-i18n="store.lifetime">lifetime</span></span>
                         </div>
-                        <button class="btn btn-primary" onclick="openPurchaseModal('VisionUI', 99)">
-                            <span data-i18n="store.buy">Comprar</span>
-                        </button>
+                        <div class="app-actions">
+                            <button class="btn btn-primary" onclick="openPurchaseModal('VisionUI', 99)">
+                                <span data-i18n="store.buy">Comprar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PomoVision - App Freemium de ejemplo -->
+            <div class="app-card" data-app="PomoVision" data-pricing-model="freemium">
+                <div class="app-image">⏱️</div>
+                <div class="app-content">
+                    <span class="app-badge" style="background: var(--success);">Freemium</span>
+                    <h3 class="app-title">PomoVision - Pomodoro Timer</h3>
+                    <p class="app-description">
+                        Timer Pomodoro con efectos visuales imposibles. Glassmorphism, animaciones fluidas y estadísticas avanzadas.
+                    </p>
+                    <ul class="app-features">
+                        <li>Efectos visuales avanzados</li>
+                        <li>Estadísticas básicas (free)</li>
+                        <li>Widget flotante (premium)</li>
+                        <li>Temas ilimitados (premium)</li>
+                    </ul>
+                    <div class="app-footer">
+                        <div class="app-price">
+                            <span class="currency">$</span>4.99
+                            <span class="period">/ <span data-i18n="store.lifetime">lifetime</span></span>
+                        </div>
+                        <div class="app-actions">
+                            <a href="/api/app/download?app=PomoVision" class="btn btn-secondary" style="margin-right: 8px;">
+                                ⬇️ Download Free
+                            </a>
+                            <button class="btn btn-primary" onclick="openPurchaseModal('PomoVision', 4.99)">
+                                💎 Upgrade Premium
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1046,16 +1089,97 @@
             if (e.target.id === 'purchaseModal') closeModal();
         });
         
+        // Cargar configuraciones de apps y actualizar botones
+        async function loadAppConfigsAndUpdateButtons() {
+            try {
+                const user = VUIAuth.getUser();
+                let userEntitlements = [];
+                
+                // Si hay usuario, obtener sus entitlements
+                if (user) {
+                    try {
+                        const response = await fetch(`${API_BASE}/api/user/me`, {
+                            headers: {
+                                'Authorization': `Bearer ${VUIAuth.getToken()}`
+                            }
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            userEntitlements = data.entitlements || [];
+                        }
+                    } catch (e) {
+                        console.error('Error loading user entitlements:', e);
+                    }
+                }
+                
+                // Actualizar botones según pricing_model y si ya compró
+                const appCards = document.querySelectorAll('.app-card[data-app]');
+                for (const card of appCards) {
+                    const appName = card.getAttribute('data-app');
+                    const pricingModel = card.getAttribute('data-pricing-model') || 'premium_only';
+                    const hasPurchased = userEntitlements.some(e => e.product_name === appName && e.status === 'active');
+                    
+                    const actionsDiv = card.querySelector('.app-actions');
+                    if (!actionsDiv) continue;
+                    
+                    // Limpiar acciones existentes
+                    actionsDiv.innerHTML = '';
+                    
+                    if (hasPurchased) {
+                        // Ya compró - mostrar badge
+                        actionsDiv.innerHTML = '<span class="app-badge" style="background: var(--success);">✓ Ya comprado</span>';
+                    } else if (pricingModel === 'freemium') {
+                        // Freemium - mostrar Download Free + Upgrade
+                        actionsDiv.innerHTML = `
+                            <a href="/api/app/download?app=${encodeURIComponent(appName)}" class="btn btn-secondary" style="margin-right: 8px;">
+                                ⬇️ Download Free
+                            </a>
+                            <button class="btn btn-primary" onclick="openPurchaseModal('${appName}', 4.99)">
+                                💎 Upgrade Premium
+                            </button>
+                        `;
+                    } else if (pricingModel === 'free_only') {
+                        // Solo free - solo Download
+                        actionsDiv.innerHTML = `
+                            <a href="/api/app/download?app=${encodeURIComponent(appName)}" class="btn btn-primary">
+                                ⬇️ Download Free
+                            </a>
+                        `;
+                    } else {
+                        // Premium only - solo Buy (si no compró)
+                        const price = card.querySelector('.app-price .currency')?.nextSibling?.textContent?.trim() || '0';
+                        actionsDiv.innerHTML = `
+                            <button class="btn btn-primary" onclick="openPurchaseModal('${appName}', ${price})">
+                                <span data-i18n="store.buy">Comprar</span>
+                            </button>
+                        `;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading app configs:', e);
+            }
+        }
+
         // Auto-abrir modal si viene con parámetro openApp (redirect desde login/register)
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const openApp = urlParams.get('openApp');
             if (openApp) {
-                const appPrices = { 'TestApp': 19, 'VisionUI': 99 };
+                const appPrices = { 'TestApp': 19, 'VisionUI': 99, 'PomoVision': 4.99 };
                 const price = appPrices[openApp] || 0;
                 if (price > 0) {
                     setTimeout(() => openPurchaseModal(openApp, price), 300);
                 }
+            }
+            
+            // Cargar configuraciones cuando la página carga
+            loadAppConfigsAndUpdateButtons();
+            
+            // Recargar cuando el usuario hace login/logout
+            if (typeof VUIAuth !== 'undefined') {
+                VUIAuth.onAuthChange(() => {
+                    loadAppConfigsAndUpdateButtons();
+                });
             }
         });
     </script>
