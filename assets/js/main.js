@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function init() {
     // Initialize all modules
+    initExternalLinks();
     initNavigation();
     initScrollEffects();
     initAnimations();
@@ -23,6 +24,41 @@ function init() {
 
     // Log initialization
     console.log('🚀 VisionUI Website initialized successfully');
+}
+
+// ==================================================
+// EXTERNAL LINKS (CONFIG)
+// ==================================================
+
+function initExternalLinks() {
+    const links = (typeof window !== 'undefined' && window.VISIONUI_LINKS) ? window.VISIONUI_LINKS : {};
+
+    const linkMap = {
+        demoDownload: links.demoDownloadUrl,
+        x: links.xUrl,
+        youtube: links.youtubeUrl,
+        tiktok: links.tiktokUrl
+    };
+
+    const elements = document.querySelectorAll('[data-vui-link]');
+    elements.forEach((element) => {
+        const key = element.getAttribute('data-vui-link');
+        const url = linkMap[key];
+
+        if (typeof url === 'string' && url.trim().length > 0) {
+            element.setAttribute('href', url);
+
+            if (/^https?:\/\//i.test(url)) {
+                element.setAttribute('target', '_blank');
+                element.setAttribute('rel', 'noopener noreferrer');
+            }
+        } else {
+            // Hide empty optional links (avoid dead icons)
+            if (key !== 'demoDownload') {
+                element.style.display = 'none';
+            }
+        }
+    });
 }
 
 // ==================================================
