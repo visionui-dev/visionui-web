@@ -241,7 +241,46 @@
                 </div>
                 <div class="designer-visual">
                     <div class="designer-mockup">
-                        <img src="assets/images/designer-mockup.png" alt="VisionUI Designer Interface" class="designer-image">
+                        <div class="mockup-container">
+                            <div class="mockup-window">
+                                <div class="mockup-header">
+                                    <div class="mockup-buttons">
+                                        <span class="mockup-btn close"></span>
+                                        <span class="mockup-btn minimize"></span>
+                                        <span class="mockup-btn maximize"></span>
+                                    </div>
+                                    <div class="mockup-title">VisionUI Designer</div>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="mockup-sidebar">
+                                        <div class="component-item active">
+                                            <div class="component-icon">🪟</div>
+                                            <span>Liquid Glass</span>
+                                        </div>
+                                        <div class="component-item">
+                                            <div class="component-icon">📌</div>
+                                            <span>Always on top</span>
+                                        </div>
+                                        <div class="component-item">
+                                            <div class="component-icon">🎛️</div>
+                                            <span>Controls</span>
+                                        </div>
+                                        <div class="component-item">
+                                            <div class="component-icon">⚡</div>
+                                            <span>Performance</span>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-canvas">
+                                        <div class="canvas-element btn-preview">
+                                            <div class="btn-text">Demo: Glass Widget</div>
+                                        </div>
+                                        <div class="canvas-element text-preview">
+                                            <div class="text-content">Real-time refractive effect</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -434,7 +473,7 @@
                         </div>
                     </div>
                     <div class="download-actions">
-                        <a href="#" class="btn btn-primary btn-large">
+                        <a href="pages/store.html" class="btn btn-primary btn-large" data-vui-link="demoDownload">
                             <span data-i18n="download.button">Descargar Gratis</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -600,19 +639,19 @@ button = VUI.build(widget_name=<span class="code-string">"modern_button"</span>,
                     </p>
                 </div>
                 <div class="footer-social">
-                    <a href="#" class="social-link">
+                    <a href="#" class="social-link" data-vui-link="x">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                             <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="#" class="social-link" data-vui-link="youtube">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                             <path d="M16 4.626l-4.5 4.5L7 4.626 11.5 9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M7 15.5l4.5-4.5 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M16 4.626l4.5 4.5L16 15.5l-4.5-4.5L7 4.626" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="#" class="social-link" data-vui-link="tiktok">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                             <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -622,6 +661,7 @@ button = VUI.build(widget_name=<span class="code-string">"modern_button"</span>,
         </div>
     </footer>
 
+    <script src="assets/js/config.js"></script>
     <script src="assets/js/i18n.js"></script>
     <script src="assets/js/auth.js"></script>
     <script src="assets/js/ads.js"></script>
