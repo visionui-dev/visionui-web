@@ -28,8 +28,8 @@ const TRANSLATIONS = {
         
         // Hero
         'hero.subtitle': 'Framework para Interfaces Modernas',
-        'hero.description': 'Crea interfaces de usuario elegantes y modernas con PySide6. Efectos avanzados, animaciones fluidas y desarrollo ultrarrápido. Todo lo que necesitas para aplicaciones profesionales.',
-        'hero.download': 'Descargar Framework',
+        'hero.description': 'Crea interfaces de usuario elegantes y modernas con PySide6. Incluye demos como Glass Widget (Bitcoin) con efecto de vidrio refractivo en tiempo real en Windows.',
+        'hero.download': 'Descargar demo (Glass Widget)',
         'hero.view_designer': 'Ver Diseñador',
         
         // Features
@@ -68,14 +68,14 @@ const TRANSLATIONS = {
         'gallery.can.desc': 'Herramienta profesional para monitoreo de buses CAN con visualización de datos en tiempo real y alertas.',
         
         // Download
-        'download.title': 'Descarga VisionUI',
-        'download.desc': 'Comienza a crear interfaces modernas hoy mismo. Framework completo con diseñador visual incluido.',
-        'download.feature1': 'Framework completo PySide6',
-        'download.feature2': 'Diseñador visual WYSIWYG',
-        'download.feature3': 'Más de 40 componentes',
-        'download.feature4': 'Documentación completa',
-        'download.feature5': 'Soporte técnico incluido',
-        'download.button': 'Descargar Gratis',
+        'download.title': 'Descarga la demo',
+        'download.desc': 'Glass Widget (Bitcoin): app ligera para Windows con modo siempre-visible y efecto de vidrio refractivo en tiempo real. Construido con VisionUI.',
+        'download.feature1': 'App real de Windows (.exe)',
+        'download.feature2': 'Siempre visible (always-on-top)',
+        'download.feature3': 'Efecto activable + control de intensidad',
+        'download.feature4': 'Interactivo (no es un mockup)',
+        'download.feature5': 'Hecho con VisionUI',
+        'download.button': 'Descargar demo',
         'download.version': 'Versión 1.0.0',
         'download.size': 'Tamaño: ~50MB',
         'download.platform': 'Windows 10+',
@@ -310,8 +310,8 @@ const TRANSLATIONS = {
         
         // Hero
         'hero.subtitle': 'Framework for Modern Interfaces',
-        'hero.description': 'Create elegant and modern user interfaces with PySide6. Advanced effects, smooth animations and ultra-fast development. Everything you need for professional applications.',
-        'hero.download': 'Download Framework',
+        'hero.description': 'Create elegant and modern user interfaces with PySide6. Includes demos like Glass Widget (Bitcoin) showcasing a real-time refractive glass effect on Windows.',
+        'hero.download': 'Download demo (Glass Widget)',
         'hero.view_designer': 'View Designer',
         
         // Features
@@ -350,14 +350,14 @@ const TRANSLATIONS = {
         'gallery.can.desc': 'Professional tool for CAN bus monitoring with real-time data visualization and alerts.',
         
         // Download
-        'download.title': 'Download VisionUI',
-        'download.desc': 'Start creating modern interfaces today. Complete framework with visual designer included.',
-        'download.feature1': 'Complete PySide6 framework',
-        'download.feature2': 'WYSIWYG visual designer',
-        'download.feature3': 'Over 40 components',
-        'download.feature4': 'Complete documentation',
-        'download.feature5': 'Technical support included',
-        'download.button': 'Download Free',
+        'download.title': 'Download the demo',
+        'download.desc': 'Glass Widget (Bitcoin): a lightweight Windows app with always-on-top mode and a real-time refractive glass effect. Built with VisionUI.',
+        'download.feature1': 'Real Windows app (.exe)',
+        'download.feature2': 'Always-on-top',
+        'download.feature3': 'Toggle effect + intensity control',
+        'download.feature4': 'Interactive (not a mockup)',
+        'download.feature5': 'Built with VisionUI',
+        'download.button': 'Download demo',
         'download.version': 'Version 1.0.0',
         'download.size': 'Size: ~50MB',
         'download.platform': 'Windows 10+',
