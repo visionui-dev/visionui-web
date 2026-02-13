@@ -34,13 +34,13 @@ const ADS_CONFIG = {
     
     // Pages where ads should NOT appear (premium/checkout experience)
     EXCLUDED_PAGES: [
-        '/pages/account.html',
-        '/pages/store.html',
-        '/pages/post-purchase.html',
-        '/pages/setup-account.html',
-        '/pages/purchase-success.html',
-        '/pages/claim-license.html',
-        '/pages/reset-password.html'
+        '/account.html',
+        '/store.html',
+        '/post-purchase.html',
+        '/setup-account.html',
+        '/purchase-success.html',
+        '/claim-license.html',
+        '/reset-password.html'
     ]
 };
 
@@ -54,7 +54,7 @@ const VUIAds = {
     shouldShowAds() {
         const currentPath = window.location.pathname;
         for (const excluded of ADS_CONFIG.EXCLUDED_PAGES) {
-            if (currentPath.includes(excluded.replace('/pages/', ''))) {
+            if (currentPath.endsWith(excluded) || currentPath.includes(excluded)) {
                 return false;
             }
         }
