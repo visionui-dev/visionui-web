@@ -6,7 +6,7 @@
  */
 
 window.VISIONUI_LINKS = {
-    demoDownloadUrl: 'pages/store.html',
+    demoDownloadUrl: 'store.html',
     demoVideoUrl: '',
 
     websiteUrl: 'https://visionui.app',
