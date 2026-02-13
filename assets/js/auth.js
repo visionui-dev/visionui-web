@@ -258,10 +258,9 @@ const VUIAuthUI = {
         if (document.querySelector('.user-dropdown')) return;
 
         const user = VUIAuth.getUser();
-        // Detect if we're in a subpage (pages/) or root
-        const isInPagesFolder = window.location.pathname.includes('/pages/');
-        const accountPath = isInPagesFolder ? 'account.html' : 'pages/account.html';
-        const storePath = isInPagesFolder ? 'store.html' : 'pages/store.html';
+        // Use root-level paths (no more pages/ folder)
+        const accountPath = 'account.html';
+        const storePath = 'store.html';
         
         const dropdown = document.createElement('div');
         dropdown.className = 'user-dropdown';
@@ -353,7 +352,7 @@ const VUIAuthUI = {
         this.updateNavbar();
         // Redirect to home if on protected page
         if (window.location.pathname.includes('account')) {
-            window.location.href = '../index.html';
+            window.location.href = 'index.html';
         } else {
             window.location.reload();
         }
