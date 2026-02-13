@@ -26,14 +26,14 @@ Una web moderna y profesional para el framework VisionUI, creada con las última
 - Formulario de contacto con validación
 - Sistema de notificaciones
 
-#### Diseñador Visual (`pages/designer.html`)
+#### Diseñador Visual (`designer.html`)
 - Showcase completo del diseñador WYSIWYG
 - Canvas interactivo con drag & drop
 - Panel de propiedades en tiempo real
 - Demostraciones de flujos de trabajo
 - Ejemplos de plantillas
 
-#### Portfolio (`pages/portfolio.html`)
+#### Portfolio (`portfolio.html`)
 - Aplicaciones destacadas con mockups animados
 - Categorías organizadas de aplicaciones
 - Casos de estudio con resultados reales
@@ -54,18 +54,20 @@ Una web moderna y profesional para el framework VisionUI, creada con las última
 ```
 web/
 ├── index.html                 # Página principal
-├── pages/
-│   ├── designer.html         # Página del diseñador
-│   └── portfolio.html        # Portfolio de aplicaciones
+├── account.html              # Mi Cuenta / Login
+├── store.html                # Tienda de Apps
+├── designer.html             # Página del diseñador
+├── portfolio.html            # Portfolio
+├── privacy.html              # Política de Privacidad
+├── terms.html                # Términos de Servicio
 ├── assets/
 │   ├── css/
 │   │   └── style.css         # Estilos principales
-│   ├── js/
-│   │   ├── main.js           # JavaScript principal
-│   │   ├── designer-demo.js  # Demo del diseñador
-│   │   └── portfolio-demo.js # Demo del portfolio
-│   ├── images/               # Imágenes y assets visuales
-│   └── fonts/                # Fuentes personalizadas
+│   └── js/
+│       ├── main.js           # JavaScript principal
+│       ├── auth.js           # Autenticación
+│       ├── i18n.js           # Internacionalización
+│       └── designer-demo.js  # Demo del diseñador
 └── README.md                 # Esta documentación
 ```
 
