@@ -487,7 +487,8 @@
         const legacyEmail = urlParams.get('email');
         const legacyKey = urlParams.get('key');
         if (legacyEmail && legacyKey && !token) {
-            window.location.href = `purchase-success.html?email=${encodeURIComponent(legacyEmail)}&key=${encodeURIComponent(legacyKey)}`;
+            sessionStorage.setItem('vui_purchase_setup', JSON.stringify({ email: legacyEmail, key: legacyKey }));
+            window.location.replace('purchase-success.html');
         }
 
         // Elementos DOM
@@ -576,13 +577,8 @@
             
             // Configurar link de descarga (sistema nuevo: ir a cuenta para descargar con token)
             const downloadBtn = document.getElementById('downloadBtn');
-            const appName = data.app || 'VisionUI';
-            if (data.license_key) {
-                downloadBtn.href = `${API_BASE}/api/download/${encodeURIComponent(appName)}?email=${encodeURIComponent(data.email)}&key=${encodeURIComponent(data.license_key)}`;
-            } else {
-                downloadBtn.href = 'account.html';
-                downloadBtn.textContent = 'Ir a Mi Cuenta para descargar';
-            }
+            downloadBtn.href = 'account.html';
+            downloadBtn.textContent = 'Ir a Mi Cuenta para descargar';
         }
 
         // Password strength
