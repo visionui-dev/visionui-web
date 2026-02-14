@@ -97,6 +97,9 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -309,6 +312,7 @@ p {
     font-size: 1rem;
     position: relative;
     overflow: hidden;
+    letter-spacing: 0.01em;
 }
 
 .btn::before {
@@ -333,8 +337,8 @@ p {
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(61, 216, 216, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(61, 216, 216, 0.26);
 }
 
 .btn-secondary {
@@ -347,6 +351,16 @@ p {
     border-color: var(--primary-color);
     color: var(--primary-color);
     background: rgba(61, 216, 216, 0.08);
+    transform: translateY(-1px);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.form-input:focus-visible,
+.form-textarea:focus-visible,
+.social-link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 .btn-large {
@@ -573,7 +587,11 @@ p {
 .feature-card:hover {
     transform: translateY(-3px);
     border-color: var(--primary-color);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(61, 216, 216, 0.12);
+}
+
+.feature-card .feature-description {
+    color: #b7b7c2;
 }
 
 .feature-icon {
