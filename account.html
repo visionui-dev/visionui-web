@@ -382,6 +382,15 @@
         const redirectTarget = urlParams.get('redirect');
         const redirectApp = urlParams.get('app');
         const initialTab = urlParams.get('tab');
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
         
         async function checkSession() {
             const session = VUIAuth.getSession();
@@ -429,15 +438,31 @@
             
             // Mostrar estado de verificación con botón de reenvío si no está verificado
             const verificationEl = document.getElementById('emailVerificationStatus');
+            verificationEl.innerHTML = '';
             if (data.email_verified || user.email_verified) {
-                verificationEl.innerHTML = '<span style="color: #10b981;">✓ Email verificado</span>';
+                const span = document.createElement('span');
+                span.style.color = '#10b981';
+                span.textContent = '✓ Email verificado';
+                verificationEl.appendChild(span);
             } else {
-                verificationEl.innerHTML = `
-                    <span style="color: #f59e0b;">⚠ Email pendiente de verificación</span>
-                    <button onclick="resendVerificationEmail()" id="resendVerifyBtn" style="margin-left: 8px; background: transparent; border: 1px solid #f59e0b; color: #f59e0b; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer;">
-                        Reenviar email
-                    </button>
-                `;
+                const text = document.createElement('span');
+                text.style.color = '#f59e0b';
+                text.textContent = '⚠ Email pendiente de verificación';
+                const btn = document.createElement('button');
+                btn.id = 'resendVerifyBtn';
+                btn.type = 'button';
+                btn.style.marginLeft = '8px';
+                btn.style.background = 'transparent';
+                btn.style.border = '1px solid #f59e0b';
+                btn.style.color = '#f59e0b';
+                btn.style.padding = '4px 10px';
+                btn.style.borderRadius = '4px';
+                btn.style.fontSize = '0.7rem';
+                btn.style.cursor = 'pointer';
+                btn.textContent = 'Reenviar email';
+                btn.addEventListener('click', resendVerificationEmail);
+                verificationEl.appendChild(text);
+                verificationEl.appendChild(btn);
             }
             
             // Usar entitlements (nuevo sistema) en lugar de licenses (antiguo)
@@ -466,17 +491,17 @@
             const registerBtn = document.getElementById('registerBtn');
             
             if (!pass2) {
-                indicator.innerHTML = '';
+                indicator.textContent = '';
                 indicator.className = 'password-match-indicator';
                 return;
             }
             
             if (pass1 === pass2) {
-                indicator.innerHTML = VUIi18n?.t?.('auth.passwords_match') || '✓ Passwords match';
+                indicator.textContent = VUIi18n?.t?.('auth.passwords_match') || '✓ Passwords match';
                 indicator.className = 'password-match-indicator match';
                 registerBtn.disabled = false;
             } else {
-                indicator.innerHTML = VUIi18n?.t?.('auth.passwords_no_match') || '✗ Passwords do not match';
+                indicator.textContent = VUIi18n?.t?.('auth.passwords_no_match') || '✗ Passwords do not match';
                 indicator.className = 'password-match-indicator no-match';
             }
         }
@@ -497,25 +522,30 @@
                 const expired = e.expires_at && new Date(e.expires_at) < new Date();
                 const cls = expired || e.status !== 'active' ? 'expired' : 'active';
                 const txt = expired ? 'Expired' : (e.status === 'active' ? 'Active' : e.status);
+                const safeApp = escapeHtml(e.product_name || 'VisionUI');
+                const safeStatus = escapeHtml(txt);
+                const safePurchased = escapeHtml(new Date(e.purchased_at).toLocaleDateString());
+                const safeExpires = escapeHtml(e.expires_at ? new Date(e.expires_at).toLocaleDateString() : 'Lifetime');
+                const safeDownloadName = encodeURIComponent(e.product_name || 'VisionUI');
                 return `
                     <div class="license-card">
                         <div class="license-header">
-                            <span class="license-app">${e.product_name || 'VisionUI'}</span>
-                            <span class="license-status ${cls}">${txt}</span>
+                            <span class="license-app">${safeApp}</span>
+                            <span class="license-status ${cls}">${safeStatus}</span>
                         </div>
                         <div class="license-details">
                             <div class="license-detail">
                                 <div class="license-detail-label" data-i18n="auth.purchased">Purchased</div>
-                                <div class="license-detail-value">${new Date(e.purchased_at).toLocaleDateString()}</div>
+                                <div class="license-detail-value">${safePurchased}</div>
                             </div>
                             <div class="license-detail">
                                 <div class="license-detail-label" data-i18n="auth.expires">Valid until</div>
-                                <div class="license-detail-value">${e.expires_at ? new Date(e.expires_at).toLocaleDateString() : 'Lifetime'}</div>
+                                <div class="license-detail-value">${safeExpires}</div>
                             </div>
                         </div>
                         ${cls==='active'?`
                         <div class="license-actions">
-                            <button class="download-btn" onclick="downloadApp('${(e.product_name||'VisionUI').replace(/'/g, "\\'")}')" style="border:none;cursor:pointer;font:inherit;color:inherit;background:inherit;display:inline-flex;align-items:center;gap:0.5rem;">
+                            <button class="download-btn" onclick="downloadApp(decodeURIComponent('${safeDownloadName}'))" style="border:none;cursor:pointer;font:inherit;color:inherit;background:inherit;display:inline-flex;align-items:center;gap:0.5rem;">
                                 ⬇️ <span data-i18n="auth.download">Descargar</span>
                             </button>
                         </div>
@@ -553,7 +583,12 @@
             document.getElementById('ordersContainer').innerHTML = orders.map(o => {
                 const amount = (o.amount_paid || 0);
                 const amountStr = amount >= 100 ? (amount/100).toFixed(2) : amount.toFixed(2); // legacy: si viene en centavos
-                return `<div class="license-card" style="padding:1rem"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem"><div><strong>${o.app_name||o.product_name||'VisionUI'}</strong> <span style="color:var(--text-muted);font-size:0.85rem">${o.variant_name||''}</span></div><div style="text-align:right"><div style="font-weight:600">${o.currency||'USD'} ${amountStr}</div><div style="color:var(--text-muted);font-size:0.8rem">${new Date(o.created_at).toLocaleDateString()}</div></div></div></div>`;
+                const safeName = escapeHtml(o.app_name || o.product_name || 'VisionUI');
+                const safeVariant = escapeHtml(o.variant_name || '');
+                const safeCurrency = escapeHtml(o.currency || 'USD');
+                const safeDate = escapeHtml(new Date(o.created_at).toLocaleDateString());
+                const safeAmount = escapeHtml(amountStr);
+                return `<div class="license-card" style="padding:1rem"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem"><div><strong>${safeName}</strong> <span style="color:var(--text-muted);font-size:0.85rem">${safeVariant}</span></div><div style="text-align:right"><div style="font-weight:600">${safeCurrency} ${safeAmount}</div><div style="color:var(--text-muted);font-size:0.8rem">${safeDate}</div></div></div></div>`;
             }).join('');
         }
 
