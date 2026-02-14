@@ -291,6 +291,15 @@
         if (urlParams.get('key')) {
             document.getElementById('license_key').value = urlParams.get('key');
         }
+        if (!urlParams.get('email') && !urlParams.get('key')) {
+            try {
+                const cached = JSON.parse(sessionStorage.getItem('vui_purchase_setup') || '{}');
+                if (cached.email) document.getElementById('email').value = cached.email;
+                if (cached.key) document.getElementById('license_key').value = cached.key;
+            } catch (e) {
+                console.warn('No local setup payload found');
+            }
+        }
 
         // Password strength checker
         document.getElementById('password').addEventListener('input', function(e) {
@@ -351,8 +360,9 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    successDiv.innerHTML = '✓ ¡Contraseña configurada! Ahora puedes usar estas credenciales en tu aplicación.<br><br><strong>Usuario:</strong> ' + email;
+                    successDiv.innerHTML = '✓ ¡Contraseña configurada! Ahora puedes usar estas credenciales en tu aplicación.<br><br><strong>Usuario:</strong> ' + String(email).replace(/[<>&"']/g, '');
                     successDiv.classList.remove('hidden');
+                    sessionStorage.removeItem('vui_purchase_setup');
                     
                     // Disable form
                     document.querySelectorAll('#setupForm input').forEach(i => i.disabled = true);
