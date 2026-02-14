@@ -440,10 +440,12 @@ function showNotification(message, type = 'info') {
 
     notification.innerHTML = `
         <div class="notification-content">
-            <span class="notification-message">${message}</span>
+            <span class="notification-message"></span>
             <button class="notification-close">&times;</button>
         </div>
     `;
+    const msgEl = notification.querySelector('.notification-message');
+    if (msgEl) msgEl.textContent = String(message ?? '');
 
     // Add to page
     document.body.appendChild(notification);
