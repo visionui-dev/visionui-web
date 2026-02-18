@@ -88,33 +88,33 @@ function initNavMobileMenu() {
 function initNavigation() {
     const navbar = document.querySelector('.navbar');
     const glassNav = document.querySelector('.glass-nav');
-    
-    // Modern pages use .glass-nav which is handled by liquid-glass.js
-    if (!navbar && !glassNav) return;
-    
+    const navBarEl = navbar || glassNav;
+
+    if (!navBarEl) return;
+
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
     function updateNavbar() {
-        if (!navbar) return;
+        if (!navBarEl) return;
         try {
             const scrollY = window.scrollY || 0;
             if (scrollY > 100) {
-                navbar.classList.add('scrolled');
+                navBarEl.classList.add('scrolled');
             } else {
-                navbar.classList.remove('scrolled');
+                navBarEl.classList.remove('scrolled');
             }
             if (typeof updateActiveNavLink === 'function') {
                 updateActiveNavLink();
             }
-        } catch (e) { 
+        } catch (e) {
             console.error('Navbar update error:', e);
         }
     }
 
-    // Mobile menu toggle
-    if (navToggle) {
+    // Mobile menu toggle (index uses #navMobileMenu, other pages use .nav-menu)
+    if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
