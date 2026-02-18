@@ -48,10 +48,11 @@
     </script>
     <style>
         body { font-family: 'Space Grotesk', sans-serif; }
-        .glass-nav {
+        /* Stitch VisionUI Web Rebrand: liquid glass navbar (blur + glass) */
+        .glass-nav, .glass-navbar {
             background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-pill {
@@ -140,7 +141,7 @@
 
 <!-- Unified Navbar (desktop + mobile same design) -->
 <nav class="fixed bottom-4 sm:top-4 sm:bottom-auto left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4">
-    <div class="glass-nav vui-liquid-glass rounded-full px-[1.65rem] py-[0.825rem] flex items-center justify-between shadow-2xl">
+    <div class="glass-nav glass-navbar rounded-full px-[1.65rem] py-[0.825rem] flex items-center justify-between shadow-2xl">
         <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0">
             <div class="text-primary">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
