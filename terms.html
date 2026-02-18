@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html class="dark" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Términos de Servicio - VisionUI</title>
+    <title>Terms of Service - VisionUI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,6 +11,8 @@
     <link rel="icon" type="image/x-icon" href="vui.ico">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
+    <!-- Liquid Glass Effect -->
+    <script defer src="assets/js/liquid-glass.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -36,8 +38,9 @@
     <style>
         body { font-family: 'Space Grotesk', sans-serif; scroll-behavior: smooth; }
         .glass-nav {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(16px);
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             border: 1px solid rgba(59, 216, 216, 0.1);
         }
         .legal-section h2 {
@@ -109,24 +112,25 @@
 <body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-20 md:pb-0">
 
 <!-- Desktop Floating Navbar -->
-<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4 hidden md:block">
-    <div class="glass-nav rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 hidden md:block">
+    <div class="glass-nav rounded-full px-5 py-2 flex items-center justify-between shadow-2xl">
         <a href="index.html" class="flex items-center gap-2 no-underline">
             <div class="text-primary">
-                <svg class="w-7 h-7" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
                 </svg>
             </div>
-            <span class="font-bold tracking-tight text-lg text-white">VisionUI</span>
+            <span class="font-bold tracking-tight text-white">VisionUI</span>
         </a>
-        <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+        <div class="flex items-center gap-5 text-xs font-medium text-slate-400">
             <a class="hover:text-primary transition-colors" href="index.html#features">Features</a>
             <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
-            <a class="hover:text-primary transition-colors" href="docs.html">Documentation</a>
-            <a class="text-primary" href="#">Legal</a>
+            <a class="hover:text-primary transition-colors" href="showcase.html">Showcase</a>
+            <a class="hover:text-primary transition-colors" href="docs.html">Docs</a>
         </div>
-        <a href="account.html" class="bg-primary text-background-dark px-5 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all">
-            Mi Cuenta
+        <a href="account.html" class="flex items-center gap-1 bg-primary text-background-dark px-4 py-1.5 rounded-full text-xs font-bold hover:brightness-110 transition-all">
+            My Account
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
         </a>
     </div>
 </nav>
@@ -148,11 +152,15 @@
     <div class="mobile-bottom-nav rounded-2xl px-2 py-2 flex items-center justify-around shadow-2xl">
         <a href="index.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[22px]">home</span>
-            <span class="text-[10px] font-semibold">Inicio</span>
+            <span class="text-[10px] font-semibold">Home</span>
         </a>
         <a href="store.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[22px]">storefront</span>
             <span class="text-[10px] font-semibold">Apps</span>
+        </a>
+        <a href="showcase.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">photo_library</span>
+            <span class="text-[10px] font-semibold">Showcase</span>
         </a>
         <a href="docs.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[22px]">menu_book</span>
@@ -164,7 +172,7 @@
         </a>
         <a href="account.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[22px]">account_circle</span>
-            <span class="text-[10px] font-semibold">Cuenta</span>
+            <span class="text-[10px] font-semibold">Account</span>
         </a>
     </div>
 </nav>
@@ -175,34 +183,34 @@
 
         <!-- Breadcrumbs -->
         <div class="flex items-center gap-2 text-primary/60 text-xs font-medium mb-10">
-            <a class="hover:text-primary transition-colors" href="index.html">Inicio</a>
+            <a class="hover:text-primary transition-colors" href="index.html">Home</a>
             <span class="material-symbols-outlined text-xs">chevron_right</span>
-            <span class="text-primary">Términos de Servicio</span>
+            <span class="text-primary">Terms of Service</span>
         </div>
 
         <!-- Header -->
         <div class="text-center mb-14">
             <div class="flex items-center justify-center gap-2 mb-4 text-primary/80">
                 <span class="material-symbols-outlined text-sm">gavel</span>
-                <span class="text-xs font-bold uppercase tracking-widest">Documentación Legal</span>
+                <span class="text-xs font-bold uppercase tracking-widest">Legal Documentation</span>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Términos de Servicio</h1>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">Terms of Service</h1>
             <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
-            <p class="mt-6 text-slate-500 text-sm uppercase tracking-widest font-semibold">Última actualización: 29 de enero de 2026</p>
+            <p class="mt-6 text-slate-500 text-sm uppercase tracking-widest font-semibold">Last updated: January 29, 2026</p>
         </div>
 
         <!-- Quick Navigation -->
         <div class="bg-surface-dark/50 border border-white/5 rounded-2xl p-5 mb-12 flex flex-wrap gap-3 justify-center">
-            <a class="text-xs font-bold px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary/20 transition-all border border-primary/20" href="#s1">1. Aceptación</a>
-            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s2">2. Servicio</a>
-            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s4">3. Licencias</a>
-            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s5">4. Pagos</a>
-            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s8">5. Limitación</a>
+            <a class="text-xs font-bold px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary/20 transition-all border border-primary/20" href="#s1">1. Acceptance</a>
+            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s2">2. Service</a>
+            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s4">3. Licenses</a>
+            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s5">4. Payments</a>
+            <a class="text-xs font-bold px-4 py-2 bg-white/5 text-white/60 rounded-full hover:bg-white/10 transition-all border border-white/5" href="#s8">5. Liability</a>
         </div>
 
         <!-- Intro quote -->
         <p class="text-lg italic text-white/70 border-l-2 border-primary pl-6 mb-12">
-            Por favor lee estos términos de servicio cuidadosamente antes de usar VisionUI. Tu acceso y uso del servicio está condicionado a la aceptación de estos términos.
+            Please read these terms of service carefully before using VisionUI. Your access and use of the service is conditioned on acceptance of these terms.
         </p>
 
         <!-- Legal Content -->
@@ -213,10 +221,10 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">handshake</span>
                     </div>
-                    1. Aceptación de los Términos
+                    1. Acceptance of Terms
                 </h2>
-                <p>Al acceder y utilizar el sitio web VisionUI (visionui.app) y sus servicios, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestros servicios.</p>
-                <p>VisionUI se reserva el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor al publicarse. El uso continuado del servicio constituye aceptación de los nuevos términos.</p>
+                <p>By accessing and using the VisionUI website (visionui.app) and its services, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our services.</p>
+                <p>VisionUI reserves the right to modify these terms at any time. Changes will take effect upon publication. Continued use of the service constitutes acceptance of the new terms.</p>
             </section>
 
             <section id="s2">
@@ -224,13 +232,13 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">deployed_code</span>
                     </div>
-                    2. Descripción del Servicio
+                    2. Service Description
                 </h2>
-                <p>VisionUI proporciona:</p>
+                <p>VisionUI provides:</p>
                 <ul>
-                    <li><strong class="text-white">VisionUI Framework:</strong> Un framework de código abierto para crear interfaces de usuario con PySide6.</li>
-                    <li><strong class="text-white">VisionUI Apps:</strong> Aplicaciones de software con licencia comercial disponibles en el marketplace.</li>
-                    <li><strong class="text-white">VuiStudio:</strong> Herramienta de diseño visual para crear interfaces (próximamente).</li>
+                    <li><strong class="text-white">VisionUI Framework:</strong> An open-source framework for creating user interfaces with PySide6.</li>
+                    <li><strong class="text-white">VisionUI Apps:</strong> Commercially licensed software applications available on the marketplace.</li>
+                    <li><strong class="text-white">VuiStudio:</strong> Visual design tool for creating interfaces (coming soon).</li>
                 </ul>
             </section>
 
@@ -239,16 +247,16 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">manage_accounts</span>
                     </div>
-                    3. Cuentas de Usuario
+                    3. User Accounts
                 </h2>
-                <p>Al crear una cuenta, usted se compromete a:</p>
+                <p>By creating an account, you agree to:</p>
                 <ul>
-                    <li>Proporcionar información precisa y completa</li>
-                    <li>Mantener la seguridad de su contraseña</li>
-                    <li>Notificarnos inmediatamente de cualquier uso no autorizado</li>
-                    <li>Ser responsable de todas las actividades bajo su cuenta</li>
+                    <li>Provide accurate and complete information</li>
+                    <li>Maintain the security of your password</li>
+                    <li>Notify us immediately of any unauthorized use</li>
+                    <li>Be responsible for all activities under your account</li>
                 </ul>
-                <p>Nos reservamos el derecho de suspender o terminar cuentas que violen estos términos.</p>
+                <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
             </section>
 
             <section id="s4">
@@ -256,20 +264,20 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">license</span>
                     </div>
-                    4. Licencias de Software
+                    4. Software Licenses
                 </h2>
-                <h3>4.1 Framework VisionUI (Código Abierto)</h3>
-                <p>El framework VisionUI se distribuye bajo licencia de código abierto. Puede usar, modificar y distribuir el framework según los términos de dicha licencia.</p>
-                <h3>4.2 Aplicaciones Comerciales</h3>
-                <p>Las licencias de aplicaciones comerciales (VisionUI Apps) están sujetas a:</p>
+                <h3>4.1 VisionUI Framework (Open Source)</h3>
+                <p>The VisionUI framework is distributed under an open-source license. You may use, modify, and distribute the framework according to the terms of that license.</p>
+                <h3>4.2 Commercial Applications</h3>
+                <p>Commercial application licenses (VisionUI Apps) are subject to:</p>
                 <ul>
-                    <li><strong class="text-white">Licencia personal:</strong> Uso en un solo dispositivo por el titular de la licencia.</li>
-                    <li><strong class="text-white">Licencia de por vida:</strong> Sin fecha de expiración, válida para la versión adquirida y actualizaciones menores.</li>
-                    <li><strong class="text-white">Sin transferencia:</strong> Las licencias no son transferibles a terceros.</li>
-                    <li><strong class="text-white">Sin redistribución:</strong> No puede redistribuir, revender o compartir el software licenciado.</li>
+                    <li><strong class="text-white">Personal license:</strong> Use on a single device by the license holder.</li>
+                    <li><strong class="text-white">Lifetime license:</strong> No expiration date, valid for the purchased version and minor updates.</li>
+                    <li><strong class="text-white">Non-transferable:</strong> Licenses cannot be transferred to third parties.</li>
+                    <li><strong class="text-white">No redistribution:</strong> You may not redistribute, resell, or share the licensed software.</li>
                 </ul>
                 <div class="warning-box">
-                    <p><strong>Importante:</strong> La violación de los términos de licencia resultará en la revocación inmediata de la misma sin derecho a reembolso.</p>
+                    <p><strong>Important:</strong> Violation of license terms will result in immediate revocation without refund.</p>
                 </div>
             </section>
 
@@ -278,19 +286,19 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">payments</span>
                     </div>
-                    5. Pagos y Reembolsos
+                    5. Payments and Refunds
                 </h2>
-                <p><strong class="text-white">Procesamiento de pagos:</strong></p>
+                <p><strong class="text-white">Payment processing:</strong></p>
                 <ul>
-                    <li>Los pagos se procesan a través de LemonSqueezy, un procesador de pagos de terceros.</li>
-                    <li>Al realizar una compra, acepta los términos de servicio de LemonSqueezy.</li>
-                    <li>Los precios están en USD y pueden incluir impuestos según su ubicación.</li>
+                    <li>Payments are processed through LemonSqueezy, a third-party payment processor.</li>
+                    <li>By making a purchase, you agree to LemonSqueezy's terms of service.</li>
+                    <li>Prices are in USD and may include taxes based on your location.</li>
                 </ul>
-                <p><strong class="text-white">Política de reembolsos:</strong></p>
+                <p><strong class="text-white">Refund policy:</strong></p>
                 <ul>
-                    <li>Ofrecemos reembolsos dentro de los 14 días posteriores a la compra si el software no funciona como se describe.</li>
-                    <li>No se ofrecen reembolsos por cambio de opinión después de descargar y usar el software.</li>
-                    <li>Para solicitar un reembolso, contacte a <a href="mailto:soporte@visionui.app">soporte@visionui.app</a>.</li>
+                    <li>We offer refunds within 14 days of purchase if the software does not work as described.</li>
+                    <li>No refunds are offered for change of mind after downloading and using the software.</li>
+                    <li>To request a refund, contact <a href="mailto:support@visionui.app">support@visionui.app</a>.</li>
                 </ul>
             </section>
 
@@ -299,17 +307,17 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">security</span>
                     </div>
-                    6. Uso Aceptable
+                    6. Acceptable Use
                 </h2>
-                <p>Al usar nuestros servicios, usted acepta NO:</p>
+                <p>By using our services, you agree NOT to:</p>
                 <ul>
-                    <li>Violar leyes locales, nacionales o internacionales</li>
-                    <li>Infringir derechos de propiedad intelectual</li>
-                    <li>Intentar acceder sin autorización a nuestros sistemas</li>
-                    <li>Distribuir malware o código malicioso</li>
-                    <li>Realizar ingeniería inversa del software (excepto donde la ley lo permita)</li>
-                    <li>Usar el servicio para actividades fraudulentas</li>
-                    <li>Compartir credenciales de licencia con terceros</li>
+                    <li>Violate local, national, or international laws</li>
+                    <li>Infringe intellectual property rights</li>
+                    <li>Attempt unauthorized access to our systems</li>
+                    <li>Distribute malware or malicious code</li>
+                    <li>Reverse engineer the software (except where permitted by law)</li>
+                    <li>Use the service for fraudulent activities</li>
+                    <li>Share license credentials with third parties</li>
                 </ul>
             </section>
 
@@ -318,10 +326,10 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">copyright</span>
                     </div>
-                    7. Propiedad Intelectual
+                    7. Intellectual Property
                 </h2>
-                <p>Todo el contenido, diseño, código, gráficos, logos y marcas comerciales de VisionUI son propiedad de VisionUI o sus licenciantes. Está prohibida la reproducción, distribución o uso sin autorización expresa.</p>
-                <p>El framework de código abierto se rige por su propia licencia, que permite usos específicos según sus términos.</p>
+                <p>All content, design, code, graphics, logos, and trademarks of VisionUI are the property of VisionUI or its licensors. Reproduction, distribution, or use without express authorization is prohibited.</p>
+                <p>The open-source framework is governed by its own license, which permits specific uses according to its terms.</p>
             </section>
 
             <section id="s8">
@@ -329,12 +337,12 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">balance</span>
                     </div>
-                    8. Limitación de Responsabilidad
+                    8. Limitation of Liability
                 </h2>
                 <div class="highlight-box">
-                    <p>El software se proporciona "tal cual" sin garantías de ningún tipo. VisionUI no será responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o imposibilidad de uso del software.</p>
+                    <p>The software is provided "as is" without warranties of any kind. VisionUI shall not be liable for direct, indirect, incidental, or consequential damages arising from the use or inability to use the software.</p>
                 </div>
-                <p>En ningún caso nuestra responsabilidad total excederá el monto pagado por usted en los últimos 12 meses.</p>
+                <p>In no event shall our total liability exceed the amount paid by you in the last 12 months.</p>
             </section>
 
             <section>
@@ -342,9 +350,9 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">shield</span>
                     </div>
-                    9. Indemnización
+                    9. Indemnification
                 </h2>
-                <p>Usted acepta indemnizar y mantener indemne a VisionUI, sus directores, empleados y agentes de cualquier reclamación, daño, pérdida o gasto derivados de su uso del servicio o violación de estos términos.</p>
+                <p>You agree to indemnify and hold harmless VisionUI, its directors, employees, and agents from any claim, damage, loss, or expense arising from your use of the service or violation of these terms.</p>
             </section>
 
             <section>
@@ -352,9 +360,9 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">build</span>
                     </div>
-                    10. Modificaciones del Servicio
+                    10. Service Modifications
                 </h2>
-                <p>Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto del servicio en cualquier momento, con o sin previo aviso. No seremos responsables ante usted ni terceros por cualquier modificación, suspensión o discontinuación.</p>
+                <p>We reserve the right to modify, suspend, or discontinue any aspect of the service at any time, with or without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuation.</p>
             </section>
 
             <section>
@@ -362,15 +370,15 @@
                     <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <span class="material-symbols-outlined text-primary text-[16px]">public</span>
                     </div>
-                    11. Ley Aplicable
+                    11. Governing Law
                 </h2>
-                <p>Estos términos se regirán e interpretarán de acuerdo con las leyes aplicables, sin referencia a conflictos de principios legales. Cualquier disputa se resolverá mediante arbitraje vinculante.</p>
+                <p>These terms shall be governed and interpreted in accordance with applicable law, without reference to conflicts of legal principles. Any dispute shall be resolved through binding arbitration.</p>
             </section>
 
             <!-- Contact CTA -->
             <div class="mt-16 p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 text-center">
-                <h3 class="text-white text-xl font-bold mb-3">¿Preguntas sobre los Términos?</h3>
-                <p class="text-white/60 mb-6 text-sm">Nuestro equipo legal está disponible para aclarar cualquier duda que tengas.</p>
+                <h3 class="text-white text-xl font-bold mb-3">Questions about the Terms?</h3>
+                <p class="text-white/60 mb-6 text-sm">Our legal team is available to clarify any questions you may have.</p>
                 <a class="inline-flex items-center gap-2 bg-primary text-background-dark font-bold px-8 py-3 rounded-full hover:scale-105 transition-transform text-sm" href="mailto:legal@visionui.app">
                     <span class="material-symbols-outlined text-[18px]">mail</span>
                     legal@visionui.app
@@ -381,22 +389,16 @@
 </main>
 
 <!-- Footer -->
-<footer class="border-t border-white/5 py-12 px-6 bg-background-dark/50">
-    <div class="max-w-[960px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-2 opacity-50">
-            <div class="text-primary">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-                </svg>
-            </div>
-            <span class="text-sm font-bold">© 2026 VisionUI Framework</span>
-        </div>
-        <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-white/40">
-            <a class="hover:text-primary transition-colors text-primary" href="terms.html">Términos</a>
-            <a class="hover:text-primary transition-colors" href="privacy.html">Privacidad</a>
-            <a class="hover:text-primary transition-colors" href="docs.html">Documentation</a>
-            <a class="hover:text-primary transition-colors" href="index.html">Inicio</a>
-            <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
+<footer class="border-t border-white/5 py-6 px-6 bg-background-dark/50">
+    <div class="max-w-3xl mx-auto flex justify-between items-center text-xs">
+        <span class="text-white/40">© 2026 VUI Framework. All rights reserved.</span>
+        <div class="flex gap-4">
+            <a class="text-white/40 hover:text-primary transition-colors" href="store.html">Apps</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="https://x.com/AgoraDevStudio" target="_blank">X</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="https://discord.gg/visionui" target="_blank">Discord</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a>
+            <a class="text-primary hover:text-primary transition-colors" href="terms.html">Terms of Service</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="docs.html">Documentation</a>
         </div>
     </div>
 </footer>
