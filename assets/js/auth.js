@@ -9,17 +9,6 @@ const AUTH_CONFIG = {
     USER_KEY: 'visionui_user'
 };
 
-function escapeHtml(value) {
-    return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
-
-const authListeners = new Set();
-
 /**
  * Auth state management
  */
@@ -45,18 +34,12 @@ const VUIAuth = {
     saveSession(token, user) {
         localStorage.setItem(AUTH_CONFIG.SESSION_KEY, token);
         localStorage.setItem(AUTH_CONFIG.USER_KEY, JSON.stringify(user));
-        authListeners.forEach((cb) => {
-            try { cb({ type: 'login', user }); } catch (e) { console.error('Auth listener error:', e); }
-        });
     },
 
     // Clear session
     clearSession() {
         localStorage.removeItem(AUTH_CONFIG.SESSION_KEY);
         localStorage.removeItem(AUTH_CONFIG.USER_KEY);
-        authListeners.forEach((cb) => {
-            try { cb({ type: 'logout' }); } catch (e) { console.error('Auth listener error:', e); }
-        });
     },
 
     // Check if logged in
@@ -68,16 +51,6 @@ const VUIAuth = {
     getUser() {
         const session = this.getSession();
         return session?.user || null;
-    },
-
-    getToken() {
-        return this.getSession()?.token || null;
-    },
-
-    onAuthChange(callback) {
-        if (typeof callback !== 'function') return () => {};
-        authListeners.add(callback);
-        return () => authListeners.delete(callback);
     },
 
     // Validate session with backend
@@ -252,22 +225,19 @@ const VUIAuthUI = {
         
         if (user) {
             // Logged in
-            const safeEmail = escapeHtml(user.email || '');
-            const safeAlias = escapeHtml((user.email || '').split('@')[0] || 'user');
             navAccount.innerHTML = `
-                <span class="user-email">${safeAlias}</span>
+                <span class="user-email">${user.email.split('@')[0]}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             `;
             navAccount.classList.add('logged-in');
-            navAccount.title = `Logged in as ${safeEmail}`;
+            navAccount.title = `Logged in as ${user.email}`;
         } else {
-            // Not logged in - use i18n text (no emoji icon)
+            // Not logged in - use i18n text
             navAccount.innerHTML = `
-                <span class="material-symbols-outlined" aria-hidden="true">person</span>
-                <span data-i18n="nav.account">My Account</span>
+                👤 <span data-i18n="nav.account">My Account</span>
             `;
             navAccount.classList.remove('logged-in');
             navAccount.title = 'Login / Register';
@@ -288,8 +258,6 @@ const VUIAuthUI = {
         if (document.querySelector('.user-dropdown')) return;
 
         const user = VUIAuth.getUser();
-        const safeEmail = escapeHtml(user?.email || '');
-        const safeAvatar = escapeHtml((user?.email || 'u').charAt(0).toUpperCase());
         // Use root-level paths (no more pages/ folder)
         const accountPath = 'account.html';
         const storePath = 'store.html';
@@ -298,9 +266,9 @@ const VUIAuthUI = {
         dropdown.className = 'user-dropdown';
         dropdown.innerHTML = `
             <div class="dropdown-header">
-                <div class="user-avatar">${safeAvatar}</div>
+                <div class="user-avatar">${user.email.charAt(0).toUpperCase()}</div>
                 <div class="user-info">
-                    <div class="user-name">${safeEmail}</div>
+                    <div class="user-name">${user.email}</div>
                     <div class="user-status" data-i18n="${user.has_license ? 'auth.license_active' : 'auth.no_licenses'}">${user.has_license ? '✓ Active license' : 'No license'}</div>
                 </div>
             </div>
@@ -391,19 +359,16 @@ const VUIAuthUI = {
     },
 
     // Initialize auth UI
-    async init() {
-        // Evita mostrar UI autenticada hasta validar sesión
-        if (VUIAuth.isLoggedIn()) {
-            const valid = await VUIAuth.validateSession();
-            if (!valid) {
-                this.updateNavbar();
-                return;
-            }
-        }
-
+    init() {
         this.updateNavbar();
         if (VUIAuth.isLoggedIn()) {
             this.createUserDropdown();
+            // Validate session in background
+            VUIAuth.validateSession().then(valid => {
+                if (!valid) {
+                    this.updateNavbar();
+                }
+            });
         }
     }
 };
