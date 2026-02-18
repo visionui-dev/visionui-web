@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html class="dark" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation & Contact - VisionUI</title>
-    <meta name="description" content="Documentación oficial de VisionUI Framework. Guías de inicio rápido, referencia de API, componentes y soporte.">
+    <meta name="description" content="Official VisionUI Framework documentation. Quick start guides, API reference, components, and support.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,6 +14,10 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
     <!-- VisionUI Analytics -->
     <script defer src="assets/js/analytics.js"></script>
+    <!-- Liquid Glass Effect -->
+    <script defer src="assets/js/liquid-glass.js"></script>
+    <!-- Card Hover Glow -->
+    <script defer src="assets/js/card-hover-glow.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -43,9 +47,9 @@
     <style>
         body { font-family: 'Space Grotesk', sans-serif; }
         .glass-nav {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-card {
@@ -84,24 +88,25 @@
 <body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-20 md:pb-0">
 
 <!-- Desktop Floating Navbar -->
-<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4 hidden md:block">
-    <div class="glass-nav rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 hidden md:block">
+    <div class="glass-nav rounded-full px-5 py-2 flex items-center justify-between shadow-2xl">
         <a href="index.html" class="flex items-center gap-2 no-underline">
             <div class="text-primary">
-                <svg class="w-7 h-7" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
                 </svg>
             </div>
-            <span class="font-bold tracking-tight text-lg text-white">VisionUI</span>
+            <span class="font-bold tracking-tight text-white">VisionUI</span>
         </a>
-        <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+        <div class="flex items-center gap-5 text-xs font-medium text-slate-400">
             <a class="hover:text-primary transition-colors" href="index.html#features">Features</a>
             <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
-            <a class="text-primary" href="docs.html">Documentation</a>
-            <a class="hover:text-primary transition-colors" href="#contact">Contact</a>
+            <a class="hover:text-primary transition-colors" href="showcase.html">Showcase</a>
+            <a class="text-primary" href="docs.html">Docs</a>
         </div>
-        <a href="account.html" class="bg-primary text-background-dark px-5 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all">
-            Mi Cuenta
+        <a href="account.html" class="flex items-center gap-1 bg-primary text-background-dark px-4 py-1.5 rounded-full text-xs font-bold hover:brightness-110 transition-all">
+            My Account
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
         </a>
     </div>
 </nav>
@@ -129,17 +134,17 @@
             <span class="material-symbols-outlined text-[22px]">storefront</span>
             <span class="text-[10px] font-semibold">Apps</span>
         </a>
+        <a href="showcase.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">photo_library</span>
+            <span class="text-[10px] font-semibold">Showcase</span>
+        </a>
         <a href="docs.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-primary">
             <span class="material-symbols-outlined text-[22px]">menu_book</span>
             <span class="text-[10px] font-semibold">Docs</span>
         </a>
-        <a href="#contact" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-[22px]">mail</span>
-            <span class="text-[10px] font-semibold">Contact</span>
-        </a>
         <a href="account.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[22px]">account_circle</span>
-            <span class="text-[10px] font-semibold">Cuenta</span>
+            <span class="text-[10px] font-semibold">Account</span>
         </a>
     </div>
 </nav>
@@ -152,17 +157,17 @@
         <div class="mb-14">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
                 <span class="material-symbols-outlined text-[14px]">menu_book</span>
-                Documentación
+                Documentation
             </div>
-            <h1 class="text-5xl md:text-6xl font-bold mb-5">Documentación</h1>
-            <p class="text-slate-400 text-lg max-w-2xl">Todo lo que necesitas para construir aplicaciones de escritorio de alto rendimiento con VisionUI Framework.</p>
+            <h1 class="text-5xl md:text-6xl font-bold mb-5">Documentation</h1>
+            <p class="text-slate-400 text-lg max-w-2xl">Everything you need to build high-performance desktop applications with VisionUI Framework.</p>
         </div>
 
         <!-- Quickstart -->
         <div class="glass-card rounded-2xl p-8 mb-12 border-l-4 border-l-primary">
             <h2 class="text-xl font-bold mb-8 flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary text-[22px]">bolt</span>
-                Guía de Inicio Rápido
+                Quick Start Guide
             </h2>
             <div class="space-y-0">
                 <!-- Step 1 -->
@@ -172,8 +177,8 @@
                         <div class="w-px flex-1 step-line group-last:hidden my-2"></div>
                     </div>
                     <div class="pb-8">
-                        <h3 class="text-lg font-semibold mb-1">Instala vía pip</h3>
-                        <p class="text-slate-400 mb-3 text-sm">Añade VisionUI a tu entorno Python.</p>
+                        <h3 class="text-lg font-semibold mb-1">Install via pip</h3>
+                        <p class="text-slate-400 mb-3 text-sm">Add VisionUI to your Python environment.</p>
                         <code class="bg-black/40 px-5 py-3 rounded-xl block font-mono text-sm border border-white/5 text-primary/90">
                             pip install visionui
                         </code>
@@ -186,8 +191,8 @@
                         <div class="w-px flex-1 step-line group-last:hidden my-2"></div>
                     </div>
                     <div class="pb-8">
-                        <h3 class="text-lg font-semibold mb-1">Importa el framework</h3>
-                        <p class="text-slate-400 mb-3 text-sm">Configura tu proyecto e importa los componentes que necesitas.</p>
+                        <h3 class="text-lg font-semibold mb-1">Import the framework</h3>
+                        <p class="text-slate-400 mb-3 text-sm">Set up your project and import the components you need.</p>
                         <code class="bg-black/40 px-5 py-3 rounded-xl block font-mono text-sm border border-white/5 text-slate-300">
                             from visionui import VUIApp, GlassWidget, VUIButton
                         </code>
@@ -199,11 +204,11 @@
                         <div class="size-10 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold shrink-0 text-sm">3</div>
                     </div>
                     <div class="pb-0">
-                        <h3 class="text-lg font-semibold mb-1">Crea tu primera ventana</h3>
-                        <p class="text-slate-400 mb-3 text-sm">Inicializa tu aplicación y despliégala en segundos.</p>
+                        <h3 class="text-lg font-semibold mb-1">Create your first window</h3>
+                        <p class="text-slate-400 mb-3 text-sm">Initialize your application and deploy it in seconds.</p>
                         <code class="bg-black/40 px-5 py-3 rounded-xl block font-mono text-sm border border-white/5 text-slate-300">
                             app = VUIApp(theme='glass')<br>
-                            window = app.create_window("Mi App")<br>
+                            window = app.create_window("My App")<br>
                             app.run()
                         </code>
                     </div>
@@ -219,9 +224,9 @@
                     <span class="material-symbols-outlined text-[26px]">api</span>
                 </div>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">API Reference</h3>
-                <p class="text-slate-400 leading-relaxed text-sm">Especificaciones técnicas completas de todos los componentes, widgets, utilidades y patrones de integración de VisionUI.</p>
+                <p class="text-slate-400 leading-relaxed text-sm">Complete technical specifications of all VisionUI components, widgets, utilities, and integration patterns.</p>
                 <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    Explore <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </div>
             </div>
             <!-- Components -->
@@ -230,9 +235,9 @@
                     <span class="material-symbols-outlined text-[26px]">widgets</span>
                 </div>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Components</h3>
-                <p class="text-slate-400 leading-relaxed text-sm">Más de 55 componentes UI listos para usar: glass effects, buttons, sliders, tables, charts, modals y más para PySide6.</p>
+                <p class="text-slate-400 leading-relaxed text-sm">Over 55 ready-to-use UI components: glass effects, buttons, sliders, tables, charts, modals and more for PySide6.</p>
                 <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    Explore <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </div>
             </div>
             <!-- Guides -->
@@ -241,9 +246,9 @@
                     <span class="material-symbols-outlined text-[26px]">menu_book</span>
                 </div>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Guides</h3>
-                <p class="text-slate-400 leading-relaxed text-sm">Guías profundas sobre mejores prácticas para rendimiento, glass effects, theming, licencias y arquitectura de apps.</p>
+                <p class="text-slate-400 leading-relaxed text-sm">In-depth guides on best practices for performance, glass effects, theming, licensing, and app architecture.</p>
                 <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    Explore <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </div>
             </div>
             <!-- Examples -->
@@ -252,9 +257,9 @@
                     <span class="material-symbols-outlined text-[26px]">lightbulb</span>
                 </div>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Examples</h3>
-                <p class="text-slate-400 leading-relaxed text-sm">Proyectos de ejemplo listos para usar: Glass Widget Bitcoin, PomoVision, Dashboard de Trading y más para prototipado rápido.</p>
+                <p class="text-slate-400 leading-relaxed text-sm">Ready-to-use example projects: Glass Widget Bitcoin, PomoVision, Trading Dashboard and more for rapid prototyping.</p>
                 <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    Explore <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                 </div>
             </div>
         </div>
@@ -265,34 +270,34 @@
         <div class="text-center mb-12">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
                 <span class="material-symbols-outlined text-[14px]">support_agent</span>
-                Soporte
+                Support
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Soporte y Contacto</h2>
-            <p class="text-slate-400 max-w-md mx-auto">¿Tienes preguntas o encontraste un bug? Nuestro equipo está aquí para ayudarte a sacarle el máximo a VisionUI.</p>
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Support & Contact</h2>
+            <p class="text-slate-400 max-w-md mx-auto">Have questions or found a bug? Our team is here to help you get the most out of VisionUI.</p>
         </div>
 
         <div class="w-full max-w-xl glass-card p-10 rounded-2xl shadow-2xl relative overflow-hidden">
             <div class="absolute -top-24 -right-24 size-48 bg-primary/10 blur-[80px] rounded-full pointer-events-none"></div>
             <form id="contactForm" onsubmit="handleContact(event)" class="space-y-5 relative z-10">
                 <div class="space-y-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactName">Nombre</label>
-                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactName" name="name" placeholder="Tu nombre completo" type="text" required>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactName">Name</label>
+                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactName" name="name" placeholder="Your full name" type="text" required>
                 </div>
                 <div class="space-y-2">
                     <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactEmail">Email</label>
-                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactEmail" name="email" placeholder="tu@email.com" type="email" required>
+                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactEmail" name="email" placeholder="you@email.com" type="email" required>
                 </div>
                 <div class="space-y-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactSubject">Asunto</label>
-                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactSubject" name="subject" placeholder="¿En qué podemos ayudarte?" type="text">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactSubject">Subject</label>
+                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactSubject" name="subject" placeholder="How can we help you?" type="text">
                 </div>
                 <div class="space-y-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactMessage">Mensaje</label>
-                    <textarea class="input-glass w-full rounded-2xl px-6 py-4 text-white placeholder:text-white/20 text-sm resize-none" id="contactMessage" name="message" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactMessage">Message</label>
+                    <textarea class="input-glass w-full rounded-2xl px-6 py-4 text-white placeholder:text-white/20 text-sm resize-none" id="contactMessage" name="message" placeholder="Write your message here..." rows="4" required></textarea>
                 </div>
                 <p id="contactMsg" class="text-sm text-primary hidden"></p>
                 <button class="w-full bg-primary text-background-dark font-bold py-4 rounded-full flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-100 transition-all shadow-lg shadow-primary/20 text-sm" type="submit">
-                    <span id="contactBtnText">Enviar Mensaje</span>
+                    <span id="contactBtnText">Send Message</span>
                     <span class="material-symbols-outlined text-[18px]">send</span>
                 </button>
             </form>
@@ -317,21 +322,16 @@
 </main>
 
 <!-- Footer -->
-<footer class="border-t border-white/5 py-12 px-6 mt-12">
-    <div class="max-w-[1140px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="flex items-center gap-2 opacity-50">
-            <div class="text-primary">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-                </svg>
-            </div>
-            <span class="text-sm font-medium">© 2026 VisionUI Framework. Todos los derechos reservados.</span>
-        </div>
-        <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-400">
-            <a class="hover:text-primary transition-colors" href="index.html">Inicio</a>
-            <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
-            <a class="hover:text-primary transition-colors" href="privacy.html">Privacidad</a>
-            <a class="hover:text-primary transition-colors" href="terms.html">Términos</a>
+<footer class="border-t border-white/5 py-6 px-6 mt-12">
+    <div class="max-w-3xl mx-auto flex justify-between items-center text-xs">
+        <span class="text-white/40">© 2026 VUI Framework. All rights reserved.</span>
+        <div class="flex gap-4">
+            <a class="text-white/40 hover:text-primary transition-colors" href="store.html">Apps</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="https://x.com/AgoraDevStudio" target="_blank">X</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="https://discord.gg/visionui" target="_blank">Discord</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="terms.html">Terms of Service</a>
+            <a class="text-white/40 hover:text-primary transition-colors" href="docs.html">Documentation</a>
         </div>
     </div>
 </footer>
@@ -350,15 +350,15 @@
         const btnText = document.getElementById('contactBtnText');
         const msg = document.getElementById('contactMsg');
         btn.disabled = true;
-        btnText.textContent = 'Enviando...';
+        btnText.textContent = 'Sending...';
         try {
             await new Promise(r => setTimeout(r, 800));
-            msg.textContent = '✓ Mensaje enviado. Te responderemos pronto a contact@visionui.app';
+            msg.textContent = '✓ Message sent. We will reply soon to contact@visionui.app';
             msg.classList.remove('hidden');
             e.target.reset();
         } catch (err) {}
         btn.disabled = false;
-        btnText.textContent = 'Enviar Mensaje';
+        btnText.textContent = 'Send Message';
     }
 </script>
 </body>
