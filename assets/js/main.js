@@ -67,22 +67,29 @@ function initExternalLinks() {
 
 function initNavigation() {
     const navbar = document.querySelector('.navbar');
+    
+    // Modern pages use .glass-nav which is handled by liquid-glass.js
+    if (!navbar) return;
+    
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Navbar scroll effect
     function updateNavbar() {
-        const scrollY = window.scrollY;
-
-        if (scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-
-        // Update active nav link based on scroll position
-        updateActiveNavLink();
+        if (!navbar) return;
+        try {
+            const scrollY = window.scrollY || 0;
+            if (navbar.classList) {
+                if (scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            if (typeof updateActiveNavLink === 'function') {
+                updateActiveNavLink();
+            }
+        } catch (e) { /* silent */ }
     }
 
     // Mobile menu toggle
@@ -110,9 +117,9 @@ function initNavigation() {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             
-            // Si es un link externo o a otra página, navegar normalmente
+            // If external link or another page, navigate normally
             if (!targetId.startsWith('#')) {
-                // No prevenir default, dejar que navegue normalmente
+                // Don't prevent default, let it navigate normally
                 return;
             }
             
@@ -249,7 +256,7 @@ function initFormHandling() {
             const data = Object.fromEntries(formData);
 
             // Simulate form submission
-            showNotification('Mensaje enviado correctamente', 'success');
+            showNotification('Message sent successfully', 'success');
 
             // Reset form
             this.reset();
@@ -257,11 +264,11 @@ function initFormHandling() {
             // Add loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Enviando...</span>';
+            submitBtn.innerHTML = '<span>Sending...</span>';
 
             setTimeout(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Enviar Mensaje</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+                submitBtn.innerHTML = '<span>Send Message</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
             }, 2000);
         });
 
@@ -289,7 +296,7 @@ function validateField(field) {
     // Required validation
     if (field.hasAttribute('required') && !value) {
         isValid = false;
-        errorMessage = 'Este campo es obligatorio';
+        errorMessage = 'This field is required';
     }
 
     // Email validation
@@ -297,7 +304,7 @@ function validateField(field) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
             isValid = false;
-            errorMessage = 'Ingresa un email válido';
+            errorMessage = 'Enter a valid email';
         }
     }
 
@@ -576,7 +583,7 @@ function initAccessibility() {
     const skipLink = document.createElement('a');
     skipLink.href = '#main';
     skipLink.className = 'skip-link sr-only';
-    skipLink.textContent = 'Saltar al contenido principal';
+    skipLink.textContent = 'Skip to main content';
     document.body.insertBefore(skipLink, document.body.firstChild);
 
     // Show skip link on focus
@@ -641,23 +648,25 @@ function getElementLocation(element) {
 }
 
 // ==================================================
-// ERROR HANDLING
+// ERROR HANDLING (silent - development only logs)
 // ==================================================
 
 window.addEventListener('error', function(e) {
     console.error('JavaScript Error:', e.error);
-    showNotification('Ha ocurrido un error. Por favor, recarga la página.', 'error');
+    // Silent error handling - no user notification for better UX
 });
 
 window.addEventListener('unhandledrejection', function(e) {
     console.error('Unhandled Promise Rejection:', e.reason);
-    showNotification('Ha ocurrido un error inesperado.', 'error');
+    // Silent error handling - no user notification for better UX
 });
 
 // ==================================================
-// SERVICE WORKER (PWA FEATURES)
+// SERVICE WORKER (PWA FEATURES) - Disabled for local dev
 // ==================================================
 
+// Service worker disabled - uncomment for production with sw.js file
+/*
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')
@@ -669,6 +678,7 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+*/
 
 // ==================================================
 // CSS ANIMATIONS
