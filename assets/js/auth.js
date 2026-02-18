@@ -300,7 +300,8 @@ const VUIAuthUI = {
         };
 
         const { iconEl, labelEl, chevronEl } = ensureStructuredButton();
-        
+        if (!navAccount || !navAccount.classList) return;
+
         if (user) {
             // Logged in
             if (iconEl) iconEl.textContent = 'person';
