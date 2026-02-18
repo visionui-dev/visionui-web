@@ -447,8 +447,10 @@ const TRANSLATIONS = {
         'auth.forgot_password': 'Forgot your password?',
         'auth.no_account': 'Don\'t have an account?',
         'auth.has_account': 'Already have an account?',
-        'auth.login_button': 'Sign in',
-        'auth.register_button': 'Create account',
+'auth.login_button': 'Sign in',
+                'auth.register_button': 'Create account',
+                'auth.continue_google': 'Continue with Google',
+                'auth.set_password_desktop': 'Set password for desktop app',
         'auth.logout': 'Logout',
         'auth.logged_as': 'Logged in as',
         'auth.view_apps': 'View available applications',
@@ -584,17 +586,7 @@ const VUIi18n = {
 
     // Get stored language or detect from browser
     getStoredLang() {
-        const stored = localStorage.getItem(I18N_CONFIG.STORAGE_KEY);
-        if (stored && I18N_CONFIG.SUPPORTED_LANGS.includes(stored)) {
-            return stored;
-        }
-        
-        // Detect from browser
-        const browserLang = navigator.language.split('-')[0];
-        if (I18N_CONFIG.SUPPORTED_LANGS.includes(browserLang)) {
-            return browserLang;
-        }
-        
+        // Always use English - force English for entire website
         return I18N_CONFIG.DEFAULT_LANG;
     },
 
