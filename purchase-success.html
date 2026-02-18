@@ -32,6 +32,12 @@
     </script>
     <style>
         body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-nav {
+            background: rgba(30, 37, 37, 0.7);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
         .glass-card {
             background: rgba(30, 37, 37, 0.7);
             backdrop-filter: blur(20px);
@@ -69,25 +75,39 @@
     <!-- Glow Background -->
     <div class="fixed inset-0 glow-bg pointer-events-none"></div>
 
-    <!-- Floating Navbar -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[960px] px-6">
-        <div class="glass-card rounded-full px-6 py-3 flex items-center justify-between shadow-2xl border border-white/5">
-            <a href="index.html" class="flex items-center gap-3 no-underline text-white">
+    <!-- Unified Navbar (desktop + mobile same design) -->
+    <nav class="fixed bottom-4 sm:top-4 sm:bottom-auto left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4">
+        <div class="glass-nav vui-liquid-glass rounded-full px-[1.65rem] py-[0.825rem] flex items-center justify-between shadow-2xl">
+            <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0">
                 <div class="text-primary">
-                    <svg class="w-8 h-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                         <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
                     </svg>
                 </div>
-                <span class="text-xl font-bold tracking-tight">VisionUI</span>
+                <span class="font-bold tracking-tight text-white text-[0.96rem] sm:text-[1.1rem]">VisionUI</span>
             </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="index.html#features">Features</a>
-                <a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="store.html">Apps</a>
-                <a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="docs.html">Documentation</a>
+            <div id="navLinks" class="hidden sm:flex items-center gap-4 md:gap-5 text-[0.96rem] font-medium text-slate-400">
+                <a class="hover:text-primary transition-colors py-1" href="index.html#features">Features</a>
+                <a class="hover:text-primary transition-colors py-1" href="store.html">Apps</a>
+                <a class="hover:text-primary transition-colors py-1" href="showcase.html">Showcase</a>
+                <a class="hover:text-primary transition-colors py-1" href="docs.html">Docs</a>
             </div>
-            <a href="account.html" class="bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-semibold transition-all no-underline">
-                Dashboard
-            </a>
+            <div class="nav-right relative flex items-center gap-2 flex-shrink-0">
+                <button type="button" id="navMenuToggle" class="sm:hidden p-2 rounded-full text-slate-400 hover:text-primary hover:bg-white/5 transition-colors" aria-label="Menu">
+                    <span class="material-symbols-outlined text-[22px]">menu</span>
+                </button>
+                <a href="account.html" class="nav-account flex items-center gap-1.5 bg-primary text-background-dark px-[1.1rem] py-[0.55rem] sm:px-[1.375rem] rounded-full text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline">
+                    <span class="material-symbols-outlined nav-account-icon text-[18px]">person</span>
+                    <span class="nav-account-label" data-i18n="nav.account">My Account</span>
+                    <span class="material-symbols-outlined nav-account-chevron text-[14px] sm:text-[15px]">chevron_right</span>
+                </a>
+            </div>
+        </div>
+        <div id="navMobileMenu" class="sm:hidden absolute bottom-full left-4 right-4 mb-2 glass-nav rounded-2xl p-3 shadow-2xl hidden flex-col">
+            <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="index.html#features">Features</a>
+            <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="store.html">Apps</a>
+            <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="showcase.html">Showcase</a>
+            <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="docs.html">Docs</a>
         </div>
     </nav>
 
@@ -107,9 +127,9 @@
             </div>
 
             <!-- Headlines -->
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Purchase Successful!</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Purchase successful</h1>
             <p class="text-white/60 text-lg leading-relaxed mb-8 max-w-md">
-                Your license has been processed. Now set up your password to access the application.
+                Your license was processed. Set a password to access the app.
             </p>
 
             <!-- Setup Password Form -->
@@ -121,16 +141,16 @@
                 <form id="setupForm" onsubmit="setupPassword(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="your@email.com" class="input-field">
+                        <input type="email" id="email" name="email" required placeholder="you@email.com" class="input-field">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">License Key</label>
                         <input type="text" id="license_key" name="license_key" required placeholder="LIC-XXXX-XXXXXX" class="input-field font-mono">
-                        <p class="text-xs text-white/30 mt-1">Check your email for the key</p>
+                        <p class="text-xs text-white/30 mt-1">Check your email for the license key</p>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">New Password</label>
-                        <input type="password" id="password" name="password" required minlength="6" placeholder="Minimum 6 characters" class="input-field">
+                        <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters" class="input-field">
                         <div class="password-strength"><div class="password-strength-bar" id="strengthBar"></div></div>
                     </div>
                     <div>
@@ -143,7 +163,7 @@
 
                     <button type="submit" id="submitBtn"
                         class="w-full bg-primary hover:bg-[#3dbdbd] text-background-dark font-bold py-4 px-8 rounded-full flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] shadow-lg shadow-primary/20">
-                        <span id="btnText">Set Up Password</span>
+                        <span id="btnText">Set Password</span>
                         <span id="btnLoading" class="hidden text-sm">Setting up...</span>
                     </button>
                 </form>
@@ -158,7 +178,7 @@
             </div>
 
             <p class="mt-6 text-xs text-white/30 font-medium">
-                Need help? <a class="text-primary/60 hover:text-primary underline transition-colors" href="mailto:support@visionui.app">support@visionui.app</a>
+                Need help? <a class="text-primary/60 hover:text-primary underline transition-colors" href="mailto:soporte@visionui.app">soporte@visionui.app</a>
             </p>
         </div>
     </main>
@@ -170,6 +190,23 @@
 
     <script>
         const API_BASE = 'https://admin.visionui.app';
+
+        // Unified navbar mobile menu
+        (function initNavMobileMenu() {
+            const toggle = document.getElementById('navMenuToggle');
+            const menu = document.getElementById('navMobileMenu');
+            if (!toggle || !menu) return;
+            toggle.addEventListener('click', function() {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            });
+            menu.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                });
+            });
+        })();
 
         // Auto-fill from URL params
         const urlParams = new URLSearchParams(window.location.search);
@@ -223,12 +260,12 @@
                 });
                 const data = await response.json();
                 if (data.success) {
-                    successDiv.innerHTML = `✓ Password set up! Now you can use these credentials in your application.<br><br><strong>Username:</strong> ${email}`;
+                    successDiv.innerHTML = `✓ Password set! You can now use these credentials in your app.<br><br><strong>User:</strong> ${email}`;
                     successDiv.classList.remove('hidden');
                     document.querySelectorAll('#setupForm input').forEach(i => i.disabled = true);
                     submitBtn.style.display = 'none';
                 } else {
-                    throw new Error(data.error || 'Error setting up password');
+                    throw new Error(data.error || 'Error setting password');
                 }
             } catch (error) {
                 errorDiv.textContent = error.message;
