@@ -9,6 +9,8 @@
  * Google OAuth Client ID for "Continue with Google".
  * Create at: https://console.cloud.google.com/apis/credentials
  * Type: Web application. Add authorized JS origins: https://visionui.app, https://www.visionui.app, http://localhost:4173
+ * 
+ * Note: Leave empty to disable Google Sign In feature
  */
 window.VISIONUI_GOOGLE_CLIENT_ID = '';
 
