@@ -127,7 +127,7 @@ function initLiquidGlassNavbar() {
         feDisp.setAttribute('in2', 'displacementMap');
         feDisp.setAttribute('xChannelSelector', 'R');
         feDisp.setAttribute('yChannelSelector', 'G');
-        feDisp.setAttribute('scale', '12');  // Reduced for more subtle effect
+        feDisp.setAttribute('scale', '15');  // Enhanced distortion strength
 
         filter.appendChild(feImg);
         filter.appendChild(feDisp);
@@ -144,54 +144,31 @@ function initLiquidGlassNavbar() {
     mapCanvas.style.display = 'none';
     document.body.appendChild(mapCanvas);
 
-    // ── 3. Rim-highlight overlay (inner border, CSS only) ──────────────────
-    let rimEl = navbar.querySelector('.vui-lg-rim');
-    if (!rimEl) {
-        rimEl = document.createElement('div');
-        rimEl.className = 'vui-lg-rim';
-        rimEl.style.cssText = `
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            pointer-events: none;
-            z-index: 1;
-        `;
-        navbar.insertBefore(rimEl, navbar.firstChild);
-    }
+    // ── 3. Remove rim-highlight overlay ────────────────────────────────────
+    // We no longer use a rim overlay — clean liquid glass only
+    const oldRim = navbar.querySelector('.vui-lg-rim');
+    if (oldRim) oldRim.remove();
 
-    // Lift existing navbar children above the rim
+    // Lift existing navbar children
     Array.from(navbar.children).forEach(child => {
-        if (!child.classList.contains('vui-lg-rim') &&
-            !child.classList.contains('navbar-particles')) {
+        if (!child.classList.contains('navbar-particles')) {
             child.style.position = 'relative';
             child.style.zIndex   = '10';
         }
     });
 
     // ── 4. Inject CSS ──────────────────────────────────────────────────────
+    if (!document.getEle(clean glass style) ──────────────────────────────────
     if (!document.getElementById('vui-lg-styles')) {
         const style = document.createElement('style');
         style.id = 'vui-lg-styles';
         style.textContent = `
             .glass-nav {
-                background: rgba(18, 18, 18, 0.45) !important;
-                backdrop-filter: url(#${FILTER_ID}) blur(8px) contrast(1.08) brightness(1.04) saturate(1.12) !important;
-                -webkit-backdrop-filter: url(#${FILTER_ID}) blur(8px) contrast(1.08) brightness(1.04) saturate(1.12) !important;
-                border: none !important;
-                box-shadow: 0 2px 32px rgba(0,0,0,0.38), 0 1px 0 rgba(255,255,255,0.06) inset !important;
-            }
-            .vui-lg-rim {
-                background: linear-gradient(
-                    160deg,
-                    rgba(255,255,255,0.08) 0%,
-                    rgba(255,255,255,0.03) 30%,
-                    rgba(59,216,216,0.05) 70%,
-                    rgba(59,216,216,0.02) 100%
-                );
-                box-shadow:
-                    inset 0 1px 0 rgba(255,255,255,0.10),
-                    inset 0 -1px 0 rgba(59,216,216,0.05);
-            }
+                background: rgba(26, 26, 26, 0.15) !important;
+                backdrop-filter: url(#${FILTER_ID}) blur(12px) saturate(1.1) !important;
+                -webkit-backdrop-filter: url(#${FILTER_ID}) blur(12px) saturate(1.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2) !important
         `;
         document.head.appendChild(style);
     }
@@ -228,8 +205,8 @@ function initLiquidGlassNavbar() {
         if (!filter) return;
         filter.setAttribute('x',      String(Math.round(rect.left)));
         filter.setAttribute('y',      String(Math.round(rect.top)));
-        filter.setAttribute('width',  String(Math.round(rect.width)));
-        filter.setAttribute('height', String(Math.round(rect.height)));
+        filter.setAttribute('width',  String(Math.round(reenhanced for visibility)
+        feDisp.setAttribute('scale', String(Math.round(scale * 1.2t)));
     }
 
     // ── 6. Animate: update filter position every frame (navbar can move on scroll) ──
