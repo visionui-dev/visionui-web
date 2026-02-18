@@ -8,20 +8,22 @@
     <meta name="keywords" content="VisionUI Designer, WYSIWYG, diseñador visual, interfaz, drag and drop, PySide6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/stitch-liquid.css">
     <link rel="icon" type="image/x-icon" href="vui.ico">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Floating Navigation - Stitch Style -->
+    <nav class="navbar navbar-floating glass-navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html" style="text-decoration: none; color: inherit;">
-                    <span class="logo-text">VisionUI</span>
-                    <span class="logo-subtitle">Framework</span>
-                </a>
-            </div>
+            <a href="index.html" class="nav-logo">
+                <svg class="logo-icon" width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"/>
+                </svg>
+                <span class="logo-text">VisionUI</span>
+            </a>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="#features" class="nav-link">Características</a>
@@ -30,12 +32,20 @@
                 <a href="#examples" class="nav-link">Ejemplos</a>
                 <a href="#download" class="nav-link">Descargar</a>
             </div>
+            <div class="nav-actions">
+                <a href="account.html?tab=register" class="btn-nav btn-nav-outline">Crear cuenta</a>
+                <a href="account.html" class="btn-nav btn-nav-primary nav-account">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+                    <span id="navAccountText">Iniciar sesión</span>
+                </a>
+            </div>
             <div class="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
+        <div class="navbar-particles"></div>
     </nav>
 
     <!-- Designer Hero -->
@@ -796,7 +806,34 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <!-- Footer - Stitch Style Minimalist -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-left">
+                    <span class="footer-brand">VisionUI</span>
+                    <span class="footer-separator">•</span>
+                    <span class="footer-year">&copy; 2026</span>
+                </div>
+                <div class="footer-right">
+                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                    <span class="footer-separator">•</span>
+                    <a href="terms.html" class="footer-link">Terms of Service</a>
+                    <span class="footer-separator">•</span>
+                    <a href="https://x.com/visionui" class="footer-link" target="_blank" rel="noopener noreferrer">X</a>
+                    <span class="footer-separator">•</span>
+                    <a href="https://discord.gg/visionui" class="footer-link" target="_blank" rel="noopener noreferrer">Discord</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/ads.js"></script>
+    <script src="assets/js/liquid-glass.js"></script>
     <script src="assets/js/designer-demo.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
