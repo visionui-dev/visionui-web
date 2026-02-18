@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html class="dark" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Cuenta - VisionUI</title>
+    <title>My Account - VisionUI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,6 +11,8 @@
     <link rel="icon" type="image/x-icon" href="vui.ico">
     <!-- VisionUI Analytics -->
     <script defer src="assets/js/analytics.js"></script>
+    <!-- Liquid Glass Effect -->
+    <script defer src="assets/js/liquid-glass.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -36,8 +38,9 @@
         .glass-border { border: 1px solid rgba(255, 255, 255, 0.08); }
         .input-focus-glow:focus { box-shadow: 0 0 0 2px rgba(59, 216, 216, 0.2); }
         .glass-nav {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(20px);
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-panel {
@@ -86,8 +89,8 @@
                         <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight text-white" data-i18n="auth.title">Mi Cuenta</h1>
-                <p class="text-slate-400 text-sm text-center" data-i18n="auth.subtitle">Inicia sesión o crea una cuenta</p>
+                <h1 class="text-2xl font-bold tracking-tight text-white" data-i18n="auth.title">My Account</h1>
+                <p class="text-slate-400 text-sm text-center" data-i18n="auth.subtitle">Sign in or create an account</p>
             </div>
 
             <!-- Alert -->
@@ -95,25 +98,25 @@
 
             <!-- Tab Switcher -->
             <div class="flex p-1 bg-[#1a1a1a] rounded-full mb-8">
-                <button id="tabLogin" class="flex-1 py-2 px-4 text-sm font-semibold rounded-full bg-[#2a2a2a] text-white shadow-sm transition-all" onclick="switchTab('login')" data-i18n="auth.login">Iniciar sesión</button>
-                <button id="tabRegister" class="flex-1 py-2 px-4 text-sm font-medium rounded-full text-slate-400 hover:text-slate-200 transition-all" onclick="switchTab('register')" data-i18n="auth.register">Crear cuenta</button>
+                <button id="tabLogin" class="flex-1 py-2 px-4 text-sm font-semibold rounded-full bg-[#2a2a2a] text-white shadow-sm transition-all" onclick="switchTab('login')" data-i18n="auth.login">Sign In</button>
+                <button id="tabRegister" class="flex-1 py-2 px-4 text-sm font-medium rounded-full text-slate-400 hover:text-slate-200 transition-all" onclick="switchTab('register')" data-i18n="auth.register">Create Account</button>
             </div>
 
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-5">
                 <div class="flex flex-col gap-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.email">Correo electrónico</label>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.email">Email</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">mail</span>
                         </div>
-                        <input id="loginEmail" type="email" required placeholder="nombre@ejemplo.com" autocomplete="email"
+                        <input id="loginEmail" type="email" required placeholder="name@example.com" autocomplete="email"
                             class="w-full bg-[#1a1a1a] border border-white/5 rounded-full py-3.5 pl-11 pr-4 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 input-focus-glow transition-all">
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
                     <div class="flex justify-between items-center px-1">
-                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400" data-i18n="auth.password">Contraseña</label>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400" data-i18n="auth.password">Password</label>
                     </div>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
@@ -124,23 +127,23 @@
                     </div>
                 </div>
                 <div class="flex justify-end -mt-2">
-                    <a href="reset-password.html" class="text-xs font-medium text-slate-500 hover:text-primary transition-colors" data-i18n="auth.forgot_password">¿Olvidaste tu contraseña?</a>
+                    <a href="reset-password.html" class="text-xs font-medium text-slate-500 hover:text-primary transition-colors" data-i18n="auth.forgot_password">Forgot your password?</a>
                 </div>
                 <button type="submit" id="loginBtn"
                     class="mt-2 w-full bg-primary hover:bg-[#32c4c4] text-slate-900 font-bold py-4 rounded-full shadow-lg shadow-primary/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group" data-i18n="auth.login_button">
-                    Iniciar sesión
+                    Sign In
                 </button>
             </form>
 
             <!-- Register Form -->
             <form id="registerForm" onsubmit="handleRegister(event)" class="hidden flex flex-col gap-4">
                 <div class="flex flex-col gap-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.name">Nombre</label>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.name">Name</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">person</span>
                         </div>
-                        <input id="registerName" type="text" required placeholder="Tu nombre completo" autocomplete="name"
+                        <input id="registerName" type="text" required placeholder="Your full name" autocomplete="name"
                             class="w-full bg-[#1a1a1a] border border-white/5 rounded-full py-3.5 pl-11 pr-4 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 input-focus-glow transition-all">
                     </div>
                 </div>
@@ -150,45 +153,45 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">mail</span>
                         </div>
-                        <input id="registerEmail" type="email" required placeholder="tu@email.com" autocomplete="email"
+                        <input id="registerEmail" type="email" required placeholder="your@email.com" autocomplete="email"
                             class="w-full bg-[#1a1a1a] border border-white/5 rounded-full py-3.5 pl-11 pr-4 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 input-focus-glow transition-all">
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.password">Contraseña</label>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.password">Password</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">lock</span>
                         </div>
-                        <input id="registerPassword" type="password" required placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6" oninput="checkPasswordMatch()"
+                        <input id="registerPassword" type="password" required placeholder="Minimum 6 characters" autocomplete="new-password" minlength="6" oninput="checkPasswordMatch()"
                             class="w-full bg-[#1a1a1a] border border-white/5 rounded-full py-3.5 pl-11 pr-4 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 input-focus-glow transition-all">
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.confirm_password">Confirmar contraseña</label>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1" data-i18n="auth.confirm_password">Confirm Password</label>
                     <div class="relative group">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined text-[20px]">lock_reset</span>
                         </div>
-                        <input id="registerPassword2" type="password" required placeholder="Repite tu contraseña" autocomplete="new-password" oninput="checkPasswordMatch()"
+                        <input id="registerPassword2" type="password" required placeholder="Repeat your password" autocomplete="new-password" oninput="checkPasswordMatch()"
                             class="w-full bg-[#1a1a1a] border border-white/5 rounded-full py-3.5 pl-11 pr-4 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 input-focus-glow transition-all">
                     </div>
                     <div id="passwordMatchIndicator" class="password-match-indicator px-2"></div>
                 </div>
                 <button type="submit" id="registerBtn"
                     class="w-full bg-primary hover:bg-[#32c4c4] text-slate-900 font-bold py-4 rounded-full shadow-lg shadow-primary/10 active:scale-[0.98] transition-all" data-i18n="auth.register_button">
-                    Crear cuenta
+                    Create Account
                 </button>
             </form>
 
             <!-- Footer links -->
             <p class="mt-8 text-center text-[11px] leading-relaxed text-slate-600 px-4">
-                <a class="text-slate-500 hover:text-primary transition-colors" href="store.html" data-i18n="auth.view_apps">Ver aplicaciones disponibles →</a>
+                <a class="text-slate-500 hover:text-primary transition-colors" href="store.html" data-i18n="auth.view_apps">View available apps →</a>
             </p>
             <p class="mt-3 text-center text-[10px] leading-relaxed text-slate-600 px-4">
-                Al continuar, aceptas nuestros
-                <a class="underline hover:text-primary transition-colors" href="terms.html" data-i18n="footer.terms">Términos</a> y
-                <a class="underline hover:text-primary transition-colors" href="privacy.html" data-i18n="footer.privacy">Política de privacidad</a>.
+                By continuing, you agree to our
+                <a class="underline hover:text-primary transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a> and
+                <a class="underline hover:text-primary transition-colors" href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>.
             </p>
         </div>
     </div>
@@ -223,9 +226,9 @@
 
             <!-- Promo Banner (oculto por defecto) -->
             <div class="hidden bg-primary/5 border border-primary/20 rounded-xl p-6 text-center" id="promoBanner">
-                <h3 class="font-bold text-lg mb-2" data-i18n="auth.start_now">🚀 ¡Empieza ahora!</h3>
-                <p class="text-slate-400 mb-4" data-i18n="auth.explore_apps_desc">Explora nuestras aplicaciones profesionales</p>
-                <a href="store.html" class="inline-block bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all" data-i18n="auth.explore_apps">Ver aplicaciones</a>
+                <h3 class="font-bold text-lg mb-2" data-i18n="auth.start_now">🚀 Start now!</h3>
+                <p class="text-slate-400 mb-4" data-i18n="auth.explore_apps_desc">Explore our professional applications</p>
+                <a href="store.html" class="inline-block bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all" data-i18n="auth.explore_apps">View applications</a>
             </div>
 
             <!-- Profile Header -->
@@ -233,17 +236,17 @@
                 <div class="flex flex-col md:flex-row items-center gap-6">
                     <div class="size-20 md:size-24 rounded-full border-4 border-primary/20 bg-primary/10 flex items-center justify-center text-primary text-3xl font-bold" id="userAvatarLarge">?</div>
                     <div class="text-center md:text-left">
-                        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white mb-1" id="userName">Usuario</h1>
+                        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white mb-1" id="userName">User</h1>
                         <p class="text-slate-400" id="userEmail">-</p>
                         <div id="emailVerificationStatus" class="mt-1 text-sm"></div>
                         <p class="mt-2">
-                            <a href="#" id="resetPasswordLink" onclick="requestPasswordResetEmail(); return false;" class="text-xs text-primary/70 hover:text-primary transition-colors" data-i18n="auth.reset_password">Restablecer contraseña</a>
+                            <a href="#" id="resetPasswordLink" onclick="requestPasswordResetEmail(); return false;" class="text-xs text-primary/70 hover:text-primary transition-colors" data-i18n="auth.reset_password">Reset password</a>
                         </p>
                     </div>
                 </div>
                 <button onclick="handleLogout()" class="flex items-center gap-2 px-6 py-3 rounded-full bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-all font-bold text-sm">
                     <span class="material-symbols-outlined text-[20px]">logout</span>
-                    <span data-i18n="auth.logout">Cerrar Sesión</span>
+                    <span data-i18n="auth.logout">Sign Out</span>
                 </button>
             </div>
 
@@ -254,12 +257,12 @@
                 <section class="flex flex-col gap-4">
                     <div class="flex items-center gap-2 px-2">
                         <span class="material-symbols-outlined text-primary">verified_user</span>
-                        <h2 class="text-xl font-bold text-white tracking-tight" data-i18n="auth.my_apps">Mis Aplicaciones</h2>
+                        <h2 class="text-xl font-bold text-white tracking-tight" data-i18n="auth.my_apps">My Applications</h2>
                     </div>
                     <div id="licensesContainer" class="flex flex-col gap-3">
                         <div class="glass-panel rounded-xl p-8 flex items-center justify-center">
                             <div class="spinner"></div>
-                            <p class="ml-4 text-slate-400" data-i18n="general.loading">Cargando...</p>
+                            <p class="ml-4 text-slate-400" data-i18n="general.loading">Loading...</p>
                         </div>
                     </div>
                 </section>
@@ -268,13 +271,13 @@
                 <section class="hidden flex flex-col gap-4 mt-4" id="ordersSection">
                     <div class="flex items-center gap-2 px-2">
                         <span class="material-symbols-outlined text-primary">history</span>
-                        <h2 class="text-xl font-bold text-white tracking-tight" data-i18n="auth.purchase_history">Historial de Compras</h2>
+                        <h2 class="text-xl font-bold text-white tracking-tight" data-i18n="auth.purchase_history">Purchase History</h2>
                     </div>
                     <div class="glass-panel rounded-xl overflow-hidden">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-white/5 border-b border-white/10">
-                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400" data-i18n="auth.purchased">Fecha</th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400" data-i18n="auth.purchased">Date</th>
                                     <th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400">Producto</th>
                                     <th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-400">Precio</th>
                                 </tr>
@@ -289,11 +292,14 @@
 
         <!-- Footer -->
         <footer class="mt-12 w-full max-w-[1140px] px-2 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs gap-4">
-            <p data-i18n="footer.copyright">© 2026 VisionUI Framework. Todos los derechos reservados.</p>
-            <div class="flex gap-6">
-                <a class="hover:text-primary transition-colors" href="privacy.html" data-i18n="footer.privacy">Privacidad</a>
-                <a class="hover:text-primary transition-colors" href="terms.html" data-i18n="footer.terms">Términos</a>
+            <p data-i18n="footer.copyright">© 2026 VisionUI Framework. All rights reserved.</p>
+            <div class="flex gap-6 flex-wrap justify-center">
                 <a class="hover:text-primary transition-colors" href="store.html" data-i18n="nav.apps">Apps</a>
+                <a class="hover:text-primary transition-colors" href="#" data-vui-link="x">X</a>
+                <a class="hover:text-primary transition-colors" href="#" data-vui-link="discord">Discord</a>
+                <a class="hover:text-primary transition-colors" href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+                <a class="hover:text-primary transition-colors" href="terms.html" data-i18n="footer.terms">Terms of Service</a>
+                <a class="hover:text-primary transition-colors" href="docs.html">Documentation</a>
             </div>
         </footer>
     </div>
@@ -342,7 +348,7 @@
                 const appName = redirectApp || 'la aplicación';
                 const msg = (typeof VUIi18n !== 'undefined' && VUIi18n.t) ?
                     (VUIi18n.t('auth.login_to_purchase') || '').replace('{{app}}', appName) :
-                    `Inicia sesión para continuar con la compra de ${appName}`;
+                    `Sign in to continue purchasing ${appName}`;
                 if (msg) showAlert(msg, 'info');
             }
             if (initialTab === 'register') switchTab('register');
@@ -353,7 +359,7 @@
             document.getElementById('authView').classList.add('hidden');
             document.getElementById('dashboardView').classList.remove('hidden');
             const user = data.user || data;
-            const name = user.name || 'Usuario';
+            const name = user.name || 'User';
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
             document.getElementById('userName').textContent = name;
             document.getElementById('userEmail').textContent = user.email;
@@ -362,11 +368,11 @@
 
             const verificationEl = document.getElementById('emailVerificationStatus');
             if (data.email_verified || user.email_verified) {
-                verificationEl.innerHTML = '<span style="color:#10b981;" class="text-xs">✓ Email verificado</span>';
+                verificationEl.innerHTML = '<span style="color:#10b981;" class="text-xs">✓ Email verified</span>';
             } else {
                 verificationEl.innerHTML = `
-                    <span class="text-xs text-amber-400">⚠ Email pendiente de verificación</span>
-                    <button onclick="resendVerificationEmail()" id="resendVerifyBtn" class="ml-2 text-xs border border-amber-400/50 text-amber-400 px-2 py-0.5 rounded-full hover:bg-amber-400/10 transition-colors">Reenviar</button>`;
+                    <span class="text-xs text-amber-400">⚠ Email pending verification</span>
+                    <button onclick="resendVerificationEmail()" id="resendVerifyBtn" class="ml-2 text-xs border border-amber-400/50 text-amber-400 px-2 py-0.5 rounded-full hover:bg-amber-400/10 transition-colors">Resend</button>`;
             }
 
             const entitlements = data.entitlements || [];
@@ -403,10 +409,10 @@
             const indicator = document.getElementById('passwordMatchIndicator');
             if (!pass2) { indicator.innerHTML = ''; return; }
             if (pass1 === pass2) {
-                indicator.innerHTML = '✓ Las contraseñas coinciden';
+                indicator.innerHTML = '✓ Passwords match';
                 indicator.className = 'password-match-indicator match px-2';
             } else {
-                indicator.innerHTML = '✗ Las contraseñas no coinciden';
+                indicator.innerHTML = '✗ Passwords do not match';
                 indicator.className = 'password-match-indicator no-match px-2';
             }
         }
@@ -429,8 +435,8 @@
                 container.innerHTML = `
                     <div class="glass-panel rounded-xl p-8 text-center">
                         <div class="text-4xl mb-4">📦</div>
-                        <p class="text-slate-400 mb-4" data-i18n="auth.no_licenses">No tienes aplicaciones compradas aún</p>
-                        <a href="store.html" class="inline-block bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all" data-i18n="auth.explore_apps">Explorar aplicaciones</a>
+                        <p class="text-slate-400 mb-4" data-i18n="auth.no_licenses">You don't have any purchased apps yet</p>
+                        <a href="store.html" class="inline-block bg-primary text-background-dark px-6 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all" data-i18n="auth.explore_apps">Explore apps</a>
                     </div>`;
                 return;
             }
@@ -457,16 +463,16 @@
                         <button onclick="downloadApp('${(e.product_name||'VisionUI').replace(/'/g, "\\'")}')" 
                             class="bg-primary hover:bg-primary/80 text-background-dark px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg shadow-primary/10">
                             <span class="material-symbols-outlined text-[16px] align-middle">download</span>
-                            <span class="ml-1" data-i18n="auth.download">Descargar</span>
+                            <span class="ml-1" data-i18n="auth.download">Download</span>
                         </button>` : `
-                        <span class="text-xs font-bold text-red-400 bg-red-500/10 px-3 py-1.5 rounded-full">Expirada</span>`}
+                        <span class="text-xs font-bold text-red-400 bg-red-500/10 px-3 py-1.5 rounded-full">Expired</span>`}
                     </div>`;
             }).join('');
         }
 
         async function downloadApp(appName) {
             const session = VUIAuth.getSession();
-            if (!session?.token) { showToast('Inicia sesión para descargar', 'error'); return; }
+            if (!session?.token) { showToast('Sign in to download', 'error'); return; }
             try {
                 const res = await authFetch(`${API_BASE}/api/download-token`, {
                     method: 'POST',
@@ -475,8 +481,8 @@
                 });
                 const data = await res.json();
                 if (data.url) { window.open(data.url, '_blank'); }
-                else { showToast(data.error || 'Error al generar enlace', 'error'); }
-            } catch (err) { showToast('Error de conexión', 'error'); }
+                else { showToast(data.error || 'Error generating link', 'error'); }
+            } catch (err) { showToast('Connection error', 'error'); }
         }
 
         function renderOrders(orders) {
@@ -497,7 +503,7 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             const btn = document.getElementById('loginBtn');
-            btn.disabled = true; btn.textContent = 'Cargando...';
+            btn.disabled = true; btn.textContent = 'Loading...';
             try {
                 const result = await VUIAuth.login(email, password);
                 if (result.success) {
@@ -508,9 +514,9 @@
                     }
                     const me = await authFetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${VUIAuth.getSession().token}` } });
                     if (me.ok) showDashboard(await me.json());
-                } else { showAlert(result.error || 'Error al iniciar sesión'); }
-            } catch (err) { showAlert('Error de conexión'); }
-            btn.disabled = false; btn.textContent = 'Iniciar sesión';
+                } else { showAlert(result.error || 'Error signing in'); }
+            } catch (err) { showAlert('Connection error'); }
+            btn.disabled = false; btn.textContent = 'Sign In';
         }
 
         async function handleRegister(e) {
@@ -519,11 +525,11 @@
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
             const password2 = document.getElementById('registerPassword2').value;
-            if (!name) { showAlert('Por favor ingresa tu nombre'); return; }
-            if (password !== password2) { showAlert('Las contraseñas no coinciden'); return; }
-            if (password.length < 6) { showAlert('Mínimo 6 caracteres'); return; }
+            if (!name) { showAlert('Please enter your name'); return; }
+            if (password !== password2) { showAlert('Passwords do not match'); return; }
+            if (password.length < 6) { showAlert('Minimum 6 characters'); return; }
             const btn = document.getElementById('registerBtn');
-            btn.disabled = true; btn.textContent = 'Creando...';
+            btn.disabled = true; btn.textContent = 'Creating...';
             try {
                 const result = await VUIAuth.register(email, password, name);
                 if (result.success) {
@@ -534,9 +540,9 @@
                     }
                     const me = await authFetch(`${API_BASE}/api/user/me`, { headers: { 'Authorization': `Bearer ${VUIAuth.getSession().token}` } });
                     if (me.ok) showDashboard(await me.json());
-                } else { showAlert(result.error || 'Error al crear cuenta'); }
-            } catch (err) { showAlert('Error de conexión'); }
-            btn.disabled = false; btn.textContent = 'Crear cuenta';
+                } else { showAlert(result.error || 'Error creating account'); }
+            } catch (err) { showAlert('Connection error'); }
+            btn.disabled = false; btn.textContent = 'Create Account';
         }
 
         async function handleLogout() {
@@ -547,19 +553,19 @@
         async function resendVerificationEmail() {
             const btn = document.getElementById('resendVerifyBtn');
             if (!btn) return;
-            btn.disabled = true; btn.textContent = 'Enviando...';
+            btn.disabled = true; btn.textContent = 'Sending...';
             try {
                 const session = VUIAuth.getSession();
-                if (!session) { showToast('Por favor inicia sesión nuevamente', 'error'); return; }
+                if (!session) { showToast('Please sign in again', 'error'); return; }
                 const response = await authFetch(`${API_BASE}/api/user/resend-verification`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${session.token}`, 'Content-Type': 'application/json' }
                 });
                 const data = await response.json();
                 if (response.ok) {
-                    btn.textContent = '✓ Enviado';
+                    btn.textContent = '✓ Sent';
                     btn.className = 'ml-2 text-xs border border-emerald-400/50 text-emerald-400 px-2 py-0.5 rounded-full';
-                    setTimeout(() => { btn.textContent = 'Reenviar'; btn.disabled = false; }, 5000);
+                    setTimeout(() => { btn.textContent = 'Resend'; btn.disabled = false; }, 5000);
                 } else {
                     if (data.error === 'Email already verified') { location.reload(); }
                     else { btn.textContent = 'Error'; btn.disabled = false; }
@@ -569,20 +575,20 @@
 
         async function requestPasswordResetEmail() {
             const link = document.getElementById('resetPasswordLink');
-            if (link) link.textContent = 'Enviando...';
+            if (link) link.textContent = 'Sending...';
             try {
                 const session = VUIAuth.getSession();
-                if (!session?.user?.email) { showToast('Sesión expirada.', 'error'); if (link) link.textContent = 'Restablecer contraseña'; return; }
+                if (!session?.user?.email) { showToast('Session expired.', 'error'); if (link) link.textContent = 'Reset password'; return; }
                 const response = await fetch(`${API_BASE}/api/user/forgot-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: session.user.email, lang: localStorage.getItem('vui_lang') || 'es' })
+                    body: JSON.stringify({ email: session.user.email, lang: localStorage.getItem('vui_lang') || 'en' })
                 });
                 const data = await response.json();
-                if (response.ok && data.success) { showToast(`Email enviado a ${session.user.email}`, 'success'); }
-                else { showToast(data.error || 'Error al enviar.', 'error'); }
-            } catch (err) { showToast('Error de conexión.', 'error'); }
-            if (link) link.textContent = 'Restablecer contraseña';
+                if (response.ok && data.success) { showToast(`Email sent to ${session.user.email}`, 'success'); }
+                else { showToast(data.error || 'Error sending email.', 'error'); }
+            } catch (err) { showToast('Connection error.', 'error'); }
+            if (link) link.textContent = 'Reset password';
         }
 
         function showToast(message, type) {
