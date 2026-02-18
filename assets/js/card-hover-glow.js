@@ -44,20 +44,20 @@ function initCardHoverGlow() {
         borderGlow.className = 'card-hover-glow-border';
         borderGlow.style.cssText = `
             position: absolute;
-            inset: -1px;
+            inset: -2px;
             border-radius: ${borderRadius};
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 2;
             background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(59, 216, 216, 0.4), 
-                transparent 40%);
+                rgba(59, 216, 216, 0.58), 
+                transparent 42%);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude;
             -webkit-mask-composite: xor;
-            padding: 1px;
+            padding: 2px;
         `;
 
         // Ensure card has relative positioning
