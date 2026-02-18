@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="dark" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,663 +8,615 @@
     <meta name="keywords" content="VisionUI, PySide6, framework, interfaces, diseño, Python, aplicaciones, moderno, elegante">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="vui.ico">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
     <!-- VisionUI Analytics -->
     <script defer src="assets/js/analytics.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3bd8d8",
+                        "background-dark": "#1a1a1a",
+                        "card-dark": "#242424",
+                        "surface-dark": "#242424",
+                        "border-dark": "#333333"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-nav {
+            background: rgba(26, 26, 26, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-gradient {
+            background: radial-gradient(ellipse at 50% 30%, rgba(59, 216, 216, 0.12) 0%, rgba(26, 26, 26, 0) 65%);
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(59, 216, 216, 0.45);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(59, 216, 216, 0.12);
+        }
+        .input-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-glass:focus {
+            border-color: #3bd8d8;
+            box-shadow: 0 0 15px rgba(59, 216, 216, 0.2);
+            outline: none;
+        }
+        .glow-bg {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw; height: 80vh;
+            background: radial-gradient(circle, rgba(59, 216, 216, 0.07) 0%, rgba(26, 26, 26, 0) 70%);
+            z-index: -1; pointer-events: none;
+        }
+        /* Account dropdown */
+        #accountDropdown {
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            transform-origin: top right;
+        }
+        #accountDropdown.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            display: block !important;
+            visibility: hidden;
+        }
+        #accountDropdown:not(.hidden) {
+            opacity: 1;
+            transform: scale(1);
+            visibility: visible;
+        }
+        /* Mobile bottom nav */
+        .mobile-bottom-nav {
+            background: rgba(22, 22, 22, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+    </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">VisionUI</span>
-                <span class="logo-subtitle">Framework</span>
-            </div>
-            <div class="nav-menu">
-                <a href="#features" class="nav-link" data-i18n="nav.features">Características</a>
-                <a href="#designer" class="nav-link" data-i18n="nav.designer">Diseñador</a>
-                <a href="#gallery" class="nav-link" data-i18n="nav.gallery">Galería</a>
-                <a href="store.html" class="nav-link" data-i18n="nav.apps">Apps</a>
-                <a href="#download" class="nav-link" data-i18n="nav.download">Descargar</a>
-                <a href="#contact" class="nav-link" data-i18n="nav.contact">Contacto</a>
-                <a href="account.html" class="nav-link nav-account">👤 <span data-i18n="nav.account">Mi Cuenta</span></a>
-            </div>
-            <div class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+<body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-20 md:pb-0">
+<div class="glow-bg"></div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="gradient-text">VisionUI</span>
-                    <br>
-                    <span class="hero-subtitle" data-i18n="hero.subtitle">Framework para Interfaces Modernas</span>
-                </h1>
-                <p class="hero-description" data-i18n="hero.description">
-                    Crea interfaces de usuario elegantes y modernas con PySide6.
-                    Efectos avanzados, animaciones fluidas y desarrollo ultrarrápido.
-                    Todo lo que necesitas para aplicaciones profesionales.
-                </p>
-                <div class="hero-actions">
-                    <a href="#download" class="btn btn-primary">
-                        <span data-i18n="hero.download">Descargar Framework</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+<!-- Desktop Floating Navbar -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4 hidden md:block">
+    <div class="glass-nav rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+        <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0">
+            <div class="text-primary">
+                <svg class="w-7 h-7" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <span class="font-bold tracking-tight text-lg text-white">VisionUI</span>
+        </a>
+        <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+            <a class="hover:text-primary transition-colors" href="#features">Features</a>
+            <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
+            <a class="hover:text-primary transition-colors" href="docs.html">Documentation</a>
+            <a class="hover:text-primary transition-colors" href="docs.html#contact">Contact</a>
+        </div>
+        <!-- Smart Account Button -->
+        <div class="relative flex-shrink-0" id="accountMenuContainer">
+            <button id="accountBtn" onclick="toggleAccountMenu()"
+                class="bg-primary text-background-dark px-5 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all flex items-center gap-1.5">
+                <span id="accountBtnAvatar" class="hidden w-5 h-5 rounded-full bg-background-dark/30 flex items-center justify-center text-xs font-bold"></span>
+                <span id="accountBtnText">Mi Cuenta</span>
+                <span class="material-symbols-outlined text-[16px] leading-none" id="accountBtnChevron">expand_more</span>
+            </button>
+            <div id="accountDropdown" class="hidden absolute right-0 top-full mt-3 w-56 glass-pill rounded-2xl shadow-2xl overflow-hidden" style="visibility:hidden">
+                <div id="dropdownGuest" class="p-2">
+                    <a href="account.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white">
+                        <span class="material-symbols-outlined text-primary text-[18px]">login</span>
+                        Iniciar sesión
                     </a>
-                    <a href="#designer" class="btn btn-secondary">
-                        <span data-i18n="hero.view_designer">Ver Diseñador</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <a href="account.html#register" class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white">
+                        <span class="material-symbols-outlined text-primary text-[18px]">person_add</span>
+                        Crear cuenta
                     </a>
                 </div>
-            </div>
-            <div class="hero-visual">
-                <div class="mockup-container">
-                    <div class="mockup-window">
-                        <div class="mockup-header">
-                            <div class="mockup-buttons">
-                                <span class="mockup-btn close"></span>
-                                <span class="mockup-btn minimize"></span>
-                                <span class="mockup-btn maximize"></span>
-                            </div>
-                            <div class="mockup-title">VisionUI Designer</div>
-                        </div>
-                        <div class="mockup-content">
-                            <div class="mockup-sidebar">
-                                <div class="component-item active">
-                                    <div class="component-icon">📱</div>
-                                    <span>Button</span>
-                                </div>
-                                <div class="component-item">
-                                    <div class="component-icon">📝</div>
-                                    <span>Text</span>
-                                </div>
-                                <div class="component-item">
-                                    <div class="component-icon">🎨</div>
-                                    <span>Gradient</span>
-                                </div>
-                                <div class="component-item">
-                                    <div class="component-icon">✨</div>
-                                    <span>Shadow</span>
-                                </div>
-                            </div>
-                            <div class="mockup-canvas">
-                                <div class="canvas-element btn-preview">
-                                    <div class="btn-text">Modern Button</div>
-                                </div>
-                                <div class="canvas-element text-preview">
-                                    <div class="text-content">Elegant Text</div>
-                                </div>
-                            </div>
-                        </div>
+                <div id="dropdownUser" class="hidden">
+                    <div class="px-4 pt-3 pb-2 border-b border-white/10">
+                        <div class="text-sm font-bold text-white truncate" id="dropdownUserName">Usuario</div>
+                        <div class="text-xs text-slate-500 truncate" id="dropdownUserEmail">email</div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-bg-pattern"></div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="features.title">Características Avanzadas</h2>
-                <p class="section-description" data-i18n="features.subtitle">
-                    Tecnología de vanguardia para el desarrollo de interfaces modernas
-                </p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title" data-i18n="features.performance.title">Rendimiento Optimizado</h3>
-                    <p class="feature-description" data-i18n="features.performance.desc">
-                        Motor de procesamiento multihilo con compresión automática de imágenes
-                        y optimizaciones de memoria avanzadas.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title" data-i18n="features.visual.title">Efectos Visuales</h3>
-                    <p class="feature-description" data-i18n="features.visual.desc">
-                        Gradientes avanzados, sombras dinámicas, glow effects,
-                        animaciones fluidas y transiciones elegantes.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title" data-i18n="features.components.title">Componentes Modulares</h3>
-                    <p class="feature-description" data-i18n="features.components.desc">
-                        Más de 40 componentes listos para usar: botones, textos,
-                        barras de progreso, sliders, tablas y mucho más.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title" data-i18n="features.wysiwyg.title">Diseñador WYSIWYG</h3>
-                    <p class="feature-description" data-i18n="features.wysiwyg.desc">
-                        Interfaz visual intuitiva para diseñar interfaces sin código.
-                        Arrastrar, soltar y configurar en tiempo real.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title" data-i18n="features.license.title">Sistema de Licencias</h3>
-                    <p class="feature-description" data-i18n="features.license.desc">
-                        Protección avanzada con verificación automática y
-                        gestión de licencias cloud integrada.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title" data-i18n="features.code.title">Código Elegante</h3>
-                    <p class="feature-description" data-i18n="features.code.desc">
-                        Arquitectura limpia y modular, fácil de mantener y
-                        extender. Documentación completa incluida.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Designer Section -->
-    <section id="designer" class="designer">
-        <div class="container">
-            <div class="designer-content">
-                <div class="designer-text">
-                    <h2 class="designer-title" data-i18n="designer.title">Diseñador Visual Profesional</h2>
-                    <p class="designer-description" data-i18n="designer.description">
-                        Crea interfaces espectaculares sin escribir una línea de código.
-                        El diseñador WYSIWYG de VisionUI te permite construir aplicaciones
-                        modernas con un simple arrastrar y soltar.
-                    </p>
-                    <div class="designer-features">
-                        <div class="designer-feature">
-                            <div class="feature-check">✓</div>
-                            <span data-i18n="designer.feature1">Interfaz intuitiva y moderna</span>
-                        </div>
-                        <div class="designer-feature">
-                            <div class="feature-check">✓</div>
-                            <span data-i18n="designer.feature2">Previsualización en tiempo real</span>
-                        </div>
-                        <div class="designer-feature">
-                            <div class="feature-check">✓</div>
-                            <span data-i18n="designer.feature3">Exportación automática de código</span>
-                        </div>
-                        <div class="designer-feature">
-                            <div class="feature-check">✓</div>
-                            <span data-i18n="designer.feature4">Panel de propiedades avanzado</span>
-                        </div>
-                    </div>
-                    <a href="#download" class="btn btn-primary">
-                        <span data-i18n="designer.try">Probar Diseñador</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="designer-visual">
-                    <div class="designer-mockup">
-                        <div class="mockup-container">
-                            <div class="mockup-window">
-                                <div class="mockup-header">
-                                    <div class="mockup-buttons">
-                                        <span class="mockup-btn close"></span>
-                                        <span class="mockup-btn minimize"></span>
-                                        <span class="mockup-btn maximize"></span>
-                                    </div>
-                                    <div class="mockup-title">VisionUI Designer</div>
-                                </div>
-                                <div class="mockup-content">
-                                    <div class="mockup-sidebar">
-                                        <div class="component-item active">
-                                            <div class="component-icon">🪟</div>
-                                            <span>Liquid Glass</span>
-                                        </div>
-                                        <div class="component-item">
-                                            <div class="component-icon">📌</div>
-                                            <span>Always on top</span>
-                                        </div>
-                                        <div class="component-item">
-                                            <div class="component-icon">🎛️</div>
-                                            <span>Controls</span>
-                                        </div>
-                                        <div class="component-item">
-                                            <div class="component-icon">⚡</div>
-                                            <span>Performance</span>
-                                        </div>
-                                    </div>
-                                    <div class="mockup-canvas">
-                                        <div class="canvas-element btn-preview">
-                                            <div class="btn-text">Demo: Glass Widget</div>
-                                        </div>
-                                        <div class="canvas-element text-preview">
-                                            <div class="text-content">Real-time refractive effect</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-i18n="gallery.title">Aplicaciones Creadas con VisionUI</h2>
-                <p class="section-description" data-i18n="gallery.subtitle">
-                    Ejemplos reales de interfaces modernas desarrolladas con nuestro framework
-                </p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <div class="app-preview trading-app">
-                            <div class="app-header">
-                                <div class="app-title">Trading Dashboard</div>
-                                <div class="app-controls">
-                                    <span class="control-btn"></span>
-                                    <span class="control-btn"></span>
-                                    <span class="control-btn"></span>
-                                </div>
-                            </div>
-                            <div class="app-content">
-                                <div class="chart-area">
-                                    <div class="price-chart"></div>
-                                    <div class="indicators"></div>
-                                </div>
-                                <div class="sidebar">
-                                    <div class="market-data"></div>
-                                    <div class="portfolio"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-info">
-                        <h3 class="gallery-title" data-i18n="gallery.trading.title">Dashboard de Trading</h3>
-                        <p class="gallery-description" data-i18n="gallery.trading.desc">
-                            Interfaz profesional para análisis financiero con gráficos en tiempo real,
-                            indicadores técnicos y gestión de portfolio.
-                        </p>
-                        <div class="gallery-tags">
-                            <span class="tag" data-i18n="tag.finance">Finanzas</span>
-                            <span class="tag" data-i18n="tag.realtime">Tiempo Real</span>
-                            <span class="tag" data-i18n="tag.charts">Gráficos</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <div class="app-preview control-app">
-                            <div class="app-header">
-                                <div class="app-title">Audio Controller</div>
-                                <div class="app-controls">
-                                    <span class="control-btn"></span>
-                                    <span class="control-btn"></span>
-                                    <span class="control-btn"></span>
-                                </div>
-                            </div>
-                            <div class="app-content">
-                                <div class="volume-slider">
-                                    <div class="slider-track"></div>
-                                    <div class="slider-handle"></div>
-                                </div>
-                                <div class="equalizer">
-                                    <div class="eq-bar active"></div>
-                                    <div class="eq-bar active"></div>
-                                    <div class="eq-bar"></div>
-                                    <div class="eq-bar active"></div>
-                                    <div class="eq-bar"></div>
-                                </div>
-                                <div class="preset-buttons">
-                                    <div class="preset-btn active">Rock</div>
-                                    <div class="preset-btn">Jazz</div>
-                                    <div class="preset-btn">Pop</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-info">
-                        <h3 class="gallery-title" data-i18n="gallery.audio.title">Control de Audio</h3>
-                        <p class="gallery-description" data-i18n="gallery.audio.desc">
-                            Aplicación elegante para control de volumen del sistema con
-                            ecualizador visual y presets de audio.
-                        </p>
-                        <div class="gallery-tags">
-                            <span class="tag" data-i18n="tag.audio">Audio</span>
-                            <span class="tag" data-i18n="tag.controls">Controles</span>
-                            <span class="tag" data-i18n="tag.system">Sistema</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <div class="app-preview dashboard-app">
-                            <div class="app-header">
-                                <div class="app-title">CAN Monitor</div>
-                                <div class="app-controls">
-                                    <span class="control-btn"></span>
-                                    <span class="control-btn"></span>
-                                    <span class="control-btn"></span>
-                                </div>
-                            </div>
-                            <div class="app-content">
-                                <div class="data-grid">
-                                    <div class="data-row">
-                                        <span class="data-id">0x123</span>
-                                        <span class="data-value">45.2°C</span>
-                                        <span class="data-status">OK</span>
-                                    </div>
-                                    <div class="data-row">
-                                        <span class="data-id">0x124</span>
-                                        <span class="data-value">3800 RPM</span>
-                                        <span class="data-status">OK</span>
-                                    </div>
-                                    <div class="data-row warning">
-                                        <span class="data-id">0x125</span>
-                                        <span class="data-value">12.8V</span>
-                                        <span class="data-status">LOW</span>
-                                    </div>
-                                </div>
-                                <div class="status-panel">
-                                    <div class="status-indicator online"></div>
-                                    <span class="status-text" data-i18n="general.connected">Conectado</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-info">
-                        <h3 class="gallery-title" data-i18n="gallery.can.title">Monitor CAN</h3>
-                        <p class="gallery-description" data-i18n="gallery.can.desc">
-                            Herramienta profesional para monitoreo de buses CAN con
-                            visualización de datos en tiempo real y alertas.
-                        </p>
-                        <div class="gallery-tags">
-                            <span class="tag" data-i18n="tag.industrial">Industrial</span>
-                            <span class="tag" data-i18n="tag.can">CAN</span>
-                            <span class="tag" data-i18n="tag.monitoring">Monitoreo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section -->
-    <section id="download" class="download">
-        <div class="container">
-            <div class="download-content">
-                <div class="download-text">
-                    <h2 class="download-title" data-i18n="download.title">Descarga VisionUI</h2>
-                    <p class="download-description" data-i18n="download.desc">
-                        Comienza a crear interfaces modernas hoy mismo.
-                        Framework completo con diseñador visual incluido.
-                    </p>
-                    <div class="download-features">
-                        <div class="download-feature">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span data-i18n="download.feature1">Framework completo PySide6</span>
-                        </div>
-                        <div class="download-feature">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span data-i18n="download.feature2">Diseñador visual WYSIWYG</span>
-                        </div>
-                        <div class="download-feature">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span data-i18n="download.feature3">Más de 40 componentes</span>
-                        </div>
-                        <div class="download-feature">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span data-i18n="download.feature4">Documentación completa</span>
-                        </div>
-                        <div class="download-feature">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span data-i18n="download.feature5">Soporte técnico incluido</span>
-                        </div>
-                    </div>
-                    <div class="download-actions">
-                        <a href="store.html" class="btn btn-primary btn-large" data-vui-link="demoDownload">
-                            <span data-i18n="download.button">Descargar Gratis</span>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                    <div class="p-2">
+                        <a href="account.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white">
+                            <span class="material-symbols-outlined text-primary text-[18px]">dashboard</span>
+                            Mi Panel
                         </a>
-                        <div class="download-info">
-                            <span class="version" data-i18n="download.version">Versión 1.0.0</span>
-                            <span class="size" data-i18n="download.size">Tamaño: ~50MB</span>
-                            <span class="platform">Windows 10+</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-visual">
-                    <div class="download-mockup">
-                        <div class="code-preview">
-                            <div class="code-header">
-                                <div class="code-buttons">
-                                    <span class="code-btn"></span>
-                                    <span class="code-btn"></span>
-                                    <span class="code-btn"></span>
-                                </div>
-                                <div class="code-title">VisionUI Code Export</div>
-                            </div>
-                            <div class="code-content">
-                                <pre><code><span class="code-keyword">from</span> visionui.core.visionui_main <span class="code-keyword">import</span> VisionUI_sclass <span class="code-keyword">as</span> VUI
-
-<span class="code-comment"># Crear aplicación moderna</span>
-app = VUI.app_setup(app_name=<span class="code-string">"MiApp"</span>, app_version=<span class="code-string">"1.0.0"</span>)
-
-<span class="code-comment"># Botón elegante con efectos</span>
-button = VUI.build(widget_name=<span class="code-string">"modern_button"</span>, app_instance=app,
-    components=[
-        (<span class="code-string">'Solid'</span>, {<span class="code-string">'autocolor'</span>: <span class="code-keyword">True</span>}),
-        (<span class="code-string">'Text'</span>, {<span class="code-string">'text'</span>: <span class="code-string">"Modern Button"</span>}),
-        (<span class="code-string">'Glow'</span>, {<span class="code-string">'intensity'</span>: <span class="code-number">0.8</span>})
-    ])</code></pre>
-                            </div>
+                        <a href="store.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-sm font-medium text-white">
+                            <span class="material-symbols-outlined text-primary text-[18px]">storefront</span>
+                            Mis Apps
+                        </a>
+                        <div class="border-t border-white/10 mt-1 pt-1">
+                            <button onclick="doLogout()" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-red-500/10 transition-colors text-sm font-medium text-red-400 text-left">
+                                <span class="material-symbols-outlined text-[18px]">logout</span>
+                                Cerrar sesión
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</nav>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2 class="contact-title" data-i18n="contact.title">¿Listo para revolucionar tus interfaces?</h2>
-                    <p class="contact-description" data-i18n="contact.desc">
-                        Únete a la comunidad de desarrolladores que ya están creando
-                        aplicaciones modernas con VisionUI.
-                    </p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label" data-i18n="contact.email">Email</div>
-                                <div class="contact-value">contact@visionui.dev</div>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label">Website</div>
-                                <div class="contact-value">www.visionui.dev</div>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="contact-text">
-                                <div class="contact-label">Discord</div>
-                                <div class="contact-value">discord.gg/visionui</div>
-                            </div>
+<!-- Mobile Logo (top left, only mobile) -->
+<div class="fixed top-4 left-4 z-50 flex items-center gap-2 md:hidden">
+    <a href="index.html" class="flex items-center gap-2 no-underline">
+        <div class="text-primary">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+        </div>
+        <span class="font-bold tracking-tight text-sm text-white">VisionUI</span>
+    </a>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="fixed bottom-3 left-3 right-3 z-50 md:hidden">
+    <div class="mobile-bottom-nav rounded-2xl px-2 py-2 flex items-center justify-around shadow-2xl">
+        <a href="#features" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+            <span class="text-[10px] font-semibold">Features</span>
+        </a>
+        <a href="store.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">storefront</span>
+            <span class="text-[10px] font-semibold">Apps</span>
+        </a>
+        <a href="docs.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">menu_book</span>
+            <span class="text-[10px] font-semibold">Docs</span>
+        </a>
+        <a href="docs.html#contact" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">mail</span>
+            <span class="text-[10px] font-semibold">Contact</span>
+        </a>
+        <a href="account.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors" id="mobileAccountLink">
+            <span class="material-symbols-outlined text-[22px]">account_circle</span>
+            <span class="text-[10px] font-semibold">Cuenta</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<main class="relative pt-36 md:pt-44 pb-20 px-6 overflow-hidden">
+    <div class="absolute inset-0 hero-gradient -z-10"></div>
+    <div class="max-w-[1140px] mx-auto text-center flex flex-col items-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-8 uppercase tracking-widest">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            VuiStudio · Early Access próximamente
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] max-w-4xl">
+            Diseña aplicaciones
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400"> visualmente.</span><br/>
+            Compila nativamente.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-12 font-medium leading-relaxed">
+            La herramienta definitiva para creadores de software moderno. Construye interfaces impresionantes con VisionUI Framework y PySide6.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="store.html" class="bg-primary text-background-dark px-8 py-4 rounded-full text-base font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(59,216,216,0.3)]">
+                Ver Aplicaciones
+            </a>
+            <a href="#studio" class="bg-transparent border border-white/15 text-white px-8 py-4 rounded-full text-base font-bold hover:bg-white/5 hover:border-white/30 transition-all">
+                VuiStudio — Únete a la waitlist
+            </a>
+        </div>
+
+        <!-- Hero Visual Mockup -->
+        <div class="mt-20 w-full rounded-xl border border-white/10 bg-card-dark/40 p-2 backdrop-blur-sm overflow-hidden">
+            <div class="relative aspect-video rounded-lg overflow-hidden bg-background-dark flex items-center justify-center">
+                <div class="w-full h-full p-6 flex gap-4 items-stretch">
+                    <div class="w-40 bg-white/5 rounded-lg border border-white/10 p-4 flex flex-col gap-3 shrink-0">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Components</div>
+                        <div class="bg-primary/10 border border-primary/20 rounded-lg p-3 text-xs text-primary font-medium">🪟 Liquid Glass</div>
+                        <div class="bg-white/5 rounded-lg p-3 text-xs text-slate-400">📌 Always on Top</div>
+                        <div class="bg-white/5 rounded-lg p-3 text-xs text-slate-400">🎛️ Controls</div>
+                        <div class="bg-white/5 rounded-lg p-3 text-xs text-slate-400">⚡ Performance</div>
+                        <div class="bg-white/5 rounded-lg p-3 text-xs text-slate-400">🎨 Gradients</div>
+                    </div>
+                    <div class="flex-1 bg-black/30 rounded-lg border border-white/5 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+                        <div class="relative bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center shadow-2xl">
+                            <div class="text-3xl mb-3">₿</div>
+                            <div class="text-2xl font-bold text-primary">$67,432</div>
+                            <div class="text-xs text-slate-500 mt-1">Bitcoin · Live</div>
                         </div>
                     </div>
+                    <div class="w-48 bg-white/5 rounded-lg border border-white/10 p-4 flex flex-col gap-3 shrink-0">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Properties</div>
+                        <div class="flex flex-col gap-1">
+                            <div class="text-xs text-slate-500">Glass Intensity</div>
+                            <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-3/4 bg-primary rounded-full"></div></div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="text-xs text-slate-500">Blur Radius</div>
+                            <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-1/2 bg-primary rounded-full"></div></div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="text-xs text-slate-500">Opacity</div>
+                            <div class="h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-2/3 bg-primary rounded-full"></div></div>
+                        </div>
+                        <div class="mt-2 bg-primary/10 border border-primary/20 rounded-lg p-2 text-xs text-primary text-center">Always on Top: ON</div>
+                    </div>
                 </div>
-                <div class="contact-form">
-                    <form class="form">
-                        <div class="form-group">
-                            <label for="name" class="form-label" data-i18n="contact.form.name">Nombre</label>
-                            <input type="text" id="name" name="name" class="form-input" data-i18n-placeholder="contact.form.name_placeholder" placeholder="Tu nombre" required>
+                <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-30"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Powerful Features Section -->
+<section id="features" class="py-24 px-6">
+    <div class="max-w-[1140px] mx-auto">
+        <div class="mb-16 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
+                <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                Framework
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Powerful Features</h2>
+            <p class="text-slate-400 max-w-xl mx-auto">Todo lo que necesitas para construir aplicaciones de escritorio profesionales con Python y PySide6.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Visual Editor -->
+            <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
+                <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[22px]">ads_click</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">Visual Designer</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Diseña interfaces complejas con drag & drop. Prototipa rápidamente sin tocar una línea de código usando el editor WYSIWYG integrado.
+                </p>
+            </div>
+            <!-- Native Performance -->
+            <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
+                <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[22px]">memory</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">Native Performance</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Motor optimizado sobre PySide6/Qt que garantiza máxima velocidad, bajo consumo de recursos y rendering fluido a 60fps.
+                </p>
+            </div>
+            <!-- Hot Reload -->
+            <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
+                <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[22px]">refresh</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">Hot Reload</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Previsualiza cambios al instante sin reiniciar la aplicación. Iteración ultra rápida que acelera tu flujo de desarrollo.
+                </p>
+            </div>
+            <!-- Modular Components -->
+            <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
+                <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[22px]">layers</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">55+ Componentes</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Librería completa con botones, sliders, tablas, charts, modales y más. Listos para producción, totalmente personalizables.
+                </p>
+            </div>
+            <!-- Glass Effects -->
+            <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
+                <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[22px]">blur_on</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">Liquid Glass Effects</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Efectos de vidrio líquido y glassmorphism nativo para Windows. Rendering refractivo en tiempo real que diferencia tus apps del resto.
+                </p>
+            </div>
+            <!-- License System -->
+            <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
+                <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[22px]">verified_user</span>
+                </div>
+                <h3 class="text-lg font-bold text-white">Licencias Cloud</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Sistema de licencias integrado con verificación automática, gestión desde tu cuenta y distribución segura de aplicaciones.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VuiStudio Coming Soon Section -->
+<section id="studio" class="py-20 px-6">
+    <div class="max-w-[1140px] mx-auto">
+        <div class="relative p-10 md:p-16 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-transparent overflow-hidden">
+            <!-- Background glows -->
+            <div class="absolute -top-32 -right-32 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-semibold uppercase tracking-widest mb-7">
+                    <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                    v1.0 Early Access
+                </div>
+
+                <h2 class="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight text-white mb-6">
+                    VuiStudio is<br/>
+                    <span class="text-primary">coming soon</span>
+                </h2>
+                <p class="text-lg md:text-xl leading-relaxed text-white/60 mb-12 max-w-2xl mx-auto">
+                    El IDE visual más potente para crear aplicaciones de escritorio nativas con VisionUI.
+                    Diseña, codifica y despliega en tiempo récord.
+                </p>
+
+                <!-- Waitlist Form (matches designer.html style) -->
+                <div class="w-full max-w-2xl mx-auto">
+                    <form id="waitlistForm" onsubmit="handleWaitlist(event)" class="flex flex-col gap-4 md:flex-row md:items-end">
+                        <div class="flex flex-1 flex-col items-start gap-2">
+                            <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Nombre (opcional)</label>
+                            <input id="waitlistName" type="text" placeholder="John Doe"
+                                class="input-glass h-14 w-full rounded-full px-6 text-white placeholder:text-white/20 text-sm">
                         </div>
-                        <div class="form-group">
-                            <label for="email" class="form-label" data-i18n="contact.form.email">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" data-i18n-placeholder="contact.form.email_placeholder" placeholder="tu@email.com" required>
+                        <div class="flex flex-[1.5] flex-col items-start gap-2">
+                            <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Correo electrónico</label>
+                            <input id="waitlistEmail" type="email" required placeholder="name@company.com"
+                                class="input-glass h-14 w-full rounded-full px-6 text-white placeholder:text-white/20 text-sm">
                         </div>
-                        <div class="form-group">
-                            <label for="message" class="form-label" data-i18n="contact.form.message">Mensaje</label>
-                            <textarea id="message" name="message" class="form-textarea" data-i18n-placeholder="contact.form.message_placeholder" placeholder="Cuéntanos sobre tu proyecto..." rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <span data-i18n="contact.form.submit">Enviar Mensaje</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                        <button type="submit" id="waitlistBtn"
+                            class="mt-4 flex h-14 min-w-[160px] items-center justify-center rounded-full bg-primary px-8 text-sm font-bold text-background-dark hover:shadow-[0_0_25px_rgba(59,216,216,0.5)] transition-all md:mt-0 active:scale-95">
+                            Join waitlist
                         </button>
                     </form>
+
+                    <!-- Consent & message -->
+                    <div class="mt-6 flex flex-col items-center gap-4">
+                        <label class="group flex cursor-pointer items-center gap-3">
+                            <div class="relative flex h-5 w-5 items-center justify-center rounded border border-white/20 bg-white/5 transition-colors group-hover:border-primary/50">
+                                <input id="consentCheck" type="checkbox" class="peer absolute h-full w-full opacity-0 cursor-pointer">
+                                <span class="material-symbols-outlined text-primary scale-0 transition-transform peer-checked:scale-100 text-[16px]">check</span>
+                            </div>
+                            <span class="text-sm text-white/60">Enviarme actualizaciones del producto</span>
+                        </label>
+                        <p id="waitlistMsg" class="text-sm text-primary hidden text-center"></p>
+                        <p class="text-xs text-white/30 italic">No spam, solo actualizaciones importantes.</p>
+                    </div>
+                </div>
+
+                <!-- Feature pills -->
+                <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                    <div class="glass-pill rounded-xl p-5">
+                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-[20px]">drag_pan</span>
+                        </div>
+                        <h4 class="font-bold text-sm mb-1">Visual Designer</h4>
+                        <p class="text-white/50 text-xs leading-relaxed">Drag & drop para interfaces complejas.</p>
+                    </div>
+                    <div class="glass-pill rounded-xl p-5">
+                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-[20px]">speed</span>
+                        </div>
+                        <h4 class="font-bold text-sm mb-1">Hot Reload</h4>
+                        <p class="text-white/50 text-xs leading-relaxed">Cambios en tiempo real sin reiniciar.</p>
+                    </div>
+                    <div class="glass-pill rounded-xl p-5">
+                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-[20px]">output</span>
+                        </div>
+                        <h4 class="font-bold text-sm mb-1">Code Export</h4>
+                        <p class="text-white/50 text-xs leading-relaxed">Exporta código Python listo para producción.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <span class="logo-text">VisionUI</span>
-                        <span class="logo-subtitle">Framework</span>
+<!-- Footer -->
+<footer class="py-16 px-6 border-t border-white/5">
+    <div class="max-w-[1140px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <!-- Brand -->
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="text-primary">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
                     </div>
-                    <p class="footer-description" data-i18n="footer.description">
-                        Framework moderno para crear interfaces de usuario elegantes
-                        y profesionales con PySide6.
-                    </p>
+                    <span class="font-bold text-lg">VisionUI</span>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-section">
-                        <h3 class="footer-title" data-i18n="footer.product">Producto</h3>
-                        <ul class="footer-list">
-                            <li><a href="#features" data-i18n="nav.features">Características</a></li>
-                            <li><a href="#designer" data-i18n="nav.designer">Diseñador</a></li>
-                            <li><a href="#gallery" data-i18n="nav.gallery">Galería</a></li>
-                            <li><a href="#download" data-i18n="nav.download">Descargar</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h3 class="footer-title" data-i18n="footer.resources">Recursos</h3>
-                        <ul class="footer-list">
-                            <li><a href="#" data-i18n="footer.docs">Documentación</a></li>
-                            <li><a href="#" data-i18n="footer.tutorials">Tutoriales</a></li>
-                            <li><a href="#" data-i18n="footer.examples">Ejemplos</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h3 class="footer-title" data-i18n="footer.community">Comunidad</h3>
-                        <ul class="footer-list">
-                            <li><a href="#">Discord</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <p class="text-slate-500 text-sm leading-relaxed max-w-xs">
+                    Framework moderno para crear interfaces de usuario elegantes y profesionales con PySide6.
+                </p>
             </div>
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    <p data-i18n="footer.copyright">&copy; 2026 VisionUI Framework. Todos los derechos reservados.</p>
-                    <p style="margin-top: 0.5rem; font-size: 0.8rem;">
-                        <a href="privacy.html" style="color: #71717a; margin-right: 1rem;" data-i18n="footer.privacy">Política de Privacidad</a>
-                        <a href="terms.html" style="color: #71717a;" data-i18n="footer.terms">Términos de Servicio</a>
-                    </p>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="social-link" data-vui-link="x">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" data-vui-link="youtube">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M16 4.626l-4.5 4.5L7 4.626 11.5 9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M7 15.5l4.5-4.5 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M16 4.626l4.5 4.5L16 15.5l-4.5-4.5L7 4.626" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" data-vui-link="tiktok">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
+            <!-- Product -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Producto</h3>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#features" class="text-sm text-slate-400 hover:text-primary transition-colors">Features</a></li>
+                    <li><a href="store.html" class="text-sm text-slate-400 hover:text-primary transition-colors">Apps</a></li>
+                    <li><a href="docs.html" class="text-sm text-slate-400 hover:text-primary transition-colors">Documentation</a></li>
+                    <li><a href="designer.html" class="text-sm text-slate-400 hover:text-primary transition-colors">VuiStudio</a></li>
+                </ul>
+            </div>
+            <!-- Resources -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Recursos</h3>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="docs.html" class="text-sm text-slate-400 hover:text-primary transition-colors">Documentation</a></li>
+                    <li><a href="docs.html#contact" class="text-sm text-slate-400 hover:text-primary transition-colors">Contacto</a></li>
+                    <li><a href="privacy.html" class="text-sm text-slate-400 hover:text-primary transition-colors">Privacidad</a></li>
+                    <li><a href="terms.html" class="text-sm text-slate-400 hover:text-primary transition-colors">Términos</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+        <!-- Bottom bar -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/5">
+            <span class="text-sm text-slate-500">© 2026 VisionUI Framework. Todos los derechos reservados.</span>
+            <div class="flex items-center gap-6">
+                <a href="#" class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm" data-vui-link="x">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    Twitter
+                </a>
+                <a href="#" class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm" data-vui-link="github">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    GitHub
+                </a>
+                <a href="store.html" class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm">
+                    <span class="material-symbols-outlined text-[18px]">storefront</span>
+                    Apps
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/i18n.js"></script>
-    <script src="assets/js/auth.js"></script>
-    <script src="assets/js/ads.js"></script>
-    <script src="assets/js/main.js"></script>
+<!-- Background decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-20 overflow-hidden">
+    <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
+    <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/ads.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+    // ── Account Dropdown ──────────────────────────────────────────
+    let accountMenuOpen = false;
+    const dropdown = document.getElementById('accountDropdown');
+
+    function toggleAccountMenu() {
+        accountMenuOpen = !accountMenuOpen;
+        if (accountMenuOpen) {
+            dropdown.classList.remove('hidden');
+        } else {
+            dropdown.classList.add('hidden');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        const container = document.getElementById('accountMenuContainer');
+        if (container && !container.contains(e.target)) {
+            accountMenuOpen = false;
+            dropdown.classList.add('hidden');
+        }
+    });
+
+    // ── Auth State ────────────────────────────────────────────────
+    if (typeof VUIAuth !== 'undefined') {
+        VUIAuth.onAuthChange(function(user) {
+            const btn = document.getElementById('accountBtn');
+            const btnText = document.getElementById('accountBtnText');
+            const btnAvatar = document.getElementById('accountBtnAvatar');
+            const btnChevron = document.getElementById('accountBtnChevron');
+            const guestArea = document.getElementById('dropdownGuest');
+            const userArea = document.getElementById('dropdownUser');
+            const mobileLink = document.getElementById('mobileAccountLink');
+
+            if (user) {
+                const name = user.display_name || user.email.split('@')[0];
+                const initials = name.charAt(0).toUpperCase();
+
+                btnAvatar.textContent = initials;
+                btnAvatar.classList.remove('hidden');
+                btnText.textContent = name.length > 12 ? name.substring(0, 12) + '…' : name;
+
+                document.getElementById('dropdownUserName').textContent = user.display_name || name;
+                document.getElementById('dropdownUserEmail').textContent = user.email;
+
+                guestArea.classList.add('hidden');
+                userArea.classList.remove('hidden');
+
+                if (mobileLink) {
+                    mobileLink.innerHTML = `<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-background-dark text-xs font-bold">${initials}</div><span class="text-[10px] font-semibold text-primary">Cuenta</span>`;
+                }
+            } else {
+                btnAvatar.classList.add('hidden');
+                btnText.textContent = 'Mi Cuenta';
+                guestArea.classList.remove('hidden');
+                userArea.classList.add('hidden');
+            }
+        });
+    }
+
+    function doLogout() {
+        if (typeof VUIAuth !== 'undefined') {
+            VUIAuth.logout();
+        } else {
+            localStorage.removeItem('vui_session');
+            window.location.reload();
+        }
+    }
+
+    // ── Waitlist Form ─────────────────────────────────────────────
+    async function handleWaitlist(e) {
+        e.preventDefault();
+        const email = document.getElementById('waitlistEmail').value;
+        const name = document.getElementById('waitlistName').value;
+        const msg = document.getElementById('waitlistMsg');
+        const btn = document.getElementById('waitlistBtn');
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+        try {
+            await fetch('https://admin.visionui.app/api/waitlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, name, product: 'VuiStudio' })
+            });
+        } catch (err) { /* silently continue */ }
+        msg.textContent = '✓ ¡Te anotamos! Te avisaremos cuando VuiStudio esté listo.';
+        msg.classList.remove('hidden');
+        btn.textContent = '✓ Registrado';
+        btn.disabled = false;
+        document.getElementById('waitlistForm').reset();
+    }
+</script>
 </body>
 </html>
