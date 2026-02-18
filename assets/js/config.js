@@ -5,6 +5,13 @@
  * Keep values empty ("") to disable optional links.
  */
 
+/**
+ * Google OAuth Client ID for "Continue with Google".
+ * Create at: https://console.cloud.google.com/apis/credentials
+ * Type: Web application. Add authorized JS origins: https://visionui.app, https://www.visionui.app, http://localhost:4173
+ */
+window.VISIONUI_GOOGLE_CLIENT_ID = '';
+
 window.VISIONUI_LINKS = {
     demoDownloadUrl: 'store.html',
     demoVideoUrl: '',
