@@ -14,6 +14,7 @@
   function init() {
     var nav =
       document.querySelector(".liquid-glass-nav") ||
+      document.querySelector(".glass-navbar") ||
       document.querySelector(".glass-nav");
     if (!nav) return;
 
@@ -27,23 +28,23 @@
     nav.insertBefore(specular, nav.firstChild);
 
     nav.style.position = nav.style.position || "relative";
-    nav.style.background = "rgba(18, 18, 20, 0.4)";
-    nav.style.border = "none";
-    nav.style.borderBottom = "none";
-    // Only blur/contrast/brightness work with backdrop-filter (no url() support)
+    nav.style.background = "rgba(26, 26, 26, 0.7)";
+    nav.style.border = "1px solid rgba(255, 255, 255, 0.1)";
+    nav.style.borderBottom = nav.style.border;
+    // Stitch-style glass: blur 12px (same as VisionUI Web Rebrand landing)
     nav.style.backdropFilter =
-      "blur(24px) saturate(180%) contrast(1.12) brightness(1.06)";
+      "blur(12px) saturate(160%) contrast(1.08) brightness(1.04)";
     nav.style.webkitBackdropFilter = nav.style.backdropFilter;
     nav.style.boxShadow =
-      "0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -6px 16px rgba(0,0,0,0.12)";
+      "0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)";
 
     function onScroll() {
       if (window.scrollY > 60) {
         nav.classList.add("scrolled");
-        nav.style.background = "rgba(10, 10, 12, 0.55)";
+        nav.style.background = "rgba(18, 18, 20, 0.8)";
       } else {
         nav.classList.remove("scrolled");
-        nav.style.background = "rgba(18, 18, 20, 0.4)";
+        nav.style.background = "rgba(26, 26, 26, 0.7)";
       }
     }
     window.addEventListener("scroll", onScroll, { passive: true });
