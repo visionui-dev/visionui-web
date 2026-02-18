@@ -28,6 +28,25 @@
  */
 window.VISIONUI_GOOGLE_CLIENT_ID = '932063872431-imfkm3onl3fsajddleq2do4djjn1gfau.apps.googleusercontent.com';
 
+/**
+ * Cloudflare Turnstile Site Key for CAPTCHA protection.
+ * 
+ * HOW TO CONFIGURE:
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 1. Go to: https://dash.cloudflare.com/?to=/:account/turnstile
+ * 2. Click "Add site"
+ * 3. Configure:
+ *    - Site name: VisionUI
+ *    - Domains: visionui.app, www.visionui.app, 127.0.0.1
+ *    - Widget Mode: Managed (Recommended)
+ * 4. Copy the Site Key and paste it below
+ * 5. In Cloudflare Worker, set environment variable: TURNSTILE_SECRET_KEY
+ * 
+ * Note: Leave empty ("") to disable CAPTCHA protection
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+window.VISIONUI_TURNSTILE_SITE_KEY = '';
+
 window.VISIONUI_LINKS = {
     demoDownloadUrl: 'store.html',
     demoVideoUrl: '',
