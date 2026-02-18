@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activar Licencia - VisionUI</title>
+    <title>Activate License - VisionUI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -372,15 +372,15 @@
     <div class="container">
         <div class="header">
             <div class="logo">✨</div>
-            <h1>Activa tu licencia</h1>
-            <p class="subtitle">Configura tu contraseña para acceder</p>
+            <h1>Activate your license</h1>
+            <p class="subtitle">Set up your password to access</p>
         </div>
 
         <!-- Loading State -->
         <div class="card" id="loadingState">
             <div class="loading-state">
                 <div class="spinner"></div>
-                <p>Verificando tu enlace de activación...</p>
+                <p>Verifying your activation link...</p>
             </div>
         </div>
 
@@ -388,13 +388,13 @@
         <div class="card hidden" id="errorState">
             <div class="error-state">
                 <div class="error-icon">⚠️</div>
-                <h2 id="errorTitle">Enlace inválido</h2>
-                <p id="errorMessage">Este enlace de activación no es válido o ha expirado.</p>
+                <h2 id="errorTitle">Invalid link</h2>
+                <p id="errorMessage">This activation link is not valid or has expired.</p>
                 <a href="claim-license.html" class="btn btn-primary">
-                    Recuperar mi licencia
+                    Recover my license
                 </a>
                 <a href="store.html" class="btn btn-secondary">
-                    Volver a la tienda
+                    Back to store
                 </a>
             </div>
         </div>
@@ -407,7 +407,7 @@
                     <span class="license-value" id="infoEmail">-</span>
                 </div>
                 <div class="license-row">
-                    <span class="license-label">Aplicación</span>
+                    <span class="license-label">Application</span>
                     <span class="license-value" id="infoApp">-</span>
                 </div>
                 <div class="license-row" id="infoKeyRow" style="display:none">
@@ -420,20 +420,20 @@
 
             <form id="passwordForm" onsubmit="setupPassword(event)">
                 <div class="form-group">
-                    <label for="password">Crear contraseña</label>
-                    <input type="password" id="password" name="password" required minlength="6" placeholder="Mínimo 6 caracteres">
+                    <label for="password">Create password</label>
+                    <input type="password" id="password" name="password" required minlength="6" placeholder="Minimum 6 characters">
                     <div class="password-strength">
                         <div class="password-strength-bar" id="strengthBar"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="passwordConfirm">Confirmar contraseña</label>
-                    <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder="Repite tu contraseña">
+                    <label for="passwordConfirm">Confirm password</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder="Repeat your password">
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="submitBtn">
-                    <span id="btnText">Activar mi licencia</span>
+                    <span id="btnText">Activate my license</span>
                     <span id="btnLoading" class="hidden">
                         <svg width="20" height="20" viewBox="0 0 24 24" class="spinner" style="width:20px;height:20px;border-width:2px;margin:0;">
                         </svg>
@@ -451,25 +451,25 @@
                         <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </div>
-                <h2>¡Licencia activada!</h2>
-                <p>Tu cuenta está lista. Usa estas credenciales para iniciar sesión en la aplicación.</p>
+                <h2>License activated!</h2>
+                <p>Your account is ready. Use these credentials to sign in to the application.</p>
                 
                 <div class="credentials-box">
                     <p><strong>Email:</strong> <span id="successEmail">-</span></p>
-                    <p><strong>Contraseña:</strong> La que acabas de configurar</p>
+                    <p><strong>Password:</strong> The one you just set up</p>
                 </div>
 
                 <a href="#" class="btn btn-primary" id="downloadBtn">
-                    Descargar aplicación
+                    Download application
                 </a>
                 <a href="index.html" class="btn btn-secondary">
-                    Ir al inicio
+                    Go to home
                 </a>
             </div>
         </div>
 
         <div class="footer">
-            <a href="claim-license.html">¿Problemas? Recuperar licencia</a>
+            <a href="claim-license.html">Problems? Recover license</a>
         </div>
     </div>
 
@@ -499,7 +499,7 @@
         // Validar token al cargar
         async function validateToken() {
             if (!token) {
-                showError('Enlace incompleto', 'Este enlace no contiene un token de activación válido. Revisa el email que recibiste.');
+                showError('Incomplete link', 'This link does not contain a valid activation token. Check the email you received.');
                 return;
             }
 
@@ -514,19 +514,19 @@
 
                 if (!data.valid) {
                     if (data.already_used) {
-                        showError('Token ya utilizado', 'Este enlace de activación ya fue usado. Si ya configuraste tu contraseña, puedes iniciar sesión directamente en la aplicación.');
+                        showError('Token already used', 'This activation link has already been used. If you already set up your password, you can sign in directly to the application.');
                     } else if (data.expired) {
-                        showError('Enlace expirado', 'Este enlace de activación ha expirado. Los enlaces son válidos por 24 horas. Puedes recuperar tu licencia manualmente.');
+                        showError('Link expired', 'This activation link has expired. Links are valid for 24 hours. You can recover your license manually.');
                     } else {
-                        showError('Token inválido', data.error || 'Este enlace de activación no es válido.');
+                        showError('Invalid token', data.error || 'This activation link is not valid.');
                     }
                     return;
                 }
 
                 if (data.has_password) {
-                    // Ya tiene password, mostrar mensaje especial
-                    showError('Cuenta ya activada', 'Tu cuenta ya está activada. Puedes iniciar sesión directamente en la aplicación con tu email y contraseña.');
-                    document.getElementById('errorTitle').textContent = '✓ Cuenta activa';
+                    // Already has password, show special message
+                    showError('Account already activated', 'Your account is already activated. You can sign in directly to the application with your email and password.');
+                    document.getElementById('errorTitle').textContent = '✓ Account active';
                     document.querySelector('.error-icon').style.background = 'var(--success-bg)';
                     document.querySelector('.error-icon').style.borderColor = 'var(--success)';
                     document.querySelector('.error-icon').textContent = '✓';
@@ -539,7 +539,7 @@
 
             } catch (error) {
                 console.error('Error validating token:', error);
-                showError('Error de conexión', 'No se pudo verificar el enlace. Por favor, intenta de nuevo más tarde.');
+                showError('Connection error', 'Could not verify the link. Please try again later.');
             }
         }
 
@@ -574,14 +574,14 @@
 
             document.getElementById('successEmail').textContent = data.email;
             
-            // Configurar link de descarga (sistema nuevo: ir a cuenta para descargar con token)
+            // Set up download link (new system: go to account to download with token)
             const downloadBtn = document.getElementById('downloadBtn');
             const appName = data.app || 'VisionUI';
             if (data.license_key) {
                 downloadBtn.href = `${API_BASE}/api/download/${encodeURIComponent(appName)}?email=${encodeURIComponent(data.email)}&key=${encodeURIComponent(data.license_key)}`;
             } else {
                 downloadBtn.href = 'account.html';
-                downloadBtn.textContent = 'Ir a Mi Cuenta para descargar';
+                downloadBtn.textContent = 'Go to My Account to download';
             }
         }
 
@@ -616,13 +616,13 @@
 
             // Validate
             if (password !== passwordConfirm) {
-                alertEl.textContent = 'Las contraseñas no coinciden';
+                alertEl.textContent = 'Passwords do not match';
                 alertEl.classList.add('show', 'alert-error');
                 return;
             }
 
             if (password.length < 6) {
-                alertEl.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                alertEl.textContent = 'Password must be at least 6 characters';
                 alertEl.classList.add('show', 'alert-error');
                 return;
             }
@@ -648,7 +648,7 @@
                         license_key: data.license_key || tokenData.license_key
                     });
                 } else {
-                    throw new Error(data.error || 'Error al configurar la contraseña');
+                    throw new Error(data.error || 'Error setting up the password');
                 }
 
             } catch (error) {
