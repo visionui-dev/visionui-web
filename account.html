@@ -435,7 +435,7 @@
             document.getElementById('dashboardView').classList.add('hidden');
             initGoogleAuth();
             if (redirectTarget === 'store') {
-                const appName = redirectApp || 'la aplicación';
+                const appName = redirectApp || 'the app';
                 const msg = (typeof VUIi18n !== 'undefined' && VUIi18n.t) ?
                     (VUIi18n.t('auth.login_to_purchase') || '').replace('{{app}}', appName) :
                     `Sign in to continue purchasing ${appName}`;
