@@ -123,27 +123,37 @@ const VUIAuth = {
 
     // Login with Google (credential = JWT from Google Identity)
     async loginWithGoogle(credential) {
-        const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/google-auth`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ credential })
-        });
-
-        const data = await response.json();
-
-        if (data.success && (data.session_token || data.token)) {
-            const token = data.session_token || data.token;
-            this.saveSession(token, {
-                email: data.email,
-                name: data.name,
-                has_license: data.has_license,
-                license_type: data.license_type,
-                email_verified: data.email_verified ?? true
+        console.log('[VUIAuth] Google login attempt...');
+        try {
+            const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/google-auth`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ credential })
             });
-            return { success: true, user: data };
-        }
 
-        return { success: false, error: data.error || 'Google sign-in failed' };
+            console.log('[VUIAuth] Response status:', response.status);
+            const data = await response.json();
+            console.log('[VUIAuth] Response data:', data);
+
+            if (data.success && (data.session_token || data.token)) {
+                const token = data.session_token || data.token;
+                this.saveSession(token, {
+                    email: data.email,
+                    name: data.name,
+                    has_license: data.has_license,
+                    license_type: data.license_type,
+                    email_verified: data.email_verified ?? true
+                });
+                console.log('[VUIAuth] Google login successful');
+                return { success: true, user: data };
+            }
+
+            console.error('[VUIAuth] Google login failed:', data.error);
+            return { success: false, error: data.error || 'Google sign-in failed' };
+        } catch (err) {
+            console.error('[VUIAuth] Google login error:', err);
+            return { success: false, error: err.message || 'Connection error' };
+        }
     },
 
     // Register
