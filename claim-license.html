@@ -114,46 +114,46 @@
                 <div class="bg-primary/10 p-4 rounded-2xl mb-6 inline-flex items-center justify-center">
                     <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">vpn_key</span>
                 </div>
-                <h1 class="text-3xl font-extrabold text-white mb-3 tracking-tight">Reclamar Licencia</h1>
+                <h1 class="text-3xl font-extrabold text-white mb-3 tracking-tight">Claim License</h1>
                 <p class="text-gray-400 text-base leading-relaxed max-w-[340px]">
-                    ¿No recibiste tu licencia por email? Ingresa tu número de orden para recuperarla.
+                    Didn't receive your license by email? Enter your order number to retrieve it.
                 </p>
             </div>
 
             <!-- Info box -->
             <div class="bg-blue-500/10 border-l-4 border-blue-500 rounded-r-xl p-4 mb-6">
-                <h3 class="font-semibold text-sm text-blue-300 mb-1">ℹ️ ¿Cuándo usar esto?</h3>
-                <p class="text-blue-300/70 text-xs leading-relaxed">Usa este formulario si completaste el pago pero no recibiste tu licencia. Verifica primero tu carpeta de spam.</p>
+                <h3 class="font-semibold text-sm text-blue-300 mb-1">ℹ️ When to use this?</h3>
+                <p class="text-blue-300/70 text-xs leading-relaxed">Use this form if you completed payment but didn't receive your license. Check your spam folder first.</p>
             </div>
 
             <form id="claimForm" onsubmit="claimLicense(event)" class="space-y-5">
                 <div class="space-y-2">
-                    <label class="text-sm font-semibold text-gray-300 ml-1">Email de la Compra</label>
+                    <label class="text-sm font-semibold text-gray-300 ml-1">Purchase Email</label>
                     <div class="relative group">
-                        <input type="email" id="email" name="email" required placeholder="tu@email.com"
+                        <input type="email" id="email" name="email" required placeholder="you@email.com"
                             class="input-field font-sans">
                         <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-600 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined">mail</span>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 ml-1">El email que usaste al comprar</p>
+                    <p class="text-xs text-gray-500 ml-1">The email you used for purchase</p>
                 </div>
 
                 <div class="space-y-2">
-                    <label class="text-sm font-semibold text-gray-300 ml-1">Número de Orden</label>
+                    <label class="text-sm font-semibold text-gray-300 ml-1">Order Number</label>
                     <div class="relative group">
-                        <input type="text" id="order_number" name="order_number" required placeholder="Ej: 12345678"
+                        <input type="text" id="order_number" name="order_number" required placeholder="e.g. 12345678"
                             class="input-field">
                         <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-600 group-focus-within:text-primary transition-colors">
                             <span class="material-symbols-outlined">verified</span>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 ml-1">Revisa tu recibo de LemonSqueezy</p>
+                    <p class="text-xs text-gray-500 ml-1">Check your LemonSqueezy receipt</p>
                 </div>
 
                 <button type="submit" id="submitBtn"
                     class="w-full bg-primary hover:brightness-110 text-background-dark font-extrabold py-4 rounded-xl shadow-lg shadow-primary/20 transform transition-all active:scale-[0.98] hover:-translate-y-0.5 flex items-center justify-center gap-2 group">
-                    <span id="btnText">Reclamar Licencia</span>
+                    <span id="btnText">Claim License</span>
                     <span class="spinner" id="btnSpinner"></span>
                     <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform" id="btnIcon">arrow_forward</span>
                 </button>
@@ -161,7 +161,7 @@
 
             <div class="mt-8 pt-6 border-t border-white/5 text-center">
                 <a class="text-gray-500 hover:text-primary text-sm font-medium transition-colors inline-flex items-center gap-1 group no-underline" href="store.html">
-                    ¿No tienes una clave? <span class="underline decoration-primary/30 group-hover:decoration-primary">Visita el Marketplace</span>
+                    Don't have a license? <span class="underline decoration-primary/30 group-hover:decoration-primary">Visit the Marketplace</span>
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
                 </a>
             </div>
@@ -170,29 +170,29 @@
         <!-- Result Card (hidden initially) -->
         <div id="resultCard" class="hidden w-full max-w-[520px] mt-6">
             <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-6">
-                <h3 class="text-emerald-400 font-bold text-lg mb-3">✅ ¡Licencia Encontrada!</h3>
-                <p class="text-white/60 text-sm mb-4">Tu licencia ha sido recuperada exitosamente:</p>
+                <h3 class="text-emerald-400 font-bold text-lg mb-3">✅ License Found!</h3>
+                <p class="text-white/60 text-sm mb-4">Your license has been successfully retrieved:</p>
                 <div class="bg-black/30 rounded-xl p-4 font-mono text-sm space-y-2 border border-white/5">
                     <div><span class="text-gray-500">Email:</span> <span id="resultEmail" class="text-white"></span></div>
                     <div><span class="text-gray-500">License Key:</span> <span id="resultKey" class="text-primary"></span></div>
                     <div><span class="text-gray-500">App:</span> <span id="resultApp" class="text-white"></span></div>
-                    <div><span class="text-gray-500">Válida hasta:</span> <span id="resultExpires" class="text-white"></span></div>
+                    <div><span class="text-gray-500">Valid until:</span> <span id="resultExpires" class="text-white"></span></div>
                 </div>
                 <div class="mt-4">
                     <a id="setupPasswordLink" href="purchase-success.html"
                         class="w-full bg-primary text-background-dark py-3 rounded-xl font-bold text-sm text-center block hover:brightness-110 transition-all no-underline">
-                        Configurar Contraseña →
+                        Set Password →
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="mt-6 text-center">
-            <a href="store.html" class="text-gray-500 hover:text-white text-sm transition-colors no-underline">← Volver a la tienda</a>
+            <a href="store.html" class="text-gray-500 hover:text-white text-sm transition-colors no-underline">← Back to store</a>
         </div>
 
         <p class="mt-4 text-center text-gray-600 text-xs">
-            ¿Aún tienes problemas? <a href="mailto:soporte@visionui.app" class="text-primary/60 hover:text-primary underline transition-colors">soporte@visionui.app</a>
+            Still having issues? <a href="mailto:support@visionui.app" class="text-primary/60 hover:text-primary underline transition-colors">support@visionui.app</a>
         </p>
     </main>
 
@@ -249,19 +249,19 @@
                     document.getElementById('resultApp').textContent = data.app_name || 'VisionUI App';
                     const expiresDate = data.expires_at ? new Date(data.expires_at) : null;
                     const expiresText = expiresDate ?
-                        (expiresDate.getFullYear() > 2100 ? 'Lifetime (sin expiración)' : expiresDate.toLocaleDateString()) : 'N/A';
+                        (expiresDate.getFullYear() > 2100 ? 'Lifetime (no expiration)' : expiresDate.toLocaleDateString()) : 'N/A';
                     document.getElementById('resultExpires').textContent = expiresText;
                     const setupLink = document.getElementById('setupPasswordLink');
                     setupLink.href = `purchase-success.html?email=${encodeURIComponent(email)}&key=${encodeURIComponent(data.license_key)}`;
                     document.getElementById('resultCard').classList.remove('hidden');
                     if (data.already_exists) {
-                        showSuccess('✅ Tu licencia ya existía. Detalles mostrados abajo.');
+                        showSuccess('✅ Your license already existed. Details shown below.');
                     } else {
-                        showSuccess('✅ ¡Licencia reclamada exitosamente!');
+                        showSuccess('✅ License claimed successfully!');
                     }
                     document.getElementById('formCard').style.display = 'none';
                 } else {
-                    throw new Error(data.error || 'Error reclamando la licencia');
+                    throw new Error(data.error || 'Error claiming license');
                 }
             } catch (error) {
                 showError('❌ ' + error.message);
