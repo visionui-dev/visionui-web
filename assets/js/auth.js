@@ -264,9 +264,10 @@ const VUIAuthUI = {
             navAccount.classList.add('logged-in');
             navAccount.title = `Logged in as ${safeEmail}`;
         } else {
-            // Not logged in - use i18n text
+            // Not logged in - use i18n text (no emoji icon)
             navAccount.innerHTML = `
-                👤 <span data-i18n="nav.account">My Account</span>
+                <span class="material-symbols-outlined" aria-hidden="true">person</span>
+                <span data-i18n="nav.account">My Account</span>
             `;
             navAccount.classList.remove('logged-in');
             navAccount.title = 'Login / Register';
