@@ -116,6 +116,31 @@ const VUIAuth = {
         return { success: false, error: data.error || 'Login failed' };
     },
 
+    // Login with Google (credential = JWT from Google Identity)
+    async loginWithGoogle(credential) {
+        const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/google-auth`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ credential })
+        });
+
+        const data = await response.json();
+
+        if (data.success && (data.session_token || data.token)) {
+            const token = data.session_token || data.token;
+            this.saveSession(token, {
+                email: data.email,
+                name: data.name,
+                has_license: data.has_license,
+                license_type: data.license_type,
+                email_verified: data.email_verified ?? true
+            });
+            return { success: true, user: data };
+        }
+
+        return { success: false, error: data.error || 'Google sign-in failed' };
+    },
+
     // Register
     async register(email, password, name = '') {
         const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/register`, {
@@ -222,23 +247,48 @@ const VUIAuthUI = {
         if (!navAccount) return;
 
         const user = VUIAuth.getUser();
+
+        const ensureStructuredButton = () => {
+            let iconEl = navAccount.querySelector('.nav-account-icon');
+            let labelEl = navAccount.querySelector('.nav-account-label');
+            let chevronEl = navAccount.querySelector('.nav-account-chevron');
+
+            if (!iconEl || !labelEl || !chevronEl) {
+                navAccount.innerHTML = `
+                    <span class="material-symbols-outlined nav-account-icon text-[18px]">person</span>
+                    <span class="nav-account-label" data-i18n="nav.account">My Account</span>
+                    <span class="material-symbols-outlined nav-account-chevron text-[14px] sm:text-[15px]">chevron_right</span>
+                `;
+                iconEl = navAccount.querySelector('.nav-account-icon');
+                labelEl = navAccount.querySelector('.nav-account-label');
+                chevronEl = navAccount.querySelector('.nav-account-chevron');
+            }
+
+            return { iconEl, labelEl, chevronEl };
+        };
+
+        const { iconEl, labelEl, chevronEl } = ensureStructuredButton();
         
         if (user) {
             // Logged in
-            navAccount.innerHTML = `
-                <span class="user-email">${user.email.split('@')[0]}</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            `;
+            if (iconEl) iconEl.textContent = 'person';
+            if (labelEl) {
+                labelEl.classList.add('user-email');
+                labelEl.removeAttribute('data-i18n');
+                labelEl.textContent = user.email.split('@')[0];
+            }
+            if (chevronEl) chevronEl.classList.add('hidden');
             navAccount.classList.add('logged-in');
             navAccount.title = `Logged in as ${user.email}`;
         } else {
             // Not logged in - use i18n text
-            navAccount.innerHTML = `
-                👤 <span data-i18n="nav.account">My Account</span>
-            `;
+            if (iconEl) iconEl.textContent = 'person';
+            if (labelEl) {
+                labelEl.classList.remove('user-email');
+                labelEl.setAttribute('data-i18n', 'nav.account');
+                labelEl.textContent = 'My Account';
+            }
+            if (chevronEl) chevronEl.classList.remove('hidden');
             navAccount.classList.remove('logged-in');
             navAccount.title = 'Login / Register';
             
@@ -274,28 +324,17 @@ const VUIAuthUI = {
             </div>
             <div class="dropdown-divider"></div>
             <a href="${accountPath}" class="dropdown-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+                <span class="material-symbols-outlined" style="font-size:16px;line-height:1;">manage_accounts</span>
                 <span data-i18n="nav.account">My Account</span>
             </a>
             <a href="${storePath}" class="dropdown-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="nav.store">Store</span>
+                <span class="material-symbols-outlined" style="font-size:16px;line-height:1;">apps</span>
+                <span data-i18n="nav.store">Apps</span>
             </a>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item logout-btn" onclick="VUIAuthUI.handleLogout()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                <span data-i18n="auth.logout">Log out</span>
+                <span class="material-symbols-outlined" style="font-size:16px;line-height:1;">logout</span>
+                <span data-i18n="auth.logout">Sign out</span>
             </button>
         `;
 
