@@ -793,7 +793,7 @@
                 const data = await res.json();
                 if (res.ok && data.success) {
                     hideSetPasswordModal();
-                    showToast('Password set. You can now use the desktop app.');
+                    showToast('Password set. You can now use the desktop app.', 'success');
                     document.getElementById('setPasswordLink').classList.add('hidden');
                     document.getElementById('resetPasswordLink').classList.remove('hidden');
                 } else { errEl.textContent = data.error || 'Error'; errEl.classList.remove('hidden'); }
