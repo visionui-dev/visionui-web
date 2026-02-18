@@ -254,38 +254,6 @@ const VUIAuth = {
             console.error('Validate reset token error:', e);
             return { valid: false, error: 'Connection error' };
         }
-    },
-
-    // Google OAuth Sign In
-    async loginWithGoogle(credential) {
-        try {
-            const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/google-signin`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ credential })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                if (data.token && data.user) {
-                    this.saveSession(data.token, {
-                        email: data.user.email,
-                        name: data.user.name,
-                        has_license: data.user.has_active_license,
-                        license_type: data.user.licenses?.[0]?.app,
-                        email_verified: data.user.email_verified,
-                        is_oauth: true
-                    });
-                    return { success: true, user: data.user };
-                }
-            }
-            
-            const errorData = await response.json();
-            return { success: false, error: errorData.message || 'Google sign-in failed' };
-        } catch (e) {
-            console.error('Google sign-in error:', e);
-            return { success: false, error: 'Connection error' };
-        }
     }
 };
 
