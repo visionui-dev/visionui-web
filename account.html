@@ -12,6 +12,8 @@
     <!-- VisionUI Analytics -->
     <script defer src="assets/js/analytics.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <!-- Liquid Glass Effect -->
     <script defer src="assets/js/liquid-glass-navbar.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -130,6 +132,8 @@
                 <div class="flex justify-end -mt-2">
                     <a href="reset-password.html" class="text-xs font-medium text-slate-500 hover:text-primary transition-colors" data-i18n="auth.forgot_password">Forgot your password?</a>
                 </div>
+                <!-- Turnstile CAPTCHA -->
+                <div id="loginTurnstile" class="flex justify-center"></div>
                 <button type="submit" id="loginBtn"
                     class="mt-2 w-full bg-primary hover:bg-[#32c4c4] text-slate-900 font-bold py-4 rounded-full shadow-lg shadow-primary/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group" data-i18n="auth.login_button">
                     Sign In
@@ -187,6 +191,8 @@
                     </div>
                     <div id="passwordMatchIndicator" class="password-match-indicator px-2"></div>
                 </div>
+                <!-- Turnstile CAPTCHA -->
+                <div id="registerTurnstile" class="flex justify-center"></div>
                 <button type="submit" id="registerBtn"
                     class="w-full bg-primary hover:bg-[#32c4c4] text-slate-900 font-bold py-4 rounded-full shadow-lg shadow-primary/10 active:scale-[0.98] transition-all" data-i18n="auth.register_button">
                     Create Account
@@ -397,6 +403,31 @@
             }
         }
 
+        function initTurnstile() {
+            const siteKey = (window.VISIONUI_TURNSTILE_SITE_KEY || '').trim();
+            if (!siteKey || typeof turnstile === 'undefined') return;
+
+            // Login widget
+            const loginContainer = document.getElementById('loginTurnstile');
+            if (loginContainer && window.loginTurnstileWidgetId === undefined) {
+                window.loginTurnstileWidgetId = turnstile.render(loginContainer, {
+                    sitekey: siteKey,
+                    theme: 'dark',
+                    size: 'normal'
+                });
+            }
+
+            // Register widget
+            const registerContainer = document.getElementById('registerTurnstile');
+            if (registerContainer && window.registerTurnstileWidgetId === undefined) {
+                window.registerTurnstileWidgetId = turnstile.render(registerContainer, {
+                    sitekey: siteKey,
+                    theme: 'dark',
+                    size: 'normal'
+                });
+            }
+        }
+
         function handleGoogleCallback(response) {
             if (!response?.credential) return;
             handleGoogleSignInWithCredential(response.credential);
@@ -434,6 +465,7 @@
             document.getElementById('authView').classList.remove('hidden');
             document.getElementById('dashboardView').classList.add('hidden');
             initGoogleAuth();
+            initTurnstile();
             if (redirectTarget === 'store') {
                 const appName = redirectApp || 'the app';
                 const msg = (typeof VUIi18n !== 'undefined' && VUIi18n.t) ?
@@ -442,7 +474,7 @@
                 if (msg) showAlert(msg, 'info');
             }
             if (initialTab === 'register') switchTab('register');
-            setTimeout(initGoogleAuth, 1500);
+            setTimeout(() => { initGoogleAuth(); initTurnstile(); }, 1500);
         }
 
         function showDashboard(data) {
@@ -600,9 +632,20 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             const btn = document.getElementById('loginBtn');
+            
+            // Get Turnstile token if enabled
+            let turnstileToken = null;
+            if (window.loginTurnstileWidgetId !== undefined && typeof turnstile !== 'undefined') {
+                turnstileToken = turnstile.getResponse(window.loginTurnstileWidgetId);
+                if (!turnstileToken) {
+                    showAlert('Please verify you are human');
+                    return;
+                }
+            }
+            
             btn.disabled = true; btn.textContent = 'Loading...';
             try {
-                const result = await VUIAuth.login(email, password);
+                const result = await VUIAuth.login(email, password, turnstileToken);
                 if (result.success) {
                     window.dispatchEvent(new CustomEvent('vui:login', { detail: { email } }));
                     if (redirectTarget === 'store') {
@@ -614,6 +657,10 @@
                 } else { showAlert(result.error || 'Error signing in'); }
             } catch (err) { showAlert('Connection error'); }
             btn.disabled = false; btn.textContent = 'Sign In';
+            // Reset Turnstile
+            if (window.loginTurnstileWidgetId !== undefined && typeof turnstile !== 'undefined') {
+                turnstile.reset(window.loginTurnstileWidgetId);
+            }
         }
 
         async function handleRegister(e) {
@@ -625,10 +672,21 @@
             if (!name) { showAlert('Please enter your name'); return; }
             if (password !== password2) { showAlert('Passwords do not match'); return; }
             if (password.length < 6) { showAlert('Minimum 6 characters'); return; }
+            
+            // Get Turnstile token if enabled
+            let turnstileToken = null;
+            if (window.registerTurnstileWidgetId !== undefined && typeof turnstile !== 'undefined') {
+                turnstileToken = turnstile.getResponse(window.registerTurnstileWidgetId);
+                if (!turnstileToken) {
+                    showAlert('Please verify you are human');
+                    return;
+                }
+            }
+            
             const btn = document.getElementById('registerBtn');
             btn.disabled = true; btn.textContent = 'Creating...';
             try {
-                const result = await VUIAuth.register(email, password, name);
+                const result = await VUIAuth.register(email, password, name, turnstileToken);
                 if (result.success) {
                     window.dispatchEvent(new CustomEvent('vui:registration', { detail: { email } }));
                     if (redirectTarget === 'store') {
@@ -640,6 +698,10 @@
                 } else { showAlert(result.error || 'Error creating account'); }
             } catch (err) { showAlert('Connection error'); }
             btn.disabled = false; btn.textContent = 'Create Account';
+            // Reset Turnstile
+            if (window.registerTurnstileWidgetId !== undefined && typeof turnstile !== 'undefined') {
+                turnstile.reset(window.registerTurnstileWidgetId);
+            }
         }
 
         async function handleLogout() {
