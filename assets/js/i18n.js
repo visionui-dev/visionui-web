@@ -4,7 +4,7 @@
  */
 
 const I18N_CONFIG = {
-    DEFAULT_LANG: 'en',
+    DEFAULT_LANG: 'es',
     STORAGE_KEY: 'visionui_lang',
     SUPPORTED_LANGS: ['es', 'en']
 };
@@ -15,7 +15,7 @@ const TRANSLATIONS = {
         // Navigation
         'nav.features': 'Características',
         'nav.designer': 'Diseñador',
-        'nav.gallery': 'Showcase',
+        'nav.gallery': 'Galería',
         'nav.apps': 'Apps',
         'nav.download': 'Descargar',
         'nav.contact': 'Contacto',
@@ -587,6 +587,12 @@ const VUIi18n = {
         const stored = localStorage.getItem(I18N_CONFIG.STORAGE_KEY);
         if (stored && I18N_CONFIG.SUPPORTED_LANGS.includes(stored)) {
             return stored;
+        }
+        
+        // Detect from browser
+        const browserLang = navigator.language.split('-')[0];
+        if (I18N_CONFIG.SUPPORTED_LANGS.includes(browserLang)) {
+            return browserLang;
         }
         
         return I18N_CONFIG.DEFAULT_LANG;
