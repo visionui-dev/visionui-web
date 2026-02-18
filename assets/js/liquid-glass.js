@@ -1,91 +1,96 @@
 /**
  * VisionUI Website - Liquid Glass Effect for Navbar
- * True refractive distortion using SVG feDisplacementMap + SDF rounded-rect
+ * Based on Shu Ding's liquid-glass technique (2025)
+ * https://github.com/shuding/liquid-glass
  *
- * Technique: shuding/liquid-glass (2025)
+ * True refractive distortion using SVG feDisplacementMap + SDF rounded-rect
  * - A hidden canvas computes a displacement map via SDF math (Inigo Quilez)
  * - An SVG <feDisplacementMap> filter reads that canvas as feImage
  * - backdrop-filter: url(#vui-lg-filter) applies the warp to whatever is behind
  * - Result: pixels at the pill edge are displaced, creating true glass refraction
- *
- * References:
- * - https://github.com/shuding/liquid-glass
- * - https://imadr.me/liquid-glass/ (Snell's law + normals approach)
- * - Apple WWDC25 Session 219
- * - Inigo Quilez — SDF rounded rectangle
  */
 
-// ─── SDF: rounded rectangle (Inigo Quilez) ─────────────────────────────────
-function _sdfRoundRect(px, py, cx, cy, hw, hh, r) {
-    const qx = Math.abs(px - cx) - hw + r;
-    const qy = Math.abs(py - cy) - hh + r;
-    return Math.sqrt(Math.max(qx, 0) ** 2 + Math.max(qy, 0) ** 2)
-         + Math.min(Math.max(qx, qy), 0) - r;
+// ─── SDF: rounded rectangle (Inigo Quilez / Shu Ding) ─────────────────────
+function _sdfRoundRect(x, y, width, height, radius) {
+    const qx = Math.abs(x) - width + radius;
+    const qy = Math.abs(y) - height + radius;
+    return Math.min(Math.max(qx, qy), 0) + Math.sqrt(Math.max(qx, 0) ** 2 + Math.max(qy, 0) ** 2) - radius;
 }
 
-function _smoothStep(a, b, t) {
-    t = Math.max(0, Math.min(1, (t - a) / (b - a)));
+function _smoothStep(edge0, edge1, x) {
+    const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
     return t * t * (3 - 2 * t);
 }
 
-// ─── Build displacement map on a hidden canvas ─────────────────────────────
+// ─── Build displacement map on a hidden canvas (Shu Ding approach) ────────
 function _buildDisplacementMap(canvas, W, H) {
     const ctx = canvas.getContext('2d');
     const imgData = ctx.createImageData(W, H);
     const data = imgData.data;
 
-    const R = H / 2;          // pill radius
-    const cx = W / 2, cy = H / 2;
-    const hw = W / 2 - R;     // half-width of the straight segment
-    const hh = 0;              // half-height (pill is fully rounded)
+    // Pill shape parameters (normalized coordinates)
+    const halfWidth = 0.4;   // Width of straight segment (0.4 = 80% of width)
+    const halfHeight = 0.0;  // Pill is fully rounded vertically
+    const radius = 0.5;      // Full radius for pill shape
+    const edgeOffset = 0.12;  // Edge band thickness (subtle)
+    const edgeStart = 0.8;    // Where displacement begins
+    const edgeEnd = 0.0;      // Maximum displacement at edge
 
-    // Edge band thickness in pixels — controls how wide the refraction zone is
-    const edgeBand = R * 0.55;
-
-    // We compute raw dx/dy displacements first, then normalise to 0-255
+    // We compute raw dx/dy displacements first, then normalize to 0-255
     const rawDx = new Float32Array(W * H);
     const rawDy = new Float32Array(W * H);
-    let maxAbs = 0;
+    let maxScale = 0;
 
     for (let y = 0; y < H; y++) {
         for (let x = 0; x < W; x++) {
-            const dist = _sdfRoundRect(x, y, cx, cy, hw, hh, R);
+            // Normalize coordinates to [-0.5, 0.5]
+            const nx = (x / W) - 0.5;
+            const ny = (y / H) - 0.5;
 
-            // Only displace pixels near the edge (inside + outside the pill)
-            const t = _smoothStep(edgeBand, 0, Math.abs(dist));
+            // Calculate SDF distance to edge
+            const distanceToEdge = _sdfRoundRect(nx, ny, halfWidth, halfHeight, radius);
 
-            // Normal direction = gradient of SDF ≈ vector from nearest edge point
-            // For a pill SDF the gradient is simply (x-cx, y-cy) normalised
-            // but we use the SDF gradient numerically for accuracy
-            const eps = 0.5;
-            const gx = (_sdfRoundRect(x + eps, y, cx, cy, hw, hh, R) -
-                        _sdfRoundRect(x - eps, y, cx, cy, hw, hh, R)) / (2 * eps);
-            const gy = (_sdfRoundRect(x, y + eps, cx, cy, hw, hh, R) -
-                        _sdfRoundRect(x, y - eps, cx, cy, hw, hh, R)) / (2 * eps);
+            // Calculate displacement factor using smoothStep (Shu Ding method)
+            const displacement = _smoothStep(edgeStart, edgeEnd, distanceToEdge - edgeOffset);
+            const scaled = _smoothStep(0, 1, displacement);
 
-            // Refraction: displace inward (toward centre) at the edge
-            // Negative sign = bend toward inside (glass converges light)
-            const dx = -gx * t;
-            const dy = -gy * t;
+            // Calculate displacement: contract toward center at edges
+            // This creates the liquid glass refraction effect
+            const newX = nx * scaled + 0.5;
+            const newY = ny * scaled + 0.5;
 
-            rawDx[y * W + x] = dx;
-            rawDy[y * W + x] = dy;
-            const a = Math.max(Math.abs(dx), Math.abs(dy));
-            if (a > maxAbs) maxAbs = a;
+            // Convert back to pixel coordinates
+            const newPixelX = newX * W;
+            const newPixelY = newY * H;
+
+            // Calculate displacement vector
+            const dx = newPixelX - x;
+            const dy = newPixelY - y;
+
+            const idx = y * W + x;
+            rawDx[idx] = dx;
+            rawDy[idx] = dy;
+
+            // Track maximum displacement for normalization
+            maxScale = Math.max(maxScale, Math.abs(dx), Math.abs(dy));
         }
     }
 
-    // Normalise to [0, 255] with 0.5 = no displacement (128)
-    const scale = maxAbs > 0 ? 0.5 / maxAbs : 1;
+    // Normalize to [0, 255] with 0.5 = no displacement (128)
+    // Use 0.5 multiplier for more subtle effect
+    const scale = maxScale > 0 ? (0.5 / maxScale) : 1;
+
     for (let i = 0; i < W * H; i++) {
-        data[i * 4]     = Math.round((rawDx[i] * scale + 0.5) * 255); // R = X
-        data[i * 4 + 1] = Math.round((rawDy[i] * scale + 0.5) * 255); // G = Y
+        const r = rawDx[i] * scale + 0.5;
+        const g = rawDy[i] * scale + 0.5;
+        data[i * 4]     = Math.round(Math.max(0, Math.min(255, r * 255))); // R = X
+        data[i * 4 + 1] = Math.round(Math.max(0, Math.min(255, g * 255))); // G = Y
         data[i * 4 + 2] = 0;
         data[i * 4 + 3] = 255;
     }
 
     ctx.putImageData(imgData, 0, 0);
-    return { dataURL: canvas.toDataURL(), scale: maxAbs * 2 };
+    return { dataURL: canvas.toDataURL(), scale: maxScale };
 }
 
 // ─── Main init ──────────────────────────────────────────────────────────────
@@ -127,7 +132,7 @@ function initLiquidGlassNavbar() {
         feDisp.setAttribute('in2', 'displacementMap');
         feDisp.setAttribute('xChannelSelector', 'R');
         feDisp.setAttribute('yChannelSelector', 'G');
-        feDisp.setAttribute('scale', '15');  // Enhanced distortion strength
+        feDisp.setAttribute('scale', '8');  // Initial subtle scale, will be updated dynamically
 
         filter.appendChild(feImg);
         filter.appendChild(feDisp);
@@ -144,31 +149,54 @@ function initLiquidGlassNavbar() {
     mapCanvas.style.display = 'none';
     document.body.appendChild(mapCanvas);
 
-    // ── 3. Remove rim-highlight overlay ────────────────────────────────────
-    // We no longer use a rim overlay — clean liquid glass only
-    const oldRim = navbar.querySelector('.vui-lg-rim');
-    if (oldRim) oldRim.remove();
+    // ── 3. Rim-highlight overlay (subtle inner border, CSS only) ───────────
+    let rimEl = navbar.querySelector('.vui-lg-rim');
+    if (!rimEl) {
+        rimEl = document.createElement('div');
+        rimEl.className = 'vui-lg-rim';
+        rimEl.style.cssText = `
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        navbar.insertBefore(rimEl, navbar.firstChild);
+    }
 
-    // Lift existing navbar children
+    // Lift existing navbar children above the rim
     Array.from(navbar.children).forEach(child => {
-        if (!child.classList.contains('navbar-particles')) {
+        if (!child.classList.contains('vui-lg-rim') &&
+            !child.classList.contains('navbar-particles')) {
             child.style.position = 'relative';
             child.style.zIndex   = '10';
         }
     });
 
     // ── 4. Inject CSS ──────────────────────────────────────────────────────
-    if (!document.getEle(clean glass style) ──────────────────────────────────
     if (!document.getElementById('vui-lg-styles')) {
         const style = document.createElement('style');
         style.id = 'vui-lg-styles';
         style.textContent = `
             .glass-nav {
-                background: rgba(26, 26, 26, 0.15) !important;
-                backdrop-filter: url(#${FILTER_ID}) blur(12px) saturate(1.1) !important;
-                -webkit-backdrop-filter: url(#${FILTER_ID}) blur(12px) saturate(1.1) !important;
-                border: 1px solid rgba(255, 255, 255, 0.08) !important;
-                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2) !important
+                background: rgba(18, 18, 18, 0.42) !important;
+                backdrop-filter: url(#${FILTER_ID}) blur(10px) contrast(1.1) brightness(1.05) saturate(1.15) !important;
+                -webkit-backdrop-filter: url(#${FILTER_ID}) blur(10px) contrast(1.1) brightness(1.05) saturate(1.15) !important;
+                border: none !important;
+                box-shadow: 0 2px 32px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.08) inset !important;
+            }
+            .vui-lg-rim {
+                background: linear-gradient(
+                    160deg,
+                    rgba(255,255,255,0.12) 0%,
+                    rgba(255,255,255,0.04) 30%,
+                    rgba(59,216,216,0.08) 70%,
+                    rgba(59,216,216,0.03) 100%
+                );
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.15),
+                    inset 0 -1px 0 rgba(59,216,216,0.08);
+            }
         `;
         document.head.appendChild(style);
     }
@@ -193,8 +221,10 @@ function initLiquidGlassNavbar() {
         feImg.setAttribute('width',  W);
         feImg.setAttribute('height', H);
 
-        // Scale the displacement in screen-space pixels (more subtle)
-        feDisp.setAttribute('scale', String(Math.round(scale * 0.8)));
+        // Scale the displacement in screen-space pixels
+        // Use Shu Ding's approach: scale is already in pixels, apply subtle multiplier
+        const displacementScale = Math.round(scale * 0.6); // More subtle for navbar
+        feDisp.setAttribute('scale', String(Math.max(1, displacementScale)));
 
         // Position the SVG filter to match the navbar on screen
         filter_positionToNavbar(rect);
@@ -205,8 +235,8 @@ function initLiquidGlassNavbar() {
         if (!filter) return;
         filter.setAttribute('x',      String(Math.round(rect.left)));
         filter.setAttribute('y',      String(Math.round(rect.top)));
-        filter.setAttribute('width',  String(Math.round(reenhanced for visibility)
-        feDisp.setAttribute('scale', String(Math.round(scale * 1.2t)));
+        filter.setAttribute('width',  String(Math.round(rect.width)));
+        filter.setAttribute('height', String(Math.round(rect.height)));
     }
 
     // ── 6. Animate: update filter position every frame (navbar can move on scroll) ──
