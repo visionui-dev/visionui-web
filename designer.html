@@ -8,22 +8,20 @@
     <meta name="keywords" content="VisionUI Designer, WYSIWYG, diseñador visual, interfaz, drag and drop, PySide6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/stitch-liquid.css">
     <link rel="icon" type="image/x-icon" href="vui.ico">
 </head>
 <body>
-    <!-- Floating Navigation - Stitch Style -->
-    <nav class="navbar navbar-floating glass-navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <svg class="logo-icon" width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"/>
-                </svg>
-                <span class="logo-text">VisionUI</span>
-            </a>
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span class="logo-text">VisionUI</span>
+                    <span class="logo-subtitle">Framework</span>
+                </a>
+            </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="#features" class="nav-link">Características</a>
@@ -32,20 +30,12 @@
                 <a href="#examples" class="nav-link">Ejemplos</a>
                 <a href="#download" class="nav-link">Descargar</a>
             </div>
-            <div class="nav-actions">
-                <a href="account.html?tab=register" class="btn-nav btn-nav-outline">Crear cuenta</a>
-                <a href="account.html" class="btn-nav btn-nav-primary nav-account">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
-                    <span id="navAccountText">Iniciar sesión</span>
-                </a>
-            </div>
             <div class="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
-        <div class="navbar-particles"></div>
     </nav>
 
     <!-- Designer Hero -->
@@ -712,7 +702,7 @@
                         </div>
                     </div>
                     <div class="download-actions">
-                        <a href="store.html" class="btn btn-primary btn-large">
+                        <a href="#" class="btn btn-primary btn-large">
                             <span>Descargar Completo</span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -761,19 +751,19 @@
                     <div class="footer-section">
                         <h3 class="footer-title">Recursos</h3>
                         <ul class="footer-list">
-                            <li><a href="index.html#features">Documentación</a></li>
-                            <li><a href="portfolio.html">Tutoriales</a></li>
-                            <li><a href="index.html#gallery">Videos</a></li>
-                            <li><a href="mailto:soporte@visionui.app">Soporte</a></li>
+                            <li><a href="#">Documentación</a></li>
+                            <li><a href="#">Tutoriales</a></li>
+                            <li><a href="#">Videos</a></li>
+                            <li><a href="#">Soporte</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
                         <h3 class="footer-title">Comunidad</h3>
                         <ul class="footer-list">
-                            <li><a href="mailto:soporte@visionui.app">Discord</a></li>
-                            <li><a href="https://github.com/visionui-dev" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                            <li><a href="index.html#contact">Blog</a></li>
-                            <li><a href="index.html#contact">Newsletter</a></li>
+                            <li><a href="#">Discord</a></li>
+                            <li><a href="#">GitHub</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Newsletter</a></li>
                         </ul>
                     </div>
                 </div>
@@ -784,19 +774,19 @@
                     <p>Creado con ❤️ por Ezequiel Carlos Garcia</p>
                 </div>
                 <div class="footer-social">
-                    <a href="https://visionui.app" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <a href="#" class="social-link">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                             <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <a href="https://github.com/visionui-dev" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <a href="#" class="social-link">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                             <path d="M16 4.626l-4.5 4.5L7 4.626 11.5 9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M7 15.5l4.5-4.5 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M16 4.626l4.5 4.5L16 15.5l-4.5-4.5L7 4.626" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <a href="mailto:soporte@visionui.app" class="social-link">
+                    <a href="#" class="social-link">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                             <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -806,34 +796,7 @@
         </div>
     </footer>
 
-    <!-- Footer - Stitch Style Minimalist -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <div class="footer-left">
-                    <span class="footer-brand">VisionUI</span>
-                    <span class="footer-separator">•</span>
-                    <span class="footer-year">&copy; 2026</span>
-                </div>
-                <div class="footer-right">
-                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
-                    <span class="footer-separator">•</span>
-                    <a href="terms.html" class="footer-link">Terms of Service</a>
-                    <span class="footer-separator">•</span>
-                    <a href="https://x.com/visionui" class="footer-link" target="_blank" rel="noopener noreferrer">X</a>
-                    <span class="footer-separator">•</span>
-                    <a href="https://discord.gg/visionui" class="footer-link" target="_blank" rel="noopener noreferrer">Discord</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/i18n.js"></script>
-    <script src="assets/js/auth.js"></script>
-    <script src="assets/js/ads.js"></script>
-    <script src="assets/js/liquid-glass.js"></script>
-    <script src="assets/js/designer-demo.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/designer-demo.js"></script>
 </body>
 </html>
