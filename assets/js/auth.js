@@ -90,11 +90,16 @@ const VUIAuth = {
     },
 
     // Login
-    async login(email, password) {
+    async login(email, password, turnstileToken = null) {
+        const body = { email, password };
+        if (turnstileToken) {
+            body.turnstile_token = turnstileToken;
+        }
+        
         const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify(body)
         });
 
         const data = await response.json();
@@ -142,11 +147,16 @@ const VUIAuth = {
     },
 
     // Register
-    async register(email, password, name = '') {
+    async register(email, password, name = '', turnstileToken = null) {
+        const body = { email, password, name };
+        if (turnstileToken) {
+            body.turnstile_token = turnstileToken;
+        }
+        
         const response = await fetch(`${AUTH_CONFIG.API_BASE}/api/user/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, name })
+            body: JSON.stringify(body)
         });
 
         const data = await response.json();
