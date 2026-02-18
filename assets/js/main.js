@@ -70,13 +70,19 @@ function initNavMobileMenu() {
     const menu = document.getElementById('navMobileMenu');
     if (!toggle || !menu) return;
     toggle.addEventListener('click', function() {
-        menu.classList.toggle('hidden');
-        menu.classList.toggle('flex');
+        const m = document.getElementById('navMobileMenu');
+        if (m) {
+            m.classList.toggle('hidden');
+            m.classList.toggle('flex');
+        }
     });
     menu.querySelectorAll('a').forEach(function(a) {
         a.addEventListener('click', function() {
-            menu.classList.add('hidden');
-            menu.classList.remove('flex');
+            const m = document.getElementById('navMobileMenu');
+            if (m) {
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+            }
         });
     });
 }
@@ -97,13 +103,14 @@ function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
 
     function updateNavbar() {
-        if (!navBarEl) return;
+        const el = document.querySelector('.navbar') || document.querySelector('.glass-nav');
+        if (!el || !el.classList) return;
         try {
             const scrollY = window.scrollY || 0;
             if (scrollY > 100) {
-                navBarEl.classList.add('scrolled');
+                el.classList.add('scrolled');
             } else {
-                navBarEl.classList.remove('scrolled');
+                el.classList.remove('scrolled');
             }
             if (typeof updateActiveNavLink === 'function') {
                 updateActiveNavLink();
@@ -156,8 +163,8 @@ function initNavigation() {
                 });
 
                 // Close mobile menu
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
+                if (navToggle) navToggle.classList.remove('active');
             }
         });
     });
@@ -180,6 +187,7 @@ function updateActiveNavLink() {
 
         if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
             navLinks.forEach(link => {
+                if (!link || !link.classList) return;
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${sectionId}`) {
                     link.classList.add('active');
