@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html class="dark" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VuiStudio | Coming Soon</title>
-    <meta name="description" content="VuiStudio — el IDE visual más potente para crear aplicaciones de escritorio nativas con VisionUI. Únete a la waitlist.">
+    <title>VUISTUDIO | Coming Soon</title>
+    <meta name="description" content="VUISTUDIO — The most powerful visual IDE for creating native desktop apps with VisionUI. Join the waitlist.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,6 +12,10 @@
     <link rel="icon" type="image/x-icon" href="vui.ico">
     <!-- VisionUI Analytics -->
     <script defer src="assets/js/analytics.js"></script>
+    <!-- Liquid Glass Effect -->
+    <script defer src="assets/js/liquid-glass.js"></script>
+    <!-- Card Hover Glow -->
+    <script defer src="assets/js/card-hover-glow.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -81,9 +85,10 @@
                 <div class="flex items-center gap-6">
                     <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="index.html#features">Features</a>
                     <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="store.html">Apps</a>
+                    <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="showcase.html">Showcase</a>
                     <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="docs.html">Docs</a>
                     <a href="account.html" class="flex h-9 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-background-dark hover:shadow-[0_0_20px_rgba(59,216,216,0.4)] transition-all active:scale-95">
-                        Mi Cuenta
+                        My Account
                     </a>
                 </div>
             </div>
@@ -96,24 +101,24 @@
                 v1.0 Early Access
             </div>
             <h1 class="mb-6 text-5xl font-bold leading-[1.1] tracking-tight text-white md:text-7xl lg:text-8xl font-display">
-                VuiStudio is <br/>
+                VUISTUDIO is <br/>
                 <span class="text-primary">coming soon</span>
             </h1>
             <p class="mb-12 max-w-2xl text-lg leading-relaxed text-white/60 md:text-xl">
-                El IDE visual más potente para crear aplicaciones de escritorio nativas con VisionUI.
-                Diseña, codifica y despliega en tiempo récord.
+                The most powerful visual IDE for creating native desktop apps with VisionUI.
+                Design, code, and deploy in record time.
             </p>
 
             <!-- Waitlist Form -->
             <div class="w-full max-w-2xl">
                 <form id="waitlistForm" onsubmit="handleWaitlist(event)" class="flex flex-col gap-4 md:flex-row md:items-end">
                     <div class="flex flex-1 flex-col items-start gap-2">
-                        <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Nombre (opcional)</label>
+                        <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Name (optional)</label>
                         <input id="waitlistName" type="text" placeholder="John Doe"
                             class="input-glass h-14 w-full rounded-full px-6 text-white placeholder:text-white/20 focus:ring-0">
                     </div>
                     <div class="flex flex-[1.5] flex-col items-start gap-2">
-                        <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Correo electrónico (requerido)</label>
+                        <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Email (required)</label>
                         <input id="waitlistEmail" type="email" required placeholder="name@company.com"
                             class="input-glass h-14 w-full rounded-full px-6 text-white placeholder:text-white/20 focus:ring-0">
                     </div>
@@ -130,10 +135,10 @@
                             <input id="consentCheck" type="checkbox" class="peer absolute h-full w-full opacity-0 cursor-pointer">
                             <span class="material-symbols-outlined text-primary scale-0 transition-transform peer-checked:scale-100 text-[16px]">check</span>
                         </div>
-                        <span class="text-sm text-white/60">Enviarme actualizaciones del producto</span>
+                        <span class="text-sm text-white/60">Send me product updates</span>
                     </label>
                     <p id="waitlistMsg" class="text-sm text-primary hidden text-center"></p>
-                    <p class="text-xs text-white/30 italic">No spam, solo actualizaciones importantes.</p>
+                    <p class="text-xs text-white/30 italic">No spam, only important updates.</p>
                 </div>
             </div>
 
@@ -144,21 +149,21 @@
                         <span class="material-symbols-outlined">drag_pan</span>
                     </div>
                     <h3 class="font-bold mb-2">Visual Designer</h3>
-                    <p class="text-white/50 text-sm leading-relaxed">Diseña interfaces complejas con drag & drop sin tocar una línea de código.</p>
+                    <p class="text-white/50 text-sm leading-relaxed">Design complex interfaces with drag & drop without touching a line of code.</p>
                 </div>
                 <div class="glass-pill rounded-xl p-6 text-left">
                     <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined">speed</span>
                     </div>
                     <h3 class="font-bold mb-2">Hot Reload</h3>
-                    <p class="text-white/50 text-sm leading-relaxed">Cambios en tiempo real sin reiniciar la aplicación. Iteración ultra rápida.</p>
+                    <p class="text-white/50 text-sm leading-relaxed">Real-time changes without restarting the app. Ultra-fast iteration.</p>
                 </div>
                 <div class="glass-pill rounded-xl p-6 text-left">
                     <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined">output</span>
                     </div>
                     <h3 class="font-bold mb-2">Code Export</h3>
-                    <p class="text-white/50 text-sm leading-relaxed">Exporta código Python limpio y listo para producción con un click.</p>
+                    <p class="text-white/50 text-sm leading-relaxed">Export clean, production-ready Python code with one click.</p>
                 </div>
             </div>
         </main>
@@ -169,19 +174,13 @@
                 <div class="flex items-center gap-2 text-white/40">
                     <span class="text-sm">© 2026 VisionUI Framework. All rights reserved.</span>
                 </div>
-                <div class="flex items-center gap-8">
-                    <a class="flex items-center gap-2 text-sm font-medium text-white/40 hover:text-primary transition-colors" href="#" data-vui-link="x">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
-                        Twitter
-                    </a>
-                    <a class="flex items-center gap-2 text-sm font-medium text-white/40 hover:text-primary transition-colors" href="#" data-vui-link="github">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                        GitHub
-                    </a>
-                    <a class="flex items-center gap-2 text-sm font-medium text-white/40 hover:text-primary transition-colors" href="store.html">
-                        <span class="material-symbols-outlined text-[20px]">store</span>
-                        Apps
-                    </a>
+                <div class="flex items-center gap-6 flex-wrap justify-center">
+                    <a class="text-sm text-white/40 hover:text-primary transition-colors" href="store.html">Apps</a>
+                    <a class="text-sm text-white/40 hover:text-primary transition-colors" href="#" data-vui-link="x">X</a>
+                    <a class="text-sm text-white/40 hover:text-primary transition-colors" href="#" data-vui-link="discord">Discord</a>
+                    <a class="text-sm text-white/40 hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a>
+                    <a class="text-sm text-white/40 hover:text-primary transition-colors" href="terms.html">Terms of Service</a>
+                    <a class="text-sm text-white/40 hover:text-primary transition-colors" href="docs.html">Documentation</a>
                 </div>
             </div>
         </footer>
@@ -202,17 +201,17 @@
             const msg = document.getElementById('waitlistMsg');
             const btn = document.getElementById('waitlistBtn');
             btn.disabled = true;
-            btn.textContent = 'Enviando...';
+            btn.textContent = 'Sending...';
             try {
                 await fetch('https://admin.visionui.app/api/waitlist', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, name, product: 'VuiStudio' })
+                    body: JSON.stringify({ email, name, product: 'VUISTUDIO' })
                 });
             } catch (err) { /* silently continue */ }
-            msg.textContent = '✓ ¡Te anotamos! Te avisaremos cuando VuiStudio esté listo.';
+            msg.textContent = '✓ You\'re on the list! We\'ll notify you when VUISTUDIO is ready.';
             msg.classList.remove('hidden');
-            btn.textContent = '✓ Registrado';
+            btn.textContent = '✓ Registered';
             document.getElementById('waitlistForm').reset();
         }
     </script>
