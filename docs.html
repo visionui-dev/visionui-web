@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation & Contact - VisionUI</title>
+    <meta name="description" content="Documentación oficial de VisionUI Framework. Guías de inicio rápido, referencia de API, componentes y soporte.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="vui.ico">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
+    <!-- VisionUI Analytics -->
+    <script defer src="assets/js/analytics.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3bd8d8",
+                        "background-dark": "#1a1a1a",
+                        "surface-dark": "#242424",
+                        "border-dark": "#333333"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-nav {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(36, 36, 36, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .doc-card {
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .doc-card:hover {
+            border-color: #3bd8d8;
+            box-shadow: 0 0 24px rgba(59, 216, 216, 0.15);
+            transform: translateY(-3px);
+        }
+        .input-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-glass:focus {
+            border-color: #3bd8d8;
+            box-shadow: 0 0 15px rgba(59, 216, 216, 0.2);
+            outline: none;
+        }
+        .mobile-bottom-nav {
+            background: rgba(22, 22, 22, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .step-line { background: rgba(255,255,255,0.08); }
+    </style>
+</head>
+<body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-20 md:pb-0">
+
+<!-- Desktop Floating Navbar -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4 hidden md:block">
+    <div class="glass-nav rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+        <a href="index.html" class="flex items-center gap-2 no-underline">
+            <div class="text-primary">
+                <svg class="w-7 h-7" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <span class="font-bold tracking-tight text-lg text-white">VisionUI</span>
+        </a>
+        <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+            <a class="hover:text-primary transition-colors" href="index.html#features">Features</a>
+            <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
+            <a class="text-primary" href="docs.html">Documentation</a>
+            <a class="hover:text-primary transition-colors" href="#contact">Contact</a>
+        </div>
+        <a href="account.html" class="bg-primary text-background-dark px-5 py-2 rounded-full text-sm font-bold hover:brightness-110 transition-all">
+            Mi Cuenta
+        </a>
+    </div>
+</nav>
+
+<!-- Mobile Logo -->
+<div class="fixed top-4 left-4 z-50 flex items-center gap-2 md:hidden">
+    <a href="index.html" class="flex items-center gap-2 no-underline">
+        <div class="text-primary">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+            </svg>
+        </div>
+        <span class="font-bold tracking-tight text-sm text-white">VisionUI</span>
+    </a>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="fixed bottom-3 left-3 right-3 z-50 md:hidden">
+    <div class="mobile-bottom-nav rounded-2xl px-2 py-2 flex items-center justify-around shadow-2xl">
+        <a href="index.html#features" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+            <span class="text-[10px] font-semibold">Features</span>
+        </a>
+        <a href="store.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">storefront</span>
+            <span class="text-[10px] font-semibold">Apps</span>
+        </a>
+        <a href="docs.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-primary">
+            <span class="material-symbols-outlined text-[22px]">menu_book</span>
+            <span class="text-[10px] font-semibold">Docs</span>
+        </a>
+        <a href="#contact" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">mail</span>
+            <span class="text-[10px] font-semibold">Contact</span>
+        </a>
+        <a href="account.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[22px]">account_circle</span>
+            <span class="text-[10px] font-semibold">Cuenta</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="max-w-[1140px] mx-auto px-6 pt-36 md:pt-40 pb-24">
+
+    <!-- Section 1: Documentation -->
+    <section class="mb-32" id="docs">
+        <div class="mb-14">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
+                <span class="material-symbols-outlined text-[14px]">menu_book</span>
+                Documentación
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold mb-5">Documentación</h1>
+            <p class="text-slate-400 text-lg max-w-2xl">Todo lo que necesitas para construir aplicaciones de escritorio de alto rendimiento con VisionUI Framework.</p>
+        </div>
+
+        <!-- Quickstart -->
+        <div class="glass-card rounded-2xl p-8 mb-12 border-l-4 border-l-primary">
+            <h2 class="text-xl font-bold mb-8 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[22px]">bolt</span>
+                Guía de Inicio Rápido
+            </h2>
+            <div class="space-y-0">
+                <!-- Step 1 -->
+                <div class="flex gap-6 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-10 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold shrink-0 text-sm">1</div>
+                        <div class="w-px flex-1 step-line group-last:hidden my-2"></div>
+                    </div>
+                    <div class="pb-8">
+                        <h3 class="text-lg font-semibold mb-1">Instala vía pip</h3>
+                        <p class="text-slate-400 mb-3 text-sm">Añade VisionUI a tu entorno Python.</p>
+                        <code class="bg-black/40 px-5 py-3 rounded-xl block font-mono text-sm border border-white/5 text-primary/90">
+                            pip install visionui
+                        </code>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex gap-6 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-10 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold shrink-0 text-sm">2</div>
+                        <div class="w-px flex-1 step-line group-last:hidden my-2"></div>
+                    </div>
+                    <div class="pb-8">
+                        <h3 class="text-lg font-semibold mb-1">Importa el framework</h3>
+                        <p class="text-slate-400 mb-3 text-sm">Configura tu proyecto e importa los componentes que necesitas.</p>
+                        <code class="bg-black/40 px-5 py-3 rounded-xl block font-mono text-sm border border-white/5 text-slate-300">
+                            from visionui import VUIApp, GlassWidget, VUIButton
+                        </code>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex gap-6 group">
+                    <div class="flex flex-col items-center">
+                        <div class="size-10 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold shrink-0 text-sm">3</div>
+                    </div>
+                    <div class="pb-0">
+                        <h3 class="text-lg font-semibold mb-1">Crea tu primera ventana</h3>
+                        <p class="text-slate-400 mb-3 text-sm">Inicializa tu aplicación y despliégala en segundos.</p>
+                        <code class="bg-black/40 px-5 py-3 rounded-xl block font-mono text-sm border border-white/5 text-slate-300">
+                            app = VUIApp(theme='glass')<br>
+                            window = app.create_window("Mi App")<br>
+                            app.run()
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2x2 Doc Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- API Reference -->
+            <div class="doc-card glass-card p-8 rounded-2xl cursor-pointer group bg-surface-dark/40">
+                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary">
+                    <span class="material-symbols-outlined text-[26px]">api</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">API Reference</h3>
+                <p class="text-slate-400 leading-relaxed text-sm">Especificaciones técnicas completas de todos los componentes, widgets, utilidades y patrones de integración de VisionUI.</p>
+                <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </div>
+            </div>
+            <!-- Components -->
+            <div class="doc-card glass-card p-8 rounded-2xl cursor-pointer group bg-surface-dark/40">
+                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary">
+                    <span class="material-symbols-outlined text-[26px]">widgets</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Components</h3>
+                <p class="text-slate-400 leading-relaxed text-sm">Más de 55 componentes UI listos para usar: glass effects, buttons, sliders, tables, charts, modals y más para PySide6.</p>
+                <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </div>
+            </div>
+            <!-- Guides -->
+            <div class="doc-card glass-card p-8 rounded-2xl cursor-pointer group bg-surface-dark/40">
+                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary">
+                    <span class="material-symbols-outlined text-[26px]">menu_book</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Guides</h3>
+                <p class="text-slate-400 leading-relaxed text-sm">Guías profundas sobre mejores prácticas para rendimiento, glass effects, theming, licencias y arquitectura de apps.</p>
+                <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </div>
+            </div>
+            <!-- Examples -->
+            <div class="doc-card glass-card p-8 rounded-2xl cursor-pointer group bg-surface-dark/40">
+                <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary">
+                    <span class="material-symbols-outlined text-[26px]">lightbulb</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Examples</h3>
+                <p class="text-slate-400 leading-relaxed text-sm">Proyectos de ejemplo listos para usar: Glass Widget Bitcoin, PomoVision, Dashboard de Trading y más para prototipado rápido.</p>
+                <div class="mt-6 flex items-center gap-1 text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Explorar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Contact -->
+    <section class="flex flex-col items-center" id="contact">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
+                <span class="material-symbols-outlined text-[14px]">support_agent</span>
+                Soporte
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Soporte y Contacto</h2>
+            <p class="text-slate-400 max-w-md mx-auto">¿Tienes preguntas o encontraste un bug? Nuestro equipo está aquí para ayudarte a sacarle el máximo a VisionUI.</p>
+        </div>
+
+        <div class="w-full max-w-xl glass-card p-10 rounded-2xl shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 size-48 bg-primary/10 blur-[80px] rounded-full pointer-events-none"></div>
+            <form id="contactForm" onsubmit="handleContact(event)" class="space-y-5 relative z-10">
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactName">Nombre</label>
+                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactName" name="name" placeholder="Tu nombre completo" type="text" required>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactEmail">Email</label>
+                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactEmail" name="email" placeholder="tu@email.com" type="email" required>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactSubject">Asunto</label>
+                    <input class="input-glass w-full rounded-full px-6 py-4 text-white placeholder:text-white/20 text-sm" id="contactSubject" name="subject" placeholder="¿En qué podemos ayudarte?" type="text">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1" for="contactMessage">Mensaje</label>
+                    <textarea class="input-glass w-full rounded-2xl px-6 py-4 text-white placeholder:text-white/20 text-sm resize-none" id="contactMessage" name="message" placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
+                </div>
+                <p id="contactMsg" class="text-sm text-primary hidden"></p>
+                <button class="w-full bg-primary text-background-dark font-bold py-4 rounded-full flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-100 transition-all shadow-lg shadow-primary/20 text-sm" type="submit">
+                    <span id="contactBtnText">Enviar Mensaje</span>
+                    <span class="material-symbols-outlined text-[18px]">send</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Contact links -->
+        <div class="mt-12 flex flex-wrap items-center justify-center gap-8 text-slate-500">
+            <a href="mailto:contact@visionui.app" class="flex items-center gap-2 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[18px]">mail</span>
+                <span class="text-sm">contact@visionui.app</span>
+            </a>
+            <a href="#" data-vui-link="github" class="flex items-center gap-2 hover:text-primary transition-colors">
+                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                <span class="text-sm">GitHub Issues</span>
+            </a>
+            <a href="#" data-vui-link="x" class="flex items-center gap-2 hover:text-primary transition-colors">
+                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                <span class="text-sm">Twitter / X</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-white/5 py-12 px-6 mt-12">
+    <div class="max-w-[1140px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-2 opacity-50">
+            <div class="text-primary">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <span class="text-sm font-medium">© 2026 VisionUI Framework. Todos los derechos reservados.</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-400">
+            <a class="hover:text-primary transition-colors" href="index.html">Inicio</a>
+            <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
+            <a class="hover:text-primary transition-colors" href="privacy.html">Privacidad</a>
+            <a class="hover:text-primary transition-colors" href="terms.html">Términos</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to top -->
+<a class="fixed bottom-20 md:bottom-8 right-6 size-11 bg-surface-dark border border-white/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all shadow-xl group" href="#">
+    <span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform text-[20px]">arrow_upward</span>
+</a>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+    async function handleContact(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('button[type="submit"]');
+        const btnText = document.getElementById('contactBtnText');
+        const msg = document.getElementById('contactMsg');
+        btn.disabled = true;
+        btnText.textContent = 'Enviando...';
+        try {
+            await new Promise(r => setTimeout(r, 800));
+            msg.textContent = '✓ Mensaje enviado. Te responderemos pronto a contact@visionui.app';
+            msg.classList.remove('hidden');
+            e.target.reset();
+        } catch (err) {}
+        btn.disabled = false;
+        btnText.textContent = 'Enviar Mensaje';
+    }
+</script>
+</body>
+</html>
