@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html class="dark" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Compra Exitosa! - VisionUI Apps</title>
+    <title>Purchase Successful! - VisionUI Apps</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="vui.ico">
+    <!-- Liquid Glass Effect -->
+    <script defer src="assets/js/liquid-glass.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -105,35 +107,35 @@
             </div>
 
             <!-- Headlines -->
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">¡Compra Exitosa!</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Purchase Successful!</h1>
             <p class="text-white/60 text-lg leading-relaxed mb-8 max-w-md">
-                Tu licencia ha sido procesada. Ahora configura tu contraseña para acceder a la aplicación.
+                Your license has been processed. Now set up your password to access the application.
             </p>
 
             <!-- Setup Password Form -->
             <div class="w-full text-left" id="setupSection">
                 <div class="bg-primary/5 border border-primary/20 rounded-xl p-4 mb-6 text-center">
-                    <p class="text-primary text-sm font-medium">📧 Configura tu cuenta para descargar</p>
+                    <p class="text-primary text-sm font-medium">📧 Set up your account to download</p>
                 </div>
 
                 <form id="setupForm" onsubmit="setupPassword(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="tu@email.com" class="input-field">
+                        <input type="email" id="email" name="email" required placeholder="your@email.com" class="input-field">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">Clave de Licencia</label>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">License Key</label>
                         <input type="text" id="license_key" name="license_key" required placeholder="LIC-XXXX-XXXXXX" class="input-field font-mono">
-                        <p class="text-xs text-white/30 mt-1">Revisa tu email para obtener la clave</p>
+                        <p class="text-xs text-white/30 mt-1">Check your email for the key</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">Nueva Contraseña</label>
-                        <input type="password" id="password" name="password" required minlength="6" placeholder="Mínimo 6 caracteres" class="input-field">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">New Password</label>
+                        <input type="password" id="password" name="password" required minlength="6" placeholder="Minimum 6 characters" class="input-field">
                         <div class="password-strength"><div class="password-strength-bar" id="strengthBar"></div></div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">Confirmar Contraseña</label>
-                        <input type="password" id="password_confirm" name="password_confirm" required placeholder="Repite tu contraseña" class="input-field">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-2">Confirm Password</label>
+                        <input type="password" id="password_confirm" name="password_confirm" required placeholder="Repeat your password" class="input-field">
                     </div>
 
                     <div id="formError" class="hidden bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-300 text-sm"></div>
@@ -141,8 +143,8 @@
 
                     <button type="submit" id="submitBtn"
                         class="w-full bg-primary hover:bg-[#3dbdbd] text-background-dark font-bold py-4 px-8 rounded-full flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] shadow-lg shadow-primary/20">
-                        <span id="btnText">Configurar Contraseña</span>
-                        <span id="btnLoading" class="hidden text-sm">Configurando...</span>
+                        <span id="btnText">Set Up Password</span>
+                        <span id="btnLoading" class="hidden text-sm">Setting up...</span>
                     </button>
                 </form>
             </div>
@@ -150,13 +152,13 @@
             <!-- Quick action buttons -->
             <div class="w-full flex flex-col gap-3 mt-6">
                 <button onclick="window.location.href='account.html'" class="text-white/60 hover:text-white font-semibold py-2 px-6 rounded-full transition-colors flex items-center justify-center gap-2">
-                    <span>Ir a Mi Cuenta</span>
+                    <span>Go to My Account</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
             </div>
 
             <p class="mt-6 text-xs text-white/30 font-medium">
-                ¿Necesitas ayuda? <a class="text-primary/60 hover:text-primary underline transition-colors" href="mailto:soporte@visionui.app">soporte@visionui.app</a>
+                Need help? <a class="text-primary/60 hover:text-primary underline transition-colors" href="mailto:support@visionui.app">support@visionui.app</a>
             </p>
         </div>
     </main>
@@ -204,7 +206,7 @@
             successDiv.classList.add('hidden');
 
             if (password !== passwordConfirm) {
-                errorDiv.textContent = 'Las contraseñas no coinciden';
+                errorDiv.textContent = 'Passwords do not match';
                 errorDiv.classList.remove('hidden');
                 return;
             }
@@ -221,12 +223,12 @@
                 });
                 const data = await response.json();
                 if (data.success) {
-                    successDiv.innerHTML = `✓ ¡Contraseña configurada! Ahora puedes usar estas credenciales en tu aplicación.<br><br><strong>Usuario:</strong> ${email}`;
+                    successDiv.innerHTML = `✓ Password set up! Now you can use these credentials in your application.<br><br><strong>Username:</strong> ${email}`;
                     successDiv.classList.remove('hidden');
                     document.querySelectorAll('#setupForm input').forEach(i => i.disabled = true);
                     submitBtn.style.display = 'none';
                 } else {
-                    throw new Error(data.error || 'Error configurando la contraseña');
+                    throw new Error(data.error || 'Error setting up password');
                 }
             } catch (error) {
                 errorDiv.textContent = error.message;
