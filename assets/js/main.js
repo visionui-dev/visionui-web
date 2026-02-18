@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function init() {
     // Initialize all modules
     initExternalLinks();
+    initNavMobileMenu();
     initNavigation();
     initScrollEffects();
     initAnimations();
@@ -62,6 +63,25 @@ function initExternalLinks() {
 }
 
 // ==================================================
+// UNIFIED NAV MOBILE MENU (glass-nav with hamburger)
+// ==================================================
+function initNavMobileMenu() {
+    const toggle = document.getElementById('navMenuToggle');
+    const menu = document.getElementById('navMobileMenu');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function() {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+    });
+    menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+        });
+    });
+}
+
+// ==================================================
 // NAVIGATION SYSTEM
 // ==================================================
 
@@ -76,20 +96,20 @@ function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
 
     function updateNavbar() {
-        if (!navbar) return;
+        if (!navbar || !navbar.classList) return;
         try {
             const scrollY = window.scrollY || 0;
-            if (navbar.classList) {
-                if (scrollY > 100) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
+            if (scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
             if (typeof updateActiveNavLink === 'function') {
                 updateActiveNavLink();
             }
-        } catch (e) { /* silent */ }
+        } catch (e) { 
+            console.error('Navbar update error:', e);
+        }
     }
 
     // Mobile menu toggle
