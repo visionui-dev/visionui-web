@@ -71,8 +71,14 @@ function initNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Navbar scroll effect
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    let scrollTimeout;
+
+    // Navbar scroll effect with hide/show
     function updateNavbar() {
+        if (!navbar) return;
+        
         const scrollY = window.scrollY;
 
         if (scrollY > 100) {
@@ -81,8 +87,35 @@ function initNavigation() {
             navbar.classList.remove('scrolled');
         }
 
+        // Hide/show navbar on scroll
+        if (scrollY > lastScrollY && scrollY > 60) {
+            // Scrolling down - hide navbar
+            navbar.classList.add('scrolling-down');
+            navbar.classList.remove('scrolling-up');
+        } else if (scrollY < lastScrollY) {
+            // Scrolling up - show navbar
+            navbar.classList.remove('scrolling-down');
+            navbar.classList.add('scrolling-up');
+        }
+
+        // Always show navbar at top
+        if (scrollY < 50) {
+            navbar.classList.remove('scrolling-down');
+            navbar.classList.add('scrolling-up');
+        }
+
+        lastScrollY = scrollY;
+        ticking = false;
+
         // Update active nav link based on scroll position
         updateActiveNavLink();
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateNavbar);
+            ticking = true;
+        }
     }
 
     // Mobile menu toggle
@@ -90,6 +123,12 @@ function initNavigation() {
         navToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
+
+            // Show/hide nav actions on mobile
+            const navActions = document.querySelector('.nav-actions');
+            if (navActions && window.innerWidth <= 768) {
+                navActions.classList.toggle('mobile-active');
+            }
 
             // Animate hamburger menu
             const spans = navToggle.querySelectorAll('span');
@@ -135,7 +174,7 @@ function initNavigation() {
     });
 
     // Update navbar on scroll
-    window.addEventListener('scroll', updateNavbar);
+    window.addEventListener('scroll', onScroll, { passive: true });
     updateNavbar();
 }
 
@@ -394,34 +433,39 @@ function initMockupInteractions() {
 // ==================================================
 
 function initParticleSystem() {
-    // Create particle container
-    const particleContainer = document.createElement('div');
-    particleContainer.className = 'particle-container';
-    document.body.appendChild(particleContainer);
-
-    // Create particles
-    for (let i = 0; i < 50; i++) {
-        createParticle(particleContainer);
+    // Particles in navbar (especially for mobile)
+    const navbarParticles = document.querySelector('.navbar-particles');
+    if (navbarParticles) {
+        // Create particles for navbar
+        for (let i = 0; i < 15; i++) {
+            createNavbarParticle(navbarParticles);
+        }
     }
 
-    function createParticle(container) {
+    function createNavbarParticle(container) {
         const particle = document.createElement('div');
-        particle.className = 'particle';
+        particle.className = 'navbar-particle';
 
-        // Random position
+        // Random position within navbar
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
 
+        // Random size
+        const size = Math.random() * 3 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+
         // Random animation delay
-        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
 
         container.appendChild(particle);
 
-        // Remove particle after animation
+        // Remove and recreate particle
         setTimeout(() => {
             particle.remove();
-            createParticle(container);
-        }, 20000);
+            createNavbarParticle(container);
+        }, 5000);
     }
 }
 
@@ -726,6 +770,27 @@ style.textContent = `
         height: 100%;
         pointer-events: none;
         z-index: 1;
+    }
+
+    .navbar-particle {
+        position: absolute;
+        background: var(--primary-color);
+        border-radius: 50%;
+        opacity: 0.4;
+        animation: navbar-particle-float 5s ease-in-out infinite;
+        pointer-events: none;
+        filter: blur(0.5px);
+    }
+
+    @keyframes navbar-particle-float {
+        0%, 100% {
+            transform: translateY(0) translateX(0);
+            opacity: 0.2;
+        }
+        50% {
+            transform: translateY(-20px) translateX(10px);
+            opacity: 0.6;
+        }
     }
 
     .notification {
