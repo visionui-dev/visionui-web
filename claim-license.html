@@ -391,13 +391,7 @@
 
                     // Update setup password link
                     const setupLink = document.getElementById('setupPasswordLink');
-                    sessionStorage.setItem('vui_purchase_setup', JSON.stringify({
-                        email,
-                        key: data.license_key || '',
-                        app: data.app_name || 'VisionUI App',
-                        expires_at: data.expires_at || null
-                    }));
-                    setupLink.href = 'purchase-success.html';
+                    setupLink.href = `purchase-success.html?email=${encodeURIComponent(email)}&key=${encodeURIComponent(data.license_key)}`;
 
                     document.getElementById('resultCard').classList.add('show');
 
