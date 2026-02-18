@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Gracias por tu compra! - VisionUI</title>
+    <title>Thank you for your purchase! - VisionUI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -408,19 +408,19 @@
                     <polyline points="20 6 9 17 4 12" style="stroke-dasharray: 50; stroke-dashoffset: 0;"></polyline>
                 </svg>
             </div>
-            <h1 data-i18n="post.title">¡Pago completado!</h1>
-            <p class="subtitle" data-i18n="post.subtitle_done">Tu licencia ya está activa. Inicia sesión en la app con tu email y contraseña de la web.</p>
+            <h1 data-i18n="post.title">Payment completed!</h1>
+            <p class="subtitle" data-i18n="post.subtitle_done">Your license is active. Sign in to the app with your web email and password.</p>
         </div>
 
         <div class="main-card">
-            <p class="subtitle" style="margin-bottom: 1.5rem;" data-i18n="post.ready_use">Tu licencia ya está creada. Puedes usar la app con tu email y contraseña de la web.</p>
+            <p class="subtitle" style="margin-bottom: 1.5rem;" data-i18n="post.ready_use">Your license is ready. Use the app with your web email and password.</p>
 
             <div class="steps" id="stepsContainer">
                 <div class="step active" style="border: none; padding-bottom: 0;">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h4 data-i18n="post.download_signin">Descarga e inicia sesión</h4>
-                        <p data-i18n="post.download_signin_desc">Descarga la aplicación desde tu panel de usuario y entra con tu email y contraseña de la web.</p>
+                        <h4 data-i18n="post.download_signin">Download and sign in</h4>
+                        <p data-i18n="post.download_signin_desc">Download the app from your account panel and sign in with your web email and password.</p>
                     </div>
                 </div>
             </div>
@@ -431,11 +431,11 @@
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                     </svg>
-                    <span data-i18n="general.license_ready">Listo</span>
+                    <span data-i18n="general.license_ready">Your license is ready!</span>
                 </h4>
-                <p data-i18n="post.ready_use">Ya puedes usar la app con tu email y contraseña de la web.</p>
+                <p data-i18n="post.ready_use">Use the app with your web email and password.</p>
                 <a href="account.html" class="btn btn-primary" id="continueBtn">
-                    <span data-i18n="nav.account">Mi Cuenta</span>
+                    <span data-i18n="nav.account">My Account</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -445,7 +445,7 @@
         </div>
 
         <div class="footer">
-            <a href="index.html" data-i18n="auth.back_home">← Volver a VisionUI</a>
+            <a href="index.html" data-i18n="auth.back_home">← Back to VisionUI</a>
         </div>
     </div>
 
@@ -453,18 +453,18 @@
     <script>
         const API_BASE = 'https://admin.visionui.app';
 
-        // Obtener email de URL params
+        // Get email from URL params
         const urlParams = new URLSearchParams(window.location.search);
         const email = urlParams.get('email');
         const provider = urlParams.get('provider');
 
-        // Mostrar email si está disponible (solo si el elemento existe)
+        // Show email if available
         if (email) {
             const userEmailEl = document.getElementById('userEmail');
             if (userEmailEl) userEmailEl.textContent = email;
         }
 
-        // Verificar estado de la licencia
+        // Check license status
         async function checkLicenseStatus() {
             if (!email) return;
 
