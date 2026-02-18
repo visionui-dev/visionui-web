@@ -45,7 +45,7 @@ window.VISIONUI_GOOGLE_CLIENT_ID = '932063872431-imfkm3onl3fsajddleq2do4djjn1gfa
  * Note: Leave empty ("") to disable CAPTCHA protection
  * ═══════════════════════════════════════════════════════════════════════════
  */
-window.VISIONUI_TURNSTILE_SITE_KEY = '';
+window.VISIONUI_TURNSTILE_SITE_KEY = '0x4AAAAAACfPrv-HlLc4iPVQ';
 
 window.VISIONUI_LINKS = {
     demoDownloadUrl: 'store.html',
