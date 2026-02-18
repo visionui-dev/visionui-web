@@ -87,16 +87,17 @@ function initNavMobileMenu() {
 
 function initNavigation() {
     const navbar = document.querySelector('.navbar');
+    const glassNav = document.querySelector('.glass-nav');
     
     // Modern pages use .glass-nav which is handled by liquid-glass.js
-    if (!navbar) return;
+    if (!navbar && !glassNav) return;
     
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
     function updateNavbar() {
-        if (!navbar || !navbar.classList) return;
+        if (!navbar) return;
         try {
             const scrollY = window.scrollY || 0;
             if (scrollY > 100) {
@@ -427,28 +428,40 @@ function initParticleSystem() {
     document.body.appendChild(particleContainer);
 
     // Create particles
-    for (let i = 0; i < 50; i++) {
-        createParticle(particleContainer);
+    for (let i = 0; i < 30; i++) {
+        createParticle(particleContainer, i);
     }
 
-    function createParticle(container) {
+    function createParticle(container, index) {
         const particle = document.createElement('div');
         particle.className = 'particle';
 
-        // Random position
+        // Random horizontal position
         particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-
-        // Random animation delay
-        particle.style.animationDelay = Math.random() * 20 + 's';
+        
+        // Start from bottom
+        particle.style.bottom = '-10px';
+        
+        // Random animation delay for stagger effect
+        particle.style.animationDelay = (Math.random() * 6) + 's';
+        
+        // Slight variation in animation duration
+        particle.style.animationDuration = (7 + Math.random() * 2) + 's';
+        
+        // Random size variation
+        const size = 2 + Math.random() * 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
 
         container.appendChild(particle);
 
-        // Remove particle after animation
+        // Remove and recreate after animation completes
+        const duration = parseFloat(particle.style.animationDuration) * 1000;
+        const delay = parseFloat(particle.style.animationDelay) * 1000;
         setTimeout(() => {
             particle.remove();
-            createParticle(container);
-        }, 20000);
+            createParticle(container, index);
+        }, duration + delay);
     }
 }
 
@@ -722,10 +735,26 @@ style.textContent = `
     }
 
     @keyframes particle-float {
-        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        0% { 
+            transform: translateY(100vh) translateX(0) scale(0);
+            opacity: 0;
+        }
+        10% { 
+            opacity: 0.6;
+            transform: translateY(90vh) translateX(10px) scale(1);
+        }
+        50% { 
+            opacity: 0.8;
+            transform: translateY(50vh) translateX(-5px) scale(1);
+        }
+        90% { 
+            opacity: 0.6;
+            transform: translateY(10vh) translateX(8px) scale(1);
+        }
+        100% { 
+            transform: translateY(-5vh) translateX(0) scale(0);
+            opacity: 0;
+        }
     }
 
     .floating {
@@ -738,12 +767,13 @@ style.textContent = `
 
     .particle {
         position: absolute;
-        width: 4px;
-        height: 4px;
-        background: var(--primary-color);
+        width: 3px;
+        height: 3px;
+        background: radial-gradient(circle, rgba(61, 216, 216, 0.8), rgba(61, 216, 216, 0.2));
         border-radius: 50%;
-        animation: particle-float 20s linear infinite;
+        animation: particle-float 8s ease-in-out infinite;
         pointer-events: none;
+        will-change: transform, opacity;
     }
 
     .particle-container {
