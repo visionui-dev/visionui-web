@@ -109,71 +109,41 @@
         }
     </style>
 </head>
-<body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-20 md:pb-0">
+<body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-8">
 
-<!-- Desktop Floating Navbar -->
-<nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 hidden md:block">
-    <div class="glass-nav rounded-full px-5 py-2 flex items-center justify-between shadow-2xl">
-        <a href="index.html" class="flex items-center gap-2 no-underline">
+<!-- Unified Navbar -->
+<nav class="fixed bottom-4 sm:top-4 sm:bottom-auto left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4">
+    <div class="glass-nav vui-liquid-glass rounded-full px-[1.65rem] py-[0.825rem] flex items-center justify-between shadow-2xl">
+        <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0">
             <div class="text-primary">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
                 </svg>
             </div>
-            <span class="font-bold tracking-tight text-white">VisionUI</span>
+            <span class="font-bold tracking-tight text-white text-[0.96rem] sm:text-[1.1rem]">VisionUI</span>
         </a>
-        <div class="flex items-center gap-5 text-xs font-medium text-slate-400">
-            <a class="hover:text-primary transition-colors" href="index.html#features">Features</a>
-            <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
-            <a class="hover:text-primary transition-colors" href="showcase.html">Showcase</a>
-            <a class="hover:text-primary transition-colors" href="docs.html">Docs</a>
+        <div id="navLinks" class="hidden sm:flex items-center gap-4 md:gap-5 text-[0.96rem] font-medium text-slate-400">
+            <a class="hover:text-primary transition-colors py-1" href="index.html#features">Features</a>
+            <a class="hover:text-primary transition-colors py-1" href="store.html">Apps</a>
+            <a class="hover:text-primary transition-colors py-1" href="showcase.html">Showcase</a>
+            <a class="hover:text-primary transition-colors py-1" href="docs.html">Docs</a>
         </div>
-        <a href="account.html" class="flex items-center gap-1 bg-primary text-background-dark px-4 py-1.5 rounded-full text-xs font-bold hover:brightness-110 transition-all">
-            My Account
-            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
-        </a>
+        <div class="nav-right relative flex items-center gap-2 flex-shrink-0">
+            <button type="button" id="navMenuToggle" class="sm:hidden p-2 rounded-full text-slate-400 hover:text-primary hover:bg-white/5" aria-label="Menu">
+                <span class="material-symbols-outlined text-[22px]">menu</span>
+            </button>
+            <a href="account.html" class="nav-account flex items-center gap-1.5 bg-primary text-background-dark px-[1.1rem] py-[0.55rem] sm:px-[1.375rem] rounded-full text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline">
+                <span class="material-symbols-outlined nav-account-icon text-[18px]">person</span>
+                <span class="nav-account-label" data-i18n="nav.account">My Account</span>
+                <span class="material-symbols-outlined nav-account-chevron text-[14px] sm:text-[15px]">chevron_right</span>
+            </a>
+        </div>
     </div>
-</nav>
-
-<!-- Mobile Logo -->
-<div class="fixed top-4 left-4 z-50 flex items-center gap-2 md:hidden">
-    <a href="index.html" class="flex items-center gap-2 no-underline">
-        <div class="text-primary">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-            </svg>
-        </div>
-        <span class="font-bold tracking-tight text-sm text-white">VisionUI</span>
-    </a>
-</div>
-
-<!-- Mobile Bottom Nav -->
-<nav class="fixed bottom-3 left-3 right-3 z-50 md:hidden">
-    <div class="mobile-bottom-nav rounded-2xl px-2 py-2 flex items-center justify-around shadow-2xl">
-        <a href="index.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-[22px]">home</span>
-            <span class="text-[10px] font-semibold">Home</span>
-        </a>
-        <a href="store.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-[22px]">storefront</span>
-            <span class="text-[10px] font-semibold">Apps</span>
-        </a>
-        <a href="showcase.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-[22px]">photo_library</span>
-            <span class="text-[10px] font-semibold">Showcase</span>
-        </a>
-        <a href="docs.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-[22px]">menu_book</span>
-            <span class="text-[10px] font-semibold">Docs</span>
-        </a>
-        <a href="#" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-primary">
-            <span class="material-symbols-outlined text-[22px]">gavel</span>
-            <span class="text-[10px] font-semibold">Legal</span>
-        </a>
-        <a href="account.html" class="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-slate-400 hover:text-primary transition-colors">
-            <span class="material-symbols-outlined text-[22px]">account_circle</span>
-            <span class="text-[10px] font-semibold">Account</span>
-        </a>
+    <div id="navMobileMenu" class="sm:hidden absolute bottom-full left-4 right-4 mb-2 glass-nav rounded-2xl p-3 shadow-2xl hidden flex-col">
+        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="index.html#features">Features</a>
+        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="store.html">Apps</a>
+        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="showcase.html">Showcase</a>
+        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="docs.html">Docs</a>
     </div>
 </nav>
 
@@ -404,9 +374,11 @@
 </footer>
 
 <!-- Back to top -->
-<a class="fixed bottom-20 md:bottom-8 right-6 size-11 bg-surface-dark border border-white/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all shadow-xl group" href="#">
+<a class="fixed bottom-8 right-6 size-11 bg-surface-dark border border-white/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all shadow-xl group" href="#">
     <span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform text-[20px]">arrow_upward</span>
 </a>
 
+<script src="assets/js/main.js"></script>
+<script src="assets/js/auth.js"></script>
 </body>
 </html>
