@@ -4,9 +4,9 @@
  */
 
 const I18N_CONFIG = {
-    DEFAULT_LANG: 'es',
+    DEFAULT_LANG: 'en',
     STORAGE_KEY: 'visionui_lang',
-    SUPPORTED_LANGS: ['es', 'en']
+    SUPPORTED_LANGS: ['en']
 };
 
 // Complete translations for ES and EN
