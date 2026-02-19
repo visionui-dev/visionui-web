@@ -483,7 +483,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
         
-        // Si hay parámetros legacy (email + key), redirigir a purchase-success.html
+        // If there are legacy parameters (email + key), redirect to purchase-success.html
         const legacyEmail = urlParams.get('email');
         const legacyKey = urlParams.get('key');
         if (legacyEmail && legacyKey && !token) {
@@ -533,7 +533,7 @@
                     return;
                 }
 
-                // Token válido, mostrar formulario
+                // Valid token, show form
                 tokenData = data;
                 showSetupForm(data);
 
