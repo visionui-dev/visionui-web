@@ -9,290 +9,8 @@ const I18N_CONFIG = {
     SUPPORTED_LANGS: ['en']
 };
 
-// Complete translations for ES and EN
+// Complete translations - English only
 const TRANSLATIONS = {
-    es: {
-        // Navigation
-        'nav.features': 'Características',
-        'nav.designer': 'Diseñador',
-        'nav.gallery': 'Galería',
-        'nav.apps': 'Apps',
-        'nav.download': 'Descargar',
-        'nav.contact': 'Contacto',
-        'nav.account': 'Mi Cuenta',
-        'nav.login': 'Iniciar Sesión',
-        'nav.logout': 'Cerrar Sesión',
-        'nav.framework': 'Framework',
-        'nav.store': 'Tienda',
-        'nav.home': 'Inicio',
-        
-        // Hero
-        'hero.subtitle': 'Framework para Interfaces Modernas',
-        'hero.description': 'Crea interfaces de usuario elegantes y modernas con PySide6. Incluye demos como Glass Widget (Bitcoin) con efecto de vidrio refractivo en tiempo real en Windows.',
-        'hero.download': 'Descargar demo (Glass Widget)',
-        'hero.view_designer': 'Ver Diseñador',
-        
-        // Features
-        'features.title': 'Características Avanzadas',
-        'features.subtitle': 'Tecnología de vanguardia para el desarrollo de interfaces modernas',
-        'features.performance.title': 'Rendimiento Optimizado',
-        'features.performance.desc': 'Motor de procesamiento multihilo con compresión automática de imágenes y optimizaciones de memoria avanzadas.',
-        'features.visual.title': 'Efectos Visuales',
-        'features.visual.desc': 'Gradientes avanzados, sombras dinámicas, glow effects, animaciones fluidas y transiciones elegantes.',
-        'features.components.title': 'Componentes Modulares',
-        'features.components.desc': 'Más de 40 componentes listos para usar: botones, textos, barras de progreso, sliders, tablas y mucho más.',
-        'features.wysiwyg.title': 'Diseñador WYSIWYG',
-        'features.wysiwyg.desc': 'Interfaz visual intuitiva para diseñar interfaces sin código. Arrastrar, soltar y configurar en tiempo real.',
-        'features.license.title': 'Sistema de Licencias',
-        'features.license.desc': 'Protección avanzada con verificación automática y gestión de licencias cloud integrada.',
-        'features.code.title': 'Código Elegante',
-        'features.code.desc': 'Arquitectura limpia y modular, fácil de mantener y extender. Documentación completa incluida.',
-        
-        // Designer Section
-        'designer.title': 'Diseñador Visual Profesional',
-        'designer.description': 'Crea interfaces espectaculares sin escribir una línea de código. El diseñador WYSIWYG de VisionUI te permite construir aplicaciones modernas con un simple arrastrar y soltar.',
-        'designer.feature1': 'Interfaz intuitiva y moderna',
-        'designer.feature2': 'Previsualización en tiempo real',
-        'designer.feature3': 'Exportación automática de código',
-        'designer.feature4': 'Panel de propiedades avanzado',
-        'designer.try': 'Probar Diseñador',
-        
-        // Gallery
-        'gallery.title': 'Aplicaciones Creadas con VisionUI',
-        'gallery.subtitle': 'Ejemplos reales de interfaces modernas desarrolladas con nuestro framework',
-        'gallery.trading.title': 'Dashboard de Trading',
-        'gallery.trading.desc': 'Interfaz profesional para análisis financiero con gráficos en tiempo real, indicadores técnicos y gestión de portfolio.',
-        'gallery.audio.title': 'Control de Audio',
-        'gallery.audio.desc': 'Aplicación elegante para control de volumen del sistema con ecualizador visual y presets de audio.',
-        'gallery.can.title': 'Monitor CAN',
-        'gallery.can.desc': 'Herramienta profesional para monitoreo de buses CAN con visualización de datos en tiempo real y alertas.',
-        
-        // Download
-        'download.title': 'Descarga la demo',
-        'download.desc': 'Glass Widget (Bitcoin): app ligera para Windows con modo siempre-visible y efecto de vidrio refractivo en tiempo real. Construido con VisionUI.',
-        'download.feature1': 'App real de Windows (.exe)',
-        'download.feature2': 'Siempre visible (always-on-top)',
-        'download.feature3': 'Efecto activable + control de intensidad',
-        'download.feature4': 'Interactivo (no es un mockup)',
-        'download.feature5': 'Hecho con VisionUI',
-        'download.button': 'Descargar demo',
-        'download.version': 'Versión 1.0.0',
-        'download.size': 'Tamaño: ~50MB',
-        'download.platform': 'Windows 10+',
-        
-        // Contact
-        'contact.title': '¿Listo para revolucionar tus interfaces?',
-        'contact.desc': 'Únete a la comunidad de desarrolladores que ya están creando aplicaciones modernas con VisionUI.',
-        'contact.email': 'Email',
-        'contact.website': 'Sitio Web',
-        'contact.discord': 'Discord',
-        'contact.form.name': 'Nombre',
-        'contact.form.name_placeholder': 'Tu nombre',
-        'contact.form.email': 'Email',
-        'contact.form.email_placeholder': 'tu@email.com',
-        'contact.form.message': 'Mensaje',
-        'contact.form.message_placeholder': 'Cuéntanos sobre tu proyecto...',
-        'contact.form.submit': 'Enviar Mensaje',
-        
-        // Footer
-        'footer.description': 'Framework moderno para crear interfaces de usuario elegantes y profesionales con PySide6.',
-        'footer.product': 'Producto',
-        'footer.resources': 'Recursos',
-        'footer.community': 'Comunidad',
-        'footer.docs': 'Documentación',
-        'footer.tutorials': 'Tutoriales',
-        'footer.api': 'API Reference',
-        'footer.examples': 'Ejemplos',
-        'footer.blog': 'Blog',
-        'footer.newsletter': 'Newsletter',
-        'footer.rights': 'Todos los derechos reservados',
-        'footer.privacy': 'Política de Privacidad',
-        'footer.terms': 'Términos de Servicio',
-        'footer.copyright': '© 2026 VisionUI Framework. Todos los derechos reservados.',
-        'footer.createdby': 'Creado con ❤️ por Ezequiel Carlos Garcia',
-        
-        // Store
-        'store.title': 'VisionUI Apps',
-        'store.subtitle': 'Aplicaciones profesionales creadas con VisionUI Framework. Software de alta calidad, diseño moderno y actualizaciones incluidas.',
-        'store.available': 'Aplicaciones Disponibles',
-        'store.available_subtitle': 'Elige la aplicación que necesitas y obtén una licencia inmediata.',
-        'store.buy': 'Comprar',
-        'store.coming_soon': 'Próximamente',
-        'store.lifetime': 'de por vida',
-        'store.popular': 'Popular',
-        'store.available_badge': 'Disponible',
-        'store.how_works': '¿Cómo funciona?',
-        'store.how_works_subtitle': 'Obtén tu licencia en 3 simples pasos',
-        'store.step1.title': 'Elige tu app',
-        'store.step1.desc': 'Selecciona la aplicación que necesitas de nuestro catálogo.',
-        'store.step2.title': 'Paga seguro',
-        'store.step2.desc': 'Completa el pago con tarjeta, PayPal o criptomonedas vía LemonSqueezy.',
-        'store.step3.title': 'Descarga y activa',
-        'store.step3.desc': 'Recibe tu licencia por email, descarga la app y actívala al instante.',
-        'store.no_license': '¿No recibiste tu licencia?',
-        'store.back_framework': 'Volver al Framework',
-        
-        // Apps descriptions
-        'app.testapp.title': 'TestApp - Music Player',
-        'app.testapp.desc': 'Reproductor de música moderno para Windows con interfaz elegante, ecualizador visual y soporte para múltiples formatos de audio.',
-        'app.testapp.f1': 'Interfaz moderna y personalizable',
-        'app.testapp.f2': 'Soporte MP3, FLAC, WAV, OGG',
-        'app.testapp.f3': 'Ecualizador de 10 bandas',
-        'app.testapp.f4': 'Actualizaciones gratuitas',
-        'app.framework.title': 'VisionUI Framework',
-        'app.framework.desc': 'El framework completo para crear tus propias aplicaciones con PySide6. Incluye VUIStudio y todos los componentes.',
-        'app.framework.f1': 'VUIStudio Designer incluido',
-        'app.framework.f2': '+55 componentes listos',
-        'app.framework.f3': 'Soporte y actualizaciones',
-        'app.framework.f4': 'Licencia comercial',
-        'app.inventory.title': 'Inventory Pro',
-        'app.inventory.desc': 'Sistema de gestión de inventario para pequeñas y medianas empresas. Control de stock, alertas y reportes.',
-        'app.inventory.f1': 'Gestión multi-almacén',
-        'app.inventory.f2': 'Alertas de stock bajo',
-        'app.inventory.f3': 'Reportes exportables',
-        'app.inventory.f4': 'Base de datos local',
-        
-        // Auth / Account
-        'auth.title': 'Mi Cuenta',
-        'auth.subtitle': 'Inicia sesión o crea una cuenta',
-        'auth.login': 'Iniciar sesión',
-        'auth.register': 'Crear cuenta',
-        'auth.email': 'Email',
-        'auth.password': 'Contraseña',
-        'auth.confirm_password': 'Confirmar contraseña',
-        'auth.name': 'Nombre',
-        'auth.name_optional': 'Nombre (opcional)',
-        'auth.forgot_password': '¿Olvidaste tu contraseña?',
-        'auth.no_account': '¿No tienes cuenta?',
-        'auth.has_account': '¿Ya tienes cuenta?',
-        'auth.login_button': 'Iniciar sesión',
-        'auth.register_button': 'Crear cuenta',
-        'auth.logout': 'Cerrar sesión',
-        'auth.logged_as': 'Conectado como',
-        'auth.view_apps': 'Ver aplicaciones disponibles',
-        'auth.back_home': 'Volver al inicio',
-        'auth.my_licenses': 'Mis Licencias',
-        'auth.my_apps': 'Mis Aplicaciones',
-        'auth.purchase_history': 'Historial de Compras',
-        'auth.no_licenses': 'No tienes aplicaciones compradas aún',
-        'auth.purchased': 'Comprado',
-        'auth.expires': 'Válido hasta',
-        'auth.explore_apps': 'Explorar aplicaciones',
-        'auth.start_now': '¡Empieza ahora!',
-        'auth.explore_apps_desc': 'Explora nuestras aplicaciones profesionales',
-        'auth.license_active': 'Activa',
-        'auth.license_expired': 'Expirada',
-        'auth.license_key': 'License Key',
-        'auth.valid_until': 'Válida hasta',
-        'auth.no_expiration': 'Sin expiración',
-        'auth.activated': 'Activada',
-        'auth.download': 'Descargar',
-        'auth.loading': 'Cargando...',
-        'auth.creating': 'Creando...',
-        'auth.passwords_no_match': 'Las contraseñas no coinciden',
-        'auth.passwords_match': '✓ Las contraseñas coinciden',
-        'auth.the_app': 'la aplicación',
-        'auth.login_to_purchase': 'Inicia sesión o crea una cuenta para continuar con la compra de {{app}}',
-        'auth.min_chars': 'Mínimo 6 caracteres',
-        'auth.connection_error': 'Error de conexión',
-        'auth.login_error': 'Error al iniciar sesión',
-        'auth.register_error': 'Error al crear cuenta',
-        'auth.email_verified': 'Email verificado',
-        'auth.email_pending': 'Email pendiente de verificación',
-        'auth.resend_verification': 'Reenviar email',
-        'auth.verification_sent': 'Email enviado',
-        
-        // Password Recovery
-        'auth.reset_password': 'Recuperar Contraseña',
-        'auth.reset_password_subtitle': 'Ingresa tu email para recibir un enlace de recuperación',
-        'auth.new_password': 'Nueva Contraseña',
-        'auth.new_password_subtitle': 'Ingresa tu nueva contraseña',
-        'auth.send_reset_link': 'Enviar enlace de recuperación',
-        'auth.change_password': 'Cambiar contraseña',
-        'auth.current_password': 'Contraseña actual',
-        'auth.confirm_new_password': 'Confirmar nueva contraseña',
-        'auth.save_password': 'Guardar',
-        'auth.account_settings': 'Configuración de cuenta',
-        'auth.back_to_login': 'Volver a iniciar sesión',
-        'auth.reset_email_sent': '¡Revisa tu email!',
-        'auth.reset_email_sent_desc': 'Si el email existe en nuestro sistema, recibirás un enlace para restablecer tu contraseña en los próximos minutos.',
-        'auth.check_spam': 'No olvides revisar tu carpeta de spam.',
-        'auth.password_updated': '¡Contraseña Actualizada!',
-        'auth.password_updated_desc': 'Tu contraseña ha sido cambiada exitosamente. Ya puedes iniciar sesión con tu nueva contraseña.',
-        'auth.invalid_link': 'Enlace Inválido',
-        'auth.invalid_link_desc': 'Este enlace de recuperación no es válido o ha expirado.',
-        'auth.expired_link': 'Enlace Expirado',
-        'auth.expired_link_desc': 'Este enlace de recuperación ha expirado. Por favor, solicita uno nuevo.',
-        'auth.used_link': 'Enlace Ya Usado',
-        'auth.used_link_desc': 'Este enlace de recuperación ya fue utilizado. Si necesitas cambiar tu contraseña, solicita uno nuevo.',
-        'auth.request_new_link': 'Solicitar nuevo enlace',
-        'auth.resetting_password_for': 'Restableciendo contraseña para:',
-        
-        // Purchase Modal
-        'purchase.title': 'Comprar',
-        'purchase.email_instruction': 'Ingresa tu email para recibir tu licencia después del pago.',
-        'purchase.connected_as': 'Conectado como:',
-        'purchase.license_sent_to': 'Tu licencia se enviará a este email después del pago.',
-        'purchase.use_other_email': 'Usar otro email',
-        'purchase.continue': 'Continuar al pago',
-        'purchase.cancel': 'Cancelar',
-        'purchase.have_account': '¿Ya tienes cuenta?',
-        'purchase.login_required': 'Necesitas una cuenta para comprar',
-        'purchase.login_required_desc': 'Crea una cuenta gratuita o inicia sesión para continuar con la compra.',
-        
-        // Post Purchase
-        'post.title': '¡Pago completado!',
-        'post.subtitle': 'Tu licencia está siendo procesada',
-        'post.subtitle_done': 'Tu licencia ya está activa. Inicia sesión en la app con tu email y contraseña de la web.',
-        'post.ready_use': 'Tu licencia ya está creada. Puedes usar la app con tu email y contraseña de la web.',
-        'post.download_signin': 'Descarga e inicia sesión',
-        'post.download_signin_desc': 'Descarga la aplicación desde tu panel de usuario y entra con tu email y contraseña de la web.',
-        'post.check_inbox': 'Revisa tu bandeja de entrada',
-        'post.email_sent': 'Enviamos un email a',
-        'post.with_instructions': 'con las instrucciones para activar tu licencia.',
-        'post.next_steps': 'Próximos pasos',
-        'post.step1': 'Abre el email de VisionUI',
-        'post.step1_desc': 'Busca un email con el asunto "¡Tu licencia está lista!"',
-        'post.step2': 'Crea tu contraseña',
-        'post.step2_desc': 'Haz clic en el botón del email para configurar tu acceso',
-        'post.step2_desc_generic': 'Abre la aplicación, ingresa tu email y la License Key del correo',
-        'post.step2_desc_has_password': 'Abre la aplicación e ingresa tu email y la License Key que recibiste por correo.',
-        'post.step2_desc_setup_token': 'Haz clic en el enlace del email para configurar tu contraseña de acceso.',
-        'post.step3': 'Descarga e inicia sesión',
-        'post.step3_desc': 'Descarga la aplicación y usa tu email + contraseña',
-        
-        // General
-        'general.loading': 'Cargando...',
-        'general.error': 'Error',
-        'general.success': 'Éxito',
-        'general.back': 'Volver',
-        'general.continue': 'Continuar',
-        'general.save': 'Guardar',
-        'general.cancel': 'Cancelar',
-        'general.close': 'Cerrar',
-        'general.connected': 'Conectado',
-        'general.processing_license': 'Procesando tu licencia...',
-        'general.email_sent_check': 'Email enviado. Revisa tu bandeja de entrada.',
-        'general.license_ready': '¡Tu licencia está lista!',
-        'general.email_sent_success': 'El email fue enviado exitosamente. Si no lo ves, revisa tu carpeta de spam.',
-        
-        // Errors
-        'error.network': 'No se pudo conectar al servidor. Verifica tu conexión.',
-        'error.timeout': 'El servidor tardó demasiado. Intenta de nuevo.',
-        'error.payment_not_configured': 'Sistema de pagos no configurado. Contacta a soporte.',
-        
-        // Tags
-        'tag.finance': 'Finanzas',
-        'tag.realtime': 'Tiempo Real',
-        'tag.charts': 'Gráficos',
-        'tag.audio': 'Audio',
-        'tag.controls': 'Controles',
-        'tag.system': 'Sistema',
-        'tag.industrial': 'Industrial',
-        'tag.monitoring': 'Monitoreo',
-        'tag.can': 'CAN'
-    },
-    
     en: {
         // Navigation
         'nav.features': 'Features',
@@ -684,11 +402,16 @@ const VUIi18n = {
         this.currentLang = this.getStoredLang();
         document.documentElement.lang = this.currentLang;
         this.updatePage();
-        this.createLanguageSwitcher();
+        // Language switcher disabled - English only
+        // this.createLanguageSwitcher();
     },
 
-    // Create professional language switcher
+    // Create professional language switcher (DISABLED - English only)
     createLanguageSwitcher() {
+        // Language switcher disabled - only English is supported
+        return;
+        
+        /* DISABLED CODE - UNCOMMENT TO RE-ENABLE MULTI-LANGUAGE
         const existingSwitcher = document.querySelector('.lang-switcher');
         if (existingSwitcher) {
             existingSwitcher.remove();
@@ -701,10 +424,9 @@ const VUIi18n = {
         const switcher = document.createElement('div');
         switcher.className = 'lang-switcher';
         
-        // Create EN/ES buttons
+        // Create EN button only
         switcher.innerHTML = `
             <button class="lang-btn ${this.currentLang === 'en' ? 'active' : ''}" data-lang="en" title="English">EN</button>
-            <button class="lang-btn ${this.currentLang === 'es' ? 'active' : ''}" data-lang="es" title="Español">ES</button>
         `;
         
         // Insert before nav-toggle (hamburger menu)
@@ -723,6 +445,7 @@ const VUIi18n = {
                 this.setLang(lang);
             });
         });
+        */
     }
 };
 
