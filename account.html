@@ -73,6 +73,9 @@
         .password-match-indicator.no-match { color: #ef4444; }
         .password-strength-set { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 0.5rem; overflow: hidden; }
         .password-strength-set .bar { height: 100%; border-radius: 2px; transition: all 0.3s ease; }
+        .pw-input-wrap { position: relative; }
+        .pw-toggle-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #71717a; cursor: pointer; padding: 4px; display: flex; align-items: center; }
+        .pw-toggle-btn:hover { color: #3bd8d8; }
     </style>
 </head>
 <body class="bg-background-dark text-white min-h-screen">
@@ -318,20 +321,30 @@
                 <form id="setPasswordForm" onsubmit="handleSetPassword(event)" class="flex flex-col gap-4">
                     <div>
                         <label for="setPasswordNew" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">New password</label>
-                        <input id="setPasswordNew" type="password" required minlength="6" placeholder="Minimum 6 characters"
-                            autocomplete="new-password"
-                            oninput="updateSetPasswordStrength(); checkSetPasswordMatch(); document.getElementById('setPasswordError').classList.add('hidden');"
-                            class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 px-4 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50">
+                        <div class="pw-input-wrap">
+                            <input id="setPasswordNew" type="password" required minlength="6" placeholder="Minimum 6 characters"
+                                autocomplete="new-password"
+                                oninput="updateSetPasswordStrength(); checkSetPasswordMatch(); document.getElementById('setPasswordError').classList.add('hidden');"
+                                class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50">
+                            <button type="button" class="pw-toggle-btn" onclick="togglePwVisibility('setPasswordNew', this)" title="Show/hide password" aria-label="Toggle password visibility">
+                                <span class="material-symbols-outlined" style="font-size:20px;">visibility_off</span>
+                            </button>
+                        </div>
                         <div class="password-strength-set mt-1.5">
                             <div id="setPasswordStrengthBar" class="bar" style="width:0%;background:#ef4444;"></div>
                         </div>
                     </div>
                     <div>
                         <label for="setPasswordConfirm" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Confirm password</label>
-                        <input id="setPasswordConfirm" type="password" required placeholder="Repeat your password"
-                            autocomplete="new-password"
-                            oninput="checkSetPasswordMatch(); document.getElementById('setPasswordError').classList.add('hidden');"
-                            class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 px-4 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50">
+                        <div class="pw-input-wrap">
+                            <input id="setPasswordConfirm" type="password" required placeholder="Repeat your password"
+                                autocomplete="new-password"
+                                oninput="checkSetPasswordMatch(); document.getElementById('setPasswordError').classList.add('hidden');"
+                                class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50">
+                            <button type="button" class="pw-toggle-btn" onclick="togglePwVisibility('setPasswordConfirm', this)" title="Show/hide password" aria-label="Toggle password visibility">
+                                <span class="material-symbols-outlined" style="font-size:20px;">visibility_off</span>
+                            </button>
+                        </div>
                         <div id="setPasswordMatchIndicator" class="password-match-indicator px-2 mt-1"></div>
                     </div>
                     <p id="setPasswordError" class="text-red-400 text-sm hidden"></p>
@@ -800,12 +813,15 @@
             const modal = document.getElementById('setPasswordModal');
             if (modal) {
                 modal.classList.remove('hidden');
-                document.getElementById('setPasswordNew').value = '';
-                document.getElementById('setPasswordConfirm').value = '';
+                const newPw = document.getElementById('setPasswordNew');
+                const confPw = document.getElementById('setPasswordConfirm');
+                if (newPw) { newPw.value = ''; newPw.type = 'password'; }
+                if (confPw) { confPw.value = ''; confPw.type = 'password'; }
                 document.getElementById('setPasswordError').classList.add('hidden');
                 document.getElementById('setPasswordMatchIndicator').textContent = '';
                 document.getElementById('setPasswordStrengthBar').style.width = '0%';
                 document.getElementById('setPasswordStrengthBar').style.background = 'transparent';
+                modal.querySelectorAll('.pw-toggle-btn .material-symbols-outlined').forEach(el => { el.textContent = 'visibility_off'; });
             }
         }
         function hideSetPasswordModal() {
@@ -825,6 +841,14 @@
             if (strength <= 25) bar.style.background = '#ef4444';
             else if (strength <= 50) bar.style.background = '#f59e0b';
             else bar.style.background = '#10b981';
+        }
+        function togglePwVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn ? btn.querySelector('.material-symbols-outlined') : null;
+            if (!input) return;
+            const isPw = input.type === 'password';
+            input.type = isPw ? 'text' : 'password';
+            if (icon) icon.textContent = isPw ? 'visibility' : 'visibility_off';
         }
         function checkSetPasswordMatch() {
             const p1 = document.getElementById('setPasswordNew').value;
