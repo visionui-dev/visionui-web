@@ -71,6 +71,8 @@
         .password-match-indicator { min-height: 1.2rem; font-size: 0.8rem; margin-top: 0.4rem; }
         .password-match-indicator.match { color: #10b981; }
         .password-match-indicator.no-match { color: #ef4444; }
+        .password-strength-set { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 0.5rem; overflow: hidden; }
+        .password-strength-set .bar { height: 100%; border-radius: 2px; transition: all 0.3s ease; }
     </style>
 </head>
 <body class="bg-background-dark text-white min-h-screen">
@@ -310,18 +312,32 @@
 
         <!-- Set Password Modal (for OAuth users) -->
         <div id="setPasswordModal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] hidden">
-            <div class="bg-[#222] rounded-2xl p-6 max-w-sm w-full mx-4 border border-white/10">
+            <div class="bg-[#222] rounded-2xl p-6 max-w-md w-full mx-4 border border-white/10 shadow-2xl">
                 <h3 class="text-lg font-bold text-white mb-2">Set password for desktop app</h3>
-                <p class="text-slate-400 text-sm mb-4">Create a password to sign in to VisionUI desktop apps with your email.</p>
+                <p class="text-slate-400 text-sm mb-4">Create a password to sign in to VisionUI desktop apps with your email. Use at least 6 characters; avoid common passwords like &quot;password&quot; or &quot;123456&quot;.</p>
                 <form id="setPasswordForm" onsubmit="handleSetPassword(event)" class="flex flex-col gap-4">
-                    <input id="setPasswordNew" type="password" required minlength="6" placeholder="New password"
-                        class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 px-4 text-sm text-white placeholder:text-slate-500">
-                    <input id="setPasswordConfirm" type="password" required placeholder="Confirm password"
-                        class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 px-4 text-sm text-white placeholder:text-slate-500">
+                    <div>
+                        <label for="setPasswordNew" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">New password</label>
+                        <input id="setPasswordNew" type="password" required minlength="6" placeholder="Minimum 6 characters"
+                            autocomplete="new-password"
+                            oninput="updateSetPasswordStrength(); checkSetPasswordMatch(); document.getElementById('setPasswordError').classList.add('hidden');"
+                            class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 px-4 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50">
+                        <div class="password-strength-set mt-1.5">
+                            <div id="setPasswordStrengthBar" class="bar" style="width:0%;background:#ef4444;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="setPasswordConfirm" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Confirm password</label>
+                        <input id="setPasswordConfirm" type="password" required placeholder="Repeat your password"
+                            autocomplete="new-password"
+                            oninput="checkSetPasswordMatch(); document.getElementById('setPasswordError').classList.add('hidden');"
+                            class="w-full bg-[#1a1a1a] border border-white/10 rounded-full py-3 px-4 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-primary/50">
+                        <div id="setPasswordMatchIndicator" class="password-match-indicator px-2 mt-1"></div>
+                    </div>
                     <p id="setPasswordError" class="text-red-400 text-sm hidden"></p>
                     <div class="flex gap-3">
-                        <button type="button" onclick="hideSetPasswordModal()" class="flex-1 py-2.5 rounded-full border border-white/20 text-slate-300 hover:bg-white/5">Cancel</button>
-                        <button type="submit" id="setPasswordBtn" class="flex-1 py-2.5 rounded-full bg-primary text-background-dark font-bold">Set password</button>
+                        <button type="button" onclick="hideSetPasswordModal()" class="flex-1 py-2.5 rounded-full border border-white/20 text-slate-300 hover:bg-white/5 transition-colors">Cancel</button>
+                        <button type="submit" id="setPasswordBtn" class="flex-1 py-2.5 rounded-full bg-primary text-background-dark font-bold hover:brightness-110 transition-all">Set password</button>
                     </div>
                 </form>
             </div>
@@ -782,11 +798,47 @@
 
         function showSetPasswordModal() {
             const modal = document.getElementById('setPasswordModal');
-            if (modal) { modal.classList.remove('hidden'); document.getElementById('setPasswordNew').value = ''; document.getElementById('setPasswordConfirm').value = ''; document.getElementById('setPasswordError').classList.add('hidden'); }
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.getElementById('setPasswordNew').value = '';
+                document.getElementById('setPasswordConfirm').value = '';
+                document.getElementById('setPasswordError').classList.add('hidden');
+                document.getElementById('setPasswordMatchIndicator').textContent = '';
+                document.getElementById('setPasswordStrengthBar').style.width = '0%';
+                document.getElementById('setPasswordStrengthBar').style.background = 'transparent';
+            }
         }
         function hideSetPasswordModal() {
             const modal = document.getElementById('setPasswordModal');
             if (modal) modal.classList.add('hidden');
+        }
+        function updateSetPasswordStrength() {
+            const p1 = document.getElementById('setPasswordNew').value;
+            const bar = document.getElementById('setPasswordStrengthBar');
+            if (!bar) return;
+            let strength = 0;
+            if (p1.length >= 6) strength += 25;
+            if (p1.length >= 10) strength += 25;
+            if (/[A-Z]/.test(p1)) strength += 25;
+            if (/[0-9]/.test(p1) || /[^a-zA-Z0-9]/.test(p1)) strength += 25;
+            bar.style.width = strength + '%';
+            if (strength <= 25) bar.style.background = '#ef4444';
+            else if (strength <= 50) bar.style.background = '#f59e0b';
+            else bar.style.background = '#10b981';
+        }
+        function checkSetPasswordMatch() {
+            const p1 = document.getElementById('setPasswordNew').value;
+            const p2 = document.getElementById('setPasswordConfirm').value;
+            const indicator = document.getElementById('setPasswordMatchIndicator');
+            if (!indicator) return;
+            if (!p2) { indicator.textContent = ''; return; }
+            if (p1 === p2) {
+                indicator.textContent = '✓ Passwords match';
+                indicator.className = 'password-match-indicator match px-2 mt-1';
+            } else {
+                indicator.textContent = '✗ Passwords do not match';
+                indicator.className = 'password-match-indicator no-match px-2 mt-1';
+            }
         }
         async function handleSetPassword(e) {
             e.preventDefault();
