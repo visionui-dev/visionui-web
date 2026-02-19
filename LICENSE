@@ -1,0 +1,74 @@
+VisionUI Website License
+========================
+
+Copyright (c) 2023-2026 Ezequiel Carlos Garcia. All rights reserved.
+
+IMPORTANT: This license ONLY applies to the VisionUI website (HTML, CSS, JavaScript 
+files in this repository). The VisionUI Framework desktop software is proprietary 
+and NOT covered by this license.
+
+Website License (Creative Commons Attribution-NonCommercial-NoDerivatives 4.0)
+===============================================================================
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 
+4.0 International License.
+
+To view a copy of this license, visit:
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+You are free to:
+  • Share — copy and redistribute the material in any medium or format
+
+Under the following terms:
+  • Attribution — You must give appropriate credit, provide a link to the license, 
+    and indicate if changes were made.
+  • NonCommercial — You may not use the material for commercial purposes.
+  • NoDerivatives — If you remix, transform, or build upon the material, you may 
+    not distribute the modified material.
+
+PROHIBITED USES
+===============
+The following uses are strictly prohibited:
+  ✗ Using this website design for commercial purposes
+  ✗ Creating modified versions of this website
+  ✗ Removing or altering copyright notices
+  ✗ Using VisionUI branding, logos, or trademarks without permission
+  ✗ Misrepresenting the origin of this material
+  ✗ Any use that implies endorsement by the original author
+
+VISIONUI FRAMEWORK SOFTWARE
+===========================
+The VisionUI Framework (desktop application development framework) is proprietary 
+software. All rights reserved. Unauthorized copying, distribution, modification, 
+public display, or use of the VisionUI Framework software, in whole or in part, 
+is strictly prohibited.
+
+This includes but is not limited to:
+  • Python source code of the framework
+  • Binary/compiled versions of the framework
+  • VUISTUDIO visual designer application
+  • Framework components, libraries, and modules
+  • Documentation and examples included with the framework
+  • Any derivative works based on the framework
+
+TRADEMARKS
+==========
+"VisionUI", "VUISTUDIO", and associated logos are trademarks of Ezequiel Carlos Garcia.
+Use of these trademarks is prohibited without express written permission.
+
+DISCLAIMER
+==========
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE 
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+CONTACT
+=======
+For licensing inquiries, permissions, or questions:
+Email: contact@visionui.app
+Website: https://visionui.app
+
+Last updated: February 19, 2026
