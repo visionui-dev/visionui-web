@@ -258,15 +258,20 @@
 <!-- Powerful Features Section -->
 <section id="features" class="py-24 px-6">
     <div class="max-w-[1140px] mx-auto">
-        <div class="mb-16 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
-                <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
-                Framework
+        <!-- Desktop: Side-by-side layout | Mobile: Stacked -->
+        <div class="grid lg:grid-cols-[380px_1fr] gap-12 items-start">
+            <!-- Left: Title & Description (sticky on desktop) -->
+            <div class="lg:sticky lg:top-32">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-5 uppercase tracking-widest">
+                    <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                    Framework
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-slate-400">Everything you need to build professional desktop applications with modern interfaces.</p>
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Powerful Features</h2>
-            <p class="text-slate-400 max-w-xl mx-auto">Everything you need to build professional desktop applications with modern interfaces.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <!-- Right: Feature Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <!-- Visual Editor -->
             <div class="feature-card rounded-xl p-7 flex flex-col gap-4">
                 <div class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
@@ -328,35 +333,67 @@
                 </p>
             </div>
         </div>
+        </div>
     </div>
 </section>
 
 <!-- VuiStudio Coming Soon Section -->
 <section id="studio" class="py-20 px-6">
     <div class="max-w-[1140px] mx-auto">
-        <div class="relative p-10 md:p-16 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-transparent overflow-hidden">
+        <div class="relative p-10 md:p-16 rounded-[2rem] border border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-transparent overflow-hidden">
             <!-- Background glows -->
             <div class="absolute -top-32 -right-32 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
             <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-            <div class="relative z-10 max-w-3xl mx-auto text-center">
-                <!-- Badge -->
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-semibold uppercase tracking-widest mb-7">
-                    <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-                    v1.0 Early Access
+            <!-- Desktop: Side-by-side | Mobile: Stacked -->
+            <div class="relative z-10 grid lg:grid-cols-[420px_1fr] gap-12 lg:items-center">
+                <!-- Left: Title & Description (centered vertically) -->
+                <div class="flex flex-col justify-center">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-semibold uppercase tracking-widest mb-7 w-fit">
+                        <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                        v1.0 Early Access
+                    </div>
+
+                    <h2 class="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight text-white mb-6">
+                        VUISTUDIO is<br/>
+                        <span class="text-primary">coming soon</span>
+                    </h2>
+                    <p class="text-lg md:text-xl leading-relaxed text-white/60">
+                        The most powerful visual IDE for creating native desktop applications with VisionUI.
+                        Design, code, and deploy in record time.
+                    </p>
                 </div>
 
-                <h2 class="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight text-white mb-6">
-                    VUISTUDIO is<br/>
-                    <span class="text-primary">coming soon</span>
-                </h2>
-                <p class="text-lg md:text-xl leading-relaxed text-white/60 mb-12 max-w-2xl mx-auto">
-                    The most powerful visual IDE for creating native desktop applications with VisionUI.
-                    Design, code, and deploy in record time.
-                </p>
+                <!-- Right: Feature Pills (top) + Form (bottom) -->
+                <div class="w-full flex flex-col gap-8">
+                    <!-- Feature pills first -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="glass-pill rounded-xl p-5">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                                <span class="material-symbols-outlined text-[20px]">drag_pan</span>
+                            </div>
+                            <h4 class="font-bold text-sm mb-1">Visual Designer</h4>
+                            <p class="text-white/50 text-xs leading-relaxed">Drag & drop for complex interfaces.</p>
+                        </div>
+                        <div class="glass-pill rounded-xl p-5">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                                <span class="material-symbols-outlined text-[20px]">speed</span>
+                            </div>
+                            <h4 class="font-bold text-sm mb-1">Hot Reload</h4>
+                            <p class="text-white/50 text-xs leading-relaxed">Real-time changes without restarts.</p>
+                        </div>
+                        <div class="glass-pill rounded-xl p-5">
+                            <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                                <span class="material-symbols-outlined text-[20px]">output</span>
+                            </div>
+                            <h4 class="font-bold text-sm mb-1">Code Export</h4>
+                            <p class="text-white/50 text-xs leading-relaxed">Export production-ready Python code.</p>
+                        </div>
+                    </div>
 
-                <!-- Waitlist Form (matches designer.html style) -->
-                <div class="w-full max-w-2xl mx-auto">
+                    <!-- Waitlist Form below -->
+                    <div>
                     <form id="waitlistForm" onsubmit="handleWaitlist(event)" class="flex flex-col gap-4 md:flex-row md:items-end">
                         <div class="flex flex-1 flex-col items-start gap-2">
                             <label class="px-4 text-xs font-medium uppercase tracking-wider text-white/40">Name (optional)</label>
@@ -386,30 +423,6 @@
                         <p id="waitlistMsg" class="text-sm text-primary hidden text-center"></p>
                         <p class="text-xs text-white/30 italic">No spam, only important updates.</p>
                     </div>
-                </div>
-
-                <!-- Feature pills -->
-                <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-                    <div class="glass-pill rounded-xl p-5">
-                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
-                            <span class="material-symbols-outlined text-[20px]">drag_pan</span>
-                        </div>
-                        <h4 class="font-bold text-sm mb-1">Visual Designer</h4>
-                        <p class="text-white/50 text-xs leading-relaxed">Drag & drop for complex interfaces.</p>
-                    </div>
-                    <div class="glass-pill rounded-xl p-5">
-                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
-                            <span class="material-symbols-outlined text-[20px]">speed</span>
-                        </div>
-                        <h4 class="font-bold text-sm mb-1">Hot Reload</h4>
-                        <p class="text-white/50 text-xs leading-relaxed">Real-time changes without restarts.</p>
-                    </div>
-                    <div class="glass-pill rounded-xl p-5">
-                        <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
-                            <span class="material-symbols-outlined text-[20px]">output</span>
-                        </div>
-                        <h4 class="font-bold text-sm mb-1">Code Export</h4>
-                        <p class="text-white/50 text-xs leading-relaxed">Export production-ready Python code.</p>
                     </div>
                 </div>
             </div>
@@ -422,16 +435,12 @@
     <div class="max-w-[1140px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <span class="text-xs text-slate-500">© 2026 VUI Framework. All rights reserved.</span>
         <div class="flex items-center gap-5 flex-wrap justify-center">
-            <a href="store.html" class="flex items-center gap-1 text-xs text-slate-500 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-[13px]">apps</span>Apps
-            </a>
+            <a href="store.html" class="text-xs text-slate-500 hover:text-primary transition-colors">Apps</a>
             <a href="https://x.com/AgoraDevStudio" target="_blank" rel="noopener" class="text-xs text-slate-500 hover:text-primary transition-colors">X</a>
             <a href="https://discord.gg/visionui" target="_blank" rel="noopener" class="text-xs text-slate-500 hover:text-primary transition-colors">Discord</a>
             <a href="privacy.html" class="text-xs text-slate-500 hover:text-primary transition-colors">Privacy</a>
             <a href="terms.html" class="text-xs text-slate-500 hover:text-primary transition-colors">Terms</a>
-            <a href="docs.html" class="flex items-center gap-1 text-xs text-slate-500 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-[13px]">menu_book</span>Docs
-            </a>
+            <a href="docs.html" class="text-xs text-slate-500 hover:text-primary transition-colors">Docs</a>
         </div>
     </div>
 </footer>
