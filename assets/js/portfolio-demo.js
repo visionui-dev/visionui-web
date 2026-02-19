@@ -186,8 +186,8 @@ function expandAppPreview(card) {
                         ${card.querySelector('.app-features').innerHTML}
                     </div>
                     <div class="modal-actions">
-                        <button class="btn btn-primary">Ver Demo Completa</button>
-                        <button class="btn btn-secondary">Descargar Plantilla</button>
+                        <button class="btn btn-primary">View Full Demo</button>
+                        <button class="btn btn-secondary">Download Template</button>
                     </div>
                 </div>
             </div>
