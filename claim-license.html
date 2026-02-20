@@ -79,27 +79,7 @@
 <body class="bg-background-dark text-white min-h-screen flex flex-col items-center bg-mesh selection:bg-primary/30 pb-24">
 
     <!-- Floating Navbar -->
-    <nav class="fixed top-6 z-50 w-full max-w-4xl px-6">
-        <div class="glass-nav rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
-            <a href="index.html" class="flex items-center gap-3 no-underline text-white">
-                <div class="text-primary">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <span class="text-lg font-bold tracking-tight">VisionUI</span>
-            </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-                <a class="hover:text-primary transition-colors" href="index.html#features">Features</a>
-                <a class="hover:text-primary transition-colors" href="store.html">Apps</a>
-                <a class="hover:text-primary transition-colors" href="showcase.html">Showcase</a>
-                <a class="hover:text-primary transition-colors" href="docs.html">Docs</a>
-            </div>
-            <a href="account.html" class="bg-primary/10 hover:bg-primary/20 text-primary px-4 py-1.5 rounded-full text-sm font-semibold transition-all no-underline">
-                My Account
-            </a>
-        </div>
-    </nav>
+    <div id="vui-navbar-container"></div>
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col items-center justify-center w-full px-6 pt-16 pb-12 min-h-screen">
@@ -272,5 +252,6 @@
             }
         }
     </script>
+<script src="assets/js/components.js"></script>
 </body>
 </html>
