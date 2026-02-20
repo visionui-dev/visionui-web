@@ -50,12 +50,6 @@
     </script>
     <style>
         body { font-family: 'Space Grotesk', sans-serif; }
-        .glass-nav {
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
         .gallery-item {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -85,18 +79,8 @@
             background: radial-gradient(circle at center, rgba(59, 216, 216, 0.08) 0%, rgba(26, 26, 26, 0) 60%);
             z-index: -1; pointer-events: none;
         }
-        .nav-right { position: relative; }
-        .nav-account.logged-in { background: rgba(59,216,216,0.15); color: white; }
-        .user-dropdown { position: absolute; top: 100%; right: 0; margin-top: 0.5rem; background: #222; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; min-width: 220px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s; z-index: 1000; }
-        .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
         @media (max-width: 640px) {
-            .user-dropdown { top: auto; bottom: 100%; margin-top: 0; margin-bottom: 0.5rem; transform: translateY(8px); }
-            .user-dropdown.show { transform: translateY(0); }
         }
-        .dropdown-header { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; }
-        .user-dropdown .user-avatar { width: 36px; height: 36px; background: linear-gradient(135deg,#3bd8d8,#2a9d9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.95rem; color: #141418; }
-        .user-dropdown .dropdown-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; color: #94a3b8; text-decoration: none; font-size: 0.85rem; border: none; background: none; width: 100%; cursor: pointer; text-align: left; }
-        .user-dropdown .dropdown-item:hover { background: rgba(255,255,255,0.05); color: #3bd8d8; }
     </style>
 </head>
 <body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-24">
