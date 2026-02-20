@@ -21,6 +21,10 @@
     <script defer src="assets/js/smooth-navigation.js"></script>
     <!-- Card Hover Glow -->
     <script defer src="assets/js/card-hover-glow.js"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -93,20 +97,6 @@
         .nav-account.logged-in { background: rgba(59,216,216,0.15); border: 1px solid rgba(59,216,216,0.3); color: white; }
         .user-dropdown { position: absolute; top: 100%; right: 0; margin-top: 0.5rem; background: #222; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; min-width: 220px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s; z-index: 1000; overflow: hidden; }
         .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        /* Mobile: dropdown upwards when navbar is on bottom */
-        @media (max-width: 640px) {
-            .user-dropdown { top: auto; bottom: 100%; margin-top: 0; margin-bottom: 0.5rem; transform: translateY(8px); }
-            .user-dropdown.show { transform: translateY(0); }
-        }
-        .dropdown-header { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; }
-        .user-dropdown .user-avatar { width: 36px; height: 36px; background: linear-gradient(135deg,#3bd8d8,#2a9d9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.95rem; color: #141418; }
-        .user-dropdown .user-name { font-size: 0.85rem; color: #e2e8f0; max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
-        .user-dropdown .user-status { font-size: 0.75rem; color: #94a3b8; }
-        .dropdown-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 0; }
-        .user-dropdown .dropdown-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: all 0.15s; border: none; background: none; width: 100%; cursor: pointer; text-align: left; }
-        .user-dropdown .dropdown-item:hover { background: rgba(255,255,255,0.05); color: #3bd8d8; }
-        .nav-account .user-email { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
         /* Account dropdown (legacy) */
         #accountDropdown {
             transition: opacity 0.15s ease, transform 0.15s ease;
@@ -130,7 +120,6 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: none;
         }
         .nav-item-glow {
             color: #B5F1FF;
@@ -147,11 +136,11 @@
         .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
     </style>
 </head>
-<body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-8">
+<body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-24">
 <div class="glow-bg"></div>
 
-<!-- Unified Navbar (desktop + mobile same design) -->
-<nav class="fixed bottom-4 sm:top-4 sm:bottom-auto left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4">
+<!-- Unified Navbar (desktop + mobile always on bottom) -->
+<nav class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4">
     <div class="glass-nav glass-navbar glass-pill rounded-full px-[1.65rem] py-[0.825rem] flex items-center justify-between">
         <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0">
             <div class="text-primary">
@@ -187,7 +176,7 @@
 </nav>
 
 <!-- Hero Section -->
-<main class="relative pt-36 md:pt-44 pb-20 px-6 overflow-hidden">
+<main class="relative pt-16 md:pt-24 pb-20 px-6 overflow-hidden">
     <div class="absolute inset-0 hero-gradient -z-10"></div>
     <div class="max-w-[1140px] mx-auto text-center flex flex-col items-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-8 uppercase tracking-widest">
@@ -460,6 +449,7 @@
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/ads.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/animations.js"></script>
 <script>
     // ── Mobile Nav Menu Toggle ────────────────────────────────────
     document.getElementById('navMenuToggle')?.addEventListener('click', function() {
