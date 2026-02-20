@@ -222,26 +222,7 @@
     <div class="hidden relative flex flex-col items-center w-full px-4 pb-20" id="dashboardView">
 
         <!-- Floating Navbar -->
-        <nav class="fixed top-6 z-50 w-full max-w-[1140px]">
-            <div class="glass-nav glass-pill rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
-                <a href="index.html" class="flex items-center gap-3 no-underline">
-                    <div class="bg-primary p-1.5 rounded-lg flex items-center justify-center">
-                        <svg class="size-5 text-background-dark" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span class="text-lg font-extrabold tracking-tight text-white">VisionUI</span>
-                </a>
-                <div class="hidden md:flex items-center gap-8">
-                    <a class="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="index.html" data-i18n="auth.back_home">Home</a>
-                    <a class="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="store.html" data-i18n="nav.apps">Apps</a>
-                    <a class="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="designer.html">VuiStudio</a>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="size-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm" id="navAvatar">?</div>
-                </div>
-            </div>
-        </nav>
+        <div id="vui-navbar-container"></div>
 
         <!-- Content Area -->
         <main class="mt-32 w-full max-w-[1140px] flex flex-col gap-8">
@@ -357,19 +338,7 @@
         </div>
 
         <!-- Footer -->
-        <footer class="mt-12 w-full max-w-[1140px] px-2">
-            <div class="max-w-3xl mx-auto flex justify-between items-center text-xs font-medium border-t border-white/5 pt-6">
-                <span class="text-slate-500" data-i18n="footer.copyright">© 2026 VisionUI Framework. All rights reserved.</span>
-                <div class="flex gap-4">
-                    <a class="text-slate-500 hover:text-primary transition-colors" href="store.html" data-i18n="nav.apps">Apps</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors" href="https://x.com/AgoraDevStudio" target="_blank" rel="noopener">X</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors" href="https://discord.gg/visionui" target="_blank" rel="noopener">Discord</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors" href="docs.html" data-i18n="footer.docs">Docs</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors" href="privacy.html" data-i18n="footer.privacy">Privacy</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
-                </div>
-            </div>
-        </footer>
+        <div id="vui-footer-container"></div>
     </div>
 
     <script src="assets/js/config.js"></script>
@@ -906,5 +875,6 @@
 
         checkSession();
     </script>
+<script src="assets/js/components.js"></script>
 </body>
 </html>
