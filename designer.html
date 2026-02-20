@@ -45,8 +45,8 @@
         .glow-bg {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 80vw; height: 80vh;
-            background: radial-gradient(circle, rgba(59, 216, 216, 0.08) 0%, rgba(26, 26, 26, 0) 70%);
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, rgba(59, 216, 216, 0.08) 0%, rgba(26, 26, 26, 0) 60%);
             z-index: -1; pointer-events: none;
         }
         .glass-pill {
@@ -73,27 +73,7 @@
     <div class="relative flex min-h-screen flex-col items-center px-6">
 
         <!-- Floating Navigation -->
-        <nav class="mt-8 w-full max-w-4xl">
-            <div class="glass-pill flex h-14 items-center justify-between rounded-full px-6 py-2">
-                <a href="index.html" class="flex items-center gap-3 no-underline text-white">
-                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span class="text-lg font-bold tracking-tight">VisionUI</span>
-                </a>
-                <div class="flex items-center gap-6">
-                    <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="index.html#features">Features</a>
-                    <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="store.html">Apps</a>
-                    <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="showcase.html">Showcase</a>
-                    <a class="hidden text-sm font-medium text-white/60 hover:text-primary transition-colors sm:block" href="docs.html">Docs</a>
-                    <a href="account.html" class="flex h-9 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-background-dark hover:shadow-[0_0_20px_rgba(59,216,216,0.4)] transition-all active:scale-95">
-                        My Account
-                    </a>
-                </div>
-            </div>
-        </nav>
+        <div id="vui-navbar-container"></div>
 
         <!-- Hero Section -->
         <main class="flex flex-1 flex-col items-center justify-center py-20 text-center max-w-4xl">
@@ -170,19 +150,7 @@
         </main>
 
         <!-- Footer -->
-<footer class="border-t border-white/5 py-6 px-6">
-    <div class="max-w-3xl mx-auto flex justify-between items-center text-xs font-medium">
-        <span class="text-slate-500">© 2026 VUI Framework. All rights reserved.</span>
-        <div class="flex gap-4">
-            <a class="text-slate-500 hover:text-primary transition-colors" href="store.html">Apps</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="https://x.com/AgoraDevStudio" target="_blank" rel="noopener">X</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="https://discord.gg/visionui" target="_blank" rel="noopener">Discord</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="docs.html">Docs</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="privacy.html">Privacy</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="terms.html">Terms</a>
-        </div>
-    </div>
-</footer>
+<div id="vui-footer-container"></div>
             </div>
         </footer>
     </div>
@@ -216,5 +184,6 @@
             document.getElementById('waitlistForm').reset();
         }
     </script>
+<script src="assets/js/components.js"></script>
 </body>
 </html>
