@@ -154,9 +154,39 @@
       return fe;
     }
 
-    // 1. Blur previo nativo (solo difumina el fondo, manteniendo nítida la distorsión del cristal posterior)
+    // --- EFECTO CAUSTICS (ONDAS DE AGUA LENTAS Y SUAVES) ---
+    var feTurb = document.createElementNS("http://www.w3.org/2000/svg", "feTurbulence");
+    feTurb.setAttribute("type", "fractalNoise");
+    feTurb.setAttribute("baseFrequency", "0.006 0.01"); // Olas grandes y relajadas
+    feTurb.setAttribute("numOctaves", "1"); // Agua suave, sin ruido fino
+    feTurb.setAttribute("result", "NOISE");
+    feTurb.setAttribute("x", "-50%");
+    feTurb.setAttribute("y", "-50%");
+    feTurb.setAttribute("width", "200%");
+    feTurb.setAttribute("height", "200%");
+
+    var feOffset = document.createElementNS("http://www.w3.org/2000/svg", "feOffset");
+    feOffset.setAttribute("in", "NOISE");
+    feOffset.setAttribute("dx", "0");
+    feOffset.setAttribute("dy", "0");
+    feOffset.setAttribute("result", "ANIMATED_NOISE");
+
+    var feNoiseBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+    feNoiseBlur.setAttribute("in", "ANIMATED_NOISE");
+    feNoiseBlur.setAttribute("stdDeviation", "2");
+    feNoiseBlur.setAttribute("result", "SMOOTH_NOISE");
+
+    var feDispWaves = document.createElementNS("http://www.w3.org/2000/svg", "feDisplacementMap");
+    feDispWaves.setAttribute("in", "SourceGraphic");
+    feDispWaves.setAttribute("in2", "SMOOTH_NOISE");
+    feDispWaves.setAttribute("scale", "18"); // Fuerza de la distorsión del agua
+    feDispWaves.setAttribute("xChannelSelector", "R");
+    feDispWaves.setAttribute("yChannelSelector", "G");
+    feDispWaves.setAttribute("result", "WAVED_BG");
+
+    // 1. Blur previo nativo (ahora difumina el fondo ya ondulado por el agua)
     var feBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
-    feBlur.setAttribute("in", "SourceGraphic");
+    feBlur.setAttribute("in", "WAVED_BG");
     feBlur.setAttribute("stdDeviation", "1.0"); // Blur ajustado a 1.0 según lo solicitado
     feBlur.setAttribute("result", "BLUR");
 
@@ -165,7 +195,7 @@
     var matG = createColorMatrix("BLUR", "0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0", "G_chan");
     var matB = createColorMatrix("BLUR", "0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0", "B_chan");
 
-    // 3. Refracción de canales
+    // 3. Refracción de canales (Efecto Glass principal)
     var dispR = createDisp("R_chan", "R_disp");
     var dispG = createDisp("G_chan", "G_disp");
     var dispB = createDisp("B_chan", "B_disp");
@@ -175,7 +205,6 @@
     var blend2 = createBlend("RG", "B_disp", "REFRACTED");
 
     // 5. Extraer el Bisel Especular codificado en el canal AZUL (B) del displacementMap
-    // Transforma el canal B (0-255) en la opacidad (A) de un píxel puramente blanco (1,1,1)
     var matHl = createColorMatrix("displacementMap", "0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 1 0 0", "HIGHLIGHT");
 
     // 6. Superponer el Bisel Blanco sobre la imagen Refractada
@@ -186,6 +215,10 @@
 
     // Ensamblar filtro
     filter.appendChild(feImage);
+    filter.appendChild(feTurb);
+    filter.appendChild(feOffset);
+    filter.appendChild(feNoiseBlur);
+    filter.appendChild(feDispWaves);
     filter.appendChild(feBlur);
     filter.appendChild(matR);
     filter.appendChild(matG);
@@ -201,6 +234,20 @@
     defs.appendChild(filter);
     svg.appendChild(defs);
     document.body.appendChild(svg);
+
+    // Bucle de animación para las olas (Caustics)
+    var startTime = Date.now();
+    function animateWaves() {
+        if (!document.body.contains(nav)) return; // Detener si se elimina la nav
+        var elapsed = (Date.now() - startTime) * 0.001;
+        // Movimiento pseudo-circular muy lento (simula el ondular del agua)
+        var dx = Math.sin(elapsed * 0.25) * 60;
+        var dy = Math.cos(elapsed * 0.20) * 60 + Math.sin(elapsed * 0.15) * 20;
+        feOffset.setAttribute("dx", dx.toFixed(1));
+        feOffset.setAttribute("dy", dy.toFixed(1));
+        requestAnimationFrame(animateWaves);
+    }
+    animateWaves();
 
     var mapCanvas = document.createElement("canvas");
     mapCanvas.style.display = "none";
