@@ -50,62 +50,51 @@ function injectNavbar() {
     }
 
     const navHTML = `
-    <nav class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4" style="visibility: visible; opacity: 1;">
-        <div class="glass-nav glass-navbar glass-pill rounded-full px-[1.2rem] sm:px-[1.65rem] py-[0.7rem] sm:py-[0.825rem] flex items-center justify-between shadow-2xl">
+    <nav class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-2 sm:px-4" style="visibility: visible; opacity: 1;">
+        <div class="glass-nav glass-navbar glass-pill rounded-full px-3 sm:px-[1.65rem] py-2 sm:py-[0.825rem] flex items-center justify-between shadow-2xl relative">
             <a href="index.html" class="flex items-center gap-1.5 sm:gap-2 no-underline flex-shrink-0">
                 <div class="text-primary">
                     <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                         <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
                     </svg>
                 </div>
-                <span class="font-bold tracking-tight text-white text-[0.96rem] sm:text-[1.1rem]"><span class="hidden sm:inline">VisionUI</span><span class="sm:hidden">VUI</span></span>
+                <span class="font-bold tracking-tight text-white text-[0.96rem] sm:text-[1.1rem]">
+                    <span class="hidden sm:inline">VisionUI</span>
+                    <span class="sm:hidden">VUI</span>
+                </span>
             </a>
-            <div id="navLinks" class="hidden sm:flex items-center gap-4 md:gap-5 text-[0.96rem] font-medium">
+            <div id="navLinks" class="flex items-center gap-3 min-[400px]:gap-4 sm:gap-5 text-[0.8rem] min-[400px]:text-[0.85rem] sm:text-[0.96rem] font-medium">
                 <a class="nav-item-glow py-1" href="index.html#features">Features</a>
                 <a class="nav-item-glow py-1" href="store.html">Apps</a>
-                <a class="nav-item-glow py-1" href="showcase.html">Showcase</a>
+                <a class="nav-item-glow py-1 hidden min-[360px]:inline" href="showcase.html">Showcase</a>
                 <a class="nav-item-glow py-1" href="docs.html">Docs</a>
             </div>
             <div class="nav-right relative flex items-center gap-2 flex-shrink-0">
-                <button type="button" id="navMenuToggle" class="sm:hidden p-2 rounded-full text-slate-400 hover:text-primary hover:bg-white/5 transition-colors" aria-label="Menu">
-                    <span class="material-symbols-outlined text-[20px] sm:text-[22px]">menu</span>
-                </button>
-                <a href="account.html" class="nav-account flex items-center gap-1.5 bg-primary text-background-dark px-[0.9rem] sm:px-[1.375rem] py-[0.45rem] sm:py-[0.55rem] rounded-full text-[0.9rem] sm:text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline shadow-[0_0_15px_rgba(59,216,216,0.3)]">
-                    <span class="material-symbols-outlined nav-account-icon text-[16px] sm:text-[18px]">person</span>
-                    <span class="nav-account-label hidden sm:inline" data-i18n="nav.account">My Account</span>
-                    <span class="material-symbols-outlined nav-account-chevron text-[14px] sm:text-[15px] hidden sm:inline">chevron_right</span>
+                <a href="account.html" id="accountBtn" class="nav-account flex items-center justify-center gap-1.5 bg-primary text-background-dark px-[0.6rem] sm:px-[1.375rem] py-[0.45rem] sm:py-[0.55rem] rounded-full text-[0.9rem] sm:text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline shadow-[0_0_15px_rgba(59,216,216,0.3)]">
+                    <span id="accountBtnAvatar" class="hidden w-5 h-5 rounded-full bg-background-dark/20 text-background-dark flex items-center justify-center text-[10px]"></span>
+                    <span class="material-symbols-outlined nav-account-icon text-[18px]">person</span>
+                    <span class="hidden sm:inline-flex items-center gap-1">
+                        <span id="accountBtnText" class="nav-account-label" data-i18n="nav.account">My Account</span>
+                        <span id="accountBtnChevron" class="material-symbols-outlined nav-account-chevron text-[15px]">chevron_right</span>
+                    </span>
                 </a>
             </div>
-        </div>
-        <div id="navMobileMenu" class="sm:hidden absolute bottom-full left-4 right-4 mb-2 glass-nav rounded-2xl p-3 shadow-2xl hidden flex-col border border-white/10">
-            <a class="px-4 py-2.5 rounded-xl text-sm nav-item-glow hover:bg-white/5" href="index.html#features">Features</a>
-            <a class="px-4 py-2.5 rounded-xl text-sm nav-item-glow hover:bg-white/5" href="store.html">Apps</a>
-            <a class="px-4 py-2.5 rounded-xl text-sm nav-item-glow hover:bg-white/5" href="showcase.html">Showcase</a>
-            <a class="px-4 py-2.5 rounded-xl text-sm nav-item-glow hover:bg-white/5" href="docs.html">Docs</a>
         </div>
     </nav>
     `;
 
     container.innerHTML = navHTML;
 
-    // Re-bind eventos del menú móvil
-    const toggle = document.getElementById('navMenuToggle');
-    const menu = document.getElementById('navMobileMenu');
-    if (toggle && menu) {
-        toggle.addEventListener('click', function() {
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        });
-        menu.querySelectorAll('a').forEach(function(a) {
-            a.addEventListener('click', function() {
-                menu.classList.add('hidden');
-                menu.classList.remove('flex');
-            });
-        });
-    }
-
     // Disparar evento personalizado por si auth.js u otros necesitan saber que la navbar ya está lista
-    document.dispatchEvent(new Event('vui-navbar-loaded'));
+    // Usamos un pequeño delay para asegurar que listeners diferidos estén listos
+    setTimeout(() => {
+        document.dispatchEvent(new Event('vui-navbar-loaded'));
+        
+        // Explicitly re-initialize hover glow
+        if (typeof initCardHoverGlow === 'function') {
+            initCardHoverGlow();
+        }
+    }, 50);
 }
 
 function injectFooter() {
