@@ -86,6 +86,14 @@
           // Combinar ambos: Fresnel muy suave + Especular fuerte direccional
           // Reducido al 70% de su intensidad anterior como solicitaste.
           highlight = (fresnel * 0.028) + (fresnel * spec * 0.175); 
+
+          // --- ANTI-ALIASING DEL BORDE (Fix Pixelado) ---
+          // Suaviza la transición justo en el borde del cristal (d = 0) a lo largo de 1.5 píxeles
+          // Esto elimina los "serruchos" escalonados en los límites de la navbar.
+          var edge_aa = Math.max(0.0, Math.min(1.0, -d * 1.5));
+          dx *= edge_aa;
+          dy *= edge_aa;
+          highlight *= edge_aa;
         }
 
         // R = X Distorsión, G = Y Distorsión, B = Bisel Highlight, A = 255
@@ -176,21 +184,21 @@
     feNoiseBlur.setAttribute("stdDeviation", "2");
     feNoiseBlur.setAttribute("result", "SMOOTH_NOISE");
 
+    // 1. Blur previo nativo (ahora se aplica ANTES de las olas para suavizar el texto de fondo y evitar "serruchos" en la distorsión interior)
+    var feBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+    feBlur.setAttribute("in", "SourceGraphic");
+    feBlur.setAttribute("stdDeviation", "1.0"); 
+    feBlur.setAttribute("result", "BLURRED_BG");
+
     var feDispWaves = document.createElementNS("http://www.w3.org/2000/svg", "feDisplacementMap");
-    feDispWaves.setAttribute("in", "SourceGraphic");
+    feDispWaves.setAttribute("in", "BLURRED_BG");
     feDispWaves.setAttribute("in2", "SMOOTH_NOISE");
-    feDispWaves.setAttribute("scale", "18"); // Fuerza de la distorsión del agua
+    feDispWaves.setAttribute("scale", "9"); // Fuerza de la distorsión del agua (reducida 50%)
     feDispWaves.setAttribute("xChannelSelector", "R");
     feDispWaves.setAttribute("yChannelSelector", "G");
-    feDispWaves.setAttribute("result", "WAVED_BG");
+    feDispWaves.setAttribute("result", "BLUR"); // Mantenemos "BLUR" para que el resto de la cadena siga igual
 
-    // 1. Blur previo nativo (ahora difumina el fondo ya ondulado por el agua)
-    var feBlur = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
-    feBlur.setAttribute("in", "WAVED_BG");
-    feBlur.setAttribute("stdDeviation", "1.0"); // Blur ajustado a 1.0 según lo solicitado
-    feBlur.setAttribute("result", "BLUR");
-
-    // 2. Extraer RGB del fondo desenfocado
+    // 2. Extraer RGB del fondo desenfocado y ondulado
     var matR = createColorMatrix("BLUR", "1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0", "R_chan");
     var matG = createColorMatrix("BLUR", "0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0", "G_chan");
     var matB = createColorMatrix("BLUR", "0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0", "B_chan");
@@ -218,8 +226,8 @@
     filter.appendChild(feTurb);
     filter.appendChild(feOffset);
     filter.appendChild(feNoiseBlur);
-    filter.appendChild(feDispWaves);
-    filter.appendChild(feBlur);
+    filter.appendChild(feBlur);      // Debe ir antes porque produce BLURRED_BG
+    filter.appendChild(feDispWaves); // Utiliza BLURRED_BG y produce BLUR
     filter.appendChild(matR);
     filter.appendChild(matG);
     filter.appendChild(matB);
@@ -240,9 +248,9 @@
     function animateWaves() {
         if (!document.body.contains(nav)) return; // Detener si se elimina la nav
         var elapsed = (Date.now() - startTime) * 0.001;
-        // Movimiento pseudo-circular muy lento (simula el ondular del agua)
-        var dx = Math.sin(elapsed * 0.25) * 60;
-        var dy = Math.cos(elapsed * 0.20) * 60 + Math.sin(elapsed * 0.15) * 20;
+        // Movimiento pseudo-circular (Velocidad reducida al 65% para más suavidad)
+        var dx = Math.sin(elapsed * 0.1625) * 60;
+        var dy = Math.cos(elapsed * 0.13) * 60 + Math.sin(elapsed * 0.0975) * 20;
         feOffset.setAttribute("dx", dx.toFixed(1));
         feOffset.setAttribute("dy", dy.toFixed(1));
         requestAnimationFrame(animateWaves);
