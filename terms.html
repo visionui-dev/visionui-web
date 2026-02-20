@@ -112,40 +112,7 @@
 <body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-24">
 
 <!-- Unified Navbar -->
-<nav class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-4">
-    <div class="glass-nav vui-liquid-glass rounded-full px-[1.65rem] py-[0.825rem] flex items-center justify-between shadow-2xl">
-        <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0">
-            <div class="text-primary">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-                </svg>
-            </div>
-            <span class="font-bold tracking-tight text-white text-[0.96rem] sm:text-[1.1rem]">VisionUI</span>
-        </a>
-        <div id="navLinks" class="hidden sm:flex items-center gap-4 md:gap-5 text-[0.96rem] font-medium text-slate-400">
-            <a class="hover:text-primary transition-colors py-1" href="index.html#features">Features</a>
-            <a class="hover:text-primary transition-colors py-1" href="store.html">Apps</a>
-            <a class="hover:text-primary transition-colors py-1" href="showcase.html">Showcase</a>
-            <a class="hover:text-primary transition-colors py-1" href="docs.html">Docs</a>
-        </div>
-        <div class="nav-right relative flex items-center gap-2 flex-shrink-0">
-            <button type="button" id="navMenuToggle" class="sm:hidden p-2 rounded-full text-slate-400 hover:text-primary hover:bg-white/5" aria-label="Menu">
-                <span class="material-symbols-outlined text-[22px]">menu</span>
-            </button>
-            <a href="account.html" class="nav-account flex items-center gap-1.5 bg-primary text-background-dark px-[1.1rem] py-[0.55rem] sm:px-[1.375rem] rounded-full text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline">
-                <span class="material-symbols-outlined nav-account-icon text-[18px]">person</span>
-                <span class="nav-account-label" data-i18n="nav.account">My Account</span>
-                <span class="material-symbols-outlined nav-account-chevron text-[14px] sm:text-[15px]">chevron_right</span>
-            </a>
-        </div>
-    </div>
-    <div id="navMobileMenu" class="sm:hidden absolute bottom-full left-4 right-4 mb-2 glass-nav rounded-2xl p-3 shadow-2xl hidden flex-col">
-        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="index.html#features">Features</a>
-        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="store.html">Apps</a>
-        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="showcase.html">Showcase</a>
-        <a class="px-4 py-2.5 rounded-xl text-sm text-slate-400 hover:text-primary hover:bg-white/5" href="docs.html">Docs</a>
-    </div>
-</nav>
+<div id="vui-navbar-container"></div>
 
 <!-- Main Content -->
 <main class="pt-16 md:pt-24 pb-24 px-6">
@@ -359,19 +326,7 @@
 </main>
 
 <!-- Footer -->
-<footer class="border-t border-white/5 py-6 px-6">
-    <div class="max-w-3xl mx-auto flex justify-between items-center text-xs font-medium">
-        <span class="text-slate-500">© 2026 VUI Framework. All rights reserved.</span>
-        <div class="flex gap-4">
-            <a class="text-slate-500 hover:text-primary transition-colors" href="store.html">Apps</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="https://x.com/AgoraDevStudio" target="_blank" rel="noopener">X</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="https://discord.gg/visionui" target="_blank" rel="noopener">Discord</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="docs.html">Docs</a>
-            <a class="text-slate-500 hover:text-primary transition-colors" href="privacy.html">Privacy</a>
-            <a class="text-primary hover:text-primary/80 transition-colors" href="terms.html">Terms</a>
-        </div>
-    </div>
-</footer>
+<div id="vui-footer-container"></div>
 
 <!-- Back to top -->
 <a class="fixed bottom-8 right-6 size-11 bg-surface-dark border border-white/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-background-dark transition-all shadow-xl group" href="#">
@@ -380,5 +335,6 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/auth.js"></script>
+<script src="assets/js/components.js"></script>
 </body>
 </html>
