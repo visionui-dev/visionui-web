@@ -9,7 +9,7 @@
  */
 
 function initCardHoverGlow() {
-    const cards = document.querySelectorAll('.feature-card, .glass-pill, .app-card, .doc-card, .gallery-item, .step-card');
+    const cards = document.querySelectorAll('.feature-card, .glass-pill, .glass-nav, .glass-navbar, .app-card, .doc-card, .gallery-item, .step-card');
     
     cards.forEach(card => {
         if (card.dataset.glowInit) return;
@@ -51,7 +51,7 @@ function initCardHoverGlow() {
             pointer-events: none;
             z-index: 2;
             background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(59, 216, 216, 0.58), 
+                rgba(59, 216, 216, 0.87), 
                 transparent 42%);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
