@@ -331,4 +331,6 @@
   } else {
     init();
   }
+  // Escuchar evento custom de inyección de componentes
+  document.addEventListener("vui-navbar-loaded", init);
 })();
