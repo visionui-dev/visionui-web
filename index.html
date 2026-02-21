@@ -46,9 +46,14 @@
             animation: liquid-gradient 6s ease-in-out infinite;
         }
         /* Prevent GSAP flash of unstyled content */
-        .hero-gradient, .inline-flex.items-center.gap-2, h1, h1 + p, .flex.flex-col.sm\\:flex-row.gap-3 a, .hero-gradient + div > div:last-child, .feature-card, #studio .grid.lg\\:grid-cols-\\[420px_1fr\\] > div:first-child, .glass-pill, #waitlistForm, nav {
+        .hero-gradient, .inline-flex.items-center.gap-2, h1, h1 + p, .hero-buttons a, .hero-buttons button, .hero-gradient + div > div:last-child, .feature-card, #studio .grid.lg\\:grid-cols-\\[420px_1fr\\] > div:first-child, .glass-pill, #waitlistForm {
             opacity: 0;
             visibility: hidden;
+        }
+        /* La navbar NO debe ocultarse — es persistente durante la SPA navigation */
+        nav {
+            opacity: 1;
+            visibility: visible;
         }
         
         /* Navbar base: limpia, sin blur/bevel. Liquid glass (feDisplacementMap) se aplica via liquid-glass-navbar.js */
@@ -110,6 +115,92 @@
             50% { opacity: 0.4; }
         }
         .animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+        /* Hero typing cursor - exactamente altura de la fuente */
+        .hero-typed-cursor {
+            display: inline-block;
+            width: 0.12em;
+            height: 1em;
+            margin-left: 0.2em;
+            background: linear-gradient(180deg, #3bd8d8 0%, #2db8b8 100%);
+            border-radius: 1px;
+            box-shadow: 0 0 12px rgba(59, 216, 216, 0.6);
+            vertical-align: baseline;
+            animation: hero-cursor-blink 1s step-end infinite;
+        }
+        .hero-typed-cursor.hero-cursor-done { display: none !important; }
+        .hero-typed-line { overflow: visible; }
+        @keyframes hero-cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Evitar flash de botones: wrapper empieza invisible */
+        .hero-buttons-wrapper { opacity: 0; }
+        .hero-buttons-wrapper.revealed { opacity: 1; }
+        /* Durante typing: solo navbar + línea de título visible; resto oculto */
+        body.vui-typing-active h1 { opacity: 1 !important; visibility: visible !important; }
+        body.vui-typing-active .hero-gradient,
+        body.vui-typing-active .hero-subtitle,
+        body.vui-typing-active main > div > p,
+        body.vui-typing-active .hero-buttons,
+        body.vui-typing-active main > div > div:last-child,
+        body.vui-typing-active #features,
+        body.vui-typing-active #studio,
+        body.vui-typing-active #vui-footer-container,
+        body.vui-typing-active #vui-bg-deco,
+        body.vui-typing-active .glow-bg {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        /* Sliders del mockup: cursor pointer */
+        .vui-mockup-slider {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Bitcoin widget - 250x200, fill tipo navbar (vidrio líquido), frame con gradiente diagonal */
+        .vui-btc-widget { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; transition: opacity 0.3s ease; }
+        .vui-btc-widget-frame {
+            width: 250px; height: 200px;
+            padding: 1px;
+            border-radius: 35px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 50%, rgba(255,255,255,0.22) 100%);
+        }
+        .vui-btc-widget-glass {
+            width: 100%; height: 100%;
+            border-radius: 34px;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(24px) brightness(1.05) saturate(1.1);
+            -webkit-backdrop-filter: blur(24px) brightness(1.05) saturate(1.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .vui-btc-content {
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            height: 100%; padding: 32px 14px 20px; text-align: center;
+        }
+        .vui-btc-price-block { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .vui-btc-name { color: #F5E6A3; }
+        .vui-btc-icon { color: #E8B86D; }
+        .vui-btc-price { color: rgba(255,255,255,0.85); }
+        .vui-btc-pct { color: #3bd8d8; }
+        .vui-btc-close {
+            position: absolute; top: 10px; right: 10px;
+            width: 22px; height: 22px;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent; border: none;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .vui-btc-close:hover { color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); }
+        .vui-btc-close .material-symbols-outlined { font-size: 16px; }
+
+        /* VUI Studio mockup: esquinas 30px, sombra solo inferior */
+        .vui-mockup-wrapper { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-24">
@@ -122,32 +213,41 @@
 <main class="relative pt-12 sm:pt-28 md:pt-32 pb-12 px-6 overflow-hidden">
     <div class="absolute inset-0 hero-gradient -z-10"></div>
     <div class="max-w-[1140px] mx-auto text-center flex flex-col items-center">
-        <h1 class="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tight mb-8 leading-tight max-w-5xl flex flex-col -space-y-1 sm:-space-y-2">
-            <span class="text-[#f8fafc] flex flex-wrap justify-center gap-x-2">
-                <span>The</span> 
-                <span class="animate-gradient-text">impossible</span> 
-                <span>Desktop UI,</span> 
-                <span>reimagined.</span>
+        <h1 class="text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tight mb-8 leading-tight max-w-5xl flex flex-col -space-y-1 sm:-space-y-2 hero-title-wrapper">
+            <span class="hero-typed-line text-[#f8fafc] block text-center min-h-[1.2em] w-full max-w-3xl mx-auto">
+                <span id="hero-typed-text"></span><span class="hero-typed-cursor" aria-hidden="true"></span>
             </span>
-            <span class="pb-1 text-slate-200 mt-2 sm:mt-0">Build visually, code with AI.</span>
+            <span class="hero-subtitle pb-1 text-slate-200 mt-2 sm:mt-0">Build visually, code with AI.</span>
         </h1>
         <p class="text-sm md:text-base lg:text-lg text-slate-400 max-w-2xl mb-8 font-medium leading-relaxed">
             The ultimate Python desktop framework. Skip Qt complexity and build production-ready apps in record time using 60+ components and an AI-powered Visual IDE.
         </p>
-        <div class="flex flex-col sm:flex-row gap-3">
-            <a href="store.html" class="group flex items-center gap-2 bg-primary text-background-dark px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(59,216,216,0.3)]">
-                VUI Apps
-                <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-2 hero-buttons hero-buttons-wrapper">
+            <!-- Botón Primario: VUI Apps (Efecto Sweep + Slot Machine Download) -->
+            <a href="store.html" class="group relative inline-flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-3.5 rounded-full text-[15px] font-extrabold overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(59,216,216,0.4)] active:scale-95">
+                <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)] z-0">
+                    <div class="relative h-full w-8 bg-white/30"></div>
+                </div>
+                <div class="relative flex h-[20px] w-[20px] items-center justify-center overflow-hidden z-10">
+                    <span class="material-symbols-outlined absolute text-[20px] transition-transform duration-300 group-hover:translate-y-[150%]">download</span>
+                    <span class="material-symbols-outlined absolute text-[20px] -translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">download</span>
+                </div>
+                <span class="relative z-10 tracking-wide">Get VUI Apps</span>
             </a>
-            <a href="#studio" class="flex items-center gap-2 bg-transparent border border-white/15 text-white px-7 py-3 rounded-full text-sm font-bold hover:bg-white/5 hover:border-white/30 transition-all">
-                <span class="material-symbols-outlined text-[16px]">notifications_active</span>
-                VUIStudio — Join Waitlist
+
+            <!-- Botón Secundario: VUIStudio (Ghost Button + Slot Machine Notifications) -->
+            <a href="#studio" class="group relative inline-flex items-center justify-center gap-2 bg-transparent border border-white/20 text-white px-8 py-3.5 rounded-full text-[15px] font-bold overflow-hidden transition-all duration-300 hover:bg-white/5 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] active:scale-95">
+                <div class="relative flex h-[20px] w-[20px] items-center justify-center overflow-hidden text-slate-300 group-hover:text-primary transition-colors duration-300 z-10">
+                    <span class="material-symbols-outlined absolute text-[18px] transition-transform duration-300 group-hover:-translate-y-[150%]">notifications</span>
+                    <span class="material-symbols-outlined absolute text-[18px] translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">notifications_active</span>
+                </div>
+                <span class="relative z-10 tracking-wide text-slate-100">VUIStudio Waitlist</span>
             </a>
         </div>
 
         <!-- Hero Visual Mockup (Redesigned & Scaled to 80%) -->
-        <div class="mt-12 w-full max-w-[90%] lg:max-w-[80%] mx-auto shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-            <div class="relative aspect-[16/9] rounded-2xl overflow-hidden bg-[#0d0d0d] flex flex-col border border-white/10">
+        <div class="mt-12 w-full max-w-[90%] lg:max-w-[80%] mx-auto vui-mockup-wrapper">
+            <div class="relative aspect-[16/9] rounded-[30px] overflow-hidden bg-[#0d0d0d] flex flex-col border border-white/10">
                 <!-- VUI Studio Topbar -->
                 <div class="relative h-10 border-b border-white/5 bg-[#141414] flex items-center justify-between px-4 shrink-0">
                     <div></div>
@@ -188,34 +288,33 @@
                     </div>
 
                     <!-- Center: Visual Canvas -->
-                    <div class="flex-1 bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden" style="background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 20px 20px;">
+                    <div id="vui-mockup-canvas" class="flex-1 bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden" style="background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 20px 20px;">
                         <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
-                        <!-- Mock App Window -->
-                        <div class="relative w-[280px] rounded-[1.5rem] border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden group p-5">
-                            <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50 pointer-events-none"></div>
-                            
-                            <div class="relative flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-2">
-                                    <div class="size-7 rounded-full bg-[#F7931A] flex items-center justify-center text-white shadow-[0_0_10px_rgba(247,147,26,0.5)]">
-                                        <span class="font-bold text-[12px]">₿</span>
+                        <!-- Mock App Window (draggable) - 250x200, glass, gradient frame -->
+                        <div id="vui-bitcoin-widget" class="vui-btc-widget cursor-grab active:cursor-grabbing select-none">
+                            <div class="vui-btc-widget-frame">
+                                <div class="vui-btc-widget-glass">
+                                    <button type="button" class="vui-btc-close" aria-label="Close"><span class="material-symbols-outlined">close</span></button>
+                                    <div class="vui-btc-content">
+                                        <div class="flex items-center justify-center gap-1.5">
+                                            <span class="vui-btc-icon font-mono text-lg font-bold">₿</span>
+                                            <span class="vui-btc-name font-bold text-sm tracking-wide">Bitcoin</span>
+                                        </div>
+                                        <div class="vui-btc-price-block">
+                                            <div class="vui-btc-price text-2xl font-bold tracking-tight">$94,230.00</div>
+                                            <span class="vui-btc-pct font-bold text-xs mt-2 px-2 py-0.5 rounded-full bg-primary/15">+5.4%</span>
+                                        </div>
+                                        <div class="flex items-center justify-center gap-2 text-slate-400 text-[0.65rem]">
+                                            <span class="material-symbols-outlined text-[14px] text-primary">notifications_active</span>
+                                            <span>Target: $98,000</span>
+                                        </div>
                                     </div>
-                                    <span class="text-white font-bold text-sm tracking-wide">Bitcoin</span>
-                                </div>
-                                <span class="text-[#27c93f] font-bold text-xs bg-[#27c93f]/10 px-2 py-0.5 rounded-full">+5.4%</span>
-                            </div>
-
-                            <div class="relative text-3xl font-bold text-white mb-6 tracking-tight">$94,230.00</div>
-
-                            <div class="relative mt-auto">
-                                <div class="w-full py-2.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[0.75rem] font-bold hover:bg-primary/20 transition-colors cursor-pointer text-center flex justify-center items-center gap-1.5 shadow-[0_0_15px_rgba(59,216,216,0.15)]">
-                                    Connect Wallet
-                                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Floating Property Panel -->
-                        <div class="absolute bottom-4 right-4 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-lg p-3 w-36 shadow-lg">
+                        <!-- Floating Property Panel (draggable) -->
+                        <div id="vui-properties-panel" class="absolute bottom-4 right-4 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-lg p-3 w-36 shadow-lg cursor-grab active:cursor-grabbing select-none">
                             <div class="text-[0.6rem] font-bold text-slate-500 mb-2">PROPERTIES</div>
                             <div class="flex justify-between items-center mb-1.5">
                                 <span class="text-[0.55rem] text-slate-400">Glass Intensity</span>
@@ -249,7 +348,7 @@
                             <div class="flex flex-col gap-1 items-start">
                                 <span class="text-[0.55rem] text-primary">VUI Assistant</span>
                                 <div class="bg-primary/10 border border-primary/20 rounded-r-lg rounded-tl-lg p-2 text-slate-300">
-                                    I've created the widget. I added a glass component. Do you want to wire the 'Connect Wallet' event now?
+                                    I've created the widget. I added a liquid glass component. Do you want to add more components?
                                 </div>
                             </div>
                         </div>
@@ -259,18 +358,18 @@
                                 <input type="text" placeholder="Let's build something!" class="w-full bg-[#1a1a1a] border border-white/10 rounded-lg pl-3 pr-8 py-2 text-[0.7rem] text-white outline-none focus:border-primary/50">
                                 <span class="material-symbols-outlined text-[14px] text-primary absolute right-2.5 top-1/2 -translate-y-1/2">arrow_upward</span>
                             </div>
-                            <div class="flex items-center justify-between mt-2">
-                                <div class="flex items-center gap-1.5">
+                            <div class="flex items-center justify-between gap-2 mt-2">
+                                <div class="flex items-center gap-1.5 vui-slider-row">
                                     <span class="text-[0.55rem] text-slate-500">Claude</span>
-                                    <div class="w-4 h-2 bg-primary/20 rounded-full relative"><div class="absolute right-0 top-0 size-2 bg-primary rounded-full"></div></div>
+                                    <div class="vui-mockup-slider w-4 h-2 rounded-full relative cursor-pointer"><div class="vui-slider-knob absolute top-0 size-2 rounded-full" style="left:100%;transform:translateX(-100%)"></div></div>
                                 </div>
-                                <div class="flex items-center gap-1.5">
+                                <div class="flex items-center gap-1.5 vui-slider-row">
                                     <span class="text-[0.55rem] text-slate-500">Gemini</span>
-                                    <div class="w-4 h-2 bg-white/10 rounded-full relative"><div class="absolute left-0 top-0 size-2 bg-slate-500 rounded-full"></div></div>
+                                    <div class="vui-mockup-slider w-4 h-2 bg-white/10 rounded-full relative cursor-pointer"><div class="vui-slider-knob absolute top-0 size-2 bg-slate-500 rounded-full"></div></div>
                                 </div>
-                                <div class="flex items-center gap-1.5">
+                                <div class="flex items-center gap-1.5 vui-slider-row">
                                     <span class="text-[0.55rem] text-slate-500">GPT</span>
-                                    <div class="w-4 h-2 bg-white/10 rounded-full relative"><div class="absolute left-0 top-0 size-2 bg-slate-500 rounded-full"></div></div>
+                                    <div class="vui-mockup-slider w-4 h-2 bg-white/10 rounded-full relative cursor-pointer"><div class="vui-slider-knob absolute top-0 size-2 bg-slate-500 rounded-full"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -485,8 +584,8 @@
 <!-- Footer - Minimal -->
 <div id="vui-footer-container"></div>
 
-<!-- Background decoration -->
-<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-20 overflow-hidden">
+<!-- Background decoration (fijo, se queda en todas las páginas via SPA) -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-20 overflow-hidden" id="vui-bg-deco">
     <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
     <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full"></div>
 </div>
@@ -497,6 +596,7 @@
 <script src="assets/js/ads.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/animations.js"></script>
+<script defer src="assets/js/hero-mockup-interactions.js"></script>
 <script>
     // ── Mobile Nav Menu Toggle ────────────────────────────────────
     document.getElementById('navMenuToggle')?.addEventListener('click', function() {
