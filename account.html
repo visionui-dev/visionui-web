@@ -473,7 +473,10 @@
             const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
             document.getElementById('userName').textContent = name;
             document.getElementById('userEmail').textContent = user.email;
-            document.getElementById('navAvatar').textContent = initials;
+            const navAv = document.getElementById('accountBtnAvatar');
+            const navTxt = document.getElementById('accountBtnText');
+            if (navAv) { navAv.textContent = initials; navAv.classList.remove('hidden'); }
+            if (navTxt) { navTxt.textContent = name.length > 12 ? name.substring(0, 12) + '…' : name; navTxt.removeAttribute('data-i18n'); }
             document.getElementById('userAvatarLarge').textContent = initials;
 
             const verificationEl = document.getElementById('emailVerificationStatus');
