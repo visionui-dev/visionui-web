@@ -41,6 +41,19 @@ function runHeroRevealAfterTyping() {
       .fromTo('.hero-subtitle', { opacity: 0, y: 10 }, { opacity: 1, y: 0 }, "-=0.8")
       .fromTo('h1 + p', { opacity: 0, y: 15 }, { opacity: 1, y: 0 }, "-=0.7")
       .fromTo('.hero-buttons-wrapper', { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.6");
+    tl.add(() => {
+        const btn = document.getElementById('hero-cta-btn');
+        if (btn && window.gsap) {
+            gsap.to(btn, {
+                y: -8,
+                duration: 3,
+                ease: 'power1.inOut',
+                yoyo: true,
+                repeat: -1,
+                repeatDelay: 2.5
+            });
+        }
+    });
     const mockup = document.querySelector('.hero-gradient + div > div:last-child');
     if (mockup && mockup.querySelector('.aspect-\\[16\\/9\\]')) {
         gsap.set(mockup, { visibility: 'visible' });
