@@ -87,12 +87,18 @@ function injectNavbar() {
                 <a class="nav-item-glow py-1 ${currentPage === 'docs.html' || currentPage === 'docs' ? 'active-nav-link' : ''}" href="docs.html">Docs</a>
             </div>
             <div class="nav-right relative flex items-center gap-2 flex-shrink-0">
-                <a href="account.html" id="accountBtn" class="nav-account flex items-center justify-center gap-1.5 bg-primary text-background-dark px-[0.6rem] sm:px-[1.375rem] py-[0.45rem] sm:py-[0.55rem] rounded-full text-[0.9rem] sm:text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline shadow-[0_0_15px_rgba(59,216,216,0.3)]">
-                    <span id="accountBtnAvatar" class="hidden w-5 h-5 rounded-full bg-background-dark/20 text-background-dark flex items-center justify-center text-[10px]"></span>
-                    <span class="material-symbols-outlined nav-account-icon text-[18px]">person</span>
-                    <span class="hidden sm:inline-flex items-center gap-1">
-                        <span id="accountBtnText" class="nav-account-label" data-i18n="nav.account">My Account</span>
-                        <span id="accountBtnChevron" class="material-symbols-outlined nav-account-chevron text-[15px]">chevron_right</span>
+                <a href="account.html" id="accountBtn" class="nav-account group relative overflow-hidden flex items-center justify-center gap-1.5 bg-primary text-background-dark px-[0.6rem] sm:px-[1.375rem] py-[0.45rem] sm:py-[0.55rem] rounded-full text-[0.9rem] sm:text-[0.96rem] font-bold transition-all no-underline hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(59,216,216,0.3)] active:scale-95">
+                    <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)] z-0">
+                        <div class="relative h-full w-4 bg-white/30"></div>
+                    </div>
+                    <span id="accountBtnAvatar" class="relative z-10 hidden w-5 h-5 rounded-full bg-background-dark/20 text-background-dark flex items-center justify-center text-[10px]"></span>
+                    <div class="relative flex h-[18px] w-[18px] items-center justify-center overflow-hidden z-10">
+                        <span class="material-symbols-outlined absolute nav-account-icon text-[18px] transition-transform duration-300 group-hover:translate-y-[150%]">person</span>
+                        <span class="material-symbols-outlined absolute text-[18px] -translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">account_circle</span>
+                    </div>
+                    <span class="relative z-10 hidden sm:inline-flex items-center gap-1">
+                        <span id="accountBtnText" class="nav-account-label tracking-wide" data-i18n="nav.account">My Account</span>
+                        <span id="accountBtnChevron" class="material-symbols-outlined nav-account-chevron text-[15px] transition-transform duration-300 group-hover:translate-x-[3px]">chevron_right</span>
                     </span>
                 </a>
             </div>
