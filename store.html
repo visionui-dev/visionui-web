@@ -135,139 +135,87 @@
     <!-- App Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="appsGrid">
 
-        <!-- Glass Widget - Free demo -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="GlassWidget" data-pricing-model="free" data-category="free">
-            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a2a] to-[#111] flex items-center justify-center text-6xl">🪟</div>
+        <!-- VerseGlow - Bible Verses Widget (Free) -->
+        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="VerseGlow" data-pricing-model="free_only" data-category="free">
+            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a1a] to-[#0d1a0d] flex items-center justify-center text-6xl">✝️</div>
             <div class="flex-grow">
                 <div class="flex items-center gap-2 mb-3">
-                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full">Free Demo</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full">Free</span>
                 </div>
-                <h3 class="text-xl font-bold mb-2">Glass Widget - Bitcoin</h3>
+                <h3 class="text-xl font-bold mb-2">VerseGlow</h3>
                 <p class="text-white/50 text-sm leading-relaxed mb-6">
-                    Always-on-top Bitcoin price widget with real-time refractive glass effect for Windows.
+                    A beautiful always-on-top desktop widget with daily Bible verses. Glass effects, subtle animations, and a peaceful presence on your screen while you work or study.
                 </p>
                 <ul class="flex flex-col gap-2 mb-4">
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Always-on-top widget</li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Toggle glass effect + intensity</li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Interactive and resizable</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Rotate verses with one tap</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Save favorites (heart), elegant close</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Always-on-top, liquid glass effects</li>
                 </ul>
             </div>
             <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
                 <span class="text-lg font-bold text-emerald-400">Free</span>
                 <div class="app-actions">
-                    <a href="/downloads/glass-widget-demo.exe" class="bg-card-dark border border-border-subtle hover:border-primary/50 text-white px-5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[16px]">download</span> Download
+                    <a href="#" class="bg-primary text-background-dark px-5 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">download</span> Coming Soon
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- TestApp - Music Player -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="TestApp" data-variant-id="YOUR_VARIANT_ID" data-pricing-model="premium_only" data-category="premium">
-            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a1a2a] to-[#111] flex items-center justify-center text-6xl">🎵</div>
+        <!-- BTC Pulse - Bitcoin Widget (Freemium) -->
+        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="BTCPulse" data-pricing-model="freemium" data-category="freemium">
+            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a2a] to-[#111] flex items-center justify-center text-6xl">₿</div>
             <div class="flex-grow">
                 <div class="flex items-center gap-2 mb-3">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-1 rounded-full" data-i18n="store.available_badge">Available</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-1 rounded-full">Freemium</span>
                 </div>
-                <h3 class="text-xl font-bold mb-2" data-i18n="app.testapp.title">TestApp - Music Player</h3>
-                <p class="text-white/50 text-sm leading-relaxed mb-6" data-i18n="app.testapp.desc">
-                    Modern music player for Windows with elegant interface, visual equalizer and multi-format support.
-                </p>
-                <ul class="flex flex-col gap-2 mb-4">
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> <span data-i18n="app.testapp.f1">Modern customizable interface</span></li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> <span data-i18n="app.testapp.f2">MP3, FLAC, WAV, OGG support</span></li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> <span data-i18n="app.testapp.f3">10-band equalizer</span></li>
-                </ul>
-            </div>
-            <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
-                <span class="text-lg font-bold">$19 <span class="text-xs text-white/40 font-normal">/ <span data-i18n="store.lifetime">lifetime</span></span></span>
-                <div class="app-actions">
-                    <button class="bg-primary text-background-dark px-5 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('TestApp', 19)">
-                        <span data-i18n="store.buy">Buy</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- VisionUI Framework -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="VisionUI" data-variant-id="YOUR_FRAMEWORK_VARIANT_ID" data-pricing-model="premium_only" data-category="premium">
-            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a1a] to-[#111] flex items-center justify-center text-6xl">🎨</div>
-            <div class="flex-grow">
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-1 rounded-full" data-i18n="store.popular">Popular</span>
-                </div>
-                <h3 class="text-xl font-bold mb-2" data-i18n="app.framework.title">VisionUI Framework</h3>
-                <p class="text-white/50 text-sm leading-relaxed mb-6" data-i18n="app.framework.desc">
-                    The complete framework to create your own applications with PySide6. Includes VUIStudio and all components.
-                </p>
-                <ul class="flex flex-col gap-2 mb-4">
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> <span data-i18n="app.framework.f1">VUIStudio Designer included</span></li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> <span data-i18n="app.framework.f2">+55 ready components</span></li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> <span data-i18n="app.framework.f4">Commercial license</span></li>
-                </ul>
-            </div>
-            <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
-                <span class="text-lg font-bold">$99 <span class="text-xs text-white/40 font-normal">/ <span data-i18n="store.lifetime">lifetime</span></span></span>
-                <div class="app-actions">
-                    <button class="bg-primary text-background-dark px-5 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('VisionUI', 99)">
-                        <span data-i18n="store.buy">Buy</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- PomoVision - Freemium -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="PomoVision" data-pricing-model="freemium" data-category="free">
-            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#2a1a1a] to-[#111] flex items-center justify-center text-6xl">⏱️</div>
-            <div class="flex-grow">
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full">Freemium</span>
-                </div>
-                <h3 class="text-xl font-bold mb-2">PomoVision - Pomodoro Timer</h3>
+                <h3 class="text-xl font-bold mb-2">BTC Pulse</h3>
                 <p class="text-white/50 text-sm leading-relaxed mb-6">
-                    Pomodoro Timer with impossible visual effects. Glassmorphism, fluid animations and advanced statistics.
+                    Always-on-top Bitcoin price widget with real-time refractive glass effect. Track price, 24h change, and set alerts. Premium unlocks more coins and advanced features.
                 </p>
                 <ul class="flex flex-col gap-2 mb-4">
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Advanced visual effects</li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Basic statistics (free)</li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Floating widget (premium)</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Real-time BTC price + 24h change</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Price alerts (free tier limited)</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Liquid glass, resizable, always-on-top</li>
                 </ul>
             </div>
             <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
-                <span class="text-lg font-bold">$4.99 <span class="text-xs text-white/40 font-normal">/ <span data-i18n="store.lifetime">lifetime</span></span></span>
+                <span class="text-lg font-bold">Free <span class="text-xs text-white/40 font-normal">+ Premium</span></span>
                 <div class="app-actions flex gap-2">
-                    <a href="/api/app/download?app=PomoVision" class="bg-card-dark border border-border-subtle hover:border-primary/50 text-white px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">download</span> Free
+                    <a href="#" class="bg-card-dark border border-border-subtle hover:border-primary/50 text-white px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">download</span> Download
                     </a>
-                    <button class="bg-primary text-background-dark px-4 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('PomoVision', 4.99)">
+                    <button class="bg-primary text-background-dark px-4 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('BTCPulse', 4.99)">
                         💎 Premium
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Inventory Pro - Coming Soon -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col opacity-70" data-category="premium">
-            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a1a1a] to-[#111] flex items-center justify-center text-6xl">📊</div>
+        <!-- VUIStudio - Coming Soon -->
+        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col opacity-90" data-app="VUIStudio" data-pricing-model="coming_soon" data-category="premium">
+            <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a2a] to-[#111] flex items-center justify-center text-6xl">🎨</div>
             <div class="flex-grow">
                 <div class="flex items-center gap-2 mb-3">
-                    <span class="text-xs font-bold uppercase tracking-widest text-white/40 bg-white/5 px-2 py-1 rounded-full" data-i18n="store.coming_soon">Coming Soon</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-white/40 bg-white/5 px-2 py-1 rounded-full">Coming Soon</span>
                 </div>
-                <h3 class="text-xl font-bold mb-2" data-i18n="app.inventory.title">Inventory Pro</h3>
-                <p class="text-white/50 text-sm leading-relaxed mb-6" data-i18n="app.inventory.desc">
-                    Inventory management system for small and medium businesses. Stock control, alerts and reports.
+                <h3 class="text-xl font-bold mb-2">VUIStudio</h3>
+                <p class="text-white/50 text-sm leading-relaxed mb-6">
+                    The ultimate Visual IDE + AI for VisionUI. True WYSIWYG canvas, unified frontend and backend, built-in AI agent that writes and refactors code, and one-click deployment.
                 </p>
                 <ul class="flex flex-col gap-2 mb-4">
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-white/30">✓</span> <span data-i18n="app.inventory.f1">Multi-warehouse management</span></li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-white/30">✓</span> <span data-i18n="app.inventory.f2">Low stock alerts</span></li>
-                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-white/30">✓</span> <span data-i18n="app.inventory.f3">Exportable reports</span></li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Drag-and-drop canvas, real-time preview</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> AI MCP assistant for logic &amp; events</li>
+                    <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Nuitka build, obfuscation, secure packaging</li>
                 </ul>
             </div>
             <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
-                <span class="text-lg font-bold text-white/40">$49</span>
-                <button class="bg-card-dark border border-border-subtle text-white/40 px-5 py-2 rounded-full text-xs font-bold cursor-not-allowed" disabled>
-                    <span data-i18n="store.coming_soon">Coming Soon</span>
-                </button>
+                <span class="text-lg font-bold text-white/40">TBD</span>
+                <div class="app-actions">
+                    <a href="index.html#studio" class="bg-card-dark border border-border-subtle text-white/70 px-5 py-2 rounded-full text-xs font-bold hover:border-primary/50 transition-all flex items-center gap-1">
+                        Join Waitlist
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -388,8 +336,10 @@
             this.classList.remove('border', 'border-border-subtle', 'bg-card-dark');
             const filter = this.dataset.filter;
             document.querySelectorAll('#appsGrid > div').forEach(card => {
+                const cat = card.dataset.category || '';
                 if (filter === 'all') { card.style.display = ''; }
-                else { card.style.display = (card.dataset.category === filter) ? '' : 'none'; }
+                else if (filter === 'free') { card.style.display = (cat === 'free' || cat === 'freemium') ? '' : 'none'; }
+                else if (filter === 'premium') { card.style.display = (cat === 'premium' || cat === 'freemium') ? '' : 'none'; }
             });
         });
     });
@@ -504,6 +454,7 @@
             for (const card of appCards) {
                 const appName = card.getAttribute('data-app');
                 const pricingModel = card.getAttribute('data-pricing-model') || 'premium_only';
+                if (pricingModel === 'coming_soon') continue;
                 const hasPurchased = userEntitlements.some(e => e.product_name === appName && e.status === 'active');
                 const actionsDiv = card.querySelector('.app-actions');
                 if (!actionsDiv) continue;
@@ -532,8 +483,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const openApp = urlParams.get('openApp');
         if (openApp) {
-            const appPrices = { 'TestApp': 19, 'VisionUI': 99, 'PomoVision': 4.99 };
-            const price = appPrices[openApp] || 0;
+            const appPrices = { 'VerseGlow': 0, 'BTCPulse': 4.99, 'VUIStudio': 0 };
+            const price = appPrices[openApp] ?? 0;
             if (price > 0) setTimeout(() => openPurchaseModal(openApp, price), 300);
         }
         loadAppConfigsAndUpdateButtons();
