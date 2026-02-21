@@ -131,7 +131,8 @@ function injectFooter() {
             <div class="flex flex-wrap justify-center gap-4 md:gap-6">
                 <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="store.html">Apps</a>
                 <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="https://x.com/vision_ui" target="_blank" rel="noopener">X (Twitter)</a>
-                <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="https://discord.gg/visionui" target="_blank" rel="noopener">Discord</a>
+                <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="https://instagram.com/vision_ui" target="_blank" rel="noopener">Instagram</a>
+                <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="https://discord.gg/vision_ui" target="_blank" rel="noopener">Discord</a>
                 <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="docs.html">Docs</a>
                 <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="privacy.html">Privacy</a>
                 <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1" href="terms.html">Terms</a>
