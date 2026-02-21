@@ -211,9 +211,9 @@ npx uglifyjs assets/js/*.js -o assets/js/bundle.min.js
 - [Ejemplos](examples/)
 
 ### Comunidad
-- **Discord**: [discord.gg/visionui](https://discord.gg/visionui)
+- **Discord**: [discord.gg/vision_ui](https://discord.gg/vision_ui)
 - **GitHub Issues**: [github.com/visionui/framework/issues](https://github.com/visionui/framework/issues)
-- **Email**: contact@visionui.dev
+- **Email**: contact@visionui.app
 
 ## 📄 Licencia
 
