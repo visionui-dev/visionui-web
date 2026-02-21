@@ -9,7 +9,7 @@
  */
 
 function initCardHoverGlow() {
-    const cards = document.querySelectorAll('.feature-card, .glass-pill, .glass-nav, .glass-navbar, .app-card, .doc-card, .gallery-item, .step-card');
+    const cards = document.querySelectorAll('.feature-card, .glass-pill, .doc-card, .gallery-item, .step-card');
     
     cards.forEach(card => {
         if (card.dataset.glowInit) return;
