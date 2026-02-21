@@ -29,6 +29,15 @@
     <script src="assets/js/tailwind-config.js"></script>
     <style>
         body { font-family: 'Space Grotesk', sans-serif; }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+            background-size: 200% auto;
+            animation: gradient-shift 8s ease-in-out infinite;
+        }
         /* Prevent GSAP flash of unstyled content */
         .hero-gradient, .inline-flex.items-center.gap-2, h1, h1 + p, .flex.flex-col.sm\\:flex-row.gap-3 a, .hero-gradient + div > div:last-child, .feature-card, #studio .grid.lg\\:grid-cols-\\[420px_1fr\\] > div:first-child, .glass-pill, #waitlistForm, nav {
             opacity: 0;
@@ -114,12 +123,11 @@
             FRAMEWORK READY
         </div>
         <h1 class="text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tight mb-8 leading-none max-w-5xl flex flex-col -space-y-1">
-            <span class="text-[#f8fafc] whitespace-nowrap">Build impossible desktop apps.</span>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#d1fae5] via-[#2dd4bf] to-[#60a5fa] pb-1">Widget-based. Zero code.</span>
-            <span class="text-[#64748b]">Visually assisted.</span>
+            <span class="text-[#f8fafc] whitespace-nowrap">Desktop UI, reimagined to the impossible.</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#d1fae5] via-[#2dd4bf] to-[#60a5fa] pb-1 animate-gradient-text">Widget-centric. Designed visually. Powered by AI.</span>
         </h1>
         <p class="text-sm md:text-base lg:text-lg text-slate-400 max-w-2xl mb-8 font-medium leading-relaxed">
-            The most advanced UI framework for Desktop. Build production-ready apps in record time with 60+ components, IDE + AI assistance for frontend and backend—without wrestling with Qt internals and complexity.
+            The ultimate Python desktop framework. Skip Qt complexity and build production-ready apps in record time using 60+ components and an AI-powered Visual IDE.
         </p>
         <div class="flex flex-col sm:flex-row gap-3">
             <a href="store.html" class="group flex items-center gap-2 bg-primary text-background-dark px-7 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(59,216,216,0.3)]">
@@ -127,8 +135,8 @@
                 <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
             </a>
             <a href="#studio" class="flex items-center gap-2 bg-transparent border border-white/15 text-white px-7 py-3 rounded-full text-sm font-bold hover:bg-white/5 hover:border-white/30 transition-all">
-                <span class="material-symbols-outlined text-[16px]">notifications</span>
-                VUIStudio — Notify Me!
+                <span class="material-symbols-outlined text-[16px]">notifications_active</span>
+                VUIStudio — Join Waitlist
             </a>
         </div>
 
@@ -292,7 +300,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Visual WYSIWYG IDE</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Design complex interfaces with drag & drop. Prototype rapidly without writing a single line of code. Canvas-based with AI-assisted backend—what you see is what ships, with integrated AI understanding your app's purpose.
+                    Design complex interfaces with drag-and-drop. Our canvas-based editor and AI-assisted backend ensure that what you see is exactly what ships.
                 </p>
             </div>
             <!-- Real-Time Optimized Rendering -->
@@ -302,7 +310,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Real-Time Optimized Rendering</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Multi-threaded advanced pipeline-based engine that only processes what changed. Intelligent caching and lazy loading keep even complex dynamic animated effects running at 60fps.
+                    Multi-threaded engine that only processes screen changes. Intelligent caching keeps even complex dynamic animations running smoothly at 60fps.
                 </p>
             </div>
             <!-- Native Performance -->
@@ -312,7 +320,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Native Performance</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Optimized engine ensuring maximum speed, minimal resource consumption, and smooth 60fps rendering on any Windows machine.
+                    Maximum speed and minimal resource footprint, ensuring your Python applications feel indistinguishable from native Windows software.
                 </p>
             </div>
             <!-- Instant Hot Reload -->
@@ -322,7 +330,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Instant Hot Reload</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Preview changes instantly without restarting. Ultra-fast iteration accelerates your development workflow dramatically.
+                    Preview changes instantly without restarting. Iterate at lightning speed and accelerate your entire development workflow.
                 </p>
             </div>
             <!-- 60+ Visual Components -->
@@ -332,7 +340,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">60+ Visual Components</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Photoshop-style composable layer system. Plug-and-play architecture with advanced shadows, liquid glass, glassmorphism, refraction, blur, hover glow, background rendering, geometric shapes, and more. Achieve effects impossible with standard Qt or Windows APIs.
+                    A Photoshop-style layer system with advanced shadows, glassmorphism, and refraction. Achieve stunning effects impossible with standard Qt APIs.
                 </p>
             </div>
             <!-- Full Widget-Based Architecture -->
@@ -342,7 +350,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Full Widget-Based Architecture</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Custom VUI widgets with individual processes. Create standalone widgets with simple snippets and unique architecture. Manageable inside or outside VuiStudio.
+                    Build standalone widgets with simple snippets. Our unique process-isolated architecture lets you manage components easily, inside or outside VUIStudio.
                 </p>
             </div>
             <!-- Minimal Learning Curve -->
@@ -352,7 +360,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Minimal Learning Curve</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    Qt Design Studio requires weeks to master. VisionUI? One day to productivity.
+                    While Qt takes weeks to master, VisionUI’s intuitive design gets you shipping to production in a single day.
                 </p>
             </div>
             <!-- Enterprise-Grade Security & Licensing -->
@@ -362,7 +370,7 @@
                 </div>
                 <h3 class="text-base font-bold text-white">Enterprise-Grade Security & Licensing</h3>
                 <p class="text-slate-400 text-xs leading-relaxed">
-                    One-click production builds. Military-grade licensing system with automatic verification, account management, and secure application distribution. Zero reverse-engineering risk with multiple security layers.
+                    Secure your distribution with our military-grade licensing system and one-click production builds. Zero reverse-engineering risk.
                 </p>
             </div>
         </div>
@@ -393,7 +401,7 @@
                         <span class="text-primary">Visual IDE + AI</span>
                     </h2>
                     <p class="text-lg md:text-xl leading-relaxed text-white/60">
-                        A revolutionary environment that unifies visual UI design with Python backend development. Features an integrated AI MCP assistant that understands your code and UI, live preview canvas, event/action system, and one-click build & deployment.
+                        The ultimate environment unifying visual design and Python backend logic. Featuring an AI assistant that completely understands your code, live canvas previews, and one-click deployment.
                     </p>
                 </div>
 
@@ -406,28 +414,28 @@
                                 <span class="material-symbols-outlined text-[20px]">wysiwyg</span>
                             </div>
                             <h4 class="font-bold text-sm mb-1">True WYSIWYG Canvas</h4>
-                            <p class="text-white/50 text-xs leading-relaxed">Visual editor renders actual VisionUI widgets in real-time. What you design is exactly what runs—no abstractions, no guesswork.</p>
+                            <p class="text-white/50 text-xs leading-relaxed">Renders actual widgets in real-time. What you design is exactly what runs—no abstractions, no guesswork.</p>
                         </div>
                         <div class="glass-pill rounded-xl p-5">
                             <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
                                 <span class="material-symbols-outlined text-[20px]">hub</span>
                             </div>
                             <h4 class="font-bold text-sm mb-1">Unified Frontend + Backend</h4>
-                            <p class="text-white/50 text-xs leading-relaxed">Toggle seamlessly between visual canvas and Python code editor. Connect UI events to backend logic with a single click through the event/action system.</p>
+                            <p class="text-white/50 text-xs leading-relaxed">Seamlessly toggle between visual canvas and code. Connect UI events to backend logic instantly with our one-click action system.</p>
                         </div>
                         <div class="glass-pill rounded-xl p-5">
                             <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
                                 <span class="material-symbols-outlined text-[20px]">smart_toy</span>
                             </div>
                             <h4 class="font-bold text-sm mb-1">AI MCP Tools & Agent</h4>
-                            <p class="text-white/50 text-xs leading-relaxed">Built-in AI chat agent capable of manipulating your UI, writing event handlers, and refactoring code in real-time. Understands both your design and logic.</p>
+                            <p class="text-white/50 text-xs leading-relaxed">A built-in AI agent that manipulates UI, writes event handlers, and refactors code in real-time based on your design.</p>
                         </div>
                         <div class="glass-pill rounded-xl p-5">
                             <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
                                 <span class="material-symbols-outlined text-[20px]">build_circle</span>
                             </div>
                             <h4 class="font-bold text-sm mb-1">Automated Build Pipeline</h4>
-                            <p class="text-white/50 text-xs leading-relaxed">One-click to compile with Nuitka, obfuscate code, pack resources, and generate portable single-file executables ready for distribution.</p>
+                            <p class="text-white/50 text-xs leading-relaxed">One-click compilation via Nuitka. Automatically obfuscate code, pack resources, and generate secure, portable executables.</p>
                         </div>
                     </div>
 
