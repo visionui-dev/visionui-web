@@ -50,7 +50,7 @@ function injectNavbar() {
     }
 
     const navHTML = `
-    <nav class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-2 sm:px-4" style="visibility: visible; opacity: 1;">
+    <nav class="fixed bottom-4 sm:bottom-auto sm:top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-2 sm:px-4" style="visibility: visible; opacity: 1;">
         <div class="glass-nav glass-navbar glass-pill rounded-full px-3 sm:px-[1.65rem] py-2 sm:py-[0.825rem] flex items-center justify-between shadow-2xl relative">
             <div class="absolute inset-0 rounded-full pointer-events-none" style="padding: 1.5px; background: linear-gradient(173deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 14%, rgba(255,255,255,0) 86%, rgba(255,255,255,0.25) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude;"></div>
             <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0 group">
