@@ -85,7 +85,7 @@
 
           // Combinar ambos: Fresnel muy suave + Especular fuerte direccional
           // Reducido al 70% de su intensidad anterior como solicitaste.
-          highlight = (fresnel * 0.028) + (fresnel * spec * 0.175); 
+          highlight = 0; // Removed bevel and specular as requested 
 
           // --- ANTI-ALIASING DEL BORDE (Fix Pixelado) ---
           // Suaviza la transición justo en el borde del cristal (d = 0) a lo largo de 1.5 píxeles
@@ -298,7 +298,7 @@
     nav.style.webkitBackdropFilter = nav.style.backdropFilter;
     
     // Solo un ligerísimo borde para estructurar
-    nav.style.border = "1px solid rgba(255, 255, 255, 0.03)";
+    // nav.style.border = "1px solid rgba(255, 255, 255, 0.03)";
 
     function onScroll() {
       if (window.scrollY > 60) {
