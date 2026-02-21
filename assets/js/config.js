@@ -52,7 +52,7 @@ window.VISIONUI_LINKS = {
     demoVideoUrl: '',
 
     websiteUrl: 'https://visionui.app',
-    discordUrl: 'https://discord.gg/visionui',
+    discordUrl: 'https://discord.gg/vision_ui',
 
     xUrl: 'https://x.com/vision_ui',
     youtubeUrl: '',
