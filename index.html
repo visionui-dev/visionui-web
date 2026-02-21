@@ -29,14 +29,21 @@
     <script src="assets/js/tailwind-config.js"></script>
     <style>
         body { font-family: 'Space Grotesk', sans-serif; }
-        @keyframes gradient-shift {
+        /* Gradiente animado estilo Liquid Glass, infinito y suave */
+        @keyframes liquid-gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         .animate-gradient-text {
-            background-size: 200% auto;
-            animation: gradient-shift 8s ease-in-out infinite;
+            background: linear-gradient(110deg, #C6FFF2 0%, #C6FFF2 35%, #46FED6 65%, #C6FFF2 100%);
+            background-size: 250% 100%;
+            background-position: 0% 50%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: liquid-gradient 6s ease-in-out infinite;
         }
         /* Prevent GSAP flash of unstyled content */
         .hero-gradient, .inline-flex.items-center.gap-2, h1, h1 + p, .flex.flex-col.sm\\:flex-row.gap-3 a, .hero-gradient + div > div:last-child, .feature-card, #studio .grid.lg\\:grid-cols-\\[420px_1fr\\] > div:first-child, .glass-pill, #waitlistForm, nav {
@@ -123,8 +130,8 @@
             FRAMEWORK READY
         </div>
         <h1 class="text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tight mb-8 leading-none max-w-5xl flex flex-col -space-y-1">
-            <span class="text-[#f8fafc] whitespace-nowrap">Desktop UI, reimagined to the impossible.</span>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#d1fae5] via-[#2dd4bf] to-[#60a5fa] pb-1 animate-gradient-text">Widget-centric. Designed visually. Powered by AI.</span>
+            <span class="text-[#f8fafc] whitespace-nowrap">The <span class="animate-gradient-text inline-block">impossible</span> Desktop UI, reimagined.</span>
+            <span class="pb-1 text-slate-200">Build visually, ship with AI.</span>
         </h1>
         <p class="text-sm md:text-base lg:text-lg text-slate-400 max-w-2xl mb-8 font-medium leading-relaxed">
             The ultimate Python desktop framework. Skip Qt complexity and build production-ready apps in record time using 60+ components and an AI-powered Visual IDE.
