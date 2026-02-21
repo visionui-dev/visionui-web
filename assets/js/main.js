@@ -20,7 +20,6 @@ function init() {
     initAnimations();
     initFormHandling();
     initMockupInteractions();
-    initParticleSystem();
     initPerformanceOptimizations();
 
     // Log initialization
@@ -426,54 +425,6 @@ function initMockupInteractions() {
 }
 
 // ==================================================
-// PARTICLE SYSTEM
-// ==================================================
-
-function initParticleSystem() {
-    // Create particle container
-    const particleContainer = document.createElement('div');
-    particleContainer.className = 'particle-container';
-    document.body.appendChild(particleContainer);
-
-    // Create particles
-    for (let i = 0; i < 30; i++) {
-        createParticle(particleContainer, i);
-    }
-
-    function createParticle(container, index) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-
-        // Random horizontal position
-        particle.style.left = Math.random() * 100 + '%';
-        
-        // Start from bottom
-        particle.style.bottom = '-10px';
-        
-        // Random animation delay for stagger effect
-        particle.style.animationDelay = (Math.random() * 6) + 's';
-        
-        // Slight variation in animation duration
-        particle.style.animationDuration = (7 + Math.random() * 2) + 's';
-        
-        // Random size variation
-        const size = 2 + Math.random() * 2;
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-
-        container.appendChild(particle);
-
-        // Remove and recreate after animation completes
-        const duration = parseFloat(particle.style.animationDuration) * 1000;
-        const delay = parseFloat(particle.style.animationDelay) * 1000;
-        setTimeout(() => {
-            particle.remove();
-            createParticle(container, index);
-        }, duration + delay);
-    }
-}
-
-// ==================================================
 // NOTIFICATION SYSTEM
 // ==================================================
 
@@ -742,56 +693,12 @@ style.textContent = `
         }
     }
 
-    @keyframes particle-float {
-        0% { 
-            transform: translateY(100vh) translateX(0) scale(0);
-            opacity: 0;
-        }
-        10% { 
-            opacity: 0.6;
-            transform: translateY(90vh) translateX(10px) scale(1);
-        }
-        50% { 
-            opacity: 0.8;
-            transform: translateY(50vh) translateX(-5px) scale(1);
-        }
-        90% { 
-            opacity: 0.6;
-            transform: translateY(10vh) translateX(8px) scale(1);
-        }
-        100% { 
-            transform: translateY(-5vh) translateX(0) scale(0);
-            opacity: 0;
-        }
-    }
-
     .floating {
         animation: floating 3s ease-in-out infinite;
     }
 
     .pulse-glow {
         animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    .particle {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        background: radial-gradient(circle, rgba(61, 216, 216, 0.8), rgba(61, 216, 216, 0.2));
-        border-radius: 50%;
-        animation: particle-float 8s ease-in-out infinite;
-        pointer-events: none;
-        will-change: transform, opacity;
-    }
-
-    .particle-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
     }
 
     .notification {
