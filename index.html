@@ -634,7 +634,7 @@
         }
     });
 
-    // ── Auth State ────────────────────────────────────────────────
+    // ── Auth State (runs when navbar ready; onAuthChange fires on init + login/logout) ──
     if (typeof VUIAuth !== 'undefined' && VUIAuth.onAuthChange) {
         VUIAuth.onAuthChange(function(user) {
             const btn = document.getElementById('accountBtn');
@@ -646,27 +646,24 @@
             const mobileLink = document.getElementById('mobileAccountLink');
 
             if (user) {
-                const name = user.display_name || user.email.split('@')[0];
-                const initials = name.charAt(0).toUpperCase();
+                const name = user.display_name || (user.email ? user.email.split('@')[0] : '');
+                const initials = name ? name.charAt(0).toUpperCase() : '?';
 
-                btnAvatar.textContent = initials;
-                btnAvatar.classList.remove('hidden');
-                btnText.textContent = name.length > 12 ? name.substring(0, 12) + '…' : name;
+                if (btnAvatar) { btnAvatar.textContent = initials; btnAvatar.classList.remove('hidden'); }
+                if (btnText) btnText.textContent = name.length > 12 ? name.substring(0, 12) + '…' : name;
+                const dropName = document.getElementById('dropdownUserName');
+                if (dropName) dropName.textContent = user.display_name || name;
+                const dropEmail = document.getElementById('dropdownUserEmail');
+                if (dropEmail) dropEmail.textContent = user.email || '';
 
-                document.getElementById('dropdownUserName').textContent = user.display_name || name;
-                document.getElementById('dropdownUserEmail').textContent = user.email;
-
-                guestArea.classList.add('hidden');
-                userArea.classList.remove('hidden');
-
-                if (mobileLink) {
-                    mobileLink.innerHTML = `<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-background-dark text-xs font-bold">${initials}</div><span class="text-[10px] font-semibold text-primary">Account</span>`;
-                }
+                if (guestArea) guestArea.classList.add('hidden');
+                if (userArea) userArea.classList.remove('hidden');
+                if (mobileLink) mobileLink.innerHTML = `<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-background-dark text-xs font-bold">${initials}</div><span class="text-[10px] font-semibold text-primary">Account</span>`;
             } else {
-                btnAvatar.classList.add('hidden');
-                btnText.textContent = 'My Account';
-                guestArea.classList.remove('hidden');
-                userArea.classList.add('hidden');
+                if (btnAvatar) btnAvatar.classList.add('hidden');
+                if (btnText) btnText.textContent = 'My Account';
+                if (guestArea) guestArea.classList.remove('hidden');
+                if (userArea) userArea.classList.add('hidden');
             }
         });
     }
