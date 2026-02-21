@@ -36,6 +36,7 @@ function initExternalLinks() {
     const linkMap = {
         demoDownload: links.demoDownloadUrl,
         x: links.xUrl,
+        discord: links.discordUrl,
         youtube: links.youtubeUrl,
         tiktok: links.tiktokUrl
     };
