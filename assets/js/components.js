@@ -52,17 +52,28 @@ function injectNavbar() {
     const navHTML = `
     <nav class="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-2 sm:px-4" style="visibility: visible; opacity: 1;">
         <div class="glass-nav glass-navbar glass-pill rounded-full px-3 sm:px-[1.65rem] py-2 sm:py-[0.825rem] flex items-center justify-between shadow-2xl relative">
-            <a href="index.html" class="flex items-center gap-1.5 sm:gap-2 no-underline flex-shrink-0">
-                <div class="text-primary">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+            <div class="absolute inset-0 rounded-full pointer-events-none" style="padding: 1.5px; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(255,255,255,0.4) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude;"></div>
+            <a href="index.html" class="flex items-center gap-2 no-underline flex-shrink-0 group">
+                <div class="text-primary relative flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7">
+                    <!-- Generic Modern 'V' Logo for VisionUI -->
+                    <div class="absolute inset-0 bg-primary/20 rounded-lg rotate-3 group-hover:rotate-6 transition-transform"></div>
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 relative z-10 drop-shadow-[0_0_8px_rgba(59,216,216,0.5)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21L3 5H7.5L12 15.5L16.5 5H21L12 21Z" fill="url(#vui-gradient)"/>
+                        <path d="M12 13L8 5H12L12 13Z" fill="white" opacity="0.3"/>
+                        <defs>
+                            <linearGradient id="vui-gradient" x1="3" y1="5" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#ffffff"/>
+                                <stop offset="1" stop-color="#3bd8d8"/>
+                            </linearGradient>
+                        </defs>
                     </svg>
                 </div>
-                <span class="font-bold tracking-tight text-white text-[0.96rem] sm:text-[1.1rem]">
+                <span class="font-bold tracking-tight text-white text-[1rem] sm:text-[1.15rem]">
                     <span class="hidden sm:inline">VisionUI</span>
                     <span class="sm:hidden">VUI</span>
                 </span>
             </a>
+            <div class="hidden sm:block w-[1px] h-5 bg-white/10 mx-1"></div>
             <div id="navLinks" class="flex items-center gap-3 min-[400px]:gap-4 sm:gap-5 text-[0.8rem] min-[400px]:text-[0.85rem] sm:text-[0.96rem] font-medium">
                 <a class="nav-item-glow py-1" href="index.html#features">Features</a>
                 <a class="nav-item-glow py-1" href="store.html">Apps</a>
