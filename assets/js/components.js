@@ -34,6 +34,9 @@ function injectNavbar() {
                 color: #ffffff;
                 text-shadow: 0 0 5px rgba(255, 255, 255, 0.27), 0 0 10px rgba(181, 241, 255, 0.21);
             }
+            .nav-item-glow.active-nav-link {
+                color: #ffffff;
+            }
             .nav-account.logged-in { background: rgba(59,216,216,0.15); border: 1px solid rgba(59,216,216,0.3); color: white; }
             .user-dropdown { position: absolute; top: 100%; right: 0; margin-top: 0.5rem; background: #222; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; min-width: 220px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s; z-index: 1000; overflow: hidden; }
             .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
@@ -49,6 +52,9 @@ function injectNavbar() {
         document.head.insertAdjacentHTML('beforeend', styleHTML);
     }
 
+    // Active link highlighting based on current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
     const navHTML = `
     <nav class="fixed bottom-4 sm:bottom-auto sm:top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[52.8rem] px-2 sm:px-4" style="visibility: visible; opacity: 1;">
         <div class="glass-nav glass-navbar glass-pill rounded-full px-3 sm:px-[1.65rem] py-2 sm:py-[0.825rem] flex items-center justify-between shadow-2xl relative">
@@ -75,10 +81,10 @@ function injectNavbar() {
             </a>
             <div class="hidden sm:block w-[1px] h-5 bg-white/10 mx-1"></div>
             <div id="navLinks" class="flex items-center gap-3 min-[400px]:gap-4 sm:gap-5 text-[0.8rem] min-[400px]:text-[0.85rem] sm:text-[0.96rem] font-medium">
-                <a class="nav-item-glow py-1" href="index.html#features">Features</a>
-                <a class="nav-item-glow py-1" href="store.html">Apps</a>
-                <a class="nav-item-glow py-1 hidden min-[360px]:inline" href="showcase.html">Showcase</a>
-                <a class="nav-item-glow py-1" href="docs.html">Docs</a>
+                <a class="nav-item-glow py-1 ${currentPage === 'index.html' && window.location.hash !== '#features' ? '' : ''}" href="index.html#features">Features</a>
+                <a class="nav-item-glow py-1 ${currentPage === 'store.html' || currentPage === 'store' ? 'active-nav-link' : ''}" href="store.html">Apps</a>
+                <a class="nav-item-glow py-1 hidden min-[360px]:inline ${currentPage === 'showcase.html' || currentPage === 'showcase' ? 'active-nav-link' : ''}" href="showcase.html">Showcase</a>
+                <a class="nav-item-glow py-1 ${currentPage === 'docs.html' || currentPage === 'docs' ? 'active-nav-link' : ''}" href="docs.html">Docs</a>
             </div>
             <div class="nav-right relative flex items-center gap-2 flex-shrink-0">
                 <a href="account.html" id="accountBtn" class="nav-account flex items-center justify-center gap-1.5 bg-primary text-background-dark px-[0.6rem] sm:px-[1.375rem] py-[0.45rem] sm:py-[0.55rem] rounded-full text-[0.9rem] sm:text-[0.96rem] font-bold hover:brightness-110 transition-all no-underline shadow-[0_0_15px_rgba(59,216,216,0.3)]">
