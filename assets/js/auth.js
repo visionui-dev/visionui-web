@@ -53,6 +53,24 @@ const VUIAuth = {
         return session?.user || null;
     },
 
+    // Get token (for API requests)
+    getToken() {
+        return this.getSession()?.token || null;
+    },
+
+    // Auth change listeners (index, store rely on this)
+    _authChangeCallbacks: [],
+    onAuthChange(callback) {
+        if (typeof callback === 'function') this._authChangeCallbacks.push(callback);
+        const user = this.getUser();
+        if (user) callback({ email: user.email, name: user.name, display_name: user.name || (user.email ? user.email.split('@')[0] : '') });
+    },
+    _notifyAuthChange() {
+        const user = this.getUser();
+        const payload = user ? { email: user.email, name: user.name, display_name: user.name || (user.email ? user.email.split('@')[0] : '') } : null;
+        this._authChangeCallbacks.forEach(cb => { try { cb(payload); } catch (e) { console.error(e); } });
+    },
+
     // Validate session with backend
     async validateSession() {
         const session = this.getSession();
@@ -81,6 +99,7 @@ const VUIAuth = {
             } else {
                 // Session invalid
                 this.clearSession();
+                this._notifyAuthChange();
                 return false;
             }
         } catch (e) {
@@ -115,6 +134,7 @@ const VUIAuth = {
                 license_type: data.license_type,
                 email_verified: data.email_verified
             });
+            this._notifyAuthChange();
             return { success: true, user: data };
         }
 
@@ -145,6 +165,7 @@ const VUIAuth = {
                     email_verified: data.email_verified ?? true
                 });
                 console.log('[VUIAuth] Google login successful');
+                this._notifyAuthChange();
                 return { success: true, user: data };
             }
 
@@ -180,6 +201,7 @@ const VUIAuth = {
                 name: data.name,
                 has_license: false
             });
+            this._notifyAuthChange();
             return { success: true, user: data };
         }
 
@@ -203,6 +225,7 @@ const VUIAuth = {
             }
         }
         this.clearSession();
+        this._notifyAuthChange();
     },
 
     // Request password reset
@@ -425,11 +448,14 @@ const VUIAuthUI = {
             this.createUserDropdown();
             // Validate session in background
             VUIAuth.validateSession().then(valid => {
-                if (!valid) {
-                    this.updateNavbar();
-                }
+                if (!valid) this.updateNavbar();
             });
         }
+        // Re-update navbar when it's injected (components.js loads after auth)
+        document.addEventListener('vui-navbar-loaded', () => {
+            this.updateNavbar();
+            VUIAuth._notifyAuthChange(); // Re-run onAuthChange callbacks so index/store update their UI
+        });
     }
 };
 
