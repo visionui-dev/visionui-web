@@ -20,6 +20,9 @@
     <script defer src="assets/js/smooth-navigation.js"></script>
     <!-- Card Hover Glow -->
     <script defer src="assets/js/card-hover-glow.js"></script>
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="assets/js/tailwind-config.js"></script>
     <style>
@@ -51,15 +54,42 @@
             z-index: -1; pointer-events: none;
         }
         .app-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(20, 24, 24, 0.75);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .app-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 0 25px rgba(59, 216, 216, 0.15);
+            box-shadow: 0 0 25px rgba(59, 216, 216, 0.12);
+            border-color: rgba(59, 216, 216, 0.25) !important;
+        }
+        .app-card .border-white\/5 {
+            border-color: rgba(255, 255, 255, 0.06) !important;
+        }
+        /* Glow en botones dentro de las cards */
+        .app-card .app-actions a:hover,
+        .app-card .app-actions button:not(:disabled):hover {
+            box-shadow: 0 0 18px rgba(59, 216, 216, 0.35);
+        }
+        /* Coming Soon botón: gris sin borde llamativo */
+        .app-card button[disabled], .app-card button[aria-disabled="true"] {
+            background: rgba(255,255,255,0.04) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            color: rgba(255,255,255,0.25) !important;
+            box-shadow: none !important;
+            cursor: not-allowed !important;
+        }
+        /* Step cards con fondo visible */
+        .step-card {
+            background: rgba(20, 28, 28, 0.6) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 216, 216, 0.12) !important;
+            transition: all 0.3s ease;
+        }
+        .step-card:hover {
             border-color: rgba(59, 216, 216, 0.3) !important;
+            box-shadow: 0 0 20px rgba(59, 216, 216, 0.08);
         }
         @media (max-width: 640px) {
         }
@@ -83,17 +113,6 @@
             display: inline-block;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        /* How-it-works cards */
-        .step-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-        .step-card:hover {
-            border-color: rgba(59, 216, 216, 0.2);
-            box-shadow: 0 0 20px rgba(59, 216, 216, 0.06);
-        }
     </style>
 </head>
 <body class="bg-background-dark text-white antialiased selection:bg-primary/30 pb-24">
@@ -136,7 +155,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="appsGrid">
 
         <!-- VerseGlow - Bible Verses Widget (Free) -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="VerseGlow" data-pricing-model="free_only" data-category="free">
+        <div class="app-card bg-card-dark border border-white/5 rounded-xl p-6 flex flex-col" data-app="VerseGlow" data-pricing-model="coming_soon" data-category="free">
             <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a1a] to-[#0d1a0d] flex items-center justify-center text-6xl">✝️</div>
             <div class="flex-grow">
                 <div class="flex items-center gap-2 mb-3">
@@ -152,18 +171,18 @@
                     <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Always-on-top, liquid glass effects</li>
                 </ul>
             </div>
-            <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
+            <div class="flex items-center justify-between pt-4 border-t border-white/5">
                 <span class="text-lg font-bold text-emerald-400">Free</span>
                 <div class="app-actions">
-                    <a href="#" class="bg-primary text-background-dark px-5 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[16px]">download</span> Coming Soon
-                    </a>
+                    <button class="bg-white/5 border border-white/8 text-white/30 px-5 py-2 rounded-full text-xs font-bold flex items-center gap-1 cursor-not-allowed select-none" disabled aria-disabled="true">
+                        <span class="material-symbols-outlined text-[16px]">schedule</span> Coming Soon
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- BTC Pulse - Bitcoin Widget (Freemium) -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col" data-app="BTCPulse" data-pricing-model="freemium" data-category="freemium">
+        <div class="app-card bg-card-dark border border-white/5 rounded-xl p-6 flex flex-col" data-app="BTCPulse" data-pricing-model="freemium" data-category="freemium">
             <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a2a] to-[#111] flex items-center justify-center text-6xl">₿</div>
             <div class="flex-grow">
                 <div class="flex items-center gap-2 mb-3">
@@ -179,21 +198,21 @@
                     <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Liquid glass, resizable, always-on-top</li>
                 </ul>
             </div>
-            <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
+            <div class="flex items-center justify-between pt-4 border-t border-white/5">
                 <span class="text-lg font-bold">Free <span class="text-xs text-white/40 font-normal">+ Premium</span></span>
                 <div class="app-actions flex gap-2">
-                    <a href="#" class="bg-card-dark border border-border-subtle hover:border-primary/50 text-white px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">download</span> Download
+                    <a href="/api/app/download?app=BTCPulse" class="bg-card-dark border border-white/10 text-white px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">download</span> Free
                     </a>
-                    <button class="bg-primary text-background-dark px-4 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('BTCPulse', 4.99)">
-                        💎 Premium
+                    <button class="bg-primary text-background-dark px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1" onclick="openPurchaseModal('BTCPulse', 4.99)">
+                        <span class="material-symbols-outlined text-[14px]">workspace_premium</span> Premium
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- VUIStudio - Coming Soon -->
-        <div class="app-card bg-card-dark border border-border-subtle rounded-xl p-6 flex flex-col opacity-90" data-app="VUIStudio" data-pricing-model="coming_soon" data-category="premium">
+        <div class="app-card bg-card-dark border border-white/5 rounded-xl p-6 flex flex-col opacity-80" data-app="VUIStudio" data-pricing-model="coming_soon" data-category="premium">
             <div class="w-full aspect-video rounded-lg overflow-hidden mb-6 bg-gradient-to-br from-[#1a2a2a] to-[#111] flex items-center justify-center text-6xl">🎨</div>
             <div class="flex-grow">
                 <div class="flex items-center gap-2 mb-3">
@@ -209,11 +228,11 @@
                     <li class="text-xs text-white/50 flex items-center gap-2"><span class="text-primary">✓</span> Nuitka build, obfuscation, secure packaging</li>
                 </ul>
             </div>
-            <div class="flex items-center justify-between pt-4 border-t border-border-subtle">
+            <div class="flex items-center justify-between pt-4 border-t border-white/5">
                 <span class="text-lg font-bold text-white/40">TBD</span>
                 <div class="app-actions">
-                    <a href="index.html#studio" class="bg-card-dark border border-border-subtle text-white/70 px-5 py-2 rounded-full text-xs font-bold hover:border-primary/50 transition-all flex items-center gap-1">
-                        Join Waitlist
+                    <a href="index.html#studio" class="bg-card-dark border border-white/10 text-white/70 px-5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">notifications_active</span> Join Waitlist
                     </a>
                 </div>
             </div>
@@ -268,6 +287,8 @@
             </a>
         </div>
     </section>
+
+    </div>
 </main>
 
 <!-- Footer -->
@@ -275,35 +296,34 @@
 
 <!-- Purchase Modal -->
 <div class="modal-overlay" id="purchaseModal">
-    <div class="bg-[#1e1e1e] border border-white/10 rounded-xl max-w-md w-full p-8 relative shadow-2xl">
-        <button class="absolute top-4 right-4 text-white/40 hover:text-white text-2xl leading-none" onclick="closeModal()">&times;</button>
-        <h2 class="text-xl font-bold mb-1"><span data-i18n="purchase.title">Purchase</span> <span id="modalAppName"></span></h2>
-        
-        <!-- Logged in view -->
-        <div id="loggedInView" style="display: none;">
-            <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 mb-5 mt-4">
-                <p class="text-emerald-400 text-sm">✓ <span data-i18n="purchase.connected_as">Connected as:</span> <strong id="userEmailDisplay"></strong></p>
+        <div class="bg-[#1e1e1e] border border-white/10 rounded-xl max-w-md w-full p-8 relative shadow-2xl">
+            <button class="absolute top-4 right-4 text-white/40 hover:text-white text-2xl leading-none" onclick="closeModal()">&times;</button>
+            <h2 class="text-xl font-bold mb-1"><span data-i18n="purchase.title">Purchase</span> <span id="modalAppName"></span></h2>
+            <!-- Logged in view -->
+            <div id="loggedInView" style="display: none;">
+                <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 mb-5 mt-4">
+                    <p class="text-emerald-400 text-sm">✓ <span data-i18n="purchase.connected_as">Connected as:</span> <strong id="userEmailDisplay"></strong></p>
+                </div>
+                <p class="text-white/50 text-sm mb-5" data-i18n="purchase.license_sent_to">Your license will be sent to this email after payment.</p>
+                <div class="flex gap-3">
+                    <button type="button" class="flex-1 border border-white/10 text-white/70 py-3 rounded-full font-bold text-sm hover:bg-white/5 transition-all" onclick="closeModal()" data-i18n="purchase.cancel">Cancel</button>
+                    <button type="button" class="flex-1 bg-primary text-background-dark py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all" id="checkoutBtnLogged" onclick="proceedToCheckout()">
+                        <span id="btnTextLogged" data-i18n="purchase.continue">Continue to payment</span>
+                        <span class="spinner" id="btnSpinnerLogged" style="display: none;"></span>
+                    </button>
+                </div>
             </div>
-            <p class="text-white/50 text-sm mb-5" data-i18n="purchase.license_sent_to">Your license will be sent to this email after payment.</p>
-            <div class="flex gap-3">
-                <button type="button" class="flex-1 border border-white/10 text-white/70 py-3 rounded-full font-bold text-sm hover:bg-white/5 transition-all" onclick="closeModal()" data-i18n="purchase.cancel">Cancel</button>
-                <button type="button" class="flex-1 bg-primary text-background-dark py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all" id="checkoutBtnLogged" onclick="proceedToCheckout()">
-                    <span id="btnTextLogged" data-i18n="purchase.continue">Continue to payment</span>
-                    <span class="spinner" id="btnSpinnerLogged" style="display: none;"></span>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Guest view -->
-        <div id="guestView">
-            <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 mt-4 mb-5 text-center">
-                <p class="text-amber-300 font-medium text-sm mb-1">🔐 <span data-i18n="purchase.login_required">You need an account to purchase</span></p>
-                <p class="text-white/50 text-xs" data-i18n="purchase.login_required_desc">Create a free account or sign in to continue.</p>
-            </div>
-            <div class="flex flex-col gap-3">
-                <a href="account.html?redirect=store&app=" id="loginRedirectBtn" class="bg-primary text-background-dark py-3 rounded-full font-bold text-sm text-center hover:brightness-110 transition-all no-underline" data-i18n="auth.login">Sign in</a>
-                <a href="account.html?tab=register&redirect=store&app=" id="registerRedirectBtn" class="border border-white/10 text-white py-3 rounded-full font-bold text-sm text-center hover:bg-white/5 transition-all no-underline" data-i18n="auth.register">Create free account</a>
-                <button type="button" class="text-white/40 py-2 text-sm hover:text-white transition-colors" onclick="closeModal()" data-i18n="purchase.cancel">Cancel</button>
+            <!-- Guest view -->
+            <div id="guestView">
+                <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 mt-4 mb-5 text-center">
+                    <p class="text-amber-300 font-medium text-sm mb-1">🔐 <span data-i18n="purchase.login_required">You need an account to purchase</span></p>
+                    <p class="text-white/50 text-xs" data-i18n="purchase.login_required_desc">Create a free account or sign in to continue.</p>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <a href="account.html?redirect=store&app=" id="loginRedirectBtn" class="bg-primary text-background-dark py-3 rounded-full font-bold text-sm text-center hover:brightness-110 transition-all no-underline" data-i18n="auth.login">Sign in</a>
+                    <a href="account.html?tab=register&redirect=store&app=" id="registerRedirectBtn" class="border border-white/10 text-white py-3 rounded-full font-bold text-sm text-center hover:bg-white/5 transition-all no-underline" data-i18n="auth.register">Create free account</a>
+                    <button type="button" class="text-white/40 py-2 text-sm hover:text-white transition-colors" onclick="closeModal()" data-i18n="purchase.cancel">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
@@ -311,13 +331,13 @@
 
 <script src="assets/js/i18n.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/animations.js"></script>
 <script src="assets/js/auth.js"></script>
 <script>
     const API_BASE = 'https://admin.visionui.app';
     let currentApp = '';
     let currentPrice = 0;
 
-    // Filter apps
     function filterApps() {
         const q = document.getElementById('searchInput').value.toLowerCase();
         document.querySelectorAll('#appsGrid > div[data-app]').forEach(card => {
@@ -431,9 +451,10 @@
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-    document.getElementById('purchaseModal').addEventListener('click', e => {
-        if (e.target.id === 'purchaseModal') closeModal();
-    });
+    var _pmEl = document.getElementById('purchaseModal');
+    if (_pmEl) {
+        _pmEl.addEventListener('click', e => { if (e.target.id === 'purchaseModal') closeModal(); });
+    }
 
     async function loadAppConfigsAndUpdateButtons() {
         try {
@@ -460,26 +481,14 @@
                 if (!actionsDiv) continue;
                 if (hasPurchased) {
                     actionsDiv.innerHTML = '<span class="text-xs font-bold text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-full">✓ Already purchased</span>';
-                } else if (pricingModel === 'freemium') {
-                    actionsDiv.innerHTML = `
-                        <a href="/api/app/download?app=${encodeURIComponent(appName)}" class="bg-card-dark border border-border-subtle hover:border-primary/50 text-white px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">download</span> Free
-                        </a>
-                        <button class="bg-primary text-background-dark px-4 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('${appName}', 4.99)">
-                            💎 Premium
-                        </button>`;
-                } else if (pricingModel === 'free_only') {
-                    actionsDiv.innerHTML = `<a href="/api/app/download?app=${encodeURIComponent(appName)}" class="bg-primary text-background-dark px-5 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">download</span> Download</a>`;
-                } else {
-                    const priceEl = card.querySelector('.text-lg.font-bold');
-                    const price = priceEl ? priceEl.textContent.match(/[\d.]+/)?.[0] || '0' : '0';
-                    actionsDiv.innerHTML = `<button class="bg-primary text-background-dark px-5 py-2 rounded-full text-xs font-bold hover:brightness-110 transition-all" onclick="openPurchaseModal('${appName}', ${price})"><span data-i18n="store.buy">Buy</span></button>`;
                 }
             }
         } catch (e) { console.error('Error loading app configs:', e); }
     }
 
+    // Solo abrir modal si la URL tiene ?openApp= explícitamente (ej. redirect desde compra)
     document.addEventListener('DOMContentLoaded', () => {
+        loadAppConfigsAndUpdateButtons();
         const urlParams = new URLSearchParams(window.location.search);
         const openApp = urlParams.get('openApp');
         if (openApp) {
@@ -487,7 +496,6 @@
             const price = appPrices[openApp] ?? 0;
             if (price > 0) setTimeout(() => openPurchaseModal(openApp, price), 300);
         }
-        loadAppConfigsAndUpdateButtons();
         if (typeof VUIAuth !== 'undefined') {
             VUIAuth.onAuthChange(() => loadAppConfigsAndUpdateButtons());
         }
