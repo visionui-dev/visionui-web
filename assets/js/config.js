@@ -54,7 +54,7 @@ window.VISIONUI_LINKS = {
     websiteUrl: 'https://visionui.app',
     discordUrl: 'https://discord.gg/visionui',
 
-    xUrl: '',
+    xUrl: 'https://x.com/vision_ui',
     youtubeUrl: '',
     tiktokUrl: '',
     githubUrl: ''
