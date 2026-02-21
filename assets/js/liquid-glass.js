@@ -166,8 +166,7 @@ function initLiquidGlassNavbar() {
 
     // Lift existing navbar children above the rim
     Array.from(navbar.children).forEach(child => {
-        if (!child.classList.contains('vui-lg-rim') &&
-            !child.classList.contains('navbar-particles')) {
+        if (!child.classList.contains('vui-lg-rim')) {
             child.style.position = 'relative';
             child.style.zIndex   = '10';
         }
@@ -251,128 +250,11 @@ function initLiquidGlassNavbar() {
     requestAnimationFrame(animate);
 }
 
-// ─── Floating Bubbles Effect for Navbar ────────────────────────────────────
-function initNavbarParticles() {
-    const navbar = document.querySelector('.glass-nav');
-    if (!navbar) return;
-
-    // Don't add twice
-    if (navbar.querySelector('.navbar-particles')) return;
-
-    const particleContainer = document.createElement('div');
-    particleContainer.className = 'navbar-particles';
-    particleContainer.style.cssText = `
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        pointer-events: none;
-        z-index: 6;
-        overflow: hidden;
-        border-radius: inherit;
-    `;
-    navbar.appendChild(particleContainer);
-
-    class Bubble {
-        constructor(container) {
-            this.container = container;
-            this.el = document.createElement('div');
-            this.el.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                pointer-events: none;
-                will-change: transform, opacity, left, top;
-                transform: translateZ(0);
-                backface-visibility: hidden;
-            `;
-            container.appendChild(this.el);
-            this.reset(true);
-        }
-
-        reset(initial = false) {
-            this.size   = 2.5 + Math.random() * 2;
-            this.x      = 8 + Math.random() * 84;
-            this.y      = initial ? (20 + Math.random() * 60) : 108;
-            this.speed  = 0.12 + Math.random() * 0.08;  // Faster upward movement
-            this.driftA = 0.8 + Math.random() * 1.2;    // More horizontal drift
-            this.driftS = 0.015 + Math.random() * 0.012; // Faster oscillation
-            this.driftO = Math.random() * Math.PI * 2;
-            this.maxOp  = 0.35 + Math.random() * 0.15;
-            this.life   = 0;
-            this.fadeIn = 20;  // Faster fade in
-
-            const s = this.size;
-            this.el.style.width  = s + 'px';
-            this.el.style.height = s + 'px';
-            this.el.style.background = `radial-gradient(circle at 30% 30%,
-                rgba(140,255,255,0.95),
-                rgba(59,216,216,0.65) 50%,
-                rgba(59,216,216,0.25) 100%)`;
-            this.el.style.boxShadow = `0 0 ${s * 2}px rgba(59,216,216,0.45)`;
-        }
-
-        update() {
-            this.life++;
-            const progress = Math.max(0, (108 - this.y) / 118);
-            let op;
-            if (this.life < this.fadeIn) {
-                op = (this.life / this.fadeIn) * this.maxOp;
-            } else if (progress > 0.85) {
-                op = this.maxOp * (1 - (progress - 0.85) / 0.15);
-            } else {
-                op = this.maxOp;
-            }
-
-            // Smooth upward movement
-            this.y -= this.speed;
-            
-            // Enhanced horizontal drift with smooth oscillation
-            const driftPhase = this.life * this.driftS + this.driftO;
-            const dx = Math.sin(driftPhase) * this.driftA;
-            
-            // Apply transform for better performance (GPU accelerated)
-            this.el.style.transform = `translate(${dx}px, 0)`;
-            this.el.style.left = this.x + '%';
-            this.el.style.top = this.y + '%';
-            this.el.style.opacity = Math.max(0, op);
-
-            if (this.y < -6) { 
-                this.reset(false); 
-                this.life = 0; 
-            }
-        }
-
-        destroy() { this.el.remove(); }
-    }
-
-    const bubbles = Array.from({ length: 12 }, () => new Bubble(particleContainer));
-
-    let animId;
-    let lastTime = performance.now();
-    function animate(currentTime) {
-        const deltaTime = currentTime - lastTime;
-        lastTime = currentTime;
-        
-        // Update all bubbles
-        bubbles.forEach(b => b.update());
-        
-        // Use requestAnimationFrame for smooth 60fps
-        animId = requestAnimationFrame(animate);
-    }
-    animate(performance.now());
-
-    window.addEventListener('beforeunload', () => {
-        cancelAnimationFrame(animId);
-        bubbles.forEach(b => b.destroy());
-    });
-}
-
 // ─── Boot ──────────────────────────────────────────────────────────────────
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initLiquidGlassNavbar();
-        initNavbarParticles();
     });
 } else {
     initLiquidGlassNavbar();
-    initNavbarParticles();
 }
