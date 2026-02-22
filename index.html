@@ -132,6 +132,15 @@
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
+        /* Shake del botón Get VUI Apps - ángulo mitad, ritmo 40% más rápido */
+        @keyframes hero-cta-shake {
+            0%, 100% { transform: rotate(0); }
+            20% { transform: rotate(-1.5deg); }
+            40% { transform: rotate(1.5deg); }
+            60% { transform: rotate(-1deg); }
+            80% { transform: rotate(1deg); }
+        }
+        #hero-cta-wrapper.hero-cta-shake { animation: hero-cta-shake 0.27s ease-in-out; }
 
         /* Evitar flash de botones: wrapper empieza invisible */
         .hero-buttons-wrapper { opacity: 0; }
@@ -231,14 +240,18 @@
 
         /* VUI Studio mockup: drop-shadow, min-width ajustado al widget 90% + canvas 4px márgenes */
         .vui-mockup-inner { filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); min-width: 380px; }
-        /* Mobile: scale más agresivo para ver mockup completo (zoom out) */
+        /* Mobile: zoom out más agresivo para ver mockup completo sin recortes */
         @media (max-width: 767px) {
             .vui-mockup-mobile-hide { display: none !important; }
-            .vui-mockup-float-wrapper { overflow: hidden; }
+            .vui-mockup-float-wrapper {
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+            }
             .vui-mockup-wrapper {
                 width: 380px;
-                margin: 0 auto;
-                transform: scale(min(1, (100vw - 56px) / 380));
+                margin: 0;
+                transform: scale(min(1, 70vw / 380));
                 transform-origin: top center;
             }
         }
@@ -365,7 +378,7 @@
                         </button>
 
                         <!-- Floating Property Panel (hidden on mobile, posicionado ~100px bajo el widget) -->
-                        <div id="vui-properties-panel" class="vui-mockup-mobile-hide absolute right-4 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-lg p-3 w-36 shadow-lg cursor-grab active:cursor-grabbing select-none" style="top: calc(50% + 100px);">
+                        <div id="vui-properties-panel" class="vui-mockup-mobile-hide absolute right-4 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-lg p-3 w-36 shadow-lg cursor-grab active:cursor-grabbing select-none" style="top: calc(50% + 150px);">
                             <div class="text-[0.6rem] font-bold text-slate-500 mb-2">PROPERTIES</div>
                             <div class="flex justify-between items-center mb-1.5">
                                 <span class="text-[0.55rem] text-slate-400">Glass Intensity</span>
@@ -433,7 +446,7 @@
 </main>
 
 <!-- Powerful Features Section -->
-<section id="features" class="pt-[calc(4rem+50px)] pb-16 px-6">
+<section id="features" class="pt-[calc(4rem+80px)] pb-16 px-6">
     <div class="max-w-[1140px] mx-auto">
         <!-- Desktop: Side-by-side layout | Mobile: Stacked -->
         <div class="grid lg:grid-cols-[380px_1fr] gap-12 items-start">
