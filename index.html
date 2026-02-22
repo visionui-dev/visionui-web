@@ -216,6 +216,32 @@
         }
         .vui-btc-close:hover { color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); }
         .vui-btc-close .material-symbols-outlined { font-size: 16px; }
+        /* Cerrar ventanas (Properties, etc.) - mismo estilo que Bitcoin */
+        .vui-panel-close {
+            position: absolute; top: 8px; right: 8px;
+            width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent; border: none;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .vui-panel-close:hover { color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); }
+        .vui-panel-close .material-symbols-outlined { font-size: 14px; }
+        /* Botón ocultar panel izquierdo */
+        .vui-widgets-hide-btn {
+            position: absolute; bottom: 8px; right: 8px;
+            width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05); border: none;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .vui-widgets-hide-btn:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1); }
+        .vui-widgets-hide-btn .material-symbols-outlined { font-size: 14px; }
 
         /* Botón Launch on Desktop (70% tamaño, icono 80%) */
         .vui-mockup-launch-btn {
@@ -240,20 +266,31 @@
 
         /* VUI Studio mockup: drop-shadow, min-width ajustado al widget 90% + canvas 4px márgenes */
         .vui-mockup-inner { filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); min-width: 380px; }
-        /* Mobile: zoom out más agresivo para ver mockup completo sin recortes */
+        /* Mobile: imagen estática en lugar del mockup real */
+        .vui-mockup-static-mobile {
+            display: none;
+            width: 100%;
+            max-width: min(420px, 92vw);
+            margin: 0 auto;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+        .vui-mockup-static-mobile img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            vertical-align: bottom;
+        }
         @media (max-width: 767px) {
-            .vui-mockup-mobile-hide { display: none !important; }
-            .vui-mockup-float-wrapper {
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-            }
-            .vui-mockup-wrapper {
-                width: 380px;
-                margin: 0;
-                transform: scale(min(1, 70vw / 380));
-                transform-origin: top center;
-            }
+            .vui-mockup-static-mobile { display: block !important; }
+            .vui-mockup-wrapper { display: none !important; }
+        }
+        @media (min-width: 768px) {
+            .vui-mockup-static-mobile { display: none !important; }
+            .vui-mockup-wrapper { display: block; }
         }
     </style>
 </head>
@@ -301,8 +338,11 @@
             </a>
         </div>
 
-        <!-- Hero Visual Mockup (floating animation + scale en móvil) -->
+        <!-- Hero Visual Mockup: imagen estática en móvil, mockup real en desktop -->
         <div id="vui-mockup-float-wrapper" class="mt-10 w-full max-w-[90%] lg:max-w-[80%] mx-auto vui-mockup-float-wrapper">
+            <div class="vui-mockup-static-mobile" aria-hidden="true">
+                <img src="assets/images/vuistudio_mockup.png" alt="VUI Studio - Visual IDE con AI" loading="lazy" onerror="this.closest('.vui-mockup-static-mobile').style.display='none';document.querySelector('.vui-mockup-wrapper').style.display='block'">
+            </div>
             <div class="vui-mockup-wrapper">
             <div class="vui-mockup-inner relative aspect-[16/9] rounded-[30px] overflow-hidden bg-[#0d0d0d] flex flex-col border border-white/10">
                 <!-- VUI Studio Topbar -->
@@ -319,7 +359,7 @@
                 <!-- Main Workspace -->
                 <div class="flex-1 flex overflow-hidden">
                     <!-- Left: Widgets Panel (hidden on mobile) -->
-                    <div class="vui-mockup-mobile-hide w-48 border-r border-white/5 bg-[#121212] p-3 flex flex-col gap-4 overflow-hidden shrink-0">
+                    <div id="vui-widgets-panel" class="vui-mockup-mobile-hide w-48 border-r border-white/5 bg-[#121212] p-3 flex flex-col gap-4 overflow-hidden shrink-0 relative">
                         <div class="flex bg-[#1a1a1a] rounded-full p-0.5">
                             <div class="flex-1 text-[0.6rem] font-bold bg-[#242424] rounded-full text-white py-1 text-center border border-white/5 shadow-sm">WIDGETS</div>
                             <div class="flex-1 text-[0.6rem] font-bold text-primary py-1 text-center flex items-center justify-center gap-1">
@@ -342,6 +382,7 @@
                                 <div class="text-[0.6rem] text-slate-400 bg-white/5 rounded px-2 py-1.5 flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">grid_view</span> Geom</div>
                             </div>
                         </div>
+                        <button type="button" class="vui-widgets-hide-btn" aria-label="Ocultar panel" title="Ocultar panel"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></button>
                     </div>
 
                     <!-- Center: Visual Canvas -->
@@ -377,8 +418,9 @@
                             <span>Launch on Desktop</span>
                         </button>
 
-                        <!-- Floating Property Panel (hidden on mobile, posicionado ~100px bajo el widget) -->
-                        <div id="vui-properties-panel" class="vui-mockup-mobile-hide absolute right-4 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-lg p-3 w-36 shadow-lg cursor-grab active:cursor-grabbing select-none" style="top: calc(50% + 150px);">
+                        <!-- Floating Property Panel (hidden on mobile) -->
+                        <div id="vui-properties-panel" class="vui-mockup-mobile-hide absolute right-4 bg-[#141414]/90 backdrop-blur-md border border-white/10 rounded-lg p-3 w-36 shadow-lg cursor-grab active:cursor-grabbing select-none relative" style="top: calc(50% + 150px);">
+                            <button type="button" class="vui-panel-close" aria-label="Cerrar"><span class="material-symbols-outlined">close</span></button>
                             <div class="text-[0.6rem] font-bold text-slate-500 mb-2">PROPERTIES</div>
                             <div class="flex justify-between items-center mb-1.5">
                                 <span class="text-[0.55rem] text-slate-400">Glass Intensity</span>
