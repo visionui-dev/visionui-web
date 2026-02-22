@@ -2,6 +2,9 @@
  * VisionUI Advertising Module
  * Non-invasive ad integration with AdSense support
  * 
+ * AdSense policy: only show ads on pages with substantial original content.
+ * Excluded: privacy, terms, refunds (utility/legal), store/account (checkout).
+ * 
  * SETUP:
  * 1. Create a Google AdSense account: https://www.google.com/adsense/
  * 2. Add your domain and get approval
@@ -15,8 +18,8 @@ const ADS_CONFIG = {
     // Your AdSense Publisher ID
     PUBLISHER_ID: 'ca-pub-4576543194506330',
     
-    // Enable/disable ads globally
-    ENABLED: true,
+    // Enable/disable ads globally (disabled until AdSense approved for blog/content pages)
+    ENABLED: false,
     
     // Ad positions (conservative config for professional site)
     POSITIONS: {
@@ -32,7 +35,7 @@ const ADS_CONFIG = {
     // Minimum content height before showing in-content ads
     MIN_CONTENT_HEIGHT: 2000,
     
-    // Pages where ads should NOT appear (premium/checkout experience)
+    // Pages where ads should NOT appear (AdSense: no ads on low-content/utility pages)
     EXCLUDED_PAGES: [
         '/account.html',
         '/store.html',
@@ -40,7 +43,10 @@ const ADS_CONFIG = {
         '/setup-account.html',
         '/purchase-success.html',
         '/claim-license.html',
-        '/reset-password.html'
+        '/reset-password.html',
+        '/privacy.html',
+        '/terms.html',
+        '/refund-policy.html'
     ]
 };
 
