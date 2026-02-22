@@ -127,7 +127,7 @@ function injectFooter() {
     if (!document.getElementById('vui-footer-icon-styles')) {
         const style = document.createElement('style');
         style.id = 'vui-footer-icon-styles';
-        style.textContent = `.footer-brand-icon { filter: brightness(0) invert(0.65); transition: filter 0.2s; } a:hover .footer-brand-icon { filter: brightness(0) invert(1); }`;
+        style.textContent = `.footer-brand-icon { filter: brightness(0) invert(0.65); transition: filter 0.2s; opacity: 0.9; } a:hover .footer-brand-icon { filter: brightness(0) invert(0.85); opacity: 1; }`;
         document.head.appendChild(style);
     }
 
@@ -137,13 +137,13 @@ function injectFooter() {
             <span class="text-slate-500">© 2026 VUI Framework. All rights reserved.</span>
             <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6">
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-5">
-                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5" href="store.html"><span class="material-symbols-outlined text-[16px]">storefront</span>VUI Apps</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5 group" href="https://x.com/vision_ui" target="_blank" rel="noopener"><img src="assets/images/icons/x.svg" alt="" class="w-4 h-4 shrink-0 footer-brand-icon">X</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5 group" href="https://instagram.com/vision_ui" target="_blank" rel="noopener"><img src="assets/images/icons/instagram.svg" alt="" class="w-4 h-4 shrink-0 footer-brand-icon">Instagram</a>
-                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center gap-1.5 group" href="https://discord.gg/vision_ui" target="_blank" rel="noopener"><img src="assets/images/icons/discord.svg" alt="" class="w-4 h-4 shrink-0 footer-brand-icon">Discord</a>
+                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center group" href="https://x.com/vision_ui" target="_blank" rel="noopener" title="X"><img src="assets/images/icons/x.svg" alt="X" class="w-4 h-4 shrink-0 footer-brand-icon"></a>
+                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center group" href="https://instagram.com/vision_ui" target="_blank" rel="noopener" title="Instagram"><img src="assets/images/icons/instagram.svg" alt="Instagram" class="w-4 h-4 shrink-0 footer-brand-icon"></a>
+                    <a class="text-slate-500 hover:text-primary transition-colors flex items-center group" href="https://discord.gg/vision_ui" target="_blank" rel="noopener" title="Discord"><img src="assets/images/icons/discord.svg" alt="Discord" class="w-4 h-4 shrink-0 footer-brand-icon"></a>
                 </div>
                 <span class="hidden sm:inline w-px h-4 bg-white/10 flex-shrink-0"></span>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-5">
+                    <a class="text-slate-500 hover:text-primary transition-colors" href="store.html">VUI Apps</a>
                     <a class="text-slate-500 hover:text-primary transition-colors" href="docs.html">Docs</a>
                     <a class="text-slate-500 hover:text-primary transition-colors" href="privacy.html">Privacy</a>
                     <a class="text-slate-500 hover:text-primary transition-colors" href="terms.html">Terms</a>
