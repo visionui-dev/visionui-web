@@ -46,13 +46,18 @@ function runHeroRevealAfterTyping() {
     tl.add(() => {
         const btnWrapper = document.getElementById('hero-cta-wrapper');
         if (btnWrapper && window.gsap) {
-            function doShake() {
+            function singleShake() {
                 const t = gsap.timeline();
-                t.to(btnWrapper, { rotate: -4, duration: 0.04 })
-                  .to(btnWrapper, { rotate: 4, duration: 0.04 })
-                  .to(btnWrapper, { rotate: -3, duration: 0.04 })
-                  .to(btnWrapper, { rotate: 3, duration: 0.04 })
-                  .to(btnWrapper, { rotate: 0, duration: 0.04 });
+                t.to(btnWrapper, { rotate: -4, duration: 0.05 })
+                  .to(btnWrapper, { rotate: 4, duration: 0.05 })
+                  .to(btnWrapper, { rotate: -3, duration: 0.05 })
+                  .to(btnWrapper, { rotate: 3, duration: 0.05 })
+                  .to(btnWrapper, { rotate: 0, duration: 0.05 });
+                return t;
+            }
+            function doShake() {
+                const tl = gsap.timeline();
+                tl.add(singleShake()).delay(0.35).add(singleShake());
             }
             doShake();
             setInterval(doShake, 4000);
