@@ -48,11 +48,11 @@ function runHeroRevealAfterTyping() {
         if (btnWrapper && window.gsap) {
             function singleShake() {
                 const t = gsap.timeline();
-                t.to(btnWrapper, { rotate: -4, duration: 0.05 })
-                  .to(btnWrapper, { rotate: 4, duration: 0.05 })
-                  .to(btnWrapper, { rotate: -3, duration: 0.05 })
-                  .to(btnWrapper, { rotate: 3, duration: 0.05 })
-                  .to(btnWrapper, { rotate: 0, duration: 0.05 });
+                t.to(btnWrapper, { rotate: -3, duration: 0.08, ease: 'sine.inOut' })
+                  .to(btnWrapper, { rotate: 3, duration: 0.08, ease: 'sine.inOut' })
+                  .to(btnWrapper, { rotate: -2, duration: 0.08, ease: 'sine.inOut' })
+                  .to(btnWrapper, { rotate: 2, duration: 0.08, ease: 'sine.inOut' })
+                  .to(btnWrapper, { rotate: 0, duration: 0.08, ease: 'sine.inOut' });
                 return t;
             }
             function doShake() {
