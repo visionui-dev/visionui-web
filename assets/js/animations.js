@@ -21,9 +21,11 @@ function initHeroTyping(onComplete) {
             container.dataset.typed = 'done';
             // Gradient a "impossible" y ocultar cursor
             const html = container.innerHTML
-                .replace('impossible', '<span class="animate-gradient-text">impossible</span>');
+                .replace('impossible', '<span class="animate-gradient-text">impossible</span>')
+                .replace('reimagined', '<span id="hero-reimagined" class="hero-chroma-word">reimagined</span>');
             container.innerHTML = html;
             if (cursor) cursor.classList.add('hero-cursor-done');
+            document.dispatchEvent(new CustomEvent('vui:typing:done'));
             if (typeof onComplete === 'function') onComplete();
         }
     }
@@ -42,18 +44,18 @@ function runHeroRevealAfterTyping() {
       .fromTo('h1 + p', { opacity: 0, y: 15 }, { opacity: 1, y: 0 }, "-=0.7")
       .fromTo('.hero-buttons-wrapper', { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.6");
     tl.add(() => {
-        const btn = document.getElementById('hero-cta-btn');
-        if (btn && window.gsap) {
-            gsap.to(btn, {
-                y: -8,
-                duration: 3,
-                ease: 'power1.inOut',
+        const btnWrapper = document.getElementById('hero-cta-wrapper');
+        if (btnWrapper && window.gsap) {
+            gsap.to(btnWrapper, {
+                y: -10,
+                duration: 3.5,
+                ease: 'sine.inOut',
                 yoyo: true,
                 repeat: -1,
-                repeatDelay: 2.5
+                repeatDelay: 0.8
             });
         }
-    });
+    }, "-=0.2");
     const mockup = document.querySelector('.hero-gradient + div > div:last-child');
     if (mockup && mockup.querySelector('.aspect-\\[16\\/9\\]')) {
         gsap.set(mockup, { visibility: 'visible' });
