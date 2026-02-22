@@ -42,8 +42,8 @@ function injectNavbar() {
             .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
             /* Nav móvil: textos más pequeños para evitar pegados a VUI y Account */
             @media (max-width: 639px) {
-                #navLinks .nav-item-glow { font-size: 0.8rem !important; }
-                #navLinks { gap: 0.6rem !important; }
+                #navLinks .nav-item-glow { font-size: 0.88rem !important; }
+                #navLinks { gap: 0.65rem !important; }
             }
             /* Mobile bottom nav */
             .mobile-bottom-nav {
