@@ -127,7 +127,7 @@
     <div class="max-w-[1140px] mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold mb-8 uppercase tracking-widest mt-8 sm:mt-12">
             <span class="material-symbols-outlined text-[14px]">storefront</span>
-            Apps
+            VUI Apps
         </div>
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-[1.1]">
             Discover <span class="animate-gradient-text inline-block">Premium</span> Apps
@@ -240,6 +240,18 @@
 
     </div>
 
+    <!-- Trust badges -->
+    <div class="flex flex-wrap justify-center items-center gap-8 py-10 text-xs text-slate-500 border-y border-white/5 mt-12">
+        <span class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-primary">lock</span>
+            Secure checkout via Lemon Squeezy
+        </span>
+        <a href="refund-policy.html" class="flex items-center gap-2 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[18px] text-primary">replay</span>
+            14-day refund policy
+        </a>
+    </div>
+
     <!-- How it Works -->
     <section id="how-it-works" class="mt-24">
         <div class="text-center mb-12">
@@ -312,6 +324,10 @@
                         <span class="spinner" id="btnSpinnerLogged" style="display: none;"></span>
                     </button>
                 </div>
+                <p class="text-slate-500 text-xs mt-4 flex items-center justify-center gap-4">
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">lock</span> Secure checkout</span>
+                    <a href="refund-policy.html" class="flex items-center gap-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[14px] text-primary">replay</span> Refund policy</a>
+                </p>
             </div>
             <!-- Guest view -->
             <div id="guestView">
@@ -324,6 +340,10 @@
                     <a href="account.html?tab=register&redirect=store&app=" id="registerRedirectBtn" class="border border-white/10 text-white py-3 rounded-full font-bold text-sm text-center hover:bg-white/5 transition-all no-underline" data-i18n="auth.register">Create free account</a>
                     <button type="button" class="text-white/40 py-2 text-sm hover:text-white transition-colors" onclick="closeModal()" data-i18n="purchase.cancel">Cancel</button>
                 </div>
+                <p class="text-slate-500 text-xs mt-4 flex items-center justify-center gap-4">
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">lock</span> Secure checkout</span>
+                    <a href="refund-policy.html" class="flex items-center gap-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[14px] text-primary">replay</span> Refund policy</a>
+                </p>
             </div>
         </div>
     </div>
