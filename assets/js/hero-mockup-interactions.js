@@ -148,8 +148,16 @@
             panel.style.top = top + 'px';
         }
 
+        panel.querySelector('.vui-panel-close')?.addEventListener('click', function(e) {
+            e.stopPropagation();
+            panel.style.opacity = '0';
+            panel.style.pointerEvents = 'none';
+            setTimeout(function() { panel.style.display = 'none'; }, 300);
+        });
+
         panel.addEventListener('mousedown', function(e) {
             if (e.button !== 0) return;
+            if (e.target.closest('.vui-panel-close')) return;
             e.preventDefault();
             startMouseX = e.clientX;
             startMouseY = e.clientY;
@@ -163,6 +171,7 @@
 
         panel.addEventListener('touchstart', function(e) {
             if (e.touches.length !== 1) return;
+            if (e.target.closest('.vui-panel-close')) return;
             e.preventDefault();
             startMouseX = e.touches[0].clientX;
             startMouseY = e.touches[0].clientY;
@@ -196,10 +205,28 @@
         }
     }
 
+    function initWidgetsPanel() {
+        const panel = document.getElementById('vui-widgets-panel');
+        const btn = panel?.querySelector('.vui-widgets-hide-btn');
+        if (!panel || !btn) return;
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            panel.style.opacity = '0';
+            panel.style.width = '0';
+            panel.style.minWidth = '0';
+            panel.style.padding = '0';
+            panel.style.overflow = 'hidden';
+            panel.style.pointerEvents = 'none';
+            panel.style.borderRight = 'none';
+            setTimeout(function() { panel.style.display = 'none'; }, 300);
+        });
+    }
+
     function init() {
         initSliders();
         initBitcoinWidget();
         initPropertiesPanel();
+        initWidgetsPanel();
     }
 
     if (document.readyState === 'loading') {
