@@ -55,6 +55,17 @@ function runHeroRevealAfterTyping() {
                 repeatDelay: 0.8
             });
         }
+        const mockupWrapper = document.getElementById('vui-mockup-float-wrapper');
+        if (mockupWrapper && window.gsap) {
+            gsap.to(mockupWrapper, {
+                y: -10,
+                duration: 3.5,
+                ease: 'sine.inOut',
+                yoyo: true,
+                repeat: -1,
+                repeatDelay: 0.8
+            });
+        }
     }, "-=0.2");
     const mockup = document.querySelector('.hero-gradient + div > div:last-child');
     if (mockup && mockup.querySelector('.aspect-\\[16\\/9\\]')) {
