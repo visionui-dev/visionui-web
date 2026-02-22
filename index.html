@@ -158,16 +158,16 @@
             user-select: none;
         }
 
-        /* Bitcoin widget - 200x160 (80% de 250x200), efecto glass, frame gradiente */
+        /* Bitcoin widget - 180x144 (90% de 200x160), efecto glass, frame gradiente */
         .vui-btc-widget { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); margin: 0; transition: opacity 0.3s ease; }
         .vui-btc-widget-frame {
-            width: 200px; height: 160px;
+            width: 180px; height: 144px;
             position: relative;
-            border-radius: 28px;
+            border-radius: 25px;
         }
         .vui-btc-widget-glass {
             width: 100%; height: 100%;
-            border-radius: 28px;
+            border-radius: 25px;
             background: rgba(26, 26, 26, 0.4);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -175,7 +175,7 @@
             overflow: hidden;
         }
         .vui-btc-frame-border {
-            position: absolute; inset: 0; border-radius: 28px; pointer-events: none;
+            position: absolute; inset: 0; border-radius: 25px; pointer-events: none;
             padding: 2px;
             background: linear-gradient(135deg, rgba(255,255,255,0.175) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.06) 70%, rgba(255,255,255,0.175) 100%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -186,17 +186,17 @@
         }
         .vui-btc-content {
             display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-            height: 100%; padding: 19px 11px 13px; text-align: center; gap: 0;
+            height: 100%; padding: 17px 10px 12px; text-align: center; gap: 0;
         }
-        .vui-btc-name-row { margin-top: -4px; }
-        .vui-btc-price-block { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; margin-top: -5px; }
+        .vui-btc-name-row { margin-top: -3px; }
+        .vui-btc-price-block { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; margin-top: -4px; }
         .vui-btc-name { color: #F5E6A3; }
         .vui-btc-icon { color: #E8B86D; }
         .vui-btc-price { color: rgba(255,255,255,0.85); margin-top: -6px; }
         .vui-btc-target-row { margin-top: 0; }
         .vui-btc-pct { color: #3bd8d8; margin-top: 8px; }
         .vui-btc-close {
-            position: absolute; top: 8px; right: 8px;
+            position: absolute; top: 7px; right: 7px;
             width: 22px; height: 22px;
             display: flex; align-items: center; justify-content: center;
             background: transparent; border: none;
@@ -229,20 +229,16 @@
         .vui-mockup-launch-btn .material-symbols-outlined { font-size: 13px; color: #3bd8d8; }
         .vui-mockup-launch-btn span:last-of-type { white-space: nowrap; }
 
-        /* VUI Studio mockup: drop-shadow */
-        .vui-mockup-inner { filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); min-width: 440px; }
-        /* Mobile: ocultar panel izquierdo, properties, respuesta IA; mockup desplazado a la izquierda */
+        /* VUI Studio mockup: drop-shadow, min-width ajustado al widget 90% + canvas 4px márgenes */
+        .vui-mockup-inner { filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); min-width: 380px; }
+        /* Mobile: ocultar panel izquierdo, properties, respuesta IA; scale para ver mockup completo */
         @media (max-width: 767px) {
             .vui-mockup-mobile-hide { display: none !important; }
-            .vui-mockup-float-wrapper { margin-left: -3%; margin-right: auto; }
-        }
-        /* Máxima compresión: zoom-out en vez de comprimir más (no romper layout) */
-        @media (max-width: 488px) {
             .vui-mockup-float-wrapper { overflow: hidden; }
             .vui-mockup-wrapper {
-                width: 440px;
+                width: 380px;
                 margin: 0 auto;
-                transform: scale(min(1, 90vw / 440));
+                transform: scale(min(1, 90vw / 380));
                 transform-origin: top center;
             }
         }
@@ -437,7 +433,7 @@
 </main>
 
 <!-- Powerful Features Section -->
-<section id="features" class="py-16 px-6">
+<section id="features" class="pt-[calc(4rem+10px)] pb-16 px-6">
     <div class="max-w-[1140px] mx-auto">
         <!-- Desktop: Side-by-side layout | Mobile: Stacked -->
         <div class="grid lg:grid-cols-[380px_1fr] gap-12 items-start">
