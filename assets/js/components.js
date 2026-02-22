@@ -40,6 +40,11 @@ function injectNavbar() {
             .nav-account.logged-in { background: rgba(59,216,216,0.15); border: 1px solid rgba(59,216,216,0.3); color: white; }
             .user-dropdown { position: absolute; top: 100%; right: 0; margin-top: 0.5rem; background: #222; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; min-width: 220px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s; z-index: 1000; overflow: hidden; }
             .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+            /* Nav móvil: textos más pequeños para evitar pegados a VUI y Account */
+            @media (max-width: 639px) {
+                #navLinks .nav-item-glow { font-size: 0.65rem !important; }
+                #navLinks { gap: 0.5rem !important; }
+            }
             /* Mobile bottom nav */
             .mobile-bottom-nav {
                 background: rgba(22, 22, 22, 0.9);
