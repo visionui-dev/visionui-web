@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="vui.ico">
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4576543194506330" crossorigin="anonymous"></script>
     <!-- VisionUI Analytics -->
     <script defer src="assets/js/analytics.js"></script>
     <!-- Liquid Glass (Shu Ding SDF + feDisplacementMap). Chrome: full effect; others: blur fallback. -->
@@ -224,16 +222,18 @@
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mt-2 hero-buttons hero-buttons-wrapper">
             <!-- Botón Primario: VUI Apps (Efecto Sweep + Slot Machine Download) -->
-            <a id="hero-cta-btn" href="store.html" class="group relative inline-flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-3.5 rounded-full text-[15px] font-extrabold overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(59,216,216,0.4)] active:scale-95">
-                <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)] z-0">
-                    <div class="relative h-full w-8 bg-white/30"></div>
-                </div>
-                <div class="relative flex h-[20px] w-[20px] items-center justify-center overflow-hidden z-10">
-                    <span class="material-symbols-outlined absolute text-[20px] transition-transform duration-300 group-hover:translate-y-[150%]">download</span>
-                    <span class="material-symbols-outlined absolute text-[20px] -translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">download</span>
-                </div>
-                <span class="relative z-10 tracking-wide">Get VUI Apps</span>
-            </a>
+            <div id="hero-cta-wrapper" class="relative">
+                <a id="hero-cta-btn" href="store.html" class="group relative inline-flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-3.5 rounded-full text-[15px] font-extrabold overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(59,216,216,0.4)] active:scale-95">
+                    <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)] z-0">
+                        <div class="relative h-full w-8 bg-white/30"></div>
+                    </div>
+                    <div class="relative flex h-[20px] w-[20px] items-center justify-center overflow-hidden z-10">
+                        <span class="material-symbols-outlined absolute text-[20px] transition-transform duration-300 group-hover:translate-y-[150%]">download</span>
+                        <span class="material-symbols-outlined absolute text-[20px] -translate-y-[150%] transition-transform duration-300 group-hover:translate-y-0">download</span>
+                    </div>
+                    <span class="relative z-10 tracking-wide">Get VUI Apps</span>
+                </a>
+            </div>
 
             <!-- Botón Secundario: VUIStudio (Ghost Button + Slot Machine Notifications) -->
             <a href="#studio" class="group relative inline-flex items-center justify-center gap-2 bg-transparent border border-white/20 text-white px-8 py-3.5 rounded-full text-[15px] font-bold overflow-hidden transition-all duration-300 hover:bg-white/5 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] active:scale-95">
@@ -662,6 +662,7 @@
 <script src="assets/js/ads.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/animations.js"></script>
+<script defer src="assets/js/cursor-effects.js"></script>
 <script defer src="assets/js/hero-mockup-interactions.js"></script>
 <script>
     // ── Mobile Nav Menu Toggle ────────────────────────────────────
