@@ -45,22 +45,19 @@ function runHeroRevealAfterTyping() {
       .fromTo('.hero-buttons-wrapper', { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.6");
     tl.add(() => {
         const btnWrapper = document.getElementById('hero-cta-wrapper');
-        if (btnWrapper && window.gsap) {
-            function singleShake() {
-                const t = gsap.timeline();
-                t.to(btnWrapper, { rotate: -3, duration: 0.08, ease: 'sine.inOut' })
-                  .to(btnWrapper, { rotate: 3, duration: 0.08, ease: 'sine.inOut' })
-                  .to(btnWrapper, { rotate: -2, duration: 0.08, ease: 'sine.inOut' })
-                  .to(btnWrapper, { rotate: 2, duration: 0.08, ease: 'sine.inOut' })
-                  .to(btnWrapper, { rotate: 0, duration: 0.08, ease: 'sine.inOut' });
-                return t;
+        if (btnWrapper) {
+            function triggerShake() {
+                btnWrapper.classList.add('hero-cta-shake');
+                setTimeout(() => {
+                    btnWrapper.classList.remove('hero-cta-shake');
+                    setTimeout(() => {
+                        btnWrapper.classList.add('hero-cta-shake');
+                        setTimeout(() => btnWrapper.classList.remove('hero-cta-shake'), 270);
+                    }, 210);
+                }, 270);
             }
-            function doShake() {
-                const tl = gsap.timeline();
-                tl.add(singleShake()).delay(0.35).add(singleShake());
-            }
-            doShake();
-            setInterval(doShake, 4000);
+            triggerShake();
+            setInterval(triggerShake, 4000);
         }
         const mockupWrapper = document.getElementById('vui-mockup-float-wrapper');
         if (mockupWrapper && window.gsap) {
