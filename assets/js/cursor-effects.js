@@ -25,9 +25,9 @@
         const dy = mouseY - lastMouseY;
         const currentSpeed = Math.sqrt(dx * dx + dy * dy);
         
-        // Rise/decay: 200% duration (slower response + longer linger)
+        // Rise/decay: duración x3 (decay más lento = efecto persiste más)
         const riseRate = 0.1;
-        const decayRate = 0.02;
+        const decayRate = 0.0067;
         smoothedSpeed += currentSpeed > 0
             ? (currentSpeed - smoothedSpeed) * riseRate
             : (0 - smoothedSpeed) * decayRate;
