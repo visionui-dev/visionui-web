@@ -285,7 +285,11 @@
             vertical-align: bottom;
         }
         @media (max-width: 767px) {
-            .vui-mockup-static-mobile { display: block !important; margin-top: 150px; }
+            main { padding-top: 48px !important; } /* 38+10: espacio 10px arriba de todo */
+            .hero-title-wrapper { margin-bottom: 42px !important; } /* 32+10: 10px entre título y párrafo */
+            .hero-desc { margin-bottom: 20px !important; } /* 20px entre párrafo y botones */
+            .hero-buttons { margin-top: 0 !important; }
+            .vui-mockup-static-mobile { display: block !important; margin-top: 120px; } /* 150-30: subido 30px */
             .vui-mockup-wrapper { display: none !important; }
         }
         @media (min-width: 768px) {
