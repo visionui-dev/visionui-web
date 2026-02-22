@@ -46,14 +46,16 @@ function runHeroRevealAfterTyping() {
     tl.add(() => {
         const btnWrapper = document.getElementById('hero-cta-wrapper');
         if (btnWrapper && window.gsap) {
-            gsap.to(btnWrapper, {
-                y: -10,
-                duration: 3.5,
-                ease: 'sine.inOut',
-                yoyo: true,
-                repeat: -1,
-                repeatDelay: 0.8
-            });
+            function doShake() {
+                const t = gsap.timeline();
+                t.to(btnWrapper, { rotate: -4, duration: 0.04 })
+                  .to(btnWrapper, { rotate: 4, duration: 0.04 })
+                  .to(btnWrapper, { rotate: -3, duration: 0.04 })
+                  .to(btnWrapper, { rotate: 3, duration: 0.04 })
+                  .to(btnWrapper, { rotate: 0, duration: 0.04 });
+            }
+            doShake();
+            setInterval(doShake, 4000);
         }
         const mockupWrapper = document.getElementById('vui-mockup-float-wrapper');
         if (mockupWrapper && window.gsap) {
