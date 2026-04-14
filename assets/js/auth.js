@@ -355,14 +355,15 @@ const VUIAuthUI = {
         // Use root-level paths (no more pages/ folder)
         const accountPath = 'account.html';
         const storePath = 'store.html';
-        
+
         const dropdown = document.createElement('div');
         dropdown.className = 'user-dropdown';
+        // Static skeleton — email is injected via textContent below to prevent XSS.
         dropdown.innerHTML = `
             <div class="dropdown-header">
-                <div class="user-avatar">${user.email.charAt(0).toUpperCase()}</div>
+                <div class="user-avatar"></div>
                 <div class="user-info">
-                    <div class="user-name">${user.email}</div>
+                    <div class="user-name"></div>
                     <div class="user-status" data-i18n="${user.has_license ? 'auth.license_active' : 'auth.no_licenses'}">${user.has_license ? '✓ Active license' : 'No license'}</div>
                 </div>
             </div>
@@ -381,6 +382,9 @@ const VUIAuthUI = {
                 <span data-i18n="auth.logout">Sign out</span>
             </button>
         `;
+        // Inject user-controlled data via textContent (safe against XSS).
+        dropdown.querySelector('.user-avatar').textContent = user.email.charAt(0).toUpperCase();
+        dropdown.querySelector('.user-name').textContent = user.email;
 
         // Add dropdown to the nav-right container if it exists, otherwise to parent
         const navRight = document.querySelector('.nav-right');
