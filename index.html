@@ -49,11 +49,9 @@
             -webkit-text-fill-color: transparent;
             animation: liquid-gradient 6s ease-in-out infinite;
         }
-        /* Prevent GSAP flash of unstyled content */
-        .hero-gradient, .inline-flex.items-center.gap-2, h1, h1 + p, .hero-buttons a, .hero-buttons button, .hero-gradient + div > div:last-child, .feature-card, #studio .grid.lg\\:grid-cols-\\[420px_1fr\\] > div:first-child, .glass-pill, #waitlistForm {
-            opacity: 0;
-            visibility: hidden;
-        }
+        /* Antes: hero/feature cards ocultos hasta GSAP (opacity:0). Si GSAP falla
+           (CDN bloqueado, SRI, red), la página quedaba casi vacía. GSAP sigue
+           animando por encima si carga; si no, el contenido sigue siendo usable. */
         /* La navbar NO debe ocultarse — es persistente durante la SPA navigation */
         nav {
             opacity: 1;
