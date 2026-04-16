@@ -81,9 +81,16 @@ function runHeroRevealAfterTyping() {
 
 // Animaciones usando GSAP para todas las páginas de VisionUI Web (SPA Compatible)
 window.initVUIAnimations = function() {
-    if (!window.gsap || !window.ScrollTrigger) return;
-    
-    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.remove('vui-animations-fallback');
+    if (!window.gsap) {
+        document.documentElement.classList.add('vui-animations-fallback');
+        console.warn('[VUI] GSAP no disponible — modo estático.');
+        return;
+    }
+    try {
+    if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+    }
     
     // Primero, hacemos visibles los elementos antes de animarlos (excepto nav que es persistente)
     gsap.set(`
@@ -129,34 +136,35 @@ window.initVUIAnimations = function() {
         }
     }}
 
-    // --- Animaciones para Tarjetas (ScrollTrigger) ---
+    // --- Tarjetas: sólo con ScrollTrigger; sin opacity:0 inicial (evita cards invisibles) ---
     const cardSelectors = ['.feature-card', '.app-card', '.doc-card', '.gallery-item', '.step-card'];
-    cardSelectors.forEach(selector => {
-        gsap.utils.toArray(selector).forEach((card, i) => {
-            gsap.fromTo(card, 
-                { y: 40, opacity: 0, scale: 0.98 },
-                {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top bottom-=80", // Se anima un poco antes de llegar al fondo
-                        toggleActions: "play none none reverse"
-                    },
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.7,
-                    ease: "power2.out",
-                    delay: (i % 3) * 0.1 // cascada de hasta 3 columnas
-                }
-            );
+    if (window.ScrollTrigger) {
+        cardSelectors.forEach(selector => {
+            gsap.utils.toArray(selector).forEach((card, i) => {
+                gsap.fromTo(card,
+                    { y: 36, opacity: 1, scale: 0.99 },
+                    {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top bottom-=80",
+                            toggleActions: "play none none reverse"
+                        },
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.65,
+                        ease: "power2.out",
+                        delay: (i % 3) * 0.08
+                    }
+                );
+            });
         });
-    });
+    }
 
     // --- Index.html Específicos ---
-    // Sección VUIStudio (Izquierda)
     const studioText = document.querySelector("#studio .grid.lg\\:grid-cols-\\[420px_1fr\\] > div:first-child");
-    if (studioText) {
-        gsap.fromTo(studioText, 
+    if (studioText && window.ScrollTrigger) {
+        gsap.fromTo(studioText,
             { x: -40, opacity: 0 },
             {
                 scrollTrigger: { trigger: "#studio", start: "top 80%" },
@@ -165,30 +173,32 @@ window.initVUIAnimations = function() {
         );
     }
 
-    // Glass Pills (Píldoras de características en VUIStudio)
-    gsap.utils.toArray('.glass-pill').forEach((pill, i) => {
-        // Ignorar la navbar si tiene esta clase
-        if (pill.tagName.toLowerCase() === 'nav' || pill.closest('nav')) return;
-        
-        gsap.fromTo(pill, 
-            { y: 30, opacity: 0 },
-            {
-                scrollTrigger: { trigger: pill.closest('.grid') || pill, start: "top 85%" },
-                y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "back.out(1.7)", delay: (i % 4) * 0.1
-            }
-        );
-    });
+    if (window.ScrollTrigger) {
+        gsap.utils.toArray('.glass-pill').forEach((pill, i) => {
+            if (pill.tagName.toLowerCase() === 'nav' || pill.closest('nav')) return;
+            gsap.fromTo(pill,
+                { y: 28, opacity: 1 },
+                {
+                    scrollTrigger: { trigger: pill.closest('.grid') || pill, start: "top 85%" },
+                    y: 0, opacity: 1, duration: 0.55, stagger: 0.12, ease: "back.out(1.5)", delay: (i % 4) * 0.08
+                }
+            );
+        });
 
-    // Formulario Waitlist
-    const waitlist = document.querySelector("#waitlistForm");
-    if (waitlist) {
-        gsap.fromTo(waitlist, 
-            { y: 20, opacity: 0 },
-            {
-                scrollTrigger: { trigger: waitlist, start: "top 90%" },
-                y: 0, opacity: 1, duration: 0.6, ease: "power2.out", delay: 0.2
-            }
-        );
+        const waitlist = document.querySelector("#waitlistForm");
+        if (waitlist) {
+            gsap.fromTo(waitlist,
+                { y: 16, opacity: 1 },
+                {
+                    scrollTrigger: { trigger: waitlist, start: "top 90%" },
+                    y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.15
+                }
+            );
+        }
+    }
+    } catch (e) {
+        console.error('[VUI] initVUIAnimations:', e);
+        document.documentElement.classList.add('vui-animations-fallback');
     }
 };
 
