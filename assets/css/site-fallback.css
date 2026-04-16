@@ -1,0 +1,23 @@
+/**
+ * Respaldo cuando Tailwind CDN o GSAP no cargan (adblock, red, SRI).
+ * Mantiene colores del theme (tailwind-config.js) y visibilidad básica.
+ */
+html.vui-animations-fallback .app-card,
+html.vui-animations-fallback .feature-card,
+html.vui-animations-fallback .doc-card,
+html.vui-animations-fallback .gallery-item,
+html.vui-animations-fallback .step-card,
+html.vui-animations-fallback .hero-gradient,
+html.vui-animations-fallback h1,
+html.vui-animations-fallback .glass-pill:not(nav .glass-pill) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Si Tailwind no aplica utilidades, estos mapean theme.extend */
+.bg-background-dark { background-color: #121316 !important; }
+.bg-card-dark { background-color: #1a1b1f !important; }
+.text-primary { color: #3bd8d8 !important; }
+.border-primary\/20 { border-color: rgba(59, 216, 216, 0.2) !important; }
+.selection\:bg-primary\/30::selection { background: rgba(59, 216, 216, 0.3); }
