@@ -8,6 +8,11 @@
     <meta name="keywords" content="VisionUI, Python framework, PySide6, Qt, desktop apps, visual IDE, WYSIWYG, AI assistant, liquid glass, blur effects, Windows apps, hot reload, UI components">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Reducir latencia del JIT de Tailwind y CDNs (mejor first paint con utilidades) -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="vui.ico">
@@ -20,7 +25,8 @@
     <!-- Card Hover Glow -->
     <script defer src="assets/js/card-hover-glow.js"></script>
     
-    <!-- GSAP for animations (con SRI: si el CDN sirve un archivo alterado, el navegador lo bloquea) -->
+    <!-- GSAP: NO usar defer aquí — assets/js/animations.js (síncrono al final del body)
+         corre durante el parse y espera window.gsap; con defer GSAP aún no existe → layout roto. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
             integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS"
             crossorigin="anonymous"></script>
