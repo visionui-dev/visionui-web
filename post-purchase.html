@@ -477,7 +477,8 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.exists) {
+                    // El servidor ya no revela exists (anti-enumeración); la UI usa el temporizador.
+                    if (data.status === 'ready' || data.exists === true) {
                         showReady(data);
                     }
                 }
